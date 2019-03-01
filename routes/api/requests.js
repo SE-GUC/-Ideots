@@ -46,14 +46,14 @@ router.post("/", (req, res) => {
 //update
 router.put("/:id",  (req, res) => {
   const requestId = req.params.id;
-  const partnerID = req.body.partnerID;
+  
   const requestUpdate = req.body.description;
   const consult = req.body.consult;
   const Accepted = req.body.accepted;
   const Feedback = req.body.feedback;
   const request =  requests.find(request => request.requestID === requestId);
   
-  if (partnerID ) request.partnerID = partnerID;
+ 
   
   if (consult) request.consult = consult;
   
