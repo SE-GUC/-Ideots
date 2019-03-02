@@ -15,6 +15,11 @@ let memberList=[
     // Get all members
 router.get('/', (req, res) => res.json({ data: memberList }));
 
+router.get('/:id', (req, res) => {  
+    const  memberID = req.params.id;  
+    const member = memberList.find(x => x.id === memberID);    
+    return res.json({member});
+ });
 
 router.post('/', (req, res) => {
 	const firstName = req.body.firstName

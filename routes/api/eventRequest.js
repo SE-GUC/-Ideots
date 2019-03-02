@@ -80,6 +80,7 @@ router.post('/', (req, res) => {
         dateTime,
         organizerId,
     );
+    eventRequests.push(newEventRequest)
 	return res.json({ data: newEventRequest });
 });
 //----------------------------------------\\

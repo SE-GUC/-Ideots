@@ -69,7 +69,7 @@ router.post('/', (req, res) => {
         basicBussinesInformation, boardMembers,
         fieldOfWork,partners,eventOrganized,formFeedBack,
         pastProjects,name,contactInfo,email,password);
-    
+        partnersList.push(Partner) 
     return res.json({Partner });
     
 });

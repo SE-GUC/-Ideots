@@ -13,6 +13,12 @@ new Review(037,456,5,'very good',2),
    // Get all members
    router.get('/', (req, res) => res.json({ data: reviewList }));
 
+   router.get('/:id', (req, res) => {  
+    const id = req.params.id 
+    const review = reviewList.find(x => x.id === id);    
+    return res.json({review});
+ });
+
 
    router.post('/', (req, res) => {
 

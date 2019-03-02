@@ -49,6 +49,7 @@ router.post('/', (req, res) => {
         registrationPrice,
         paymentMethod
     );
+    eventBookings.push(newEventBooking)
 	return res.json({ data: newEventBooking });
 });
 //----------------------------------------\\

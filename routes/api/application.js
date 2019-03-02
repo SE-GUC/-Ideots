@@ -47,6 +47,7 @@ router.post('/', (req, res) => {
     
     
     const app=new application(applicantId,taskId);
+    applicationList.push(app)
     return res.json({app });
     
 });

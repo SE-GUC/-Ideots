@@ -46,6 +46,7 @@ router.post('/', (req, res) => {
 	const result = Joi.validate(req.body, schema);
 	if (result.error) return res.status(400).send({ error: result.error.details[0].message });
     const newNotification =new notification(content,recieverId,notifierId);
+    notificationList.push(newNotification)
     return res.json({newNotification });
     
 });
