@@ -24,14 +24,15 @@ app.get('/', (req, res) => {
 // Direct routes to appropriate files 
 app.use('/api/admins',admins)
 app.use('/api/consaltancyAgencies',consaltancyAgencies)
-app.use('/api/Notification', notification)
-app.use('/api/Partner', partner)
-app.use('/api/Application', application)
+
+app.use('/api/notifications', notification)
+app.use('/api/partners', partner)
+app.use('/api/applications', application)
 app.use('/api/requests', requests)
-app.use('/api/tasks',tasks)``
-app.use('/api/event', event)
-app.use('/api/eventRequest', eventRequest)
-app.use('/api/eventBooking', eventBooking)
+app.use('/api/tasks',tasks)
+app.use('/api/events', event)
+app.use('/api/eventRequests', eventRequest)
+app.use('/api/eventBookings', eventBooking)
 app.use('/api/members', members)
 app.use('/api/reviews', reviews)
 

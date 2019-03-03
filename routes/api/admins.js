@@ -23,29 +23,25 @@ router.get('/:id', (req, res) => {
 // Create a admin
 router.post('/', (req, res) => {
     const name = req.body.name;
-    const mail = req.body.mail;
+
+    const email = req.body.email;
     const password = req.body.password;
     const phone = req.body.phone;
 
     const schema = {
-		name: Joi.required(),
-        mail: Joi.required(),
-        password: Joi.required(),
-        phone: Joi.required()     
+
+		name: Joi.string().required(),
+        email: Joi.string().email().required(),
+        password: Joi.string().min(8).alphanum().required(),
+        phone: Joi.number().required()     
 	}
 
     const result = Joi.validate(req.body, schema);
 
     if (result.error) return res.status(400).send({ error: result.error.details[0].message });
 
-    const admin = {
-        name: name,
-        mail: mail,
-        password: password,
-        phone: phone,
-        id:uuid.v4()
-    };
-    
+
+    const admin =  new Admin(name,email,password,phone);
     admins.push(admin);
     res.json({admins : admins});
 });
@@ -54,12 +50,25 @@ router.post('/', (req, res) => {
 router.put('/:id', (req, res) => {
     const adminId = req.params.id; 
     const name = req.body.name;
-    const mail = req.body.mail;
+
+    const email = req.body.email;
     const password = req.body.password;
     const phone = req.body.phone;
     const admin = admins.find(admin => admin.id === adminId);
+
+    const schema = {
+        name: Joi.string(),
+        email: Joi.string().email(),
+        password: Joi.string().min(8).alphanum(),
+        phone: Joi.number()
+	}
+
+    const result = Joi.validate(req.body, schema);
+    if (result.error) return res.status(400).send({ error: result.error.details[0].message });
+
+    
     if(name)admin.name=name;
-    if(mail)admin.mail=mail;
+    if(email)admin.email=email;
     if(password)admin.password=password;
     if(phone)admin.phone=phone;
     res.json({admins : admins});

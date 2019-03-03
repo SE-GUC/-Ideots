@@ -48,17 +48,17 @@ router.post('/', (req, res) => {
 
 
 	const schema = {
-		basicBussinesInformation: Joi.required(),
-        boardMembers: Joi.required(),
-        fieldOfWork: Joi.required(),
-        partners: Joi.required(),
-        eventOrganized: Joi.required(),
-        formFeedBack: Joi.required(),
-        pastProjects: Joi.required(),
-        name: Joi.required().string(),
-        contactInfo: Joi.required(),
-        email: Joi.required().email(),
-        password: Joi.required().alphanum().min(8)
+		basicBussinesInformation:        Joi.string().required(),
+        boardMembers:                    Joi.string().required(),
+        fieldOfWork:                     Joi.string().required(),
+        partners:                        Joi.string().required(),
+        eventOrganized:                  Joi.string().required(),
+        formFeedBack:                    Joi.required(),
+        pastProjects:                    Joi.required(),
+        name:                            Joi.required().string(),
+        contactInfo:                     Joi.string().required(),
+        email:                           Joi.string().email().required(),
+        password:                        Joi.string().min(8).alphanum().required(),
 	}
 
 	const result = Joi.validate(req.body, schema);
@@ -91,6 +91,15 @@ router.put('/:id', (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
    
+	const schema = {
+        email:      Joi.string().email(),
+        password:   Joi.string().min(8).alphanum()
+	}
+
+	const result = Joi.validate(req.body, schema);
+
+    if (result.error) return res.status(400).send({ error: result.error.details[0].message });
+    
    const partner = partnersList.find(partner => partner.id === partnerId);
    
    if(basicBussinesInformation) partner.basicBussinesInformation=basicBussinesInformation;

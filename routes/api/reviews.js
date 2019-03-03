@@ -56,6 +56,13 @@ router.put('/:id', async (req,res) => {
      const comment = req.body.comment
      const type = req.body.type
 
+     const schema = {
+        rate :   Joi.number(),
+        type :  Joi.any().valid([0, 1,2])
+    }
+    const result = Joi.validate(req.body, schema)
+    if (result.error) return res.status(400).send({ error: result.error.details[0].message })
+
      if(reviewer)  review.reviewer = reviewer
      if(reviewed)  review.reviewed = reviewed
      if(rate) review.rate = rate

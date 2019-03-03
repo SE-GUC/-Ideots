@@ -2,7 +2,6 @@ const uuid = require('uuid')
 //Event Request Model
 class EventRequest {
     constructor(
-        accepted,
         location ,
         description ,
         type,
@@ -16,7 +15,7 @@ class EventRequest {
 
         {
         this.eventRequestId=uuid.v4();
-        this.accepted = accepted;
+        this.acceptenceState = 0;                                   // -1 rejected , 0 accepted , 1 accepted
         this.location=location;
         this.description=description;
         this.registrationPrice=registrationPrice;

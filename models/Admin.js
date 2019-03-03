@@ -1,9 +1,9 @@
 const uuid =require('uuid');
 
 class Admin{
-    constructor(name,mail,passward,phone){
+    constructor(name,email,passward,phone){
         this.name=name;
-        this.mail=mail;
+        this.email=email;
         this.passward=passward;
         this.phone=phone;
         this.id = uuid.v4();

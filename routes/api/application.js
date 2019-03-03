@@ -52,6 +52,19 @@ router.post('/', (req, res) => {
     
 });
 
+router.put('/:id', (req, res) => {
+    const  applicationId = req.params.id;  
+    
+	const applicantId = req.body.applicantId
+    const taskId = req.body.taskId
+
+    const application = applicationList.find(app => app.id === applicationId);
+    
+    if(applicantId)application.applicantId=applicantId;
+    if(taskId)application.taskId=taskId;
+    res.json({application : applicationList});
+});
+
 
 
 router.delete('/:id', (req, res) => {  

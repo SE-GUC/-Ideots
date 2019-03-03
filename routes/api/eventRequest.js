@@ -10,9 +10,7 @@ const EventRequest = require('../../models/EventRequest');
 // temporary data created as if it was pulled out of the database ...
 const eventRequests = [
     new EventRequest
-    (
-        true,
-        'masr el gdida', 
+    (   'masr el gdida', 
         'event gamed gdn hakteb kteer 3shan ykon aktar mn 30 characterajkjdfajkdfajkds',
         'programming event',
         150,
@@ -39,7 +37,6 @@ router.get('/:id', (req, res) => {
 //-----------------------------------------------\\
 
 router.post('/', (req, res) => {
-	const accepted = false;
     const location = req.body.location;
     const description = req.body.description;
     const type = req.body.type;
@@ -60,7 +57,6 @@ router.post('/', (req, res) => {
         topics :Joi.string().required(),
         dateTime :Joi.date().required(),
         organizerId :Joi.required(),
-        accepted: Joi.boolean()
     }
     
 
@@ -69,7 +65,6 @@ router.post('/', (req, res) => {
 	if (result.error) return res.status(400).send({ error: result.error.details[0].message });
 
 	const newEventRequest = new EventRequest(
-        accepted,
         location ,
         description ,
         type,
@@ -97,14 +92,29 @@ router.put('/:id', (req, res) => {
     const topics = req.body.topics;
     const dateTime = req.body.dateTime;        
     const organizerId = req.body.organizerId;
-    const accepted = req.body.accepted;
+    const acceptenceState = req.body.acceptenceState;
+
+
+	const schema = {
+        description : Joi.string().min(30),
+        type :Joi.string(),
+        registrationPrice :Joi.number(),
+        numberOfSpaces :Joi.number(),
+        speakers :Joi.string(),
+        topics :Joi.string(),
+        dateTime :Joi.date(),
+        organizerId :Joi,
+        acceptenceState: Joi.number()
+    }
+    
+
+	const result = Joi.validate(req.body, schema);
+
+	if (result.error) return res.status(400).send({ error: result.error.details[0].message });
+
 
     const eventRequest = eventRequests.find(eventRequest => eventRequest.eventRequestId === requestedId)
-    
-    if(typeof(accepted)!=undefined)    eventRequest.accepted = accepted
 
-    else
-    { 
     if(location)eventRequest.location=location;
     if(description)eventRequest.description=description;
     if(type)eventRequest.type=type;
@@ -114,8 +124,9 @@ router.put('/:id', (req, res) => {
     if(topics)eventRequest.topics=topics;
     if(dateTime)eventRequest.dateTime=dateTime;
     if(organizerId)eventRequest.organizerId=organizerId;
-}
-res.send(eventRequests)
+    if(acceptenceState)eventRequest.acceptenceState=acceptenceState;
+
+    res.send(eventRequests)
 })
 //-----------------------------------\\
 

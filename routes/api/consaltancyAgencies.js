@@ -29,20 +29,25 @@ router.post('/', (req, res) => {
     const description= req.body.description;
     const specialization=req.body.specialization;
     const website=req.body.website;
-    const mail=req.body.mail;
+    
+    const email=req.body.email;
     const fax=req.body.fax;
     const address=req.body.address;
     const password=req.body.password;
+    const reports=req.body.reports;
+    const boardMembers=req.body.boardMembers;
+    const partners=req.body.partners;
+    const events=req.body.events;
     
     const schema = {
-		name: Joi.required(),
-        description: Joi.required(),
-        specialization: Joi.required(),
-        website: Joi.required(),
-        mail: Joi.required(),
-        fax: Joi.required(),
-        address: Joi.required(),
-        password: Joi.required()
+		name: Joi.string().required(),
+        description: Joi.string().required(),
+        specialization: Joi.string().required(),
+        website: Joi.url().required(),
+        fax: Joi.number().required(),
+        address: Joi.string().required(),
+        email:Joi.string().email().required(),
+        password: Joi.string().min(8).alphanum().required(),
 	}
 
     const result = Joi.validate(req.body, schema);
@@ -50,22 +55,7 @@ router.post('/', (req, res) => {
     if (result.error) return res.status(400).send({ error: result.error.details[0].message });
 
     
-    const consaltant = {
-        name: name,
-        description: description,
-        specialization: specialization,
-        website: website,
-        mail: mail,
-        fax: fax,
-        address: address,
-        password: password,
-        rate: 0,
-        reports: null,
-        boardMembers: null,
-        partners: null,
-        events: null,
-        id:uuid.v4()
-    };
+    const consaltant =new ConsaltancyAgency(name,description,specialization,website,email,fax,address,password,reports,boardMembers,partners,events);
     ConsaltancyAgencies.push(consaltant);
     res.json({ConsaltancyAgencies : ConsaltancyAgencies});
 });
@@ -77,7 +67,8 @@ router.put('/:id', (req, res) => {
     const description= req.body.description;
     const specialization=req.body.specialization;
     const website=req.body.website;
-    const mail=req.body.mail;
+
+    const email=req.body.email;
     const fax=req.body.fax;
     const address=req.body.address;
     const password=req.body.password;
@@ -87,11 +78,28 @@ router.put('/:id', (req, res) => {
     const partners=req.body.partners;
     const events=req.body.events; 
     const consaltant = ConsaltancyAgencies.find(consaltant => consaltant.id === consaltantId);
+    
+
+    const schema = {
+		name: Joi.string(),
+        description: Joi.string(),
+        specialization: Joi.string(),
+        website: Joi.url(),
+        fax: Joi.number(),
+        address: Joi.string(),
+        email:Joi.string().email(),
+        password: Joi.string().min(8).alphanum()
+	}
+
+    const result = Joi.validate(req.body, schema);
+
+
     if(name)consaltant.name=name;
     if(description)consaltant.description=description;
     if(specialization)consaltant.specialization=specialization;
     if(website)consaltant.website=website;
-    if(mail)consaltant.mail=mail;
+
+    if(email)consaltant.email=email;
     if(fax)consaltant.fax=fax;
     if(address)consaltant.address=address;
     if(password)consaltant.password=password;
@@ -100,6 +108,7 @@ router.put('/:id', (req, res) => {
     if(boardMembers)consaltant.boardMembers=boardMembers;
     if(partners)consaltant.partners=partners;
     if(events)consaltant.events=events;
+
     res.json({ConsaltancyAgencies : ConsaltancyAgencies});
 });
 
