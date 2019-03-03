@@ -47,8 +47,22 @@ router.post('/', (req, res) => {
     
     
     const app=new application(applicantId,taskId);
+    applicationList.push(app)
     return res.json({app });
     
+});
+
+router.put('/:id', (req, res) => {
+    const  applicationId = req.params.id;  
+    
+	const applicantId = req.body.applicantId
+    const taskId = req.body.taskId
+
+    const application = applicationList.find(app => app.id === applicationId);
+    
+    if(applicantId)application.applicantId=applicantId;
+    if(taskId)application.taskId=taskId;
+    res.json({application : applicationList});
 });
 
 

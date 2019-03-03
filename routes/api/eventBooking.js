@@ -49,6 +49,7 @@ router.post('/', (req, res) => {
         registrationPrice,
         paymentMethod
     );
+    eventBookings.push(newEventBooking)
 	return res.json({ data: newEventBooking });
 });
 //----------------------------------------\\
@@ -60,6 +61,16 @@ router.put('/:id', (req, res) => {
     const registrationPrice = req.body.registrationPrice;
     const paymentMethod = req.body.paymentMethod;
     
+    const schema = {
+        registrationPrice :Joi.number()
+    }
+   
+
+	const result = Joi.validate(req.body, schema);
+
+	if (result.error) return res.status(400).send({ error: result.error.details[0].message });
+
+
     const booking = eventBookings.find(request => booking.eventBookingId === requestedId)
     
     if(eventId)booking.eventId=eventId;

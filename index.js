@@ -1,5 +1,7 @@
 const express = require('express')
 
+const admins = require('./routes/api/admins')
+const consaltancyAgencies = require('./routes/api/consaltancyAgencies')
 const application = require('./routes/api/application')
 const notification = require('./routes/api/notification')
 const partner = require('./routes/api/partner')
@@ -20,9 +22,11 @@ app.get('/', (req, res) => {
 })
 
 // Direct routes to appropriate files 
-app.use('/api/Notification', notification)
-app.use('/api/Partner', partner)
-app.use('/api/Application', application)
+app.use('/api/admin',admins)
+app.use('/api/consaltancyAgencies',consaltancyAgencies)
+app.use('/api/notification', notification)
+app.use('/api/partner', partner)
+app.use('/api/application', application)
 app.use('/api/requests', requests)
 app.use('/api/tasks',tasks)
 app.use('/api/event', event)

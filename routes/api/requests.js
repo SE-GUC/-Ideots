@@ -11,7 +11,11 @@ const requests = [
 ];
 
 // getting the requests
-router.get("/", (req, res) => res.json({ data: requests }));
+router.get("/", (req, res) =>{
+       res.json({ data: requests })
+ });
+
+
 // getting specific request
 
 router.get('/:id', (req, res) => {  
@@ -27,8 +31,23 @@ router.post("/", (req, res) => {
   const consult = req.body.consult;
   const date = new Date();
   const myDate = date.toLocaleString();
-  const accepted = Boolean(req.body.accepted);
+  const accepted = req.body.accepted;
   const feedback = req.body.feedback;
+
+  const schema = {
+    partnerID:    Joi.required(),
+    description:  Joi.required(),
+    consult:   Joi.boolean().required(),
+    accepted:  Joi.any().valid([0, 1,2]).required(),
+   
+  }
+
+const result = Joi.validate(req.body, schema)
+
+if (result.error) return res.status(400).send({ error: result.error.details[0].message })
+
+
+
 
   const request = new Request(
     partnerID,
@@ -46,14 +65,23 @@ router.post("/", (req, res) => {
 //update
 router.put("/:id",  (req, res) => {
   const requestId = req.params.id;
-  const partnerID = req.body.partnerID;
+  
   const requestUpdate = req.body.description;
   const consult = req.body.consult;
   const Accepted = req.body.accepted;
   const Feedback = req.body.feedback;
   const request =  requests.find(request => request.requestID === requestId);
   
-  if (partnerID ) request.partnerID = partnerID;
+  const schema = {
+    consult:   Joi.boolean(),
+    accepted:  Joi.any().valid([0, 1,2])
+   
+  }
+
+const result = Joi.validate(req.body, schema)
+
+if (result.error) return res.status(400).send({ error: result.error.details[0].message })
+ 
   
   if (consult) request.consult = consult;
   

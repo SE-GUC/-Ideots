@@ -13,6 +13,12 @@ new Review(037,456,5,'very good',2),
    // Get all members
    router.get('/', (req, res) => res.json({ data: reviewList }));
 
+   router.get('/:id', (req, res) => {  
+    const id = req.params.id 
+    const review = reviewList.find(x => x.id === id);    
+    return res.json({review});
+ });
+
 
    router.post('/', (req, res) => {
 
@@ -49,6 +55,13 @@ router.put('/:id', async (req,res) => {
      const rate = req.body.rate 
      const comment = req.body.comment
      const type = req.body.type
+
+     const schema = {
+        rate :   Joi.number(),
+        type :  Joi.any().valid([0, 1,2])
+    }
+    const result = Joi.validate(req.body, schema)
+    if (result.error) return res.status(400).send({ error: result.error.details[0].message })
 
      if(reviewer)  review.reviewer = reviewer
      if(reviewed)  review.reviewed = reviewed

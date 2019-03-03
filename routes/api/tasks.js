@@ -17,18 +17,11 @@ router.get('/' , (req , res ) =>{
     res.json({data : tasks })
 }) ; 
 
-router.get('/:taskID', (req , res) => {
-    
+router.get('/:taskID', (req, res) => {  
     const taskID = req.params.taskID 
-    let task = null
-    for (let a = 0 ; a<tasks.length ; a++) {
-        console.log(tasks[a].taskID)
-        if (tasks[a].taskID == taskID){
-        task = tasks[a] 
-        }
-    }
-    res.json(task ) 
-})
+    const task = tasks.find(x => x.taskID === taskID);    
+    return res.json({task});
+ });
 
 router.post('/' , (req , res ) => { 
     const partnerID = req.body.partnerID

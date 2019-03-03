@@ -15,6 +15,11 @@ let memberList=[
     // Get all members
 router.get('/', (req, res) => res.json({ data: memberList }));
 
+router.get('/:id', (req, res) => {  
+    const  memberID = req.params.id;  
+    const member = memberList.find(x => x.id === memberID);    
+    return res.json({member});
+ });
 
 router.post('/', (req, res) => {
 	const firstName = req.body.firstName
@@ -78,6 +83,26 @@ router.put('/:id', async (req,res) => {
      const  rate                =req.body.rate
      const  certificates        =req.body.certificates
 
+
+     const schema = {
+        firstName:   Joi.string().min(3),
+        lastName:    Joi.string().min(3),
+        phoneNumber: Joi.number(),
+        birthDate:   Joi.date().max('1-1-2002').iso(),
+        location:    Joi.string().min(5),
+        otherContacts:Joi.string(),
+        field:       Joi.string().min(3),
+        skills:      Joi.string().min(3),
+        interests:   Joi.string().min(3),
+        experience:  Joi.string().min(3),
+        certificates:Joi.string(),
+        email:       Joi.string().email(),
+        password:    Joi.string().min(8).alphanum()
+	}
+
+	const result = Joi.validate(req.body, schema)
+
+	if (result.error) return res.status(400).send({ error: result.error.details[0].message })
 
 
 
