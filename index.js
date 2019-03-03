@@ -24,7 +24,7 @@ app.use('/api/Notification', notification)
 app.use('/api/Partner', partner)
 app.use('/api/Application', application)
 app.use('/api/requests', requests)
-app.use('/api/tasks',tasks)``
+app.use('/api/tasks',tasks)
 app.use('/api/event', event)
 app.use('/api/eventRequest', eventRequest)
 app.use('/api/eventBooking', eventBooking)
