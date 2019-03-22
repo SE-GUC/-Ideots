@@ -7,35 +7,33 @@ const router = express.Router();
 // Models
 const EventBooking = require('../../models/EventBooking');
 
-// temporary data created as if it was pulled out of the database ...
-const eventBookings = [
-	new EventBooking(30,55,250,"cash")
-];
 
 ///////////CRUDZZZZZZZ\\\\\\\\\\\\
 // Read all EventBookings
-router.get('/', (req, res) => res.json({ data: eventBookings }));
+router.get('/', async (req, res) => {
+    eventBookings = await EventBooking.find() 
+    res.json({ data: eventBookings })
+});
 //----------------------------------------------\\
 
 // Get a certain event booking
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
     const requestedId = req.params.id
-    const EventBooking = eventBookings.find(EventBooking => EventBooking.eventBookingId === requestedId)
-    res.send(EventBooking)
+    const booking = await EventBooking.findOne({requestedId})
+    if(!booking) return res.status(404).send({error: 'The Booking you are tryinig to edit does not exist'})
+    const eventBooking = await EventBooking.find({'_id':requestedId})
+    res.send(eventBooking)
 })
 //-----------------------------------------------\\
 
-router.post('/', (req, res) => {
-	const eventId = req.body.eventId;
-    const memberId = req.body.memberId;
-    const registrationPrice = req.body.registrationPrice;
-    const paymentMethod = req.body.paymentMethod;
+router.post('/', async (req, res) => {
+	
 
 	const schema = {
-        eventId :Joi.required(),
-        memberId : Joi.required(),
+     //   eventId : Joi.objectId().required(),
+     //   memberId :  Joi.objectId().required(),
         registrationPrice :Joi.number().required(),
-        paypmentMethod :Joi.required(),
+        paypmentMethod :Joi.string().required()
     }
    
 
@@ -43,26 +41,24 @@ router.post('/', (req, res) => {
 
 	if (result.error) return res.status(400).send({ error: result.error.details[0].message });
 
-    const newEventBooking = new EventBooking(
-        eventId,
-        memberId ,
-        registrationPrice,
-        paymentMethod
-    );
-    eventBookings.push(newEventBooking)
+    const newEventBooking = await EventBooking.create(req.body)
+  
 	return res.json({ data: newEventBooking });
 });
 //----------------------------------------\\
 
-router.put('/:id', (req, res) => {
-    const requestedId = req.params.id 
-    const eventId = req.body.eventId;
-    const memberId = req.body.memberId;
-    const registrationPrice = req.body.registrationPrice;
-    const paymentMethod = req.body.paymentMethod;
-    
+router.put('/:id', async (req, res) => {
+   
+    const requestedId = req.params.id
+   
+    const booking = EventBooking.findOne({requestedId})
+    if(!booking) return res.status(404).send({error: 'The Booking you are tryinig to edit does not exist'})
+
     const schema = {
-        registrationPrice :Joi.number()
+    //    eventId : Joi.objectId().required(),
+    //    memberId :  Joi.objectId().required(),
+        registrationPrice :Joi.number().required(),
+        paypmentMethod :Joi.string().required(),
     }
    
 
@@ -71,24 +67,19 @@ router.put('/:id', (req, res) => {
 	if (result.error) return res.status(400).send({ error: result.error.details[0].message });
 
 
-    const booking = eventBookings.find(request => booking.eventBookingId === requestedId)
+     booking = await eventBookings.find({'_id':requestedId},req.body)
     
-    if(eventId)booking.eventId=eventId;
-    if(memberId)booking.memberId=memberId;
-    if(registrationPrice)booking.registrationPrice=registrationPrice;
-    if(paymentMethod)booking.paymentMethod=paymentMethod;
-
-    res.send(EventBookings)
+    res.send(booking)
 })
 //-----------------------------------\\
 
 // Delete a Event Request
-router.delete('/:id', (req, res) => {
+router.delete('/:id', async (req, res) => {
     const requestedId = req.params.id 
-    const EventBooking = eventBookings.find(EventBooking => EventBooking.eventBookingId === requestedId)
-    const index = eventBookings.indexOf(EventBooking)
-    eventBookings.splice(index,1)
-    res.send(eventBookings)
+    const EventBooking = await EventBooking.findByIdAndRemove(requestedId);
+    if(!EventBooking) return res.status(404).send({error: 'The Booking you are tryinig to edit does not exist'})
+    
+    res.send(EventBooking)
 })
 //---------------------------------\\
 

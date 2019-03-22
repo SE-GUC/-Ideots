@@ -1,14 +1,10 @@
 // const uuid = require('uuid')
 const mongoose = require('mongoose')
-const Joi = require("joi");
-Joi.objectId = require('joi-objectid')(Joi);
-
+const Schema = mongoose.Schema
 
 const EventSchema = new Schema({
     location :{
-        city :String,  
-        Street : String ,
-        Area : String  , 
+        type:Object  , 
         required : true 
     } ,
     description : {
@@ -42,15 +38,15 @@ const EventSchema = new Schema({
         required : true 
     },
     organizerId:{
-        type : Number ,
-        required : true 
+        type : Schema.Types.ObjectId ,
+        required : false 
     },
     eventRequestId :{
-        type : Number , 
-        required :true 
+        type : Schema.Types.ObjectId ,
+        required :false 
     } ,
     rate:{
-        type:Number ,          
+        type:Number           
     }
 }) ; 
 // The Event Model

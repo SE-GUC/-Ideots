@@ -1,12 +1,12 @@
 // const uuid = require('uuid')
 //Event Request Model
 const mongoose = require('mongoose')
+const Schema = mongoose.Schema
+
 const EventRequestSchema = new Schema ({
 
     location :{
-        city :String,  
-        Street : String ,
-        Area : String  , 
+        type:Object,
         required : true 
 
     } ,
@@ -26,7 +26,7 @@ const EventRequestSchema = new Schema ({
     topics : [String],
     dateTime: Date,
     organizerId : {
-        type : String , 
+        type : Schema.Types.ObjectId ,
         required : true 
     } ,
     acceptenceState : Number   // -1 rejected , 0 pending , 1 accepted

@@ -1,14 +1,15 @@
 // const uuid = require('uuid')
 const mongoose = require('mongoose')
+const Schema = mongoose.Schema
 
 
 const EventBookingSchema = new Schema ({
     eventId:{
-        type :Number , 
+        type : Schema.Types.ObjectId ,
         required :true 
     },
     memberId :{
-        type : Number ,
+        type : Schema.Types.ObjectId ,
         required : true 
     } ,
     registrationPrice:{
