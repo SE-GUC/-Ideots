@@ -42,7 +42,7 @@ router.post("/", async (req, res) => {
     speakers: Joi.array().items(Joi.string()).required(),
     topics:Joi.array().items(Joi.string()).required(),
     dateTime: Joi.date().required(),
-  //  organizerId: Joi.objectId().required()
+    organizerId: Joi.objectId().required()
   };
 
   const result = Joi.validate(req.body, schema);
@@ -61,7 +61,7 @@ router.put("/:id", async(req, res) => {
   const requestedId = req.params.id;
 
 
-  const request = EventRequest.findOne({requestedId})
+  const request = await EventRequest.findOne({'_id':requestedId})
   if(!request) return res.status(404).send({error: 'The request you are tryinig to edit does not exist'})
   
   const schema = {
@@ -79,7 +79,7 @@ router.put("/:id", async(req, res) => {
     speakers: Joi.array().items(Joi.string()),
     topics:Joi.array().items(Joi.string()),
     dateTime: Joi.date(),
- //   organizerId: Joi.objectId(),
+    organizerId: Joi.objectId(),
     acceptenceState:Joi.number().max(1).min(-1)
     
   };
@@ -90,7 +90,7 @@ router.put("/:id", async(req, res) => {
   if (result.error)
     return res.status(400).send({ error: result.error.details[0].message });
 
-  const eventRequest = await EventRequest.update({'_id' :requestedId } , req.body);// comment 
+  const eventRequest = await EventRequest.updateOne({'_id' :requestedId } , req.body);// comment 
 
 
   res.send(eventRequest);

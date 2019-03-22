@@ -63,7 +63,7 @@ router.post("/", async (req, res) => {
 router.put("/:id",async (req, res) => {
   const requestedId = req.params.id;
 
-  const event = Event.findOne({requestedId})
+  const event = await Event.findOne({'_id':requestedId})
   if(!event) return res.status(404).send({error: 'The Event you are tryinig to edit does not exist'})
 
   const schema = {
