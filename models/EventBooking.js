@@ -4,11 +4,11 @@ const mongoose = require('mongoose')
 
 const EventBookingSchema = new Schema ({
     eventId:{
-        type :String , 
+        type :Number , 
         required :true 
     },
     memberId :{
-        type :String ,
+        type : Number ,
         required : true 
     } ,
     registrationPrice:{

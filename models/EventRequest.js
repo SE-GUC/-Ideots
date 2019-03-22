@@ -29,7 +29,7 @@ const EventRequestSchema = new Schema ({
         type : String , 
         required : true 
     } ,
-    acceptenceState : Boolean
+    acceptenceState : Number   // -1 rejected , 0 pending , 1 accepted
 
 
 })

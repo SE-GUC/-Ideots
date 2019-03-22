@@ -1,5 +1,7 @@
 // const uuid = require('uuid')
 const mongoose = require('mongoose')
+const Joi = require("joi");
+Joi.objectId = require('joi-objectid')(Joi);
 
 
 const EventSchema = new Schema({
@@ -8,51 +10,48 @@ const EventSchema = new Schema({
         Street : String ,
         Area : String  , 
         required : true 
-
     } ,
-        description : {
-            type : String ,
-            required : true 
-        } ,
-        type : {
-            type : String ,
-            required : true 
-        },
-        registrationPrice:{
-            type : Number ,
-            required : true 
-        },
-        numberOfSpaces:{
-            type : Number ,
-            required : true 
-        },
-        speakers : {
-            type : [String] // becauese there may exist alot of speakers 
-        },
-        topics : {
-            type : [String ] ,
-            required : true 
-        },
-        numberOfRegisterations : {
-            type : Number 
-
-        },
-        dateTime:{
-            type : Date , 
-            required : true 
-        },
-        organizerId:{
-            type : String ,
-            required : true 
-        },
-        eventRequestId :{
-            type :String , 
-            required :true 
-        } ,
-        rate:{
-            type:Number , 
-             
-        }
+    description : {
+        type : String ,
+        required : true 
+    } ,
+    type : {
+        type : String ,
+        required : true 
+    },
+    registrationPrice:{
+        type : Number ,
+        required : true 
+    },
+    numberOfSpaces:{
+        type : Number ,
+        required : true 
+    },
+    speakers : {
+        type : [String] // becauese there may exist alot of speakers 
+    },
+    topics : {
+        type : [String] ,
+        required : true 
+    },
+    numberOfRegisterations : {
+       type : Number 
+    },
+    dateTime:{
+        type : Date , 
+        required : true 
+    },
+    organizerId:{
+        type : Number ,
+        required : true 
+    },
+    eventRequestId :{
+        type : Number , 
+        required :true 
+    } ,
+    rate:{
+        type:Number ,          
+    }
 }) ; 
 // The Event Model
 // class Event {

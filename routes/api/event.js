@@ -26,6 +26,7 @@ Joi.objectId = require('joi-objectid')(Joi);
 //     )
 // ];
 // make sure to notify about object id  and pretty method 
+
 ///////////CRUDZZZZZZZ\\\\\\\\\\\\
 // Read all Events
 router.get("/", async(req, res) => {
@@ -35,14 +36,14 @@ router.get("/", async(req, res) => {
 //----------------------------------------------\\
 
 // Get a certain event
-router.get("/:id", (req, res) => {
-  const requestedId = req.params.id;
-  const event = Event.find({requestedId}).pretty() ; 
-  res.send(event);
+router.get("/:id", async(req, res) => {
+  const requestedId = req.params.id
+  const event =await Event.find({requestedId}); 
+  res.send(event).pretty()
 });
 //-----------------------------------------------\\
 
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
   const schema = {
     location: Joi.object().keys(
         {  // we want to test thiss 
@@ -51,9 +52,7 @@ router.post("/", (req, res) => {
             Area :Joi.string() , 
         }
     ).required(), // remember it is a json 
-    description: Joi.string()
-      .min(30)
-      .required(),
+    description: Joi.string().min(30).required(),
     type: Joi.string().required(),
     registrationPrice: Joi.number().required(),
     numberOfSpaces: Joi.number().required(),
@@ -66,7 +65,7 @@ router.post("/", (req, res) => {
     rate : Joi.number().min(0).max(5) 
   };
 
-  const result = Joi.validate(req.body, schema);
+  const result =  Joi.validate(req.body, schema);
 
   if (result.error)
     return res.status(400).send({ error: result.error.details[0].message });
@@ -81,7 +80,7 @@ router.put("/:id",async (req, res) => {
   const requestedId = req.params.id;
 
   const event = Event.findOne({requestedId})
-  if(!event) return res.status(404).send({error: 'event does not exist'})
+  if(!event) return res.status(404).send({error: 'The Event you are tryinig to edit does not exist'})
 
   const schema = {
     location: Joi.object().keys(
@@ -91,9 +90,7 @@ router.put("/:id",async (req, res) => {
             Area :Joi.string() , 
         }
     ), // remember it is a json 
-    description: Joi.string()
-      .min(30)
-      ,
+    description: Joi.string().min(30),
     type: Joi.string(),
     registrationPrice: Joi.number(),
     numberOfSpaces: Joi.number(),
@@ -117,7 +114,7 @@ router.put("/:id",async (req, res) => {
 //-----------------------------------\\
 
 // Delete a Event
-router.delete("/:id", (req, res) => {
+router.delete("/:id", async(req, res) => {
   const requestedId = req.params.id;
   const deletedEvent = await Event.findByIdAndRemove(requestedId)
   res.send({'you have deleted ' : deletedEvent.pretty()})
