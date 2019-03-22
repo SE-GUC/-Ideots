@@ -5,21 +5,25 @@ const uuid = require('uuid');
 const router = express.Router();
 
 // Models
-const application = require('../../models/Application');
-
-// temporary data created as if it was pulled out of the database ...
-const applicationList = [
-    
-	new application(1,1),
-	new application(2,2),
-	new application(3,3),
-	new application(4,4),
-	new application(5,5)
-];
-
+const Application = require('../../models/Application');
+const validator=require('../../validations/applicationValidations')
 
 // Get all application
+/*
 router.get('/', (req, res) => res.json({ data: applicationList }));
+*/
+router.get('/',async(req,res)=>{
+    const applications=await Application.find()
+    res.json({data:applications})  
+
+
+})
+
+/*************************************************************************************************************************************************** */
+
+
+
+
 
 //Get a specific application
 router.get('/:id', (req, res) => 
