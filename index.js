@@ -1,4 +1,7 @@
 const express = require('express')
+const mongoose = require('mongoose');
+
+const config =require('./config/keys.js')
 
 const admins = require('./routes/api/admins')
 const consaltancyAgencies = require('./routes/api/consaltancyAgencies')
@@ -17,8 +20,13 @@ const app = express()
 
 app.use(express.json())
 
+mongoose.connect(config.mongoURI, { useNewUrlParser: true })
+    .then(() => console.log('We are connected to MongoDB'))
+    .catch(err => console.log(err))
+
+
 app.get('/', (req, res) => {
-    res.send(`<h2>Welcome</h2> `);
+    res.send(`<h2>Welcome to LirtenHub</h2> `);
 })
 
 // Direct routes to appropriate files 
