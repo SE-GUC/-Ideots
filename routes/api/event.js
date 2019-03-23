@@ -58,6 +58,21 @@ router.get("/search/type=:type", async(req, res) => {
   res.send(event)
 });
 //----------------------------------------------------\\
+//Get recommended events for a user
+router.get("/recommended/events/:id", async(req, res) => {
+const userId =req.params.id
+const events = await Event.find( {}
+  ///////// lazem filter location where enno equal location el user wel type where enno equal wa7ed mn interrests el user
+).populate(userId,'address').exec(function(err,res){
+  if (err) return handleError(err)
+})
+});
+//----------------------------------------------------\\
+// FEEDBACK FORM
+
+
+
+//----------------------------------------------------\\
 router.post("/", async (req, res) => {
   const schema = {
     location: Joi.object().keys(
