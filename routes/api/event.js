@@ -13,7 +13,9 @@ Joi.objectId = require('joi-objectid')(Joi);
 ///////////CRUDZZZZZZZ\\\\\\\\\\\\
 // Read all Events
 router.get("/", async(req, res) => {
-    const events = await Event.find() 
+    const events = await Event.find().populate('organizerId').populate('eventRequestId').exec(function(err,res){
+      if (err) return handleError(err)
+    });  
   res.json({ data: events }); // make sure of pretty
 });
 //----------------------------------------------\\
@@ -21,8 +23,10 @@ router.get("/", async(req, res) => {
 // Get a certain event
 router.get("/:id", async(req, res) => {
   const requestedId = req.params.id
-  const event =await Event.find({'_id':requestedId}); 
-  if(!event) return res.status(404).send({error: 'The Event you are tryinig to edit does not exist'})
+  const event =await Event.find({'_id':requestedId}).populate('organizerId').populate('eventRequestId').exec(function(err,res){
+    if (err) return handleError(err)
+  }); 
+  if(!event) return res.status(404).send({error: 'The Event you are tryinig to show does not exist any more!'})
   res.send(event)
 });
 //-----------------------------------------------\\
@@ -90,12 +94,12 @@ router.post("/", async (req, res) => {
 router.put("/:id",async (req, res) => {
   const requestedId = req.params.id;
 
-  const event = await Event.findOne({'_id':requestedId})
-  .populate('organizerId')
-  .populate('eventRequestId').exec(function(err ,res){
-    if (err) return handleError(err);}) ; 
+  // const event = await Event.findOne({'_id':requestedId})
+  // .populate('organizerId')
+  // .populate('eventRequestId').exec(function(err ,res){
+  //   if (err) return handleError(err);}) ; 
 
-  if(!event) return res.status(404).send({error: 'The Event you are tryinig to edit does not exist'})
+  // if(!event) return res.status(404).send({error: 'The Event you are tryinig to edit does not exist'})
 
   const schema = {
     location: Joi.object().keys(
