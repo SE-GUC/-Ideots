@@ -18,6 +18,7 @@ const eventRequest = require('./routes/api/eventRequest')
 const eventBooking = require('./routes/api/eventBooking')
 const members = require('./routes/api/members')
 const reviews = require('./routes/api/reviews')
+const users = require('./routes/api/users')
 const mongoose =require('mongoose')
 
 const app = express()
@@ -44,6 +45,7 @@ app.get('/', (req, res) => {
 
 // Direct routes to appropriate files 
 app.use('/api/admins',admins)
+app.use('/api/users',users)
 app.use('/api/consaltancyAgencies',consaltancyAgencies)
 
 app.use('/api/notifications', notification)
