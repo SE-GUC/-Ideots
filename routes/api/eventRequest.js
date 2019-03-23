@@ -77,7 +77,7 @@ router.put("/:id", async(req, res) => {
             Street :Joi.string() , 
             Area :Joi.string() , 
         }
-    ).required(),
+    ),
     description: Joi.string().min(30),
     type: Joi.string(),
     registrationPrice: Joi.number(),
