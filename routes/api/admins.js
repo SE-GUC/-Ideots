@@ -72,7 +72,16 @@ router.put('/:id', async (req, res) => {
        } 
 });
 
-
-
+// Delete a admin
+router.delete('/:id', async (req, res) => {
+    try{
+        const id = req.params.id;
+        const deletedAdmin = await Admin.deleteOne({_id:id});
+        if(deletedAdmin.deletedCount == 0) res.status(404).send({error:'Admin was not found'});
+        res.json({msg:'Admin was deleted successfully', data: deletedAdmin});
+    }catch(error) {
+        res.json({error:error.message});
+   }
+});
 
 module.exports = router
