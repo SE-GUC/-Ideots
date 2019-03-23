@@ -46,7 +46,7 @@ const EventSchema = new Schema({
     },
     eventRequestId :{
         type : Schema.Types.ObjectId ,
-        ref: eventRequest , 
+    //    ref: eventRequest , 
         required :true 
     } ,
     rate:{
