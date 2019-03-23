@@ -76,6 +76,7 @@ router.delete("/:requestId", async (req, res) => {
   try{ 
   const id = req.params.requestId;
   const deletedRequest = await Request.findByIdAndRemove(id) 
+  if(!deletedRequest) return res.status(404).send({error: 'request does not exist' })
   res.json({msg:'Request was deleted successfully', data: deletedRequest });
   }
   catch(error){
