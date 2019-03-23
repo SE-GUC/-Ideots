@@ -2,7 +2,6 @@
 const express = require("express");
 const Joi = require("joi");
 const router = express.Router();
-
 // Models
 const EventBooking = require("../../models/EventBooking");
 
@@ -29,7 +28,7 @@ router.get("/:id", async (req, res) => {
 
 router.post("/", async (req, res) => {
   const schema = {
-    eventId: Joi.objectId().required(),
+    eventId: Joi.objectId().require() ,
     memberId: Joi.objectId().required(),
     registrationPrice: Joi.number().required(),
     paymentMethod: Joi.string().required()
@@ -39,7 +38,7 @@ router.post("/", async (req, res) => {
 
   if (result.error)
     return res.status(400).send({ error: result.error.details[0].message });
-
+ 
   const newEventBooking = await EventBooking.create(req.body);
 
   return res.json({ data: newEventBooking });
@@ -49,7 +48,9 @@ router.post("/", async (req, res) => {
 router.put("/:id", async (req, res) => {
   const requestedId = req.params.id;
 
-  const booking =await  EventBooking.findOne({ '_id':requestedId });
+  const booking =await  EventBooking.findOne({ '_id':requestedId })
+  .populate('eventId').exec(function (err, res) {
+    if (err) return handleError(err);})
   if (!booking)
     return res
       .status(404)

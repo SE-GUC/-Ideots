@@ -26,7 +26,34 @@ router.get("/:id", async(req, res) => {
   res.send(event)
 });
 //-----------------------------------------------\\
-
+//Get a certain event by location
+router.get("/search/location=:", async(req, res) => {
+  let city = req.body.location.city 
+  let Street = req.body.location.Street
+  let Area = req.body.location.Area
+  city=/[^city]/
+  Street =/[^Street]/
+  Area = /[^Area]/
+ 
+  // if (city===undefined)city = /[a-z]/gi 
+  // if (Street===undefined)Street = /[a-z]/gi 
+  // if (Area===undefined)Area = /[a-z,1-9]/gi 
+  // if (city===/[a-z]/gi) city = city +/[a-z]/gi 
+ 
+  const event =await Event.find({'location.city':city , 'location.Street':Street ,'location.Area':Area }
+  ); 
+  if(!event) return res.status(404).send({error: 'The Event you are tryinig to edit does not exist'})
+  res.send(event)
+});
+//----------------------------------------------------\\
+//Get a certain event by type
+router.get("/search/type=:type", async(req, res) => {
+  const type = req.params.type
+  const event =await Event.find({'type':type}); 
+  if(!event) return res.status(404).send({error: 'The Event you are tryinig to edit does not exist'})
+  res.send(event)
+});
+//----------------------------------------------------\\
 router.post("/", async (req, res) => {
   const schema = {
     location: Joi.object().keys(
@@ -53,7 +80,7 @@ router.post("/", async (req, res) => {
 
   if (result.error)
     return res.status(400).send({ error: result.error.details[0].message });
-
+  
   const newEvent = await Event.create(req.body)
   return res.json({ data: newEvent });
 });
@@ -64,6 +91,10 @@ router.put("/:id",async (req, res) => {
   const requestedId = req.params.id;
 
   const event = await Event.findOne({'_id':requestedId})
+  .populate('organizerId')
+  .populate('eventRequestId').exec(function(err ,res){
+    if (err) return handleError(err);}) ; 
+
   if(!event) return res.status(404).send({error: 'The Event you are tryinig to edit does not exist'})
 
   const schema = {
