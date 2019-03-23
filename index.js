@@ -1,4 +1,5 @@
 const express = require('express')
+
 const mongoose = require('mongoose');
 
 const config =require('./config/keys.js')
@@ -19,6 +20,15 @@ const reviews = require('./routes/api/reviews')
 const mongoose =require('mongoose')
 
 const app = express()
+const db = require('./config/keys').mongoURI
+
+// Connect to mongo
+mongoose
+    .connect(db)
+    .then(() => console.log('Connected to MongoDB'))
+    .catch(err => console.log(err))
+
+
 
 mongoose.connect(config.mongoURI, { useNewUrlParser: true })
     .then(() => console.log('We are connected to MongoDB'))
