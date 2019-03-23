@@ -2,9 +2,10 @@
 const express = require('express');
 const Joi = require('joi');
 const router = express.Router();
-
+Joi.objectId = require('joi-objectid')(Joi);
 // Models
 const Notification = require('../../models/Notification');
+const User = require('../../models/User');
 
 // Get all notification
 router.get('/',async(req,res)=>{
@@ -28,14 +29,10 @@ router.get('/',async(req,res)=>{
 // Create a new notification
 router.post('/',async(req,res)=>{
    try{
-       const content = req.body.content;
-       const recieverId = req.body.recieverId;
-       const notifierId = req.body.notifierId;
-       
        const schema = {
            content: Joi.string().required(),
-           recieverId: Joi.required(), 
-           notifierId:Joi.required()
+           recieverId: Joi.objectId().required(), 
+           notifierId:Joi.objectId().required()
         }
         
         const result = Joi.validate(req.body, schema);
@@ -43,7 +40,9 @@ router.post('/',async(req,res)=>{
         if (result.error) {
             return res.status(400).send({ error: result.error.details[0].message });
         }
-        
+        const reciever = User.findOne({recieverId});
+        if(!reciever)
+          return res.status(404).send({error:'reciever does not exist'});        
         const newNotification=await Notification.create(req.body);
         return res.json({msg:'Notification was created successfully',data:newNotification });
     }
@@ -62,8 +61,6 @@ router.put('/:id',async (req, res) => {
         if(!notification)
           return res.status(404).send({error:'Notification does not exist'});
         
-        // const content = req.body.content;
-        const isRead = req.body.isRead;
         const schema={
             isRead:Joi.boolean()
          }
