@@ -1,16 +1,24 @@
-const uuid =require('uuid');
+const mongo = require('mongoose');
+const schema = mongo.Schema;
 
-class Admin{
-    constructor(name,email,passward,phone){
-        this.name=name;
-        this.email=email;
-        this.passward=passward;
-        this.phone=phone;
-        this.id = uuid.v4();
-        
+const AdminSchema = new schema({
+    name:{
+        type:String,
+        required:true
+    },
+    email:{
+        type:String,
+        required:true,
+        unique:true
+    },
+    password:{
+        type:String,
+        required:true
+    },
+    phone:{
+        type:String,
+        required:true
     }
-};
+});
 
-module.exports = Admin;
-
-//tarazan was here guys
+module.exports = Admin = mongo.model('Admins',AdminSchema);
