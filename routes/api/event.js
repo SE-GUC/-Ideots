@@ -39,10 +39,7 @@ router.get("/search/location=:", async(req, res) => {
   Street =/[^Street]/
   Area = /[^Area]/
  
-  // if (city===undefined)city = /[a-z]/gi 
-  // if (Street===undefined)Street = /[a-z]/gi 
-  // if (Area===undefined)Area = /[a-z,1-9]/gi 
-  // if (city===/[a-z]/gi) city = city +/[a-z]/gi 
+  
  
   const event =await Event.find({'location.city':city , 'location.Street':Street ,'location.Area':Area }
   ); 

@@ -1,7 +1,7 @@
 // const uuid = require('uuid')
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-//const user = require ('./User')
+const user = require ('./User')
 const eventRequest = require ('./EventRequest')
 
 const EventSchema = new Schema({
@@ -41,7 +41,7 @@ const EventSchema = new Schema({
     },
     organizerId:{
         type : Schema.Types.ObjectId ,
-     //   ref:user,
+        ref:user,
         required : true  
     },
     eventRequestId :{
