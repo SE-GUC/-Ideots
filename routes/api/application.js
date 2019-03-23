@@ -6,8 +6,8 @@ const router = express.Router();
 
 // Models
 const Application = require('../../models/Application');
-const User = require('../../models/User');
-const Task = require('../../models/Task');
+// const User = require('../../models/User');
+// const Task = require('../../models/Task');
 
 
 // Get all application
@@ -28,7 +28,6 @@ router.get('/:id',async(req,res)=>{
 
 
 })
-
 
 // Create a new application
 router.post('/',async(req,res)=>{
@@ -55,14 +54,14 @@ router.post('/',async(req,res)=>{
 
 router.put('/:id',async (req, res) => {
    try{
-
+    
        const applicationId = req.params.id;  
-       const application = Application.findOne({applicationId});
+       const application = Application.findById(applicationId);
        if(!application)
          return res.status(404).send({error:'Application does not exist'});
        
        const schema={
-           acceptence:Joi.any().valid([-1,0,1])
+         acceptance:Joi.any().valid([-1,0,1])
         }
         
         const result = Joi.validate(req.body, schema);
@@ -80,7 +79,7 @@ router.put('/:id',async (req, res) => {
  router.delete('/:id', async (req,res) => {
     try {
         const  applicationId = req.params.id;  
-        const application = Application.findOne({applicationId});
+        const application = Application.findById(applicationId);
         if(!application)
           return res.status(404).send({error:'Application does not exist'});
         const deletedApplication = await Application.findByIdAndRemove(applicationId)
