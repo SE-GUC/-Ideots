@@ -1,18 +1,29 @@
 // The Notification Model
-const uuid=require('uuid')
 
-class Notification{
-    
-    constructor(content,recieverId,notifierId) {
-        this.content= content;
-        this.recieverId=recieverId;
-        this.notifier=notifierId;
-        this.date= new Date();
-        this.isRead=false;
-        this.id= uuid.v4();
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
 
-    };
-   
-}
-
-module.exports = Notification;
+const NotificationSchema = new Schema({
+    content : {
+        type : String ,
+        required : true 
+    } ,
+    recieverId:{
+        type : Schema.Types.ObjectId ,
+        required : true 
+    },
+    notifierId:{
+        type : Schema.Types.ObjectId ,
+        required : true 
+    },
+    date:{
+        type : Date , 
+        // required : true 
+    },
+    isRead : {
+        type : Boolean ,
+        default:false
+    }
+     
+}) ; 
+module.exports = Notification=mongoose.model('notifications',NotificationSchema)
