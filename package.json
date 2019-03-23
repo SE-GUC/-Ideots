@@ -16,10 +16,13 @@
   "license":    "MIT",
   "dependencies": {
 
+    
     "express": "*",
     "joi": "^14.3.1",
     "joi-objectid": "^2.0.0",
     "uuid": "^3.3.2",
+    "bcryptjs":"*",
+    "mongoose-type-url":"*",
     "mongoose" :"*",
     "body-parser":"*"
   }
