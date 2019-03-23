@@ -5,6 +5,7 @@ const UserSchema = new schema({
     type:{
         type:String,
         required:true,
+
         enum:['partner','member','consultancy_agency']
     },
     name:{

@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const config =require('./config/keys.js')
 
 
+
 const admins = require('./routes/api/admins')
 const consaltancyAgencies = require('./routes/api/consaltancyAgencies')
 const application = require('./routes/api/application')
@@ -63,6 +64,7 @@ const db = require('./config/keys_dev').mongoURI
 
 //connecting to database
 mongoose
+    
     .connect(db, { useFindAndModify: false })
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.log(err))
@@ -77,3 +79,4 @@ app.use((req, res) => {
 
 const port = 3000
 app.listen(port, () => console.log(`Server up and running on port ${port}`))
+
