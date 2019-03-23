@@ -5,7 +5,7 @@ const router = express.Router();
 Joi.objectId = require('joi-objectid')(Joi);
 // Models
 const Notification = require('../../models/Notification');
-const User = require('../../models/User');
+// const User = require('../../models/User');
 
 // Get all notification
 router.get('/',async(req,res)=>{
@@ -40,9 +40,11 @@ router.post('/',async(req,res)=>{
         if (result.error) {
             return res.status(400).send({ error: result.error.details[0].message });
         }
+        /*
         const reciever = User.findOne({recieverId});
         if(!reciever)
-          return res.status(404).send({error:'reciever does not exist'});        
+          return res.status(404).send({error:'reciever does not exist'}); 
+          */       
         const newNotification=await Notification.create(req.body);
         return res.json({msg:'Notification was created successfully',data:newNotification });
     }
