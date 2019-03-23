@@ -43,7 +43,7 @@ const db = require('./config/keys_dev').mongoURI
 
 //connecting to database
 mongoose
-    .connect(db)
+    .connect(db, { useFindAndModify: false })
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.log(err))
 
