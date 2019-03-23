@@ -2,7 +2,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 const event=require('./Event')
-//const user = require('./User')
+const user = require('./User')
 const EventBookingSchema = new Schema ({
  
     eventId:{
@@ -12,7 +12,7 @@ const EventBookingSchema = new Schema ({
     },
     memberId :{
         type : Schema.Types.ObjectId ,
-  //      ref:user,
+        ref:user,
         required : true 
     } ,
     registrationPrice:{

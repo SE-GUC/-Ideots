@@ -8,7 +8,9 @@ const EventBooking = require("../../models/EventBooking");
 ///////////CRUDZZZZZZZ\\\\\\\\\\\\
 // Read all EventBookings
 router.get("/", async (req, res) => {
-  eventBookings = await EventBooking.find();
+  eventBookings = await EventBooking.find().populate('eventId').populate('memberId').exec(function(err,res){
+    if (err) return handleError(err)
+  });;
   res.json({ data: eventBookings });
 });
 //----------------------------------------------\\
@@ -16,12 +18,10 @@ router.get("/", async (req, res) => {
 // Get a certain event booking
 router.get("/:id", async (req, res) => {
   const requestedId = req.params.id;
-  const booking = await EventBooking.findOne({ ' _id':requestedId });
-  if (!booking)
-    return res
-      .status(404)
-      .send({ error: "The Booking you are tryinig to edit does not exist" });
-  const eventBooking = await EventBooking.findOne({' _id': requestedId });
+  
+  const eventBooking = await EventBooking.findOne({' _id': requestedId }).populate('eventId').populate('memberId').exec(function(err,res){
+    if (err) return handleError(err)
+  });
   res.send(eventBooking);
 });
 //-----------------------------------------------\\
@@ -48,14 +48,8 @@ router.post("/", async (req, res) => {
 router.put("/:id", async (req, res) => {
   const requestedId = req.params.id;
 
-  const booking =await  EventBooking.findOne({ '_id':requestedId })
-  .populate('eventId').exec(function (err, res) {
-    if (err) return handleError(err);})
-  if (!booking)
-    return res
-      .status(404)
-      .send({ error: "The Booking you are tryinig to edit does not exist" });
-
+  
+  
   const schema = {
     eventId: Joi.objectId(),
     memberId: Joi.objectId(),
@@ -81,7 +75,7 @@ router.delete("/:id", async (req, res) => {
   if (!eventBooking)
     return res
       .status(404)
-      .send({ error: "The Booking you are tryinig to edit does not exist" });
+      .send({ error: "The Booking you are tryinig to delete does not exist" });
 
   res.send(eventBooking);
 });
