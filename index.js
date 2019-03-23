@@ -1,3 +1,4 @@
+
 const express = require('express')
 const mongoose = require('mongoose');
 
@@ -15,6 +16,11 @@ const users = require('./routes/api/users.js')
 const reviews = require('./routes/api/reviews')
 
 const app = express()
+
+const express = require('express')
+const mongoose = require('mongoose');
+
+
 
 app.use(express.json())
 
@@ -49,3 +55,4 @@ app.use((req, res) => {
 
 const port = 3000
 app.listen(port, () => console.log(`Server up and running on port ${port}`))
+
