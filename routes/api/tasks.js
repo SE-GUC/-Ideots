@@ -63,6 +63,7 @@ router.get('/:id', async (req, res) => {
     try {
      const taskID = req.params.id
      const deletedTask = await Task.findByIdAndRemove(taskID)
+     if(!deletedTask) return res.status(404).send({error: 'task does not exist' })
      res.json({msg:'Task was deleted successfully', data: deletedTask})
     }
     catch(error) {
