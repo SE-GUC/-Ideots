@@ -1,4 +1,8 @@
 const express = require('express')
+const mongoose = require('mongoose');
+
+const config =require('./config/keys.js')
+
 
 const admins = require('./routes/api/admins')
 const consaltancyAgencies = require('./routes/api/consaltancyAgencies')
@@ -14,6 +18,11 @@ const members = require('./routes/api/members')
 const reviews = require('./routes/api/reviews')
 
 const app = express()
+
+mongoose.connect(config.mongoURI, { useNewUrlParser: true })
+.then(() => console.log('We are connected to MongoDB'))
+.catch(err => console.log(err))
+
 
 app.use(express.json())
 
