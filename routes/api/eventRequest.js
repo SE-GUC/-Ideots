@@ -10,9 +10,10 @@ const EventRequest = require("../../models/EventRequest");
 ///////////CRUDZZZZZZZ\\\\\\\\\\\\
 // Read all eventRequests
 router.get("/", async (req, res) => {
-    eventRequests = await EventRequest.find().populate('organizerId').exec(function(err,res){
-      if (err) return handleError(err)
-    })
+    eventRequests = await EventRequest.find()
+    // .populate('organizerId').exec(function(err,res){
+    //   if (err) return handleError(err)
+    // })
     res.json({ data: eventRequests });
 });
 //----------------------------------------------\\
@@ -20,9 +21,10 @@ router.get("/", async (req, res) => {
 // Get a certain event request
 router.get("/:id", async (req, res) => {
   const requestedId = req.params.id;
-  const request = await eventRequest.find({'_id':requestedId}).populate('organizerId').exec(function(err,res){
-    if (err) return handleError(err)
-  });
+  const request = await eventRequest.find({'_id':requestedId})
+  // .populate('organizerId').exec(function(err,res){
+  //   if (err) return handleError(err)
+  // });
  // if(!request) return res.status(404).send({error: 'The request you are tryinig to get does not exist'})
   res.send(request);
 });
