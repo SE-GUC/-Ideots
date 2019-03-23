@@ -13,9 +13,10 @@ Joi.objectId = require('joi-objectid')(Joi);
 ///////////CRUDZZZZZZZ\\\\\\\\\\\\
 // Read all Events
 router.get("/", async(req, res) => {
-    const events = await Event.find().populate('organizerId').populate('eventRequestId').exec(function(err,res){
-      if (err) return handleError(err)
-    });  
+    const events = await Event.find()
+    //  .populate('organizerId').populate('eventRequestId').exec(function(err,res){
+    //    if (err) return handleError(err)
+    //  });  
   res.json({ data: events }); // make sure of pretty
 });
 //----------------------------------------------\\
@@ -23,22 +24,23 @@ router.get("/", async(req, res) => {
 // Get a certain event
 router.get("/:id", async(req, res) => {
   const requestedId = req.params.id
-  const event =await Event.find({'_id':requestedId}).populate('organizerId').populate('eventRequestId').exec(function(err,res){
-    if (err) return handleError(err)
-  }); 
+  const event =await Event.find({'_id':requestedId})
+  // .populate('organizerId').populate('eventRequestId').exec(function(err,res){
+  //   if (err) return handleError(err)
+  // }); 
   if(!event) return res.status(404).send({error: 'The Event you are tryinig to show does not exist any more!'})
   res.send(event)
 });
 //-----------------------------------------------\\
-//Get a certain event by location
-router.get("/search/location=:", async(req, res) => {
-  let city = req.body.location.city 
-  let Street = req.body.location.Street
-  let Area = req.body.location.Area
-  city=/[^city]/
-  Street =/[^Street]/
-  Area = /[^Area]/
- 
+//Get a certain event by location  /////////////////////////////THINK OF USING REGEX\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+router.get("/search/:city/:Street/:Area", async(req, res) => {
+  let city = req.params.city 
+  let Street = req.params.Street
+  let Area = req.params.Area
+   //city=city+/[a-z]/ig
+  //if(Street.length===0) Street =/[a-z]/ig
+   //Area = Area+/[a-z]/ig
+  
   
  
   const event =await Event.find({'location.city':city , 'location.Street':Street ,'location.Area':Area }
@@ -55,43 +57,31 @@ router.get("/search/type=:type", async(req, res) => {
   res.send(event)
 });
 //----------------------------------------------------\\
-//Get recommended events for a user
+//Get recommended events for a user  /////STILL BASED ON PAST EVENTS TO BE IMPLEMENTED
 router.get("/recommended/events/:id", async(req, res) => {
   const requestedId = req.params.id
 
 const user = await User.findOne({'_id':requestedId})
 
-const userInterrests=user.interests
-const userLocation=user.location
-const userCity=userLocation.city
-const userStreet =userLocation.Street
-const userArea = userLocation.Area
-userCity=/[^userCity]/
-userStreet =/[^userStreet]/
-userArea = /[^userArea]/
+let userInterrests=user.interests
+let userLocation=user.location
+let userCity=userLocation.city
+let userStreet =userLocation.Street
+let userArea = userLocation.Area
 
-const events = await Event.find( $or({'type':{$in :userInterrests}},{'location.city':userCity , 'location.Street':userStreet ,'location.Area':userArea})
-.populate(userId)
-.exec(function(err,res){
-  if (err) return res.status(404).send({error: 'No recommended Events currently try again later!!'})
+console.log(userCity)
+console.log(userStreet)
+console.log(userArea)
+
+const events = await Event.find( ({'type':{$in :userInterrests}},{'location.city':userCity , 'location.Street':userStreet ,'location.Area':userArea}))
+//{'type':{$in :userInterrests}},
+if(events.length==0) return res.status(404).send({error: 'No recommended Events currently try again later!!'})
+
+res.json({ data: events });
+
 })
-)
-if(tasks.length==0) return res.status(404).send({error: 'No recommended Events currently try again later!!'})
-
-
-
-});
 //----------------------------------------------------\\
 // FEEDBACK FORM
-// router.get('/recommended/tasks/:id', async(req, res) => {  
-//   const id = req.params.id
-//   const user =await User.findById(id)
-//   const userSkills = user.skills
-//   console.log(userSkills)
-//    const tasks = await Task.find({"requiredSkills":{$in:userSkills}});   
-//    if(tasks.length==0) return res.status(404).send({error: 'No tasks suitable for you at the moment, Try something new ?'})
-    
-//     return res.json({tasks});
 
 // });
 //----------------------------------------------------\\

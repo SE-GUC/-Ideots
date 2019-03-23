@@ -2,7 +2,7 @@
 //Event Request Model
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-const  user = require('./User')
+//const  user = require('./User')
 const EventRequestSchema = new Schema ({
 
     location :{
@@ -27,7 +27,7 @@ const EventRequestSchema = new Schema ({
     dateTime: Date,
     organizerId : {
         type : Schema.Types.ObjectId ,
-        ref :user  ,
+      //  ref :user  ,
         required : true 
     } ,
     acceptenceState : Number   // -1 rejected , 0 pending , 1 accepted

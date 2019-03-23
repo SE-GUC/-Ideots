@@ -1,18 +1,18 @@
 // const uuid = require('uuid')
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-const event=require('./Event')
-const user = require('./User')
+//const event=require('./Event')
+//const user = require('./User')
 const EventBookingSchema = new Schema ({
  
     eventId:{
         type : Schema.Types.ObjectId ,
-        ref:event,
+  //      ref:event,
         required :true 
     },
     memberId :{
         type : Schema.Types.ObjectId ,
-        ref:user,
+  //      ref:user,
         required : true 
     } ,
     registrationPrice:{
