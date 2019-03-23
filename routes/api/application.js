@@ -1,6 +1,7 @@
 // Dependencies
 const express = require('express');
 const Joi = require('joi');
+Joi.objectId = require('joi-objectid')(Joi);
 const router = express.Router();
 
 // Models
@@ -9,14 +10,11 @@ const User = require('../../models/User');
 const Task = require('../../models/Task');
 
 
-
 // Get all application
 
 router.get('/',async(req,res)=>{
     const applications=await Application.find();
     res.json({data:applications});
-
-
 })
 
 //Get a specific application
@@ -46,13 +44,7 @@ router.post('/',async(req,res)=>{
         if (result.error) {
             return res.status(400).send({ error: result.error.details[0].message });
         }
-        const applicant = User.findOne({applicantId});
-        const task = Task.findOne({taskId});
-         if(!applicant)
-           return res.status(404).send({error:'Applicant does not exist'}); 
-         if(!task)
-           return res.status(404).send({error:'Task does not exist'}); 
-    
+     
         const newApplication=await Application.create(req.body);
         return res.json({msg:'Application was created successfully',data:newApplication });
     }
@@ -69,7 +61,6 @@ router.put('/:id',async (req, res) => {
        if(!application)
          return res.status(404).send({error:'Application does not exist'});
        
-    //    const taskId = req.body.taskId;
        const schema={
            acceptence:Joi.any().valid([-1,0,1])
         }
