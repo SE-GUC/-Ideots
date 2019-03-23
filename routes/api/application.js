@@ -6,11 +6,25 @@ const router = express.Router();
 
 // Models
 const Application = require('../../models/Application');
-// const User = require('../../models/User');
-// const Task = require('../../models/Task');
 
+const validator=require('../../validations/applicationValidations')
 
 // Get all application
+/*
+router.get('/', (req, res) => res.json({ data: applicationList }));
+*/
+router.get('/',async(req,res)=>{
+    const applications=await Application.find()
+    res.json({data:applications})  
+
+
+})
+
+/*************************************************************************************************************************************************** */
+
+
+
+
 
 router.get('/',async(req,res)=>{
     const applications=await Application.find();
