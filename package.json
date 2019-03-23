@@ -4,9 +4,10 @@
   "description": "Lirten ",
   "main":        "index.js",
   "scripts": {
-    "test":   "echo \"Error: no test specified\" && exit 1",
-    "start":  "node index",
-    "dev":    "nodemon index"
+
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+
   },
   "keywords": [
     "server"
@@ -14,9 +15,11 @@
   "author":     "!ideots",
   "license":    "MIT",
   "dependencies": {
-    "express":   "^4.16.4",
-    "joi":        "^14.3.1",
-    "mongoose":   "^5.4.19",
-    "uuid":       "^3.3.2"
+
+    "express": "^4.16.4",
+    "joi": "^14.3.1",
+    "joi-objectid": "^2.0.0",
+    "uuid": "^3.3.2"
+
   }
 }
