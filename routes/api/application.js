@@ -7,7 +7,6 @@ const router = express.Router();
 // Models
 const Application = require('../../models/Application');
 
-const validator=require('../../validations/applicationValidations')
 
 // Get all application
 /*
