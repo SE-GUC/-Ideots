@@ -1,5 +1,5 @@
 const express = require('express')
-
+const mongoose = require('mongoose')
 const admins = require('./routes/api/admins')
 const consaltancyAgencies = require('./routes/api/consaltancyAgencies')
 const application = require('./routes/api/application')
@@ -14,6 +14,15 @@ const members = require('./routes/api/members')
 const reviews = require('./routes/api/reviews')
 
 const app = express()
+const db = require('./config/keys').mongoURI
+
+// Connect to mongo
+mongoose
+    .connect(db)
+    .then(() => console.log('Connected to MongoDB'))
+    .catch(err => console.log(err))
+
+
 
 app.use(express.json())
 
