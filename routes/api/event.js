@@ -5,7 +5,7 @@ const router = express.Router();
 const mongoose = require("mongoose");
 // Models
 const Event = require("../../models/Event");
-//Joi.objectId = require('joi-objectid')(Joi);
+const User=require("../../models/User")
 Joi.objectId = require('joi-objectid')(Joi);
 
 // make sure to notify about object id  and pretty method 
@@ -57,18 +57,43 @@ router.get("/search/type=:type", async(req, res) => {
 //----------------------------------------------------\\
 //Get recommended events for a user
 router.get("/recommended/events/:id", async(req, res) => {
-const userId =req.params.id
-const events = await Event.find( {}
-  ///////// lazem filter location where enno equal location el user wel type where enno equal wa7ed mn interrests el user
-).populate(userId,'address').exec(function(err,res){
-  if (err) return handleError(err)
+  const requestedId = req.params.id
+
+const user = await User.findOne({'_id':requestedId})
+
+const userInterrests=user.interests
+const userLocation=user.location
+const userCity=userLocation.city
+const userStreet =userLocation.Street
+const userArea = userLocation.Area
+userCity=/[^userCity]/
+userStreet =/[^userStreet]/
+userArea = /[^userArea]/
+
+const events = await Event.find( $or({'type':{$in :userInterrests}},{'location.city':userCity , 'location.Street':userStreet ,'location.Area':userArea})
+.populate(userId)
+.exec(function(err,res){
+  if (err) return res.status(404).send({error: 'No recommended Events currently try again later!!'})
 })
+)
+if(tasks.length==0) return res.status(404).send({error: 'No recommended Events currently try again later!!'})
+
+
+
 });
 //----------------------------------------------------\\
 // FEEDBACK FORM
+// router.get('/recommended/tasks/:id', async(req, res) => {  
+//   const id = req.params.id
+//   const user =await User.findById(id)
+//   const userSkills = user.skills
+//   console.log(userSkills)
+//    const tasks = await Task.find({"requiredSkills":{$in:userSkills}});   
+//    if(tasks.length==0) return res.status(404).send({error: 'No tasks suitable for you at the moment, Try something new ?'})
+    
+//     return res.json({tasks});
 
-
-
+// });
 //----------------------------------------------------\\
 router.post("/", async (req, res) => {
   const schema = {
