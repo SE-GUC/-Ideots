@@ -12,6 +12,7 @@ const eventRequest = require('./routes/api/eventRequest')
 const eventBooking = require('./routes/api/eventBooking')
 const members = require('./routes/api/members')
 const reviews = require('./routes/api/reviews')
+const mongoose =require('mongoose')
 
 const app = express()
 
@@ -36,7 +37,17 @@ app.use('/api/eventBookings', eventBooking)
 app.use('/api/members', members)
 app.use('/api/reviews', reviews)
 
+//config db
+const db = require('./config/keys_dev').mongoURI
 
+
+//connecting to database
+mongoose
+    .connect(db, { useFindAndModify: false })
+    .then(() => console.log('Connected to MongoDB'))
+    .catch(err => console.log(err))
+
+    
 //to be integrated----------------
 
 // Handling 404
