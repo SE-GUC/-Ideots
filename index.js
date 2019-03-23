@@ -20,14 +20,14 @@ const reviews = require('./routes/api/reviews')
 const app = express()
 
 mongoose.connect(config.mongoURI, { useNewUrlParser: true })
-.then(() => console.log('We are connected to MongoDB'))
-.catch(err => console.log(err))
+    .then(() => console.log('We are connected to MongoDB'))
+    .catch(err => console.log(err))
 
 
 app.use(express.json())
 
 app.get('/', (req, res) => {
-    res.send(`<h2>Welcome</h2> `);
+    res.send(`<h2>Welcome to LirtenHub</h2> `);
 })
 
 // Direct routes to appropriate files 
