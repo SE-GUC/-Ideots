@@ -1,19 +1,10 @@
 
-const express = require("express");
+const express = require('express') 
 const router = express.Router();
 const mongoose = require('mongoose')
 const validator = require('../../validations/taskValidations')
 // We will be connecting using database
 const Task = require("../../models/Task");
-
-/*const tasks=[
-
-    new Task(1,1,"hello it is me " , "js and css " , 1500 , "link here " , "dunno " , "dont know " , "computer science " ,
-    15 , false , 5.0 , 4.8 , "ahmad 3loka " ) 
-    , new Task(2,2,"i want a car  " , "mechanics" , 1780 , "link here " , "dunno " , "dont know " , "mechanical science  " ,
-    10 , true  , 5.0 , 3.1 , "ibrahem ahmed  " ) 
-]; */
-
 
 router.get("/",async (req, res) =>{
     const tasks = await Task.find()
@@ -79,5 +70,47 @@ router.get('/:id', async (req, res) => {
         console.log(error)
     }  
  }) 
+
+// **searching for tasks**
+
+//search by category
+router.get('/search/category=:cat', async(req, res) => { 
+const cat = req.params.cat
+const tasks = await Task.find({"category":cat})
+if(tasks.length==0)return res.status(404).send({error: 'no tasks found'})
+return res.json({tasks});
+
+});
+
+//search by year of experience
+router.get('/search/experience=:exp', async(req, res) => { 
+const exp = req.params.exp
+const tasks = await Task.find({"yearsOfExperience":exp})
+if(tasks.length==0) return res.status(404).send({error: 'no tasks found'})
+return res.json({tasks});
+
+});
+
+//search by monetary compensation *********************************************************************************************
+router.get('/search/payment=:pay', async(req, res) => { 
+const pay = req.params.pay
+const min =Number(pay)-50
+const max=Number(pay)+50
+const tasks = await Task.find({"payment":{ $lte:max ,$gte:min} })
+if(tasks.length==0) return res.status(404).send({error: 'no tasks found'})
+return res.json({tasks});
+
+});
+
+//recommended tasks
+router.get('/recommended/:id', async(req, res) => { 
+const id = req.params.id
+const user =await User.findById(id)
+const userSkills = user.skills
+const tasks = await Task.find({"requiredSkills":{$in:userSkills}})
+if(tasks.length==0) return res.status(404).send({error: 'No tasks suitable for you at the moment, Try something new ?'})
+return res.json({tasks});
+
+}); 
 
 module.exports = router ; 
