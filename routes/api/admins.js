@@ -3,6 +3,7 @@ const bcrypt =require('bcryptjs');
 const router = express.Router();
 
 const Admin =require('../../models/Admin');
+const validator =require('../../validations/adminValidations');
 
 // Get all admins
 router.get('/', async (req,res) => {
@@ -46,6 +47,32 @@ router.post('/', async (req, res) => {
         res.json({error:error.message});
    } 
 });
+
+// Update a admin info
+router.put('/:id', async (req, res) => {
+    try {
+            const id = req.params.id;
+            const admin = await Admin.findOne({_id:id});
+            if(!admin) res.status(404).send({error:'Admin was not found'});
+            const isValidated = validator.updateValidation(req.body);
+            if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message });
+            const name =req.body.name;
+            const email =req.body.email;
+            const password =req.body.password;
+            const phone =req.body.phone;
+
+            if(name)await Admin.updateOne({_id:id},{$set:{name:name}});
+            if(email)await Admin.updateOne({_id:id},{$set:{email:email}});
+            if(password)await Admin.updateOne({_id:id},{$set:{password:password}});
+            if(phone)await Admin.updateOne({_id:id},{$set:{phone:phone}});
+            res.json({msg: 'Admin was updated successfully'});
+       }
+            catch(error) {
+            res.json({msg:error.message});
+       } 
+});
+
+
 
 
 module.exports = router
