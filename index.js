@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require('express')
 const mongoose = require('mongoose');
 
 const config =require('./config/keys.js')
@@ -11,16 +11,17 @@ const tasks = require('./routes/api/tasks')
 const event = require('./routes/api/event')
 const eventRequest = require('./routes/api/eventRequest')
 const eventBooking = require('./routes/api/eventBooking')
-const users = require('./routes/api/users')
+const users = require('./routes/api/users.js')
 const reviews = require('./routes/api/reviews')
 
 const app = express()
 
- mongoose.connect(config.mongoURI, { useNewUrlParser: true })
+app.use(express.json())
+
+mongoose.connect(config.mongoURI, { useNewUrlParser: true })
     .then(() => console.log('We are connected to MongoDB'))
     .catch(err => console.log(err))
 
-app.use(express.json())
 
 app.get('/', (req, res) => {
     res.send(`<h2>Welcome to LirtenHub</h2> `);
@@ -39,10 +40,12 @@ app.use('/api/users', users)
 app.use('/api/reviews', reviews)
 
 
+//to be integrated----------------
+
 // Handling 404
 app.use((req, res) => {
     res.status(404).send({err: 'We can not find what you are looking for'});
  })
 
-const port =process.env.PORT || 3000
+const port = 3000
 app.listen(port, () => console.log(`Server up and running on port ${port}`))
