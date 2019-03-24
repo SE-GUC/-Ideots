@@ -11,7 +11,7 @@ router.get('/', async (req,res) => {
         const user = await User.find();
         if(user.length==0) res.status(404).send({error:"there is no user"});
         res.json({Users : user});   
-    }catch{
+    }catch(error){
         res.json({error:error.message});
     }
 })
@@ -22,7 +22,7 @@ router.get('/members/', async (req,res) => {
         const Member = await User.find({type:'member'});
         if(Member.length==0) res.status(404).send({error:"there is no Member"});
         res.json({Members : Member});
-    }catch{
+    }catch(error){
         res.json({error:error.message});
     }
 })
@@ -92,7 +92,7 @@ router.post('/', async (req, res) => {
             const isValidated = validator.createValidationConsaltancyAgency(req.body);
             if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message });
             const newUser =await User.create({
-                type:"consaltancyAgency",
+                type:"consultancy_agency",
                 name:req.body.name,
                 email:req.body.email,
                 password: passAfterHashing,

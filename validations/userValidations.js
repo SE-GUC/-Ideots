@@ -1,10 +1,12 @@
 const Joi = require('joi')
 
+Joi.objectId = require('joi-objectid')(Joi);
+
 module.exports = {
      //consaltancyAgency
     createValidationConsaltancyAgency: request => {
         const createSchema = {
-            type: Joi.string().required().valid('partner','member','consaltancyAgency'),
+            type: Joi.string().required().valid('partner','member','consultancy_agency'),
             name: Joi.string().required(),
             email: Joi.string().email().required(),
             password: Joi.string().min(8).alphanum().required(),
@@ -14,16 +16,16 @@ module.exports = {
             fax:Joi.strict().required(),
             address:Joi.object().required(),
             reports:Joi.array().items(Joi.string()),
-            boardMembers:Joi.array().items(Joi.object()),
-            partners:Joi.array().items(Joi.object()),
-            events:Joi.array().items(Joi.object())
+            boardMembers:Joi.array().items(Joi.objectId()),
+            partners:Joi.array().items(Joi.objectId()),
+            events:Joi.array().items(Joi.objectId())
         }
         return Joi.validate(request, createSchema)
     },
             //member
     createValidationMember: request => {
         const createSchema = {
-            type: Joi.string().required().valid('partner','member','consaltancyAgency'),
+            type: Joi.string().required().valid('partner','member','consultancy_agency'),
             name: Joi.object().required(),
             email: Joi.string().email().required(),
             password: Joi.string().min(8).alphanum().required(),
@@ -34,8 +36,8 @@ module.exports = {
             field:Joi.array().items(Joi.string()).required(),
             skills:Joi.array().items(Joi.string()).required(),
             interests:Joi.array().items(Joi.string()).required(),
-            tasks:Joi.array().items(Joi.object()),
-            attendedEvents:Joi.array().items(Joi.object()),
+            tasks:Joi.array().items(Joi.objectId()),
+            attendedEvents:Joi.array().items(Joi.objectId()),
             experience:Joi.array().items(Joi.string()).required(),
             certificates:Joi.array().items(Joi.string())
         }
@@ -43,17 +45,17 @@ module.exports = {
     },
     createValidationPartner: request => {
         const createSchema = {
-            type: Joi.string().required().valid('partner','member','consaltancyAgency'),
+            type: Joi.string().required().valid('partner','member','consultancy_agency'),
             name: Joi.string().required(),
             email: Joi.string().email().required(),
             password: Joi.string().min(8).alphanum().required(),
             basicBussinesInformation:Joi.object().required(),
-            boardMembers:Joi.array().items(Joi.object()).required(),
+            boardMembers:Joi.array().items(Joi.objectId()).required(),
             fieldOfWork:Joi.array().items(Joi.string()).required(),
-            partners:Joi.array().items(Joi.object()).required(),
-            eventOrganized:Joi.array().items(Joi.object()),
+            partners:Joi.array().items(Joi.objectId()).required(),
+            eventOrganized:Joi.array().items(Joi.objectId()),
             formFeedBack:Joi.object(),
-            pastProjects:Joi.array().items(Joi.object()),
+            pastProjects:Joi.array().items(Joi.objectId()),
             contactInfo:Joi.object().required()
         }
 
@@ -72,9 +74,9 @@ module.exports = {
             fax:Joi.strict(),
             address:Joi.object(),
             reports:Joi.array().items(Joi.string()),
-            boardMembers:Joi.array().items(Joi.object()),
-            partners:Joi.array().items(Joi.object()),
-            events:Joi.array().items(Joi.object())
+            boardMembers:Joi.array().items(Joi.objectId()),
+            partners:Joi.array().items(Joi.objectId()),
+            events:Joi.array().items(Joi.objectId())
         }
         return Joi.validate(request, updateSchema)
     },
@@ -92,8 +94,8 @@ module.exports = {
             field:Joi.array().items(Joi.string()),
             skills:Joi.array().items(Joi.string()),
             interests:Joi.array().items(Joi.string()),
-            tasks:Joi.array().items(Joi.object()),
-            attendedEvents:Joi.array().items(Joi.object()),
+            tasks:Joi.array().items(Joi.objectId()),
+            attendedEvents:Joi.array().items(Joi.objectId()),
             experience:Joi.array().items(Joi.string()),
             certificates:Joi.array().items(Joi.string())
         }
@@ -107,12 +109,12 @@ module.exports = {
             password: Joi.string().min(8).alphanum(),
             rate:Joi.number(),
             basicBussinesInformation:Joi.object(),
-            boardMembers:Joi.array().items(Joi.object()),
+            boardMembers:Joi.array().items(Joi.objectId()),
             fieldOfWork:Joi.array().items(Joi.string()),
-            partners:Joi.array().items(Joi.object()),
-            eventOrganized:Joi.array().items(Joi.object()),
+            partners:Joi.array().items(Joi.objectId()),
+            eventOrganized:Joi.array().items(Joi.objectId()),
             formFeedBack:Joi.object(),
-            pastProjects:Joi.array().items(Joi.object()),
+            pastProjects:Joi.array().items(Joi.objectId()),
             contactInfo:Joi.object()
         }
         return Joi.validate(request, updateSchema)
