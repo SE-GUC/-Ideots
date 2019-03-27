@@ -1,143 +1,118 @@
 // Dependencies
-const express = require('express');
-const Joi = require('joi');
-const uuid = require('uuid');
+const express = require("express");
+const Joi = require("joi");
 const router = express.Router();
 
 // Models
-const EventRequest = require('../../models/EventRequest');
+const EventRequest = require("../../models/EventRequest");
 
-// temporary data created as if it was pulled out of the database ...
-const eventRequests = [
-    new EventRequest
-    (   'masr el gdida', 
-        'event gamed gdn hakteb kteer 3shan ykon aktar mn 30 characterajkjdfajkdfajkds',
-        'programming event',
-        150,
-        200,
-        'magdy shatta',
-        'java w python',
-        '12/2/2012',
-        uuid.v4()
-    )
-	
-];
 
 ///////////CRUDZZZZZZZ\\\\\\\\\\\\
 // Read all eventRequests
-router.get('/', (req, res) => res.json({ data: eventRequests }));
+router.get("/", async (req, res) => {
+    eventRequests = await EventRequest.find()
+    // .populate('organizerId').exec(function(err,res){
+    //   if (err) return handleError(err)
+    // })
+    res.json({ data: eventRequests });
+});
 //----------------------------------------------\\
 
 // Get a certain event request
-router.get('/:id', (req, res) => {
-    const requestedId = req.params.id
-    const eventRequest = eventRequests.find(eventRequest => eventRequest.eventRequestId === requestedId)
-    res.send(eventRequest)
-})
+router.get("/:id", async (req, res) => {
+  const requestedId = req.params.id;
+  const request = await eventRequest.find({'_id':requestedId})
+  // .populate('organizerId').exec(function(err,res){
+  //   if (err) return handleError(err)
+  // });
+ // if(!request) return res.status(404).send({error: 'The request you are tryinig to get does not exist'})
+  res.send(request);
+});
 //-----------------------------------------------\\
 
-router.post('/', (req, res) => {
-    const location = req.body.location;
-    const description = req.body.description;
-    const type = req.body.type;
-    const registrationPrice = req.body.registrationPrice;
-    const numberOfSpaces = req.body.numberOfSpaces;
-    const speakers = req.body.speakers;
-    const topics = req.body.topics;
-    const dateTime = req.body.dateTime;
-    const organizerId = req.body.organizerId;
+router.post("/", async (req, res) => {
+  
 
-	const schema = {
-        location :Joi.string().required(),
-        description : Joi.string().min(30).required(),
-        type :Joi.string().required(),
-        registrationPrice :Joi.number().required(),
-        numberOfSpaces :Joi.number().required(),
-        speakers :Joi.string().required(),
-        topics :Joi.string().required(),
-        dateTime :Joi.date().required(),
-        organizerId :Joi.required(),
-    }
-    
+  const schema = {
+    location: Joi.object().keys(
+        {  // we want to test thiss 
+            city :Joi.string(),
+            Street :Joi.string() , 
+            Area :Joi.string()  
+        }
+    ).required(),
+    description: Joi.string().min(30).required(),
+    type: Joi.string().required(),
+    registrationPrice: Joi.number().required(),
+    numberOfSpaces: Joi.number().required(),
+    speakers: Joi.array().items(Joi.string()).required(),
+    topics:Joi.array().items(Joi.string()).required(),
+    dateTime: Joi.date().required(),
+    organizerId: Joi.objectId().required()
+  };
 
-	const result = Joi.validate(req.body, schema);
+  const result = Joi.validate(req.body, schema);
 
-	if (result.error) return res.status(400).send({ error: result.error.details[0].message });
+  if (result.error)
+    return res.status(400).send({ error: result.error.details[0].message });
 
-	const newEventRequest = new EventRequest(
-        location ,
-        description ,
-        type,
-        registrationPrice,
-        numberOfSpaces,
-        speakers,
-        topics,
-        dateTime,
-        organizerId,
-    );
-    eventRequests.push(newEventRequest)
-	return res.json({ data: newEventRequest });
+    const newEventRequest = await EventRequest.create(req.body)
+
+  return res.json({msg:"Event request created successfully", data: newEventRequest });
 });
 //----------------------------------------\\
 
 // Update Event Request acceptance state
-router.put('/:id', (req, res) => {
-    const requestedId = req.params.id 
-    const location = req.body.location;
-    const description = req.body.description;
-    const type = req.body.type;
-    const registrationPrice = req.body.registrationPrice;
-    const numberOfSpaces = req.body.numberOfSpaces;
-    const speakers = req.body.speakers;
-    const topics = req.body.topics;
-    const dateTime = req.body.dateTime;        
-    const organizerId = req.body.organizerId;
-    const acceptenceState = req.body.acceptenceState;
+router.put("/:id", async(req, res) => {
+  const requestedId = req.params.id;
 
 
-	const schema = {
-        description : Joi.string().min(30),
-        type :Joi.string(),
-        registrationPrice :Joi.number(),
-        numberOfSpaces :Joi.number(),
-        speakers :Joi.string(),
-        topics :Joi.string(),
-        dateTime :Joi.date(),
-        organizerId :Joi,
-        acceptenceState: Joi.number()
-    }
+  const request = await EventRequest.findOne({'_id':requestedId})
+  if(!request) return res.status(404).send({error: 'The request you are tryinig to edit does not exist'})
+  
+  const schema = {
+    location: Joi.object().keys(
+        {  
+            city :Joi.string(),
+            Street :Joi.string() , 
+            Area :Joi.string() , 
+        }
+    ),
+    description: Joi.string().min(30),
+    type: Joi.string(),
+    registrationPrice: Joi.number(),
+    numberOfSpaces: Joi.number(),
+    speakers: Joi.array().items(Joi.string()),
+    topics:Joi.array().items(Joi.string()),
+    dateTime: Joi.date(),
+    organizerId: Joi.objectId(),
+    acceptenceState:Joi.number().max(1).min(-1)
     
-
-	const result = Joi.validate(req.body, schema);
-
-	if (result.error) return res.status(400).send({ error: result.error.details[0].message });
+  };
 
 
-    const eventRequest = eventRequests.find(eventRequest => eventRequest.eventRequestId === requestedId)
+  const result = Joi.validate(req.body, schema);
 
-    if(location)eventRequest.location=location;
-    if(description)eventRequest.description=description;
-    if(type)eventRequest.type=type;
-    if(registrationPrice)eventRequest.registrationPrice=registrationPrice;
-    if(numberOfSpaces)eventRequest.numberOfSpaces=numberOfSpaces;
-    if(speakers)eventRequest.speakers=speakers;
-    if(topics)eventRequest.topics=topics;
-    if(dateTime)eventRequest.dateTime=dateTime;
-    if(organizerId)eventRequest.organizerId=organizerId;
-    if(acceptenceState)eventRequest.acceptenceState=acceptenceState;
+  if (result.error)
+    return res.status(400).send({ error: result.error.details[0].message });
 
-    res.send(eventRequests)
-})
+  const eventRequest = await EventRequest.updateOne({'_id' :requestedId } , req.body);// comment 
+
+
+  res.send(eventRequest);
+});
 //-----------------------------------\\
 
 // Delete a Event Request
-router.delete('/:id', (req, res) => {
-    const requestedId = req.params.id 
-    const eventRequest = eventRequests.find(eventRequest => eventRequest.eventRequestId === requestedId)
-    const index = eventRequests.indexOf(eventRequest)
-    eventRequests.splice(index,1)
-    res.send(eventRequests)
-})
+router.delete("/:id", async (req, res) => {
+  const requestedId = req.params.id;
+  // const eventRequest = await EventRequest.find({'_id':requestedId});
+  const eventRequest = await EventRequest.findByIdAndRemove(requestedId);
+  if(!eventRequest) return res.status(404).send({error: 'The request you are tryinig to delete does not exist'})
+  res.send(eventRequest);
+});
 //---------------------------------\\
 
 module.exports = router;
+
+
