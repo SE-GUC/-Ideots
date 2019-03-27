@@ -1,15 +1,32 @@
+
 // The  Application Model
-const uuid=require('uuid')
+const mongoose=require('mongoose')
+const Schema=mongoose.Schema
 
-class Application{
+const ApplicationSchema = new Schema({
+    applicantId:{
+        type : Schema.Types.ObjectId ,
+        required:true
+        // ref:'User'
+    },
+        
+    taskId:{
+        type : Schema.Types.ObjectId ,
+        required:true
+        // ref:'Task'
+    },
+    date:{
+        type:Date,
+	    default: Date.now 
+    },
+    acceptance:{                // acceptance state for the application  -1: rejected  , 0: waiting  , 1: accepted
+        type:Number,
+        min:[-1,'Must be -1 or 0 or 1'],
+        max:[1,'Must be -1 or 0 or 1'],
+        default:0
 
-    constructor(applicantId,taskId) {       // applicantId : Member applying on a task
-        this.applicantId=applicantId;
-        this.taskId=taskId;
-        this.date=new Date();;
-        this.acceptence=0;                        // acceptance state for the application  -1: rejected  , 0: waiting  , 1: accepted
-        this.id= uuid.v4();
-    };
-}
+    }
+    
+})
 
-module.exports = Application;
+module.exports = Application=mongoose.model('applications',ApplicationSchema)
