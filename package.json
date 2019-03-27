@@ -1,21 +1,29 @@
 {
-  "name": "server",
-  "version": "0.0.1",
+  "name":       "server",
+  "version":     "0.0.1",
   "description": "Lirten ",
-  "main": "index.js",
+  "main":        "index.js",
   "scripts": {
+
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
+
   },
   "keywords": [
     "server"
   ],
-  "author": "!ideots",
-  "license": "MIT",
+  "author":     "!ideots",
+  "license":    "MIT",
   "dependencies": {
-    "express": "^4.16.4",
+
+    
+    "express": "*",
     "joi": "^14.3.1",
     "joi-objectid": "^2.0.0",
-    "uuid": "^3.3.2"
+    "uuid": "^3.3.2",
+    "bcryptjs":"*",
+    "mongoose-type-url":"*",
+    "mongoose" :"*",
+    "body-parser":"*"
   }
 }

@@ -1,16 +1,50 @@
 
-const uuid = require('uuid')
-class Request {
-    constructor(partnerID ,date ,description ,consult ,feedback ) 
-                {
-                this.requestID = uuid.v4();
-                this.partnerID = partnerID ,
-                this.description = description;
-                this.date = date;
-                this.consult = consult;
-                this.accepted = 0;                                  //-1 rejected , 0 pending , 1 accepted
-                this.feedback = feedback;
-            };
-}
+//const uuid = require('uuid')
+const mongoose = require('mongoose')
 
-module.exports = Request
+const Schema = mongoose.Schema
+
+
+const RequestSchema = new Schema(
+    {
+       
+        partnerID :
+        {
+            type : Schema.Types.ObjectId,
+            required : true
+        }
+        ,
+        description :
+        {
+            type: String,
+            required: true
+        }
+        ,
+        date : 
+        {
+            type: String,
+            
+        }
+        ,
+        consult : 
+        {
+            type : Boolean,
+            required : true
+        } 
+        ,
+        accepted : {
+            
+            type : Number,
+            required : true
+        
+        },                                  //-1 rejected , 0 pending , 1 accepted
+        feedback :
+        {
+            type: String,
+        
+        }
+
+    }
+)
+               
+module.exports = Request = mongoose.model('requests',RequestSchema)
