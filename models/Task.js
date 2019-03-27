@@ -1,33 +1,109 @@
+const mongoose = require('mongoose')
+require('mongoose-type-url');
+const Schema = mongoose.Schema
 
 
-const uuid = require('uuid') 
+const TaskSchema = new Schema(
+    {
+       
+        partnerID :
+        {
+            type : Schema.Types.ObjectId,
+            required : true
+        }
+        ,
+        requiredSkills :
+        {
+            type : [String],
+            required : true
+        }
+        ,
+        consultancyID :
+        {
+            type : Schema.Types.ObjectId,
+           // required : true
+        }
+        ,
+        description :
+        {
+            type: String,
+            required: true
+        }
+        ,
+        payment :
+        {
+            type: Number,
+            required: true
+        }
+        ,
+       /* finalProduct :
+        {
+            type: URL,
+           // required: true
+        }*/
 
-class Task {
+        finalProduct: {
+            type: mongoose.SchemaTypes.Url
+        }
+       
+        ,
+        timeLine : 
+        {
+            type: Date,
+            
+        }
+        ,
+        state : 
+        {
+            type: String,
+            
+        }
+        ,
+        category : 
+        {
+            type : String,
+            required : true
+        } 
+        ,
+        yearsOfExperience : {
+            
+            type : Number,
+            required : true
+        
+        },                                  //-1 rejected , 0 pending , 1 accepted
+        done :
+        {
+            type: Boolean,
+            required:true
+        
+        },
+        ratePartnerDoer :
+        {
+            type: Number,
+            //required:true
+        
+        },
+        ratePartnerConsultancy :
+        {
+            type: Number,
+            //required:true
+        
+        },
+        assignedPerson ://ID ?????????????????????????????????????
+        {
+            type: Schema.Types.ObjectId,
+           // required:true
+        
+        },
+        applicants ://IDs ?????????????????????????????????????
+        {
+            type: [Schema.Types.ObjectId],
+           // required:true
+        
+        }
 
-    constructor(partnerID, consultancyID,description , requiredSkills , payment , finalProduct , timeLine , lifeCycle, category ,
-         yearsOfExperience , done ,  ratePartnerDoer , ratePartnerConsultancy,assignedPerson ){
-        this.taskID = uuid.v4() ;  
-        // this.taskID = taskID ;  ----> for only testing   
-        this.partnerID = partnerID ; 
-        this.consultancyID = consultancyID ; 
-        this.description = description ;
-        this.payment = payment ;
-        this.requiredSkills = requiredSkills ; 
-        this.finalProduct = finalProduct ;  
-        this.timeLine = timeLine ;
-        this.lifeCycle = lifeCycle ;  
-        this.category = category ; 
-        this.yearsOfExperience = yearsOfExperience ; 
-        this.done = done ;
-        this.ratePartnerDoer =ratePartnerDoer ; 
-        this.ratePartnerConsultancy = ratePartnerConsultancy ;
-        this.assignedPerson = assignedPerson ; 
-        const date = new Date() ; 
-        this.postedTime = date.toLocaleString();
 
-
-    } ; 
-
-} ; 
-
-module.exports = Task 
+    }
+)
+               
+module.exports = Request = mongoose.model('tasks',TaskSchema)
