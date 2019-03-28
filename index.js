@@ -34,8 +34,8 @@ app.get('/', (req, res) => {
 
 // Direct routes to appropriate files 
 app.use('/api/admins',admins)
-app.use('/api/notifications', notification)
-app.use('/api/applications', application)
+app.use('/api/notification', notification)
+app.use('/api/application', application)
 app.use('/api/requests', requests)
 app.use('/api/tasks',tasks)
 app.use('/api/events', event)
