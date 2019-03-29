@@ -27,22 +27,25 @@ const funcs = require('./functions');
 //     expect(response.data.data.email).toBe("takeCareAgain3@gmail.com");
 // })
 
-//test creating a partner   /////////////////////////////////////////MESH HA3RAF A TEST 3SHAN FI ID REQUIRED
+//test creating a partner                                                           //////////////THIS IS WORKING
 // test('creates a partner user', async()=> {
 //     expect.assertions(1);
 //    let body={
 //         "type": "partner",
-//         name: Joi.string().required(),
-//         email: Joi.string().email().required(),
-//                 "password": "Abc1234567",
-//                 "basicBussinesInformation":{"info":"wallahy yabni ma3raf"},
-//                 "boardMembers":[{"chief":"ana tab3an"},{"worker":"hossam"}],
-//                 "fieldOfWork":["coding","other shit"],
-//               //  "partners":Joi.array().items(Joi.objectId()).required(),
+//         "name": "partner 1",
+//         "email":"yalabina@yahoo.com",
+//         "password": "Abc1234567",
+//         "basicBussinesInformation":{"info":"wallahy yabni ma3raf"},
+//         "fieldOfWork":["coding","other shit"],
+//         "contactInfo":{
+//                 "phone Number":"01000256879",
+//                 "email":"yalabina@yahoo.com"
+//         }
 //      }
-//      const response= await funcs.createMemberUser(body)
+//      await funcs.createPartnerUser(body)
+//      const response= await funcs.getSpecifiedUser()
 //      console.log(response)
-//      expect(response.data.data.email).toBe("takeCareAgain3@gmail.com");
+//      expect(response.data.email).toBe("yalabina@yahoo.com");
 //  })
 
 
@@ -70,7 +73,7 @@ test ('gets the last user by id',async ()=> {
     expect.assertions(1);
     const response =await funcs.getSpecifiedUser();
    // console.log(response)
-    expect(response.data.email).toBe("takeCareAgain3@gmail.com");
+    expect(response.data.email).toBe("yalabina@yahoo.com");
 });
 
 //test getting all members                                                              //////////////THIS IS WORKING
@@ -78,7 +81,7 @@ test ('gets all members',async ()=> {
     expect.assertions(1);
     const response =await funcs.getAllMembers();
   //  console.log(response)
-    expect(response.data.Members[response.data.Members.length-1].email).toBe("takeCareAgain3@gmail.com");
+    expect(response.data.data[response.data.data.length-1].email).toBe("takeCareAgain3@gmail.com");
 });
 
 //test getting all users                                                              //////////////THIS IS WORKING
@@ -86,7 +89,7 @@ test ('gets all users',async ()=> {
     expect.assertions(1);
     const response =await funcs.getAllUsers();
     //console.log(response)
-    expect(response.data.Users[response.data.Users.length-1].email).toBe("takeCareAgain3@gmail.com");
+    expect(response.data.data[response.data.data.length-1].email).toBe("yalabina@yahoo.com");
 });
 
 
@@ -107,20 +110,18 @@ test ('gets all users',async ()=> {
 
 
 //////////////////////////////////
-// {
-//             type: Joi.string().required().valid('partner','member','consultancy_agency'),
-//             name: Joi.string().required(),
-//             email: Joi.string().email().required(),
-//             password: Joi.string().min(8).alphanum().required(),
-//             basicBussinesInformation:Joi.object().required(),
-//             boardMembers:Joi.array().items(Joi.objectId()).required(),
-//             fieldOfWork:Joi.array().items(Joi.string()).required(),
-//             partners:Joi.array().items(Joi.objectId()).required(),                         /////ezay objectID required
-//             eventOrganized:Joi.array().items(Joi.objectId()),
-//             formFeedBack:Joi.object(),
-//             pastProjects:Joi.array().items(Joi.objectId()),
-//             contactInfo:Joi.object().required()
-//         }
+// type: Joi.string().required().valid('partner','member','consultancy_agency'),
+// name: Joi.string().required(),
+// email: Joi.string().email().required(),
+// password: Joi.string().min(8).alphanum().required(),
+// basicBussinesInformation:Joi.object().required(),
+// boardMembers:Joi.array().items(Joi.objectId()),
+// fieldOfWork:Joi.array().items(Joi.string()).required(),
+// partners:Joi.array().items(Joi.objectId()),
+// eventOrganized:Joi.array().items(Joi.objectId()),
+// formFeedBack:Joi.object(),
+// pastProjects:Joi.array().items(Joi.objectId()),
+// contactInfo:Joi.object().required()
 
 
 //             type: Joi.string().required().valid('partner','member','consultancy_agency'),

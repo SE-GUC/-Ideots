@@ -10,7 +10,7 @@ router.get('/', async (req,res) => {
     try{
         const user = await User.find();
         if(user.length==0) res.status(404).send({error:"there is no user"});
-        res.json({Users : user});   
+        res.json({data : user});   
     }catch(error){
         res.json({error:error.message});
     }
@@ -21,7 +21,7 @@ router.get('/members/', async (req,res) => {
     try{
         const Member = await User.find({type:'member'});
         if(Member.length==0) res.status(404).send({error:"there is no Member"});
-        res.json({Members : Member});
+        res.json({data : Member});
     }catch(error){
         res.json({error:error.message});
     }
@@ -216,3 +216,10 @@ router.put('/:id', async (req, res) => {
 
 
 module.exports = router
+
+
+
+
+
+///CHANGES
+//ghayart el response kollo gwa data ella elli bykkon b id

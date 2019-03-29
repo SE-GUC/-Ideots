@@ -35,7 +35,7 @@ const functions = {
     getSpecifiedUser : async ()=> {
         //  axios.defaults.adapter = require('axios/lib/adapters/http')
           const users = await axios.get ('http://localhost:3000/api/users/')
-          const userId=users.data.Users[users.data.Users.length-1]._id
+          const userId=users.data.data[users.data.data.length-1]._id
           console.log(userId)
           const specifiedUser = await axios.get ('http://localhost:3000/api/users/'+userId)
           return specifiedUser
@@ -80,6 +80,7 @@ const functions = {
    //create agency feha required id
    //put mesh beyragga3 feha el updated 
    //delete mesh mwgoda 
+   //ghayar test el post w 5allih  y call get
    
 };
 module.exports = functions;
