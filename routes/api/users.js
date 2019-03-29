@@ -45,7 +45,7 @@ router.post('/', async (req, res) => {
     try{
         const email = req.body.email;
         const user = await User.findOne({email});
-        if(user) return res.status(400).json({error:"There are User with this emial"});
+        if(user) return res.status(400).json({error:"There are User with this email"});
         const salt =bcrypt.genSaltSync(10);
         const passAfterHashing =bcrypt.hashSync(req.body.password,salt);
         const type = req.body.type;
