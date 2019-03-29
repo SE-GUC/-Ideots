@@ -10,6 +10,9 @@ const Request = require("../../models/Request");
 // getting the requests
 router.get("/",async (req, res) =>{
        const requests = await Request.find()
+       if(requests.length===0)
+       res.json({msg : "empty"})
+       else
        res.json({ data: requests })
  });
 
@@ -83,5 +86,7 @@ router.delete("/:requestId", async (req, res) => {
     console.log(error)
   }
 });
+
+
 
 module.exports = router;
