@@ -20,3 +20,15 @@ test("creating a new  notification", async () => {
     expect(postRes.data.data).toHaveProperty('__v')
   
 });
+
+// test Get all notifications 
+test("Get all notifications", async() => {
+    const getRes = await axios.get("http://localhost:3000/api/notification")
+    expect(getRes.data.data[0].isRead).toEqual(false)
+    expect(getRes.data.data[0].content).toEqual("hello brother")
+    expect(getRes.data.data[0].recieverId).toEqual("54759eb3c090d83494e2d804")
+    expect(getRes.data.data[0].notifierId).toEqual("54759eb3c090d83494e2d803")
+    expect(getRes.data.data[0]).toHaveProperty('date')
+    expect(getRes.data.data[0]).toHaveProperty('__v')
+  
+});
