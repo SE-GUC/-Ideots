@@ -4,15 +4,13 @@
 
 const notifications_test = require('./routes/api/notification');
 const axios = require('axios');
+const functions = require("./function")
+
 
 test("creating a new  notification", async () => {
-    const bodyOfRequest = {
-        content: "hello brother",
-       recieverId: "54759eb3c090d83494e2d804",
-       notifierId: "54759eb3c090d83494e2d803"
-    }
+   
     expect.assertions(1)
-    const postRes = await axios.post("http://localhost:3000/api/notification",bodyOfRequest);
+    const postRes = await functions.postOneNotification()
     expect(postRes.data.data.isRead).toEqual(false)
     expect(postRes.data.data.content).toEqual("hello brother")
     expect(postRes.data.data.recieverId).toEqual("54759eb3c090d83494e2d804")
@@ -25,7 +23,7 @@ test("creating a new  notification", async () => {
 // test Get all notifications 
 test("Get all notifications", async() => {
     expect.assertions(1);
-    const getRes = await axios.get("http://localhost:3000/api/notification")
+    const getRes = await functions.getAllNotifications()
     expect(getRes.data.data[0].isRead).toEqual(false)
     expect(getRes.data.data[0].content).toEqual("hello brother")
     expect(getRes.data.data[0].recieverId).toEqual("54759eb3c090d83494e2d804")
@@ -38,7 +36,7 @@ test("Get all notifications", async() => {
 //test Getting a specific notification
 test("Get a specific notification", async() => {
    expect.assertions(1);
-    const getSRes = await axios.get("http://localhost:3000/api/notification/5c9c557e6e003d36b02dbe1c")
+    const getSRes = await functions.getSpecificNotification()
     expect(getSRes.data.notification.isRead).toEqual(false)
     expect(getSRes.data.notification.content).toEqual("hello brother")
     expect(getSRes.data.notification.recieverId).toEqual("54759eb3c090d83494e2d804")
@@ -50,10 +48,7 @@ test("Get a specific notification", async() => {
 //testing updating a notification
 test("Updating Notification", async() => {
    expect.assertions(1);
-    const bodyOfRequest = {
-        isRead:true
-    }
-    const putRes = await axios.put("http://localhost:3000/api/notification/5c9c557e6e003d36b02dbe1c",bodyOfRequest)
+    const putRes = await functions.updatingAnotification()
     expect(putRes.data.data.n).toEqual(1)
 });
 
@@ -61,7 +56,7 @@ test("Updating Notification", async() => {
 //tested Delete notification
 test("Deleting Notification",async() => {
     expect.assertions(1);
-    const delRes =  await axios.delete("http://localhost:3000/api/notification/5c9c557e6e003d36b02dbe1c")
+    const delRes =  await functions.deleteNotification()
     expect(delRes.data.msg).toEqual("Notification was deleted successfully")
 });
 
