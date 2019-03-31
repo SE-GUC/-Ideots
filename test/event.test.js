@@ -49,14 +49,15 @@ test ("searching for an event by type " , async() => {
     expect(len).toBeGreaterThanOrEqual(1);
 
 });
-// test ("searching for non existent event by type " , async () => { 
-//     const eve = await fn.getAnEventByType("Haribo")
-//     const msg = eve._errorDetails._status ; 
-//     expect(msg).toEqual("404")
+test ("searching for non existent event by type " , async () => { 
+    const eve = await fn.getAnEventByType("Haribo")
+    console.log(eve.status)
+    // const msg = eve._errorDetails._status ; 
+    expect(msg).toEqual("404")
 
     
 
-// })
+})
 
 test ("posting a new event " , async()=>{
     const params = {
@@ -97,7 +98,8 @@ test("editing an event " , async() => {
 
 test ("deleting an Event " , async()=> { 
     const allBefore = await fn.getAllEvents()
-    const deletedEvent = await fn.deleteAnEvent("5ca0c0ce7d258928d88cf7d7")
+    const id = allBefore.data.data.length-1
+    const deletedEvent = await fn.deleteAnEvent(allBefore.data.data[id]["_id"])
     const allAfter = await fn.getAllEvents()
     expect(allAfter.data.data.length).toBe(allBefore.data.data.length - 1 ) 
 
