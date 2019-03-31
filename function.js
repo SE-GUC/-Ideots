@@ -68,9 +68,12 @@ const functions = {
     const deleted =await axios.delete ('https://lirten-hub-ideots.herokuapp.com/api/users/'+userId)  //then delete it 
       return deleted
   
+   },
+   
+   searchEventByLocation : async (city,Street,Area)=>{
+     const events = await axios.get('http://localhost:3000/api/events/search/'+city+'/'+Street+'/'+Area+'')
+     return events
    }
-   
-   
    
    
    
