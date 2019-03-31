@@ -23,7 +23,21 @@ const functions = {
     },
     getRecommendedEvents: async(id)=>{
         theEvent = await axios.get(`http://localhost:3000/api/events/recommended/${id}"`)
+        return theEvent ;
+    },
+    postNewEvent:async(params)=>{
+        const newEvent = await axios.post('http://localhost:3000/api/events',params) 
+        return newEvent ; 
+    },
+    updatingAnEvent:async(id,params)=>{
+        const theEvent = await axios.put(`http://localhost:3000/api/events/${id}`,params) 
+        return theEvent ; 
+    } , 
+    deleteAnEvent :async (id ) =>{
+        const deletedEvent = await axios.delete(`http://localhost:3000/api/events/${id}`)
+        return deletedEvent ; 
     }
+    
 
 
 } ; 

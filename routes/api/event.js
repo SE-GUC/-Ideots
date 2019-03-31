@@ -42,7 +42,7 @@ router.get("/search/:city/:Area/:Street", async(req, res) => {
 router.get("/search/:type", async(req, res) => {
   const type = req.params.type
   const event =await Event.find({'type':type}); 
-  if(event.length===0) return res.status(404).send({error: 'The Event you are tryinig to edit does not exist'})
+  if(event.length===0) return res.status(404).send({error: 'The Event you are tryinig to search for  does not exist'})
   res.send({data : event})
 });
 //----------------------------------------------------\\
@@ -52,20 +52,21 @@ router.get("/search/:type", async(req, res) => {
 this method should be handled appropriatly
 
 */
-router.get("/recommended/:id", async(req, res) => {
-  const requestedId = req.params.id
+router.get("/recommended/:userID", async(req, res) => {
+  const requestedId = req.params.userID
 
 const user = await User.findOne({'_id':requestedId})
 let userInterrests=user.interests
-let userLocation=user.location
-let userCity=userLocation.city
-let userStreet =userLocation.Street
-let userArea = userLocation.Area
+// let userLocation=user.location
+if (!userInterrests.length === 0 )res.status(404).send({error: 'you do not have interests '})
+// let userCity=userLocation.city
+// let userStreet =userLocation.Street
+// let userArea = userLocation.Area
 
+//{'location.city':userCity , 'location.Street':userStreet ,'location.Area':userArea})
 
-
-const events = await Event.find( ({'type':{$in :userInterrests}},{'location.city':userCity , 'location.Street':userStreet ,'location.Area':userArea}))
-if(events.length==0) return res.status(404).send({error: 'No recommended Events currently try again later!!'})
+const events = await Event.find( ({'type':{$in :userInterrests}}))
+if(!events) return res.status(404).send({error: 'No recommended Events currently try again later!!'})
 
 res.json({ data: events });
 
@@ -75,15 +76,17 @@ res.json({ data: events });
 
 // });
 //----------------------------------------------------\\
+
+
 router.post("/", async (req, res) => {
   const schema = {
     location: Joi.object().keys(
-        {  // we want to test thiss 
+        {  
             city :Joi.string(),
             Street :Joi.string() , 
             Area :Joi.string() 
         }
-    ).required(), // remember it is a json 
+    ).required(), 
     description: Joi.string().min(30).required(),
     type: Joi.string().required(),
     registrationPrice: Joi.number().required(),
@@ -111,21 +114,15 @@ router.post("/", async (req, res) => {
 router.put("/:id",async (req, res) => {
   const requestedId = req.params.id;
 
-  // const event = await Event.findOne({'_id':requestedId})
-  // .populate('organizerId')
-  // .populate('eventRequestId').exec(function(err ,res){
-  //   if (err) return handleError(err);}) ; 
-
-  // if(!event) return res.status(404).send({error: 'The Event you are tryinig to edit does not exist'})
 
   const schema = {
     location: Joi.object().keys(
-        {  // we want to test thiss 
+        { 
             city :Joi.string(),
             Street :Joi.string() , 
             Area :Joi.string() , 
         }
-    ), // remember it is a json 
+    ), 
     description: Joi.string().min(30),
     type: Joi.string(),
     registrationPrice: Joi.number(),
@@ -138,7 +135,6 @@ router.put("/:id",async (req, res) => {
     eventRequestId: Joi.objectId(), 
     rate : Joi.number().min(0).max(5) 
   };
-
   const result = Joi.validate(req.body, schema);
 
   if (result.error)
