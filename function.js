@@ -2,7 +2,7 @@ const axios = require('axios');
 const functions={
      add : (x,y)=>x+y,
 
-     getAllTask : async()=>{
+     getAllTasks : async()=>{
         const taskList =await  axios.get("https://lirten-hub-ideots.herokuapp.com/api/tasks/")
         return taskList
      },
@@ -13,7 +13,8 @@ const functions={
         return task
      },
 
-     postOneTask : async()=>{
+     postOneTask : async(params)=>{
+      /*
       params = {
                 partnerID :"123456789123456789123456" ,
                 requiredSkills :["Self learning" , "self motivated"],
@@ -30,15 +31,17 @@ const functions={
                 ,ratePartnerConsultancy :2
                 ,assignedPerson :"123456789123456789123456"              
        }
- 
+       */
      let res = await axios.post('https://lirten-hub-ideots.herokuapp.com/api/tasks/', params);
      return res
      },
 
-     putOneTask : async(id)=>{
+     putOneTask : async(id,params)=>{
+      /*
       params = {
         done:true
        }
+       */
      let res = await axios.put('https://lirten-hub-ideots.herokuapp.com/api/tasks/'+id, params);
      return res
      },
@@ -50,13 +53,13 @@ const functions={
    },
    
    deleteAllTasks : async() => {
-      let tasks = await functions.getAllTask()
+      let tasks = await functions.getAllTasks()
       
       let length = tasks.data.data ?tasks.data.data.length:0
       while(length>0)
       {  const lastId = tasks.data.data[tasks.data.data.length-1]["_id"]
          const response = await functions.deleteOneTask(lastId)
-         tasks = await functions.getAllTask()
+         tasks = await functions.getAllTasks()
          length = tasks.data.data ?tasks.data.data.length:0
          console.log(length)
       }
