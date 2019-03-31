@@ -22,15 +22,15 @@ const EventRequestSchema = new Schema ({
         type : Number , 
         required : true 
     },
-    speakers : [String],
-    topics : [String],
-    dateTime: Date,
+    speakers : {type: [String]},
+    topics :  {type: [String]},
+    dateTime: {type: Date},
     organizerId : {
         type : Schema.Types.ObjectId ,
       //  ref :user  ,
         required : true 
     } ,
-    acceptenceState : Number   // -1 rejected , 0 pending , 1 accepted
+    acceptenceState :{type: Number}   // -1 rejected , 0 pending , 1 accepted
 
 
 })
