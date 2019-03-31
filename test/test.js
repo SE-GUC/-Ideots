@@ -23,3 +23,16 @@ test('Randomly creating a new application',async () => {
     config.date=application.data.data.date;
     config.acceptance=application.data.data.acceptance;
   });
+
+  test('Fetching the data of that random application', async () => {
+    //expect.assertions(1);
+    const response =  await funcs.getApplication(config.id);
+     // check if the json response has data not error
+     expect(Object.keys(response.data)).toContain('data');
+     expect(Object.keys(response.data)).not.toContain('error');
+
+    expect(response.data.data.applicantId).toEqual(config.applicantId)
+    expect(response.data.data.taskId).toEqual(config.taskId)
+    expect(new Date(response.data.data.date)).toEqual(new Date(config.date))
+    expect(response.data.data.acceptance).toEqual(config.acceptance)
+  });

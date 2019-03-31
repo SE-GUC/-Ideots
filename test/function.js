@@ -11,6 +11,10 @@ const functions = {
         getAllApplication: async () => {
             const application = await axios.get('http://localhost:3000/api/application/');
             return application;
-        }
+        },
+        getApplication: async (id) => {
+            const application = await axios.get('http://localhost:3000/api/application/'+id);
+            return application;
+    }
 }; 
 module.exports = functions;
