@@ -1,2 +1,2 @@
 # -Ideots
-https://glacial-peak-12178.herokuapp.com/
+https://lirten-hub-ideots.herokuapp.com/
