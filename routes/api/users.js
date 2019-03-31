@@ -199,7 +199,7 @@ router.put('/:id', async (req, res) => {
                 if(rate)await user.updateOne({_id:id},{$set:{rate:rate}});
                 if(description)await user.updateOne({_id:id},{$set:{description:description}});
                 if(specialization)await user.updateOne({_id:id},{$set:{specialization:specialization}});
-                if(website)await user.updateOne({_id:id},{$set:{website:website}});
+                if(website)await user.updateOne({_id:id},{$set:{'website':website}});
                 if(fax)await user.updateOne({_id:id},{$set:{fax:fax}});
                 if(address)await user.updateOne({_id:id},{$set:{address:address}});
                 if(reports)await user.updateOne({_id:id},{$set:{reports:reports}});
@@ -215,6 +215,23 @@ router.put('/:id', async (req, res) => {
 });
 
 
+router.delete('/:id', async (req, res) => {
+     const requestedId = req.params.id;
+     const user =await User.findOne({'_id':requestedId});
+     console.log(user)
+        if(!user) return res.status(404).send({error:"there is no User with this Id"});
+        const deletedUser = await User.findByIdAndRemove(requestedId)
+       res.json({data:deletedUser})
+       
+
+        });
+   
+
+       
+
+
+
+
 module.exports = router
 
 
@@ -223,3 +240,4 @@ module.exports = router
 
 ///CHANGES
 //ghayart el response kollo gwa data ella elli bykkon b id
+//zawedt crud delete

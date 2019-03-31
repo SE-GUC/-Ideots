@@ -10,7 +10,9 @@
   "keywords": [
     "server"
   ],
-  "jest": { "testEnvironment": "node" },
+  "jest": {
+    "testEnvironment": "node"
+  },
   "author": "!ideots",
   "license": "MIT",
   "dependencies": {

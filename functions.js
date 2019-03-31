@@ -36,7 +36,7 @@ const functions = {
         //  axios.defaults.adapter = require('axios/lib/adapters/http')
           const users = await axios.get ('http://localhost:3000/api/users/')
           const userId=users.data.data[users.data.data.length-1]._id
-          console.log(userId)
+        //  console.log(userId)
           const specifiedUser = await axios.get ('http://localhost:3000/api/users/'+userId)
           return specifiedUser
       },
@@ -48,12 +48,27 @@ const functions = {
           return members
       },
 
-    //Update a user 
-
+    //Update a user      (Not tested yet)
+    updateSpecificUser : async (body)=> {
+      //  axios.defaults.adapter = require('axios/lib/adapters/http')
+        const users = await axios.get ('http://localhost:3000/api/users/')
+        const userId=users.data.data[users.data.data.length-1]._id
+        console.log(userId)
+        const specifiedUser = await axios.put ('http://localhost:3000/api/users/'+userId,body)
+        return specifiedUser
+      },
     
-
     //Delete a user
-   
+    deleteSpecificUser :async()=>{
+    
+      const users = await axios.get ('http://localhost:3000/api/users/')
+  
+    const userId=users.data.data[users.data.data.length-1]._id //get the id of the last user
+    
+    const deleted =await axios.delete ('http://localhost:3000/api/users/'+userId)  //then delete it 
+      return deleted
+  
+   }
    
    
    
@@ -76,11 +91,8 @@ const functions = {
    
    
    //el mashakel
-   //create partner feha required id
-   //create agency feha required id
-   //put mesh beyragga3 feha el updated 
-   //delete mesh mwgoda 
-   //ghayar test el post w 5allih  y call get
+   //update all cases?? 
+   
    
 };
 module.exports = functions;
