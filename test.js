@@ -43,8 +43,8 @@ test("getting one Task by ID",async()=>{
     const getAll = await functions.getAllTasks();
     const TaskID = getAll.data.data[getAll.data.data.length-1]["_id"];
     const getOne = await functions.getOneTask(TaskID);
-    // expect(getOne.data.data["_id"]).toBe(TaskID)
-    expect(getOne.data.task["_id"]).toBe(TaskID)
+    expect(getOne.data.data["_id"]).toBe(TaskID)
+    // expect(getOne.data.task["_id"]).toBe(TaskID)
 });
 
 test("putting one Task",async()=>{
@@ -58,8 +58,8 @@ test("putting one Task",async()=>{
     }
     const put = await functions.putOneTask(get.data.data[id]["_id"],params);
     const getOne = await functions.getOneTask(get.data.data[id]["_id"]);
-    // expect(getOne.data.data["done"]).toBe(true)
-    expect(getOne.data.task["done"]).toBe(true)
+    expect(getOne.data.data["done"]).toBe(true)
+    // expect(getOne.data.task["done"]).toBe(true)
 });
 
 
