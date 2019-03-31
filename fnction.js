@@ -5,7 +5,7 @@ const functions ={
     
 
     getAllReviews:async()=>{
-        const reviewList=await axios.get("http://localhost:3000/api/reviews")
+        const reviewList=await axios.get("https://lirten-hub-ideots.herokuapp.com/api/reviews")
         return reviewList
 
     },
@@ -20,16 +20,16 @@ const functions ={
             
          }
    
-       let res = await axios.post('http://localhost:3000/api/reviews/', params);
+       let res = await axios.post('https://lirten-hub-ideots.herokuapp.com/api/reviews/', params);
        return res
        },
 
        deleteOnereview : async(id)=>{
-        const review =await  axios.delete('http://localhost:3000/api/reviews/'+id)
+        const review =await  axios.delete('https://lirten-hub-ideots.herokuapp.com/api/reviews/'+id)
         return review
      },
      getOneReview : async(id)=>{
-        const review =await  axios.get('http://localhost:3000/api/reviews/'+id)
+        const review =await  axios.get('https://lirten-hub-ideots.herokuapp.com/api/reviews/'+id)
         return review
      },
      
@@ -39,7 +39,7 @@ const functions ={
             comment:"EDITED cashcash BABY"
          }
       
-         let res = await axios.put('http://localhost:3000/api/reviews/'+id, params);
+         let res = await axios.put('https://lirten-hub-ideots.herokuapp.com/api/reviews/'+id, params);
          return res
          },
 }
