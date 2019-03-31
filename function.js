@@ -1,6 +1,5 @@
 const axios = require('axios');
 const functions={
-     add : (x,y)=>x+y,
 
      getAllTasks : async()=>{
         const taskList =await  axios.get("https://lirten-hub-ideots.herokuapp.com/api/tasks/")
