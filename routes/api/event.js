@@ -25,7 +25,7 @@ router.get("/:id", async(req, res) => {
   console.log(requestedId)
   const event =await Event.findOne({'_id':requestedId})
   console.log(event)
-  if(!event) res.status(404).send({error: 'The Event you are tryinig to show does not exist '})
+  if(!event)return  res.status(404).send({error: 'The Event you are tryinig to show does not exist '})
   res.send({data : event})
 });
 //-----------------------------------------------\\
@@ -60,7 +60,7 @@ router.get("/recommended/:userID", async(req, res) => {
 const user = await User.findOne({'_id':requestedId})
 let userInterrests=user.interests
 // let userLocation=user.location
-if (!userInterrests.length === 0 )res.status(404).send({error: 'you do not have interests '})
+if (!userInterrests.length === 0 )return res.status(404).send({error: 'you do not have interests '})
 // let userCity=userLocation.city
 // let userStreet =userLocation.Street
 // let userArea = userLocation.Area

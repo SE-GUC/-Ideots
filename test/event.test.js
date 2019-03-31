@@ -15,14 +15,14 @@ test("Searching for an Event by ID ", async () => {
 });
 
 //gimme an err 
-// test("Searching for a non existent Event by ID ", async  () => {
+test("Searching for a non existent Event by ID ", async  () => {
   
-//   const eve = await  fn.getAnEventByID("5c9534d9245cba7ddab501dD")
-//   console.log(eve)
+  const eve = await  fn.getAnEventByID("5c9534d9245cba7ddab501dD")
+  console.log(eve)
 
-//    expect(Object.keys(eve.data.data)).toContainEqual({error: 'The Event you are tryinig to show does not exist '})
+   expect(Object.keys(eve.data.data)).toContainEqual({error: 'The Event you are tryinig to show does not exist '})
 
-// });
+});
 
 test("Getting an Event By Location Of City , Area and Street ", async () => {
   const theEvents = await fn.getAnEventUsingLocation(
