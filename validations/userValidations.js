@@ -50,9 +50,9 @@ module.exports = {
             email: Joi.string().email().required(),
             password: Joi.string().min(8).alphanum().required(),
             basicBussinesInformation:Joi.object().required(),
-            boardMembers:Joi.array().items(Joi.objectId()).required(),
+            boardMembers:Joi.array().items(Joi.objectId()),
             fieldOfWork:Joi.array().items(Joi.string()).required(),
-            partners:Joi.array().items(Joi.objectId()).required(),
+            partners:Joi.array().items(Joi.objectId()),
             eventOrganized:Joi.array().items(Joi.objectId()),
             formFeedBack:Joi.object(),
             pastProjects:Joi.array().items(Joi.objectId()),
@@ -120,3 +120,10 @@ module.exports = {
         return Joi.validate(request, updateSchema)
     },
 }
+
+
+
+
+//////CHANGES
+//create Partner kan 3ndo partners array of object IDs required 
+//w board members bardo
