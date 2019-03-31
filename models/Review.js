@@ -4,7 +4,8 @@ const Schema = mongoose.Schema
 
 // Creating the schema
 const ReviewSchema = new Schema({
-    reviewer:{
+    reviewer:
+    {
         type: Schema.Types.ObjectId,
         required:true
     },
