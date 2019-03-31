@@ -9,27 +9,27 @@ const axios =  require('axios')
 
 const functions = {
     getRequests : async()=>{
-        const response =await  axios.get("http://localhost:3000/api/requests/")
+        const response =await  axios.get("https://lirten-hub-ideots.herokuapp.com/")
         return response
     },
     getRequestById : async(id)=>{
       
-        const response =await  axios.get("http://localhost:3000/api/requests/"+id)
+        const response =await  axios.get("https://lirten-hub-ideots.herokuapp.com/"+id)
         return response
        
      },
      postRequest : async(body)=>{
        
-        const response =await  axios.post("http://localhost:3000/api/requests/",body)
+        const response =await  axios.post("https://lirten-hub-ideots.herokuapp.com/",body)
         return response
      },
      deleteRequest : async(id)=>{
-        const response =await  axios.delete("http://localhost:3000/api/requests/"+id)
+        const response =await  axios.delete("https://lirten-hub-ideots.herokuapp.com/"+id)
         return response
      },
      updateReuest : async(id,body)=>{
         
-         const response = await axios.put("http://localhost:3000/api/requests/"+id,body)
+         const response = await axios.put("https://lirten-hub-ideots.herokuapp.com/"+id,body)
          return response
      },
      deleteAll : async() => {
