@@ -4,7 +4,6 @@ const router = express.Router();
 
 const User =require('../../models/User');
 const validator =require('../../validations/userValidations');
-
 // Get all users
 router.get('/', async (req,res) => {
     try{
@@ -213,6 +212,10 @@ router.put('/:id', async (req, res) => {
             res.json({error: error.message});
        } 
 });
+
+
+
+
 
 
 module.exports = router

@@ -6,21 +6,16 @@ const Admin =require('../../models/Admin');
 const validator =require('../../validations/adminValidations');
 
 // Get all admins
-router.get('/', async (req,res) => {
-    try{
-        const admins = await Admin.find();
-        if(admins.length==0) res.status(404).send({error:'Admin was not found'});
-        res.json({admins : admins});
-    }catch(error) {
-        res.json({error:error.message});
-    } 
-})
+router.get("/",async (req, res) =>{
+    const admins = await Admin.find()
+    res.json({ data: admins })
+});
 
 // Get a certain admin
 router.get('/:id', async (req, res) => {
     try{
         const adminId = req.params.id;
-        const admin =await Admin.findOne({_id:adminId});
+        const admin =await Admin.findOne({"_id":adminId});
         if(!admin) res.status(404).send({error:'Admin was not found'});
         res.json(admin);
     }catch(error) {
@@ -76,8 +71,8 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
     try{
         const id = req.params.id;
-        const deletedAdmin = await Admin.deleteOne({_id:id});
-        if(deletedAdmin.deletedCount == 0) res.status(404).send({error:'Admin was not found'});
+        const deletedAdmin = await Admin.deleteOne({"_id":id});
+        if(!deletedAdmin) res.status(404).send({error:'Admin was not found'});
         res.json({msg:'Admin was deleted successfully', data: deletedAdmin});
     }catch(error) {
         res.json({error:error.message});
