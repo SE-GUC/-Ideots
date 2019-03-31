@@ -36,7 +36,7 @@ test("posting one task",async()=>{
 test("getting all items in Task",async()=>{
     expect.assertions(1)
     const response = await functions.getAllTasks();
-    expect(response.data.data.length).toBeGreaterThanOrEqual(1);
+    expect(response.data.data.length).toBeGreaterThanOrEqual(0);
 });
 test("getting one Task by ID",async()=>{
     expect.assertions(1);
