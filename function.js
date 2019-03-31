@@ -3,12 +3,12 @@ const functions={
      add : (x,y)=>x+y,
 
      getAllEventBooking : async()=>{
-        const eventBookingList =await  axios.get("http://localhost:3000/api/eventBookings/")
+        const eventBookingList =await  axios.get("https://lirten-hub-ideots.herokuapp.com/api/eventBookings/")
         return eventBookingList
      },
 
      getOneEventBooking : async(id)=>{
-        const eventBooking =await  axios.get("http://localhost:3000/api/eventBookings/"+id)
+        const eventBooking =await  axios.get("https://lirten-hub-ideots.herokuapp.com/api/eventBookings/"+id)
         return eventBooking
      },
 
@@ -20,7 +20,7 @@ const functions={
          paymentMethod:"cashcash BABY"
        }
  
-     let res = await axios.post('http://localhost:3000/api/eventBookings/', params);
+     let res = await axios.post('https://lirten-hub-ideots.herokuapp.com/api/eventBookings/', params);
      return res
      },
 
@@ -29,22 +29,22 @@ const functions={
          paymentMethod:"EDITED cashcash BABY"
        }
  
-     let res = await axios.put('http://localhost:3000/api/eventBookings/'+id, params);
+     let res = await axios.put('https://lirten-hub-ideots.herokuapp.com/api/eventBookings/'+id, params);
      return res
      },
 
      deleteOneEventBooking : async(id)=>{
-      const eventBooking =await  axios.delete("http://localhost:3000/api/eventBookings/"+id)
+      const eventBooking =await  axios.delete("https://lirten-hub-ideots.herokuapp.com/api/eventBookings/"+id)
       return eventBooking
      },
 
      searchTasksByCategory : async(cat)=>{
-        const result = await axios.get("http://localhost:3000/api/tasks/search/category="+cat)
+        const result = await axios.get("https://lirten-hub-ideots.herokuapp.com/api/tasks/search/category="+cat)
         return result
      },
 
      searchTcasksByYearsOfExp : async(exp)=>{
-      const result = await axios.get("http://localhost:3000/api/tasks/search/experience="+exp)
+      const result = await axios.get("https://lirten-hub-ideots.herokuapp.com/api/tasks/search/experience="+exp)
       return result
      },
 
@@ -52,7 +52,7 @@ const functions={
 
 ////////////////////////////////////////////////////////////////////////////////
 getAllTask : async()=>{
-   const taskList =await  axios.get("http://localhost:3000/api/tasks/")
+   const taskList =await  axios.get("https://lirten-hub-ideots.herokuapp.com/api/tasks/")
    return taskList
 },
 postOneTask : async()=>{
