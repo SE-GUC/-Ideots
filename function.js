@@ -3,12 +3,12 @@ const functions={
      add : (x,y)=>x+y,
 
      getAllTask : async()=>{
-        const taskList =await  axios.get("https://glacial-peak-12178.herokuapp.com/api/tasks/")
+        const taskList =await  axios.get("https://lirten-hub-ideots.herokuapp.com/api/tasks/")
         return taskList
      },
 
      getOneTask : async(id)=>{
-        const task =await  axios.get("https://glacial-peak-12178.herokuapp.com/api/tasks/"+id)
+        const task =await  axios.get("https://lirten-hub-ideots.herokuapp.com/api/tasks/"+id)
         // console.log('functions get one ',task.data)
         return task
      },
@@ -31,7 +31,7 @@ const functions={
                 ,assignedPerson :"123456789123456789123456"              
        }
  
-     let res = await axios.post('https://glacial-peak-12178.herokuapp.com/api/tasks/', params);
+     let res = await axios.post('https://lirten-hub-ideots.herokuapp.com/api/tasks/', params);
      return res
      },
 
@@ -39,12 +39,12 @@ const functions={
       params = {
         done:true
        }
-     let res = await axios.put('https://glacial-peak-12178.herokuapp.com/api/tasks/'+id, params);
+     let res = await axios.put('https://lirten-hub-ideots.herokuapp.com/api/tasks/'+id, params);
      return res
      },
 
      deleteOneTask : async(id)=>{
-      const task =await  axios.delete("https://glacial-peak-12178.herokuapp.com/api/tasks/"+id)
+      const task =await  axios.delete("https://lirten-hub-ideots.herokuapp.com/api/tasks/"+id)
       // console.log("fn delete ",task)
       return task
    },
