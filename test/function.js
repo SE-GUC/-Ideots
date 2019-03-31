@@ -23,6 +23,10 @@ const functions = {
             }
             const application = await axios.put('http://localhost:3000/api/application/'+id,config);
             return application;
-    }
+        },
+        deleteApplication: async (id) => {
+            const application = await axios.delete('http://localhost:3000/api/application/'+id);
+            return application;
+        }
 }; 
 module.exports = functions;

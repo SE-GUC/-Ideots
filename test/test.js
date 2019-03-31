@@ -56,3 +56,11 @@ test('Randomly creating a new application',async () => {
     config.date=application.data.data.date;
     config.acceptance=application.data.data.acceptance;
   });
+
+  test(`Deleting that random application`, async () => {
+    //expect.assertions(1);
+    const lengthBefor =await funcs.getAllApplication();
+    const response =  await funcs.deleteApplication(config.id);
+    const lengthAfter =await funcs.getAllApplication();
+    expect((lengthBefor.data.data.length)-(lengthAfter.data.data.length)).toBe(1);
+  });
