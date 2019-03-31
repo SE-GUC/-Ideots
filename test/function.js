@@ -5,15 +5,15 @@ const functions = {
                         applicantId: "5c9fe28433caec2078bfa349",
                         taskId:"5c9556fc528e180fd91a0b1b"
                 }
-                const app=await axios.post('http://localhost:3000/api/application',config);
+                const app=await axios.post('https://lirten-hub-ideots.herokuapp.com/api/application',config);
                 return app;
         },
         getAllApplication: async () => {
-            const application = await axios.get('http://localhost:3000/api/application/');
+            const application = await axios.get('https://lirten-hub-ideots.herokuapp.com/api/application/');
             return application;
         },
         getApplication: async (id) => {
-            const application = await axios.get('http://localhost:3000/api/application/'+id);
+            const application = await axios.get('https://lirten-hub-ideots.herokuapp.com/api/application/'+id);
             return application;
         },
         updateApplication: async (id) => {
@@ -21,11 +21,11 @@ const functions = {
                     date:"2017-04-30T23:34:28.802Z",
                     acceptance:1
             }
-            const application = await axios.put('http://localhost:3000/api/application/'+id,config);
+            const application = await axios.put('https://lirten-hub-ideots.herokuapp.com/api/application/'+id,config);
             return application;
         },
         deleteApplication: async (id) => {
-            const application = await axios.delete('http://localhost:3000/api/application/'+id);
+            const application = await axios.delete('https://lirten-hub-ideots.herokuapp.com/api/application/'+id);
             return application;
         }
 }; 
