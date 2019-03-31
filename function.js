@@ -9,27 +9,27 @@ const axios =  require('axios')
 
 const functions = {
     getRequests : async()=>{
-        const response =await  axios.get("https://lirten-hub-ideots.herokuapp.com/")
+        const response =await  axios.get("http://localhost:3000/api/requests/")
         return response
     },
     getRequestById : async(id)=>{
       
-        const response =await  axios.get("https://lirten-hub-ideots.herokuapp.com/"+id)
+        const response =await  axios.get("http://localhost:3000/api/requests/"+id)
         return response
        
      },
      postRequest : async(body)=>{
        
-        const response =await  axios.post("https://lirten-hub-ideots.herokuapp.com/",body)
+        const response =await  axios.post("http://localhost:3000/api/requests/",body)
         return response
      },
      deleteRequest : async(id)=>{
-        const response =await  axios.delete("https://lirten-hub-ideots.herokuapp.com/"+id)
+        const response =await  axios.delete("http://localhost:3000/api/requests/"+id)
         return response
      },
      updateReuest : async(id,body)=>{
         
-         const response = await axios.put("https://lirten-hub-ideots.herokuapp.com/"+id,body)
+         const response = await axios.put("http://localhost:3000/api/requests/"+id,body)
          return response
      },
      deleteAll : async() => {
@@ -43,7 +43,7 @@ const functions = {
           length = requests.data.data ?requests.data.data.length:0
         }
           return 0
-     },
+     }
 
      
 }
