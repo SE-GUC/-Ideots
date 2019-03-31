@@ -21,7 +21,7 @@ router.get("/", async (req, res) => {
 // Get a certain event request
 router.get("/:id", async (req, res) => {
   const requestedId = req.params.id;
-  const request = await eventRequest.find({'_id':requestedId})
+  const request = await EventRequest.find({"_id":requestedId})
   // .populate('organizerId').exec(function(err,res){
   //   if (err) return handleError(err)
   // });
@@ -34,13 +34,7 @@ router.post("/", async (req, res) => {
   
 
   const schema = {
-    location: Joi.object().keys(
-        {  // we want to test thiss 
-            city :Joi.string(),
-            Street :Joi.string() , 
-            Area :Joi.string()  
-        }
-    ).required(),
+    location: Joi.object().required(),
     description: Joi.string().min(30).required(),
     type: Joi.string().required(),
     registrationPrice: Joi.number().required(),
@@ -48,7 +42,8 @@ router.post("/", async (req, res) => {
     speakers: Joi.array().items(Joi.string()).required(),
     topics:Joi.array().items(Joi.string()).required(),
     dateTime: Joi.date().required(),
-    organizerId: Joi.objectId().required()
+    organizerId: Joi.objectId().required(),
+    acceptenceState: Joi.number()
   };
 
   const result = Joi.validate(req.body, schema);

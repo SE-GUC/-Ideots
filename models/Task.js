@@ -42,7 +42,8 @@ const TaskSchema = new Schema(
            // required: true
         }*/
 
-        finalProduct: {
+        finalProduct:
+        {
             type: mongoose.SchemaTypes.Url
         }
        

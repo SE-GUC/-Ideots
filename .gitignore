@@ -1,4 +1,6 @@
 node_modules/*
 package-lock.json
 notes.txt
-config/keys_dev.js
+README.md
+
+
