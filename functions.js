@@ -6,14 +6,14 @@ const functions = {
     //Get all users
     getAllUsers : async ()=> {
       //  axios.defaults.adapter = require('axios/lib/adapters/http')
-        const users = await axios.get ('http://localhost:3000/api/users/')
+        const users = await axios.get ('https://lirten-hub-ideots.herokuapp.com/api/users/')
         return users
     },
 
     //Create a new member user 
     createMemberUser : async (body)=>{
       //axios.defaults.adapter = require('axios/lib/adapters/http')
-      const response=  await axios.post ('http://localhost:3000/api/users/',body)
+      const response=  await axios.post ('https://lirten-hub-ideots.herokuapp.com/api/users/',body)
       return response
      },
 
@@ -51,21 +51,21 @@ const functions = {
     //Update a user      (Not tested yet)
     updateSpecificUser : async (body)=> {
       //  axios.defaults.adapter = require('axios/lib/adapters/http')
-        const users = await axios.get ('http://localhost:3000/api/users/')
+        const users = await axios.get ('https://lirten-hub-ideots.herokuapp.com/api/users/')
         const userId=users.data.data[users.data.data.length-1]._id
         console.log(userId)
-        const specifiedUser = await axios.put ('http://localhost:3000/api/users/'+userId,body)
+        const specifiedUser = await axios.put ('https://lirten-hub-ideots.herokuapp.com/api/users/'+userId,body)
         return specifiedUser
       },
     
     //Delete a user
     deleteSpecificUser :async()=>{
     
-      const users = await axios.get ('http://localhost:3000/api/users/')
+      const users = await axios.get ('https://lirten-hub-ideots.herokuapp.com/api/users/')
   
     const userId=users.data.data[users.data.data.length-1]._id //get the id of the last user
     
-    const deleted =await axios.delete ('http://localhost:3000/api/users/'+userId)  //then delete it 
+    const deleted =await axios.delete ('https://lirten-hub-ideots.herokuapp.com/api/users/'+userId)  //then delete it 
       return deleted
   
    }
