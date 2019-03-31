@@ -374,9 +374,9 @@ test("deleting one eventRequest",async()=>{
 
 test("Searching tasks by payment",async()=>{
   // expect.assertions(1)
-  functions.postOneTask()
+  functions.postSpecificTask()
  
-  const getAll = await functions.getAllTask()
+  const getAll = await functions.getAllTasks()
   const index = Math.floor(Math.random()*getAll.data.data.length)
   const money = getAll.data.data[index]["payment"]
   const resultSet = await functions.searchTcasksByPayment(money)
@@ -681,8 +681,8 @@ test("deleting one eventBooking",async()=>{
 
 test("Searching tasks by category",async()=>{
   expect.assertions(1)
-  functions.postOneTask()
-  const getAll = await functions.getAllTask()
+  functions.postSpecificTask()
+  const getAll = await functions.getAllTasks()
   const index = Math.floor(Math.random()*getAll.data.data.length)
   const cat = getAll.data.data[index]["category"]
   const resultSet = await functions.searchTasksByCategory(cat)
@@ -695,8 +695,8 @@ test("Searching tasks by category",async()=>{
 
 test("Searching tasks by experience",async()=>{
   expect.assertions(1)
-  functions.postOneTask()
-  const getAll = await functions.getAllTask()
+  functions.postSpecificTask()
+  const getAll = await functions.getAllTasks()
   const index = Math.floor(Math.random()*getAll.data.data.length)
   const exp = getAll.data.data[index]["yearsOfExperience"]
   const resultSet = await functions.searchTcasksByYearsOfExp(exp)
