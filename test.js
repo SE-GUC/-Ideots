@@ -1,4 +1,4 @@
-  const functions = require('./fn')
+  const functions = require('./function')
   
   test("posting one eventBooking",async()=>{
       expect.assertions(1);
@@ -28,16 +28,44 @@ test("putting one eventBooking",async()=>{
     const id = get.data.data.length-1
     const put = await functions.putOneEventBooking(get.data.data[id]["_id"]);
     const getOne = await functions.getOneEventBooking(get.data.data[id]["_id"]);
-    console.log(getOne.data)
     expect(getOne.data["paymentMethod"]).toBe("EDITED cashcash BABY")
 });
+
 
 test("deleting one eventBooking",async()=>{
     expect.assertions(1)
     const getBefore = await functions.getAllEventBooking();
     const id = getBefore.data.data.length-1
-    console.log(id)
     const deleted = await functions.deleteOneEventBooking(getBefore.data.data[id]["_id"]);
     const getAfter = await functions.getAllEventBooking();
     expect(getAfter.data.data.length).toBe(getBefore.data.data.length-1)
 });
+
+test("Searching tasks by category",async()=>{
+    expect.assertions(1)
+    functions.postOneTask()
+    const getAll = await functions.getAllTask()
+    const index = Math.floor(Math.random()*getAll.data.data.length)
+    const cat = getAll.data.data[index]["category"]
+    const resultSet = await functions.searchTasksByCategory(cat)
+    let match = true;
+    for(let i=0;i<resultSet.data.data.length;i++){
+        if(!resultSet.data.data[i]["category"]==(cat)) match=false
+    }
+    expect(match).toBeTruthy();
+});
+
+test("Searching tasks by experience",async()=>{
+    expect.assertions(1)
+    functions.postOneTask()
+    const getAll = await functions.getAllTask()
+    const index = Math.floor(Math.random()*getAll.data.data.length)
+    const exp = getAll.data.data[index]["yearsOfExperience"]
+    const resultSet = await functions.searchTcasksByYearsOfExp(exp)
+    let match = true;
+    for(let i=0;i<resultSet.data.data.length;i++){
+        if(!resultSet.data.data[i]["yearsOfExperience"]==(exp)) match=false
+    }
+    expect(match).toBeTruthy();
+});
+
