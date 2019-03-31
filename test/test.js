@@ -9,7 +9,6 @@ const config ={
 }
 
 test('Randomly creating a new application',async () => {
-    //expect.assertions(2);
     const response =  await funcs.postApplication();
     // check if the json response has data not error
     expect(Object.keys(response.data)).toContain('data');
@@ -25,7 +24,6 @@ test('Randomly creating a new application',async () => {
   });
 
   test('Fetching the data of that random application', async () => {
-    //expect.assertions(1);
     const response =  await funcs.getApplication(config.id);
      // check if the json response has data not error
      expect(Object.keys(response.data)).toContain('data');
@@ -38,10 +36,7 @@ test('Randomly creating a new application',async () => {
   });
 
   test('Updating the data of that random application', async () => {
-    //expect.assertions(1);
-    console.log(config.id)
     const response =  await funcs.updateApplication(config.id);
-    console.log(response.data)
     // check if the json response has data not error
     expect(Object.keys(response.data)).toContain('data');
     expect(Object.keys(response.data)).not.toContain('error');
@@ -58,9 +53,8 @@ test('Randomly creating a new application',async () => {
   });
 
   test(`Deleting that random application`, async () => {
-    //expect.assertions(1);
     const lengthBefor =await funcs.getAllApplication();
-    const response =  await funcs.deleteApplication(config.id);
+    await funcs.deleteApplication(config.id);
     const lengthAfter =await funcs.getAllApplication();
     expect((lengthBefor.data.data.length)-(lengthAfter.data.data.length)).toBe(1);
   });
