@@ -5,7 +5,7 @@
   "main":        "index.js",
   "scripts": {
 
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "node index.js"
 
   },
@@ -14,6 +14,8 @@
   ],
   "author":     "!ideots",
   "license":    "MIT",
+  "jest": { "testEnvironment": "node" },
+  
   "dependencies": {
 
     
