@@ -22,8 +22,10 @@ router.get("/", async(req, res) => {
 // Get a certain event
 router.get("/:id", async(req, res) => {
   const requestedId = req.params.id
-  const event =await Event.find({'_id':requestedId})
-  if(!event) return  res.status(404).send({error: 'The Event you are tryinig to show does not exist '})
+  console.log(requestedId)
+  const event =await Event.findOne({'_id':requestedId})
+  console.log(event)
+  if(!event) res.status(404).send({error: 'The Event you are tryinig to show does not exist '})
   res.send({data : event})
 });
 //-----------------------------------------------\\
