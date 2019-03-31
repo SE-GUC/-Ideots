@@ -9,47 +9,40 @@ const functions = require("./function")
 
 test("creating a new  notification", async () => {
    
+    //jest.setTimeout(3000)
     expect.assertions(1)
+    const getbefore = await functions.getAllNotifications()
     const postRes = await functions.postOneNotification()
-    expect(postRes.data.data.isRead).toEqual(false)
-    expect(postRes.data.data.content).toEqual("hello brother")
-    expect(postRes.data.data.recieverId).toEqual("54759eb3c090d83494e2d804")
-    expect(postRes.data.data.notifierId).toEqual("54759eb3c090d83494e2d803")
-    expect(postRes.data.data).toHaveProperty('date')
-    expect(postRes.data.data).toHaveProperty('__v')
+    const getall = await functions.getAllNotifications()
+    expect(getall.data.data.length).toBe(getbefore.data.data.length+1);
+    
   
 });
 
 // test Get all notifications 
 test("Get all notifications", async() => {
+    //jest.setTimeout(3000)
     expect.assertions(1);
     const getRes = await functions.getAllNotifications()
-    expect(getRes.data.data[0].isRead).toEqual(false)
-    expect(getRes.data.data[0].content).toEqual("hello brother")
-    expect(getRes.data.data[0].recieverId).toEqual("54759eb3c090d83494e2d804")
-    expect(getRes.data.data[0].notifierId).toEqual("54759eb3c090d83494e2d803")
-    expect(getRes.data.data[0]).toHaveProperty('date')
-    expect(getRes.data.data[0]).toHaveProperty('__v')
-  
+    expect(getRes.data.data.length).toBeGreaterThanOrEqual(1)
 });
 
 //test Getting a specific notification
 test("Get a specific notification", async() => {
-   expect.assertions(1);
-    const getSRes = await functions.getSpecificNotification()
-    expect(getSRes.data.notification.isRead).toEqual(false)
-    expect(getSRes.data.notification.content).toEqual("hello brother")
-    expect(getSRes.data.notification.recieverId).toEqual("54759eb3c090d83494e2d804")
-    expect(getSRes.data.notification.notifierId).toEqual("54759eb3c090d83494e2d803")
-    expect(getSRes.data.notification).toHaveProperty('date')
-    expect(getSRes.data.notification).toHaveProperty('__v')
+   
+    expect.assertions(1);
+    const getall = await functions.getAllNotifications()
+    const getOne = await functions.getSpecificNotification()
+    const id = getall.data.data[0]._id
+    expect(getOne.data.notification._id).toEqual(id)
+    
 });
 
 //testing updating a notification
-test("Updating Notification", async() => {
+ test("Updating Notification", async() => {
    expect.assertions(1);
-    const putRes = await functions.updatingAnotification()
-    expect(putRes.data.data.n).toEqual(1)
+   const putRes = await functions.updatingAnotification()
+   expect(putRes.data.data.n).toEqual(1)
 });
 
 
