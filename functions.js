@@ -4,13 +4,13 @@ const uuid=require('uuid')
 const functions={
    //--------------------------------------------------------------------(Tasks)--------------------------------------------------------------------------------------------------
      getAllTasks : async()=>{
-        const taskList =await  axios.get("https://lirten-hub-ideots.herokuapp.com/api/tasks/")
+        const taskList =await  axios.get("https://lirten-hub-ideots.herokuapp.com//api/tasks/")
         return taskList
      },
 
      getOneTask : async(id)=>{
-        const task =await  axios.get("https://lirten-hub-ideots.herokuapp.com/api/tasks/"+id)
-        // console.log('functions get one ',task.data)
+        const task =await  axios.get("https://lirten-hub-ideots.herokuapp.com//api/tasks/"+id)
+        // //console.log('functions get one ',task.data)
         return task
      },
 
@@ -33,7 +33,7 @@ const functions={
                 ,assignedPerson :"123456789123456789123456"              
        }
        */
-     let res = await axios.post('https://lirten-hub-ideots.herokuapp.com/api/tasks/', params);
+     let res = await axios.post('https://lirten-hub-ideots.herokuapp.com//api/tasks/', params);
      return res
      },
 
@@ -43,13 +43,13 @@ const functions={
         done:true
        }
        */
-     let res = await axios.put('https://lirten-hub-ideots.herokuapp.com/api/tasks/'+id, params);
+     let res = await axios.put('https://lirten-hub-ideots.herokuapp.com//api/tasks/'+id, params);
      return res
      },
 
      deleteOneTask : async(id)=>{
-      const task =await  axios.delete("https://lirten-hub-ideots.herokuapp.com/api/tasks/"+id)
-      // console.log("fn delete ",task)
+      const task =await  axios.delete("https://lirten-hub-ideots.herokuapp.com//api/tasks/"+id)
+      // //console.log("fn delete ",task)
       return task
    },
    
@@ -62,33 +62,33 @@ const functions={
          const response = await functions.deleteOneTask(lastId)
          tasks = await functions.getAllTasks()
          length = tasks.data.data ?tasks.data.data.length:0
-         console.log(length)
+         //console.log(length)
       }
    return 0
    },
 //--------------------------------------------------------------------(Requests)--------------------------------------------------------------------------------------------------
 getRequests : async()=>{
-   const response =await  axios.get("https://lirten-hub-ideots.herokuapp.com/")
+   const response =await  axios.get("https://lirten-hub-ideots.herokuapp.com//api/requests/")
    return response
 },
 getRequestById : async(id)=>{
  
-   const response =await  axios.get("https://lirten-hub-ideots.herokuapp.com/"+id)
+   const response =await  axios.get("https://lirten-hub-ideots.herokuapp.com//api/requests/"+id)
    return response
   
 },
 postRequest : async(body)=>{
   
-   const response =await  axios.post("https://lirten-hub-ideots.herokuapp.com/",body)
+   const response =await  axios.post("https://lirten-hub-ideots.herokuapp.com//api/requests/",body)
    return response
 },
 deleteRequest : async(id)=>{
-   const response =await  axios.delete("https://lirten-hub-ideots.herokuapp.com/"+id)
+   const response =await  axios.delete("https://lirten-hub-ideots.herokuapp.com//api/requests/"+id)
    return response
 },
 updateReuest : async(id,body)=>{
    
-    const response = await axios.put("https://lirten-hub-ideots.herokuapp.com/"+id,body)
+    const response = await axios.put("https://lirten-hub-ideots.herokuapp.com//api/requests/"+id,body)
     return response
 },
 deleteAll : async() => {
@@ -106,12 +106,12 @@ deleteAll : async() => {
    //--------------------------------------------------------------------(Admin)--------------------------------------------------------------------------------------------------
 
    getadmins: async () => {
-    const admins = await axios.get('https://lirten-hub-ideots.herokuapp.com/api/admins')
+    const admins = await axios.get('https://lirten-hub-ideots.herokuapp.com//api/admins')
     return admins
     },
 
 getadmin:async(id)=>{
-    const admin=await axios.get('https://lirten-hub-ideots.herokuapp.com/api/admins/'+id)
+    const admin=await axios.get('https://lirten-hub-ideots.herokuapp.com//api/admins/'+id)
     return admin
 } , 
 
@@ -124,12 +124,12 @@ params = {
     phone:'132456'
   }
 
-let res = await axios.post('https://lirten-hub-ideots.herokuapp.com/api/admins', params);
+let res = await axios.post('https://lirten-hub-ideots.herokuapp.com//api/admins', params);
   return res
 },
 
 deleteAdmin:async(id)=>{
-    const deletedAdmin=await axios.delete('https://lirten-hub-ideots.herokuapp.com/api/admins/'+id)
+    const deletedAdmin=await axios.delete('https://lirten-hub-ideots.herokuapp.com//api/admins/'+id)
     return deletedAdmin;
 },
 
@@ -141,13 +141,13 @@ updateAdmin:async(id)=>{
         password:'madasasda45',
         phone:'132456789'
       }
-    const updatedAdmin=await axios.put('https://lirten-hub-ideots.herokuapp.com/api/admins/'+id,params)
+    const updatedAdmin=await axios.put('https://lirten-hub-ideots.herokuapp.com//api/admins/'+id,params)
     return updatedAdmin;
 },
 //--------------------------------------------------------------------(Review)--------------------------------------------------------------------------------------
 
 getAllReviews:async()=>{
-   const reviewList=await axios.get("https://lirten-hub-ideots.herokuapp.com/api/reviews")
+   const reviewList=await axios.get("https://lirten-hub-ideots.herokuapp.com//api/reviews")
    return reviewList
 
 },
@@ -162,16 +162,16 @@ postOneReview : async()=>{
        
     }
 
-  let res = await axios.post('https://lirten-hub-ideots.herokuapp.com/api/reviews/', params);
+  let res = await axios.post('https://lirten-hub-ideots.herokuapp.com//api/reviews/', params);
   return res
   },
 
   deleteOnereview : async(id)=>{
-   const review =await  axios.delete('https://lirten-hub-ideots.herokuapp.com/api/reviews/'+id)
+   const review =await  axios.delete('https://lirten-hub-ideots.herokuapp.com//api/reviews/'+id)
    return review
 },
 getOneReview : async(id)=>{
-   const review =await  axios.get('https://lirten-hub-ideots.herokuapp.com/api/reviews/'+id)
+   const review =await  axios.get('https://lirten-hub-ideots.herokuapp.com//api/reviews/'+id)
    return review
 },
 
@@ -181,7 +181,7 @@ putOneReview : async(id)=>{
        comment:"EDITED cashcash BABY"
     }
  
-    let res = await axios.put('https://lirten-hub-ideots.herokuapp.com/api/reviews/'+id, params);
+    let res = await axios.put('https://lirten-hub-ideots.herokuapp.com//api/reviews/'+id, params);
     return res
     },
 
@@ -190,12 +190,12 @@ putOneReview : async(id)=>{
 
 
     getAllEventRequest : async()=>{
-      const eventRequestList =await  axios.get("https://lirten-hub-ideots.herokuapp.com/api/eventRequests")
+      const eventRequestList =await  axios.get("https://lirten-hub-ideots.herokuapp.com//api/eventRequests")
       return eventRequestList
    },
 
    getOneEventRequest : async(id)=>{
-      const eventRequest =await  axios.get("https://lirten-hub-ideots.herokuapp.com/api/eventRequests/"+id)
+      const eventRequest =await  axios.get("https://lirten-hub-ideots.herokuapp.com//api/eventRequests/"+id)
       return eventRequest
    },
 
@@ -214,7 +214,7 @@ putOneReview : async(id)=>{
    }
 
    
-   let res = await axios.post('https://lirten-hub-ideots.herokuapp.com/api/eventRequests', params);
+   let res = await axios.post('https://lirten-hub-ideots.herokuapp.com//api/eventRequests', params);
    return res
    },
    
@@ -223,23 +223,23 @@ putOneReview : async(id)=>{
        type:"hals"
      }
 
-   let res = await axios.put('https://lirten-hub-ideots.herokuapp.com/api/eventRequests/'+id, params);
+   let res = await axios.put('https://lirten-hub-ideots.herokuapp.com//api/eventRequests/'+id, params);
    return res
    },
 
    deleteOneEventRequest : async(id)=>{
-    const eventRequest =await  axios.delete("https://lirten-hub-ideots.herokuapp.com/api/eventRequests/"+id)
+    const eventRequest =await  axios.delete("https://lirten-hub-ideots.herokuapp.com//api/eventRequests/"+id)
     return eventRequest
  },
 
  searchTcasksByPayment : async(money)=>{
-    const result = await axios.get("https://lirten-hub-ideots.herokuapp.com/api/tasks/search/payment="+money)
+    const result = await axios.get("https://lirten-hub-ideots.herokuapp.com//api/tasks/search/payment="+money)
     return result
    },
 
 
  getAllTask : async()=>{
-    const taskList =await  axios.get("https://lirten-hub-ideots.herokuapp.com/api/tasks/")
+    const taskList =await  axios.get("https://lirten-hub-ideots.herokuapp.com//api/tasks/")
     return taskList
  },
  postOneTask : async()=>{
@@ -260,126 +260,128 @@ putOneReview : async(id)=>{
               ,assignedPerson :"123456789123456789123456"              
      }
  
-   let res = await axios.post('https://lirten-hub-ideots.herokuapp.com/api/tasks/', params);
+   let res = await axios.post('https://lirten-hub-ideots.herokuapp.com//api/tasks/', params);
    return res
  },
 //--------------------------------------------------------------------(Events)--------------------------------------------------------------------------------------
 
 getAllEvents : async() =>{
-   allEvents = await axios.get('http://localhost:3000/api/events/') 
+   allEvents = await axios.get('https://lirten-hub-ideots.herokuapp.com//api/events/') 
    return allEvents 
 } , 
 getAnEventByID : async(id) => {
-   theEvent = await axios.get(`http://localhost:3000/api/events/`+id  ) 
+   theEvent = await axios.get(`https://lirten-hub-ideots.herokuapp.com//api/events/`+id  ) 
    return theEvent
 } , 
 getAnEventUsingLocation :async (city ,area ,Street ) => { 
-   theEvent = await axios.get(`http://localhost:3000/api/events/search/${city}/${area}/${Street}`)
+   theEvent = await axios.get(`https://lirten-hub-ideots.herokuapp.com//api/events/search/${city}/${area}/${Street}`)
    return theEvent 
 } , 
 getAnEventByType : async (type)=>{
-   theEvent = await axios.get(`http://localhost:3000/api/events/search/${type}`)
+   theEvent = await axios.get(`https://lirten-hub-ideots.herokuapp.com//api/events/search/${type}`)
    return theEvent 
 },
 getRecommendedEvents: async(id)=>{
-   theEvent = await axios.get(`http://localhost:3000/api/events/recommended/${id}"`)
+   theEvent = await axios.get(`https://lirten-hub-ideots.herokuapp.com//api/events/recommended/${id}"`)
    return theEvent ;
 },
 postNewEvent:async(params)=>{
-   const newEvent = await axios.post('http://localhost:3000/api/events',params) 
+   const newEvent = await axios.post('https://lirten-hub-ideots.herokuapp.com//api/events',params) 
    return newEvent ; 
 },
 updatingAnEvent:async(id,params)=>{
-   const theEvent = await axios.put(`http://localhost:3000/api/events/${id}`,params) 
+   const theEvent = await axios.put(`https://lirten-hub-ideots.herokuapp.com//api/events/${id}`,params) 
    return theEvent ; 
 } , 
 deleteAnEvent :async (id ) =>{
-   const deletedEvent = await axios.delete(`http://localhost:3000/api/events/${id}`)
+   const deletedEvent = await axios.delete(`https://lirten-hub-ideots.herokuapp.com//api/events/${id}`)
    return deletedEvent ; 
 },
 //--------------------------------------------------------------------(users)--------------------------------------------------------------------------------------
 //////////TESTING CRUDS FOR USERS\\\\\\\\\\\\
 
+
+
     //Get all users
     getAllUsers : async ()=> {
       //  axios.defaults.adapter = require('axios/lib/adapters/http')
-        const users = await axios.get ('https://lirten-hub-ideots.herokuapp.com/api/users/')
+        const users = await axios.get ('https://lirten-hub-ideots.herokuapp.com//api/users/')
         return users
     },
 
     //Create a new member user 
     createMemberUser : async (body)=>{
       //axios.defaults.adapter = require('axios/lib/adapters/http')
-      const response=  await axios.post ('https://lirten-hub-ideots.herokuapp.com/api/users/',body)
+      const response=  await axios.post ('https://lirten-hub-ideots.herokuapp.com//api/users/',body)
       return response
      },
 
     //Create a new partner user 
     createPartnerUser : async (body)=>{
         //axios.defaults.adapter = require('axios/lib/adapters/http')
-        const response=  await axios.post ('https://lirten-hub-ideots.herokuapp.com/api/users/',body)
+        const response=  await axios.post ('https://lirten-hub-ideots.herokuapp.com//api/users/',body)
         return response
     },
     
     //Create a new agency user 
     createAgencyUser : async (body)=>{
         //axios.defaults.adapter = require('axios/lib/adapters/http')
-        const response=  await axios.post ('https://lirten-hub-ideots.herokuapp.com/api/users/',body)
+        const response=  await axios.post ('https://lirten-hub-ideots.herokuapp.com//api/users/',body)
         return response
     },
 
     //Get a specified user by ID
     getSpecifiedUser : async ()=> {
         //  axios.defaults.adapter = require('axios/lib/adapters/http')
-          const users = await axios.get ('https://lirten-hub-ideots.herokuapp.com/api/users/')
+          const users = await axios.get ('https://lirten-hub-ideots.herokuapp.com//api/users/')
           const userId=users.data.data[users.data.data.length-1]._id
-        //  console.log(userId)
-          const specifiedUser = await axios.get ('https://lirten-hub-ideots.herokuapp.com/api/users/'+userId)
+        //  //console.log(userId)
+          const specifiedUser = await axios.get ('https://lirten-hub-ideots.herokuapp.com//api/users/'+userId)
           return specifiedUser
       },
 
     //Get all members
     getAllMembers : async ()=> {
         //  axios.defaults.adapter = require('axios/lib/adapters/http')
-          const members = await axios.get ('https://lirten-hub-ideots.herokuapp.com/api/users/members')
+          const members = await axios.get ('https://lirten-hub-ideots.herokuapp.com//api/users/members')
           return members
       },
 
     //Update a user      (Not tested yet)
     updateSpecificUser : async (body)=> {
       //  axios.defaults.adapter = require('axios/lib/adapters/http')
-        const users = await axios.get ('https://lirten-hub-ideots.herokuapp.com/api/users/')
+        const users = await axios.get ('https://lirten-hub-ideots.herokuapp.com//api/users/')
         const userId=users.data.data[users.data.data.length-1]._id
-        console.log(userId)
-        const specifiedUser = await axios.put ('https://lirten-hub-ideots.herokuapp.com/api/users/'+userId,body)
+        //console.log(userId)
+        const specifiedUser = await axios.put ('https://lirten-hub-ideots.herokuapp.com//api/users/'+userId,body)
         return specifiedUser
       },
     
     //Delete a user
     deleteSpecificUser :async()=>{
     
-      const users = await axios.get ('https://lirten-hub-ideots.herokuapp.com/api/users/')
+      const users = await axios.get ('https://lirten-hub-ideots.herokuapp.com//api/users/')
   
     const userId=users.data.data[users.data.data.length-1]._id //get the id of the last user
     
-    const deleted =await axios.delete ('https://lirten-hub-ideots.herokuapp.com/api/users/'+userId)  //then delete it 
+    const deleted =await axios.delete ('https://lirten-hub-ideots.herokuapp.com//api/users/'+userId)  //then delete it 
       return deleted
   
    },
    
    searchEventByLocation : async (city,Street,Area)=>{
-     const events = await axios.get('http://localhost:3000/api/events/search/'+city+'/'+Street+'/'+Area+'')
+     const events = await axios.get('https://lirten-hub-ideots.herokuapp.com//api/events/search/'+city+'/'+Street+'/'+Area+'')
      return events
    },
    //--------------------------------------------------------------------(EventBooking)--------------------------------------------------------------------------------------
    
    getAllEventBooking : async()=>{
-      const eventBookingList =await  axios.get("https://lirten-hub-ideots.herokuapp.com/api/eventBookings/")
+      const eventBookingList =await  axios.get("https://lirten-hub-ideots.herokuapp.com//api/eventBookings/")
       return eventBookingList
    },
 
    getOneEventBooking : async(id)=>{
-      const eventBooking =await  axios.get("https://lirten-hub-ideots.herokuapp.com/api/eventBookings/"+id)
+      const eventBooking =await  axios.get("https://lirten-hub-ideots.herokuapp.com//api/eventBookings/"+id)
       return eventBooking
    },
 
@@ -391,7 +393,7 @@ deleteAnEvent :async (id ) =>{
        paymentMethod:"cashcash BABY"
      }
 
-   let res = await axios.post('https://lirten-hub-ideots.herokuapp.com/api/eventBookings/', params);
+   let res = await axios.post('https://lirten-hub-ideots.herokuapp.com//api/eventBookings/', params);
    return res
    },
 
@@ -400,22 +402,22 @@ deleteAnEvent :async (id ) =>{
        paymentMethod:"EDITED cashcash BABY"
      }
 
-   let res = await axios.put('https://lirten-hub-ideots.herokuapp.com/api/eventBookings/'+id, params);
+   let res = await axios.put('https://lirten-hub-ideots.herokuapp.com//api/eventBookings/'+id, params);
    return res
    },
 
    deleteOneEventBooking : async(id)=>{
-    const eventBooking =await  axios.delete("https://lirten-hub-ideots.herokuapp.com/api/eventBookings/"+id)
+    const eventBooking =await  axios.delete("https://lirten-hub-ideots.herokuapp.com//api/eventBookings/"+id)
     return eventBooking
    },
 
    searchTasksByCategory : async(cat)=>{
-      const result = await axios.get("https://lirten-hub-ideots.herokuapp.com/api/tasks/search/category="+cat)
+      const result = await axios.get("https://lirten-hub-ideots.herokuapp.com//api/tasks/search/category="+cat)
       return result
    },
 
    searchTcasksByYearsOfExp : async(exp)=>{
-    const result = await axios.get("https://lirten-hub-ideots.herokuapp.com/api/tasks/search/experience="+exp)
+    const result = await axios.get("https://lirten-hub-ideots.herokuapp.com//api/tasks/search/experience="+exp)
     return result
    },
 
@@ -440,18 +442,18 @@ postSpecificTask : async()=>{
            ,assignedPerson :"123456789123456789123456"              
   }
 
-let res = await axios.post('http://localhost:3000/api/tasks/', params);
+let res = await axios.post('https://lirten-hub-ideots.herokuapp.com//api/tasks/', params);
 return res
 },
    //--------------------------------------------------------------------(Notifications)--------------------------------------------------------------------------------------
    getAllNotifications : async() => {
-      const notifications = await axios.get("https://lirten-hub-ideots.herokuapp.com/api/notifications")
+      const notifications = await axios.get("https://lirten-hub-ideots.herokuapp.com//api/notifications")
       return notifications
   },
   
   getSpecificNotification : async() => {
       const id =await  functions.getAllNotifications()
-      const notification = await axios.get("https://lirten-hub-ideots.herokuapp.com/api/notifications/"+id.data.data[0]._id)
+      const notification = await axios.get("https://lirten-hub-ideots.herokuapp.com//api/notifications/"+id.data.data[0]._id)
       return notification
 
   },
@@ -463,7 +465,7 @@ return res
           notifierId: "54759eb3c090d83494e2d803"
       }
 
-      let postRes = await axios.post("https://lirten-hub-ideots.herokuapp.com/api/notifications",body);
+      let postRes = await axios.post("https://lirten-hub-ideots.herokuapp.com//api/notifications",body);
       return postRes
   },
 
@@ -476,13 +478,13 @@ return res
           isRead: true
       }
       const id =await  functions.getAllNotifications()
-      let update = await axios.put("https://lirten-hub-ideots.herokuapp.com/api/notifications/"+id.data.data[0]._id,params)
+      let update = await axios.put("https://lirten-hub-ideots.herokuapp.com//api/notifications/"+id.data.data[0]._id,params)
       return update
   },
 
   deleteNotification : async() => {
       const id =await  functions.getAllNotifications()
-      const deleteReq = await axios.delete("https://lirten-hub-ideots.herokuapp.com/api/notifications/"+id.data.data[0]._id)
+      const deleteReq = await axios.delete("https://lirten-hub-ideots.herokuapp.com//api/notifications/"+id.data.data[0]._id)
       return deleteReq 
   },
 
@@ -493,15 +495,15 @@ postApplication: async () => {
            applicantId: "5c9fe28433caec2078bfa349",
            taskId:"5c9556fc528e180fd91a0b1b"
    }
-   const app=await axios.post('https://lirten-hub-ideots.herokuapp.com/api/application',config);
+   const app=await axios.post('https://lirten-hub-ideots.herokuapp.com//api/application',config);
    return app;
 },
 getAllApplication: async () => {
-const application = await axios.get('https://lirten-hub-ideots.herokuapp.com/api/application/');
+const application = await axios.get('https://lirten-hub-ideots.herokuapp.com//api/application/');
 return application;
 },
 getApplication: async (id) => {
-const application = await axios.get('https://lirten-hub-ideots.herokuapp.com/api/application/'+id);
+const application = await axios.get('https://lirten-hub-ideots.herokuapp.com//api/application/'+id);
 return application;
 },
 updateApplication: async (id) => {
@@ -509,11 +511,11 @@ const config = {
        date:"2017-04-30T23:34:28.802Z",
        acceptance:1
 }
-const application = await axios.put('https://lirten-hub-ideots.herokuapp.com/api/application/'+id,config);
+const application = await axios.put('https://lirten-hub-ideots.herokuapp.com//api/application/'+id,config);
 return application;
 },
 deleteApplication: async (id) => {
-const application = await axios.delete('https://lirten-hub-ideots.herokuapp.com/api/application/'+id);
+const application = await axios.delete('https://lirten-hub-ideots.herokuapp.com//api/application/'+id);
 return application;
 }
 // --------------------------------------------------------------------()--------------------------------------------------------------------------------------
@@ -523,4 +525,3 @@ return application;
 module.exports=functions;
 
    
-
