@@ -238,47 +238,47 @@ test('delete DataBase',async ()=>{
              //-----------------------------------------------------------------((Admin))---------------------------------------------
 test('posting an admin',async () => {
     expect.assertions(2)
-    const getBefore=await funcs.getadmins();
-    const postAdmin=await funcs.postAdmin();
+    const getBefore=await functions.getadmins();
+    const postAdmin=await functions.postAdmin();
     expect(Object.keys(postAdmin)).not.toEqual(['error']);
-    const getAfter=await funcs.getadmins();
+    const getAfter=await functions.getadmins();
     expect(getAfter.data.data.length).toBe(getBefore.data.data.length+1)
     });
     
     test("getting all admins ",async()=>{
       expect.assertions(2)
-      const response = await funcs.getadmins();
+      const response = await functions.getadmins();
       expect(Object.keys(response)).not.toEqual(['error']);
       expect(response.data.data.length).toBeGreaterThanOrEqual(1);
     });
     
     test("getting one admin by ID",async()=>{
       expect.assertions(2);
-      const getAll = await funcs.getadmins();
+      const getAll = await functions.getadmins();
       const adminID = getAll.data.data[getAll.data.data.length-1]["_id"];
-      const getOne = await funcs.getadmin(adminID);
+      const getOne = await functions.getadmin(adminID);
       expect(Object.keys(getOne)).not.toEqual(['error']);
       expect(getOne.data["_id"]).toBe(adminID)
     });
     
     test("putting one admin",async()=>{
       expect.assertions(2);
-      const get = await funcs.getadmins();
+      const get = await functions.getadmins();
       const id = get.data.data.length-1
-      const put = await funcs.updateAdmin(get.data.data[id]["_id"]);
+      const put = await functions.updateAdmin(get.data.data[id]["_id"]);
       expect(Object.keys(put)).not.toEqual(['error']);
-      const getOne = await funcs.getadmin(get.data.data[id]["_id"]);
+      const getOne = await functions.getadmin(get.data.data[id]["_id"]);
       console.log(getOne.data)
       expect(getOne.data["email"]).toBe("fahd1@gmail.com")
     });
     
     test("deleting one admin",async()=>{
       expect.assertions(2)
-      const getBefore = await funcs.getadmins();
+      const getBefore = await functions.getadmins();
       const id = getBefore.data.data.length-1
-      const deleted = await funcs.deleteAdmin(getBefore.data.data[id]["_id"]);
+      const deleted = await functions.deleteAdmin(getBefore.data.data[id]["_id"]);
       expect(Object.keys(deleted)).not.toEqual(['error']);
-      const getAfter = await funcs.getadmins();
+      const getAfter = await functions.getadmins();
       expect(getAfter.data.data.length).toBe(getBefore.data.data.length-1)
     });
     
@@ -521,7 +521,7 @@ test('creates a member user', async()=> {
         "interests":["coding"],
         "experience":["experience in games"]
     }
-    const response= await funcs.createMemberUser(body)
+    const response= await functions.createMemberUser(body)
    // console.log(response)
     expect(response.data.data.email).toBe("takeCareAgain55555@gmail.com");
 })
@@ -541,8 +541,8 @@ test('creates a partner user', async()=> {
                 "email":"yalabina@yahoo.com"
         }
      }
-     await funcs.createPartnerUser(body)
-     const response= await funcs.getSpecifiedUser()
+     await functions.createPartnerUser(body)
+     const response= await functions.getSpecifiedUser()
      console.log(response)
      expect(response.data.email).toBe("yalabinaaaaa@yahoo.com");
  })
@@ -561,8 +561,8 @@ test('creates a agency user', async()=> {
                "fax":"223365",
                "address":{"city":"cairo","Area":"down town"}
             }
-        await funcs.createAgencyUser(body)
-     const response= await funcs.getSpecifiedUser()
+        await functions.createAgencyUser(body)
+     const response= await functions.getSpecifiedUser()
      //console.log(response)
      expect(response.data.email).toBe("agencyemail66@gmail.com");
  })
@@ -570,7 +570,7 @@ test('creates a agency user', async()=> {
 // //test getting a specified user                                                       //////////////THIS IS WORKING
 test ('gets the last user by id',async ()=> {
     expect.assertions(1);
-    const response =await funcs.getSpecifiedUser();
+    const response =await functions.getSpecifiedUser();
    // console.log(response)
     expect(response.data.email).toBe("agencyemail66@gmail.com");
 });
@@ -578,7 +578,7 @@ test ('gets the last user by id',async ()=> {
 // // //test getting all members                                                              //////////////THIS IS WORKING
 test ('gets all members',async ()=> {
     expect.assertions(1);
-    const response =await funcs.getAllMembers();
+    const response =await functions.getAllMembers();
   //  console.log(response)
     expect(response.data.data[response.data.data.length-1].email).toBe("takeCareAgain55555@gmail.com");
 });
@@ -586,7 +586,7 @@ test ('gets all members',async ()=> {
 // // //test getting all users                                                              //////////////THIS IS WORKING
 test ('gets all users',async ()=> {
     expect.assertions(1);
-    const response =await funcs.getAllUsers();
+    const response =await functions.getAllUsers();
     //console.log(response)
     expect(response.data.data[response.data.data.length-1].email).toBe("agencyemail66@gmail.com");
 });
@@ -595,12 +595,12 @@ test ('gets all users',async ()=> {
 // // //test deleting a user 
 test ('after deleting a user their number should decrease by one',async ()=> {
     expect.assertions(1);
-    const response =await funcs.getAllUsers();
+    const response =await functions.getAllUsers();
     const initialSize = response.data.data.length
     console.log(initialSize)
-    const deleted = await funcs.deleteSpecificUser()
+    const deleted = await functions.deleteSpecificUser()
     console.log(deleted)
-   const res = await funcs.getAllUsers()
+   const res = await functions.getAllUsers()
    const afterSize = res.data.data.length
     expect(initialSize-afterSize).toBe(1);
 });
@@ -612,12 +612,12 @@ test('updating the website of a user',async ()=>{
     body={
         "name":"name"
     }
-   // const  lastUserEmail =await funcs.getSpecifiedUser().data.email
+   // const  lastUserEmail =await functions.getSpecifiedUser().data.email
    // console.log("eamil before update"+lastUserEmail)
-    const response=await funcs.updateSpecificUser(body)
+    const response=await functions.updateSpecificUser(body)
    // console.log("eamil after update"+response.data.email)
    console.log(response)
-   const res = await funcs.getSpecifiedUser()
+   const res = await functions.getSpecifiedUser()
     expect(res.data.name).toBe("name");
 });
 
@@ -625,7 +625,7 @@ test('updating the website of a user',async ()=>{
 test('loop for all results to be sure that they are in that location',async()=>{
     expect.assertions(1)
     let flag = true;
-    const events = await funcs.searchEventByLocation("cairo","youssef el sebaie","rehab")
+    const events = await functions.searchEventByLocation("cairo","youssef el sebaie","rehab")
    // console.log(events.data)
     for (let i =0 ; i<events.data.length;i++){
        if (events[0].Area!='rehab'){
@@ -753,4 +753,66 @@ test("Deleting Notification",async() => {
     expect.assertions(1);
     const delRes =  await functions.deleteNotification()
     expect(delRes.data.msg).toEqual("Notification was deleted successfully")
+});
+
+//--------------------------------------------------------------------((Application))-------------------------------------------------------------------------
+
+const config ={
+  id:null,
+  applicantId :null,
+  taskId : null,
+  date:null,
+  acceptance:null
+}
+
+test('Randomly creating a new application',async () => {
+    const response =  await functions.postApplication();
+    // check if the json response has data not error
+    expect(Object.keys(response.data)).toContain('data');
+    expect(Object.keys(response.data)).not.toContain('error');
+
+    const application = await functions.getApplication(response.data.data["_id"]);
+    expect(application.data.data).toMatchObject(response.data.data);
+    config.id = application.data.data._id;
+    config.applicantId = application.data.data.applicantId;
+    config.taskId = application.data.data.taskId;
+    config.date=application.data.data.date;
+    config.acceptance=application.data.data.acceptance;
+  });
+
+  test('Fetching the data of that random application', async () => {
+    const response =  await functions.getApplication(config.id);
+     // check if the json response has data not error
+     expect(Object.keys(response.data)).toContain('data');
+     expect(Object.keys(response.data)).not.toContain('error');
+
+    expect(response.data.data.applicantId).toEqual(config.applicantId)
+    expect(response.data.data.taskId).toEqual(config.taskId)
+    expect(new Date(response.data.data.date)).toEqual(new Date(config.date))
+    expect(response.data.data.acceptance).toEqual(config.acceptance)
+  });
+
+  test('Updating the data of that random application', async () => {
+    const response =  await functions.updateApplication(config.id);
+    // check if the json response has data not error
+    expect(Object.keys(response.data)).toContain('data');
+    expect(Object.keys(response.data)).not.toContain('error');
+
+    const application = await functions.getApplication(config.id);
+    expect(application.data.data).not.toEqual(null);
+    expect(application.data.data.date).toEqual("2017-04-30T23:34:28.802Z");
+    expect(application.data.data.acceptance).toBe(1);
+    config.id = application.data.data._id;
+    config.applicantId = application.data.data.applicantId;
+    config.taskId = application.data.data.taskId;
+    config.date=application.data.data.date;
+    config.acceptance=application.data.data.acceptance;
+  });
+
+  test(`Deleting that random application`, async () => {
+    const lengthBefor =await functions.getAllApplication();
+    await functions.deleteApplication(config.id);
+    const lengthAfter =await functions.getAllApplication();
+    expect((lengthBefor.data.data.length)-(lengthAfter.data.data.length)).toBe(1);
+  });
 
