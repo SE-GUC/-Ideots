@@ -1,0 +1,12 @@
+tokens in routes ??
+require cors in index.js
+phone number leh array of strings 
+
+
+
+
+   //el mashakel
+   //create partner feha required id
+   //create agency feha required id
+   //put mesh beyragga3 feha el updated 
+   //delete mesh mwgoda 
