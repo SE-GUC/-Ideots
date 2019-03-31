@@ -1,4 +1,14 @@
+/*
+*/
 const functions = require('./function')
+
+
+test("Delete all records",async()=>{
+    const delteAll=await functions.deleteAllTasks();
+    const getAll = await functions.getAllTask();
+    expect(getAll.data.data.length).toBe(0)
+
+})
 
 test("posting one task",async()=>{
     const getBeforePost = await functions.getAllTask();
@@ -43,8 +53,3 @@ test("deleting one Task",async()=>{
     // expect(getAfter.data.data.length).toBe(getBefore.data.data.length-1)
     expect(getAfter.data.data.length).toBe(getBefore.data.data.length-1)
 });
-
-
-
-/*
-*/

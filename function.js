@@ -3,12 +3,12 @@ const functions={
      add : (x,y)=>x+y,
 
      getAllTask : async()=>{
-        const taskList =await  axios.get("http://localhost:3000/api/tasks/")
+        const taskList =await  axios.get("https://glacial-peak-12178.herokuapp.com/api/tasks/")
         return taskList
      },
 
      getOneTask : async(id)=>{
-        const task =await  axios.get("http://localhost:3000/api/tasks/"+id)
+        const task =await  axios.get("https://glacial-peak-12178.herokuapp.com/api/tasks/"+id)
         // console.log('functions get one ',task.data)
         return task
      },
@@ -21,7 +21,7 @@ const functions={
                 description :"test the cruds",
                 payment :13245            
                 ,finalProduct: "https://drive.google.com/drive/folders/0BzEl8pp_zP5efnlONkxEb1NIM25zZ0lsa0NKdTgwWEk2LW40MkpHNnBhaXJsTFJrem9GZ2c?dti=395296137294031&fref=gc"
-                ,timeLine : "2019-05-05"     //??????????????????????
+                ,timeLine : "2019-05-05"    
                 ,state :"pending" 
                 ,category :"MET" 
                 ,yearsOfExperience : 12
@@ -29,19 +29,9 @@ const functions={
                 ,ratePartnerDoer :3
                 ,ratePartnerConsultancy :2
                 ,assignedPerson :"123456789123456789123456"              
-
-                // ,applicants :["123456789123456789123456","123456789123456789123456","123456789123456789123456"]    
-
-         /*
-        timeline:
-        { type: Date,               ?????????????????????????????????
-        }
-        },      //-1 rejected , 0 pending , 1 accepted      ??????????????????????????
-         */
-
        }
  
-     let res = await axios.post('http://localhost:3000/api/tasks/', params);
+     let res = await axios.post('https://glacial-peak-12178.herokuapp.com/api/tasks/', params);
      return res
      },
 
@@ -49,16 +39,34 @@ const functions={
       params = {
         done:true
        }
-     let res = await axios.put('http://localhost:3000/api/tasks/'+id, params);
+     let res = await axios.put('https://glacial-peak-12178.herokuapp.com/api/tasks/'+id, params);
      return res
      },
 
      deleteOneTask : async(id)=>{
-      const task =await  axios.delete("http://localhost:3000/api/tasks/"+id)
+      const task =await  axios.delete("https://glacial-peak-12178.herokuapp.com/api/tasks/"+id)
       // console.log("fn delete ",task)
       return task
    },
+   
+   deleteAllTasks : async() => {
+      let tasks = await functions.getAllTask()
+      
+      let length = tasks.data.data ?tasks.data.data.length:0
+      while(length>0)
+      {  const lastId = tasks.data.data[tasks.data.data.length-1]["_id"]
+         const response = await functions.deleteOneTask(lastId)
+         tasks = await functions.getAllTask()
+         length = tasks.data.data ?tasks.data.data.length:0
+         console.log(length)
+      }
+   return 0
+}
+/*
+
+   */
 
 }
 module.exports=functions;
 
+   
