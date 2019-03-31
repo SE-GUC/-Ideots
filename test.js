@@ -817,4 +817,3 @@ test('Randomly creating a new application',async () => {
     const lengthAfter =await functions.getAllApplication();
     expect((lengthBefor.data.data.length)-(lengthAfter.data.data.length)).toBe(1);
   });
-
