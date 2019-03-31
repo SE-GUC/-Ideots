@@ -12,19 +12,20 @@
   ],
   "author": "!ideots",
   "license": "MIT",
+  "jest": {
+    "testEnvironment": "node"
+  },
   "dependencies": {
-    "axios": "^0.18.0",
-    "bcryptjs": "*",
-    "body-parser": "*",
     "express": "*",
     "joi": "^14.3.1",
     "joi-objectid": "^2.0.0",
+    "uuid": "^3.3.2",
+    "bcryptjs": "*",
+    "mongoose-type-url": "*",
     "mongoose": "*",
-    "mongoose-type-url": "^1.0.5",
-    "object-id": "0.0.1",
-    "uuid": "^3.3.2"
+    "body-parser": "*"
   },
   "devDependencies": {
-    "jest": "^24.5.0"
+    "axios": "^0.18.0"
   }
 }

@@ -23,15 +23,16 @@ router.get('/:id', async(req, res) => {
  
  router.post('/', async(req, res) => {
 
-     const reviewer = req.body.reviewer
+    const reviewer = req.body.reviewer
     const reviewed = req.body.reviewed
     const rate = req.body.rate 
     const comment = req.body.comment
     const reviewType = req.body.reviewType 
+    
 
     const schema = {
-        reviewer :  Joi.required(),
-        reviewed : Joi.required(),
+        reviewer :  Joi.objectId().required(),
+        reviewed : Joi.objectId().required(),
         rate :   Joi.number().required(),
         comment :  Joi.string(),
         reviewType :  Joi.any().valid([0, 1,2]).required()
@@ -53,7 +54,8 @@ router.put('/:id', async (req,res) => {
        if(!review) return res.status(404).send({error: 'review does not exist'})
         const schema = {
             rate :   Joi.number(),
-            reviewType :  Joi.any().valid([0, 1,2])
+            reviewType :  Joi.any().valid([0, 1,2]),
+            comment :Joi.string()
         }
     const result = Joi.validate(req.body, schema)
     if (result.error) return res.status(400).send({ error: result.error.details[0].message })

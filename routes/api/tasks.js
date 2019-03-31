@@ -78,8 +78,8 @@ router.get('/:id', async (req, res) => {
 router.get('/search/category=:cat', async(req, res) => { 
 const cat = req.params.cat
 const tasks = await Task.find({"category":cat})
-if(tasks.length==0)return res.status(404).send({error: 'no tasks found'})
-return res.json({tasks});
+// if(tasks.length==0)return res.status(404).send({error: 'no tasks found'})
+return res.json({data:tasks});
 
 });
 
@@ -87,8 +87,8 @@ return res.json({tasks});
 router.get('/search/experience=:exp', async(req, res) => { 
 const exp = req.params.exp
 const tasks = await Task.find({"yearsOfExperience":exp})
-if(tasks.length==0) return res.status(404).send({error: 'no tasks found'})
-return res.json({tasks});
+// if(tasks.length==0) return res.status(404).send({error: 'no tasks found'})
+return res.json({data:tasks});
 
 });
 
@@ -98,8 +98,8 @@ const pay = req.params.pay
 const min =Number(pay)-50
 const max=Number(pay)+50
 const tasks = await Task.find({"payment":{ $lte:max ,$gte:min} })
-if(tasks.length==0) return res.status(404).send({error: 'no tasks found'})
-return res.json({tasks});
+// if(tasks.length==0) return res.status(404).send({error: 'no tasks found'})
+return res.json({data:tasks});
 
 });
 
@@ -109,8 +109,8 @@ const id = req.params.id
 const user =await User.findById(id)
 const userSkills = user.skills
 const tasks = await Task.find({"requiredSkills":{$in:userSkills}})
-if(tasks.length==0) return res.status(404).send({error: 'No tasks suitable for you at the moment, Try something new ?'})
-return res.json({tasks});
+// if(tasks.length==0) return res.status(404).send({error: 'No tasks suitable for you at the moment, Try something new ?'})
+return res.json({data:tasks});
 
 }); 
 
