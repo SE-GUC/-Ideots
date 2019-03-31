@@ -20,31 +20,31 @@ const functions = {
     //Create a new partner user 
     createPartnerUser : async (body)=>{
         //axios.defaults.adapter = require('axios/lib/adapters/http')
-        const response=  await axios.post ('http://localhost:3000/api/users/',body)
+        const response=  await axios.post ('https://lirten-hub-ideots.herokuapp.com/api/users/',body)
         return response
     },
     
     //Create a new agency user 
     createAgencyUser : async (body)=>{
         //axios.defaults.adapter = require('axios/lib/adapters/http')
-        const response=  await axios.post ('http://localhost:3000/api/users/',body)
+        const response=  await axios.post ('https://lirten-hub-ideots.herokuapp.com/api/users/',body)
         return response
     },
 
     //Get a specified user by ID
     getSpecifiedUser : async ()=> {
         //  axios.defaults.adapter = require('axios/lib/adapters/http')
-          const users = await axios.get ('http://localhost:3000/api/users/')
+          const users = await axios.get ('https://lirten-hub-ideots.herokuapp.com/api/users/')
           const userId=users.data.data[users.data.data.length-1]._id
         //  console.log(userId)
-          const specifiedUser = await axios.get ('http://localhost:3000/api/users/'+userId)
+          const specifiedUser = await axios.get ('https://lirten-hub-ideots.herokuapp.com/api/users/'+userId)
           return specifiedUser
       },
 
     //Get all members
     getAllMembers : async ()=> {
         //  axios.defaults.adapter = require('axios/lib/adapters/http')
-          const members = await axios.get ('http://localhost:3000/api/users/members')
+          const members = await axios.get ('https://lirten-hub-ideots.herokuapp.com/api/users/members')
           return members
       },
 
