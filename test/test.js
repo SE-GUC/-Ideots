@@ -36,3 +36,23 @@ test('Randomly creating a new application',async () => {
     expect(new Date(response.data.data.date)).toEqual(new Date(config.date))
     expect(response.data.data.acceptance).toEqual(config.acceptance)
   });
+
+  test('Updating the data of that random application', async () => {
+    //expect.assertions(1);
+    console.log(config.id)
+    const response =  await funcs.updateApplication(config.id);
+    console.log(response.data)
+    // check if the json response has data not error
+    expect(Object.keys(response.data)).toContain('data');
+    expect(Object.keys(response.data)).not.toContain('error');
+
+    const application = await funcs.getApplication(config.id);
+    expect(application.data.data).not.toEqual(null);
+    expect(application.data.data.date).toEqual("2017-04-30T23:34:28.802Z");
+    expect(application.data.data.acceptance).toBe(1);
+    config.id = application.data.data._id;
+    config.applicantId = application.data.data.applicantId;
+    config.taskId = application.data.data.taskId;
+    config.date=application.data.data.date;
+    config.acceptance=application.data.data.acceptance;
+  });

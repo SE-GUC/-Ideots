@@ -15,6 +15,14 @@ const functions = {
         getApplication: async (id) => {
             const application = await axios.get('http://localhost:3000/api/application/'+id);
             return application;
+        },
+        updateApplication: async (id) => {
+            const config = {
+                    date:"2017-04-30T23:34:28.802Z",
+                    acceptance:1
+            }
+            const application = await axios.put('http://localhost:3000/api/application/'+id,config);
+            return application;
     }
 }; 
 module.exports = functions;
