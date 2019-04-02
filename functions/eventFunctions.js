@@ -18,6 +18,7 @@ const functions = {
         return theEvent 
     } , 
     getAnEventByType : async (type)=>{
+        console.log(type)
         theEvent = await axios.get(`http://localhost:3000/api/events/search/${type}`)
         return theEvent 
     },
