@@ -7,7 +7,9 @@
     "test": "jest",
     "start": "node index.js"
   },
-  "jest":{"testEnvironment" : "node" } , 
+  "jest": {
+    "testEnvironment": "node"
+  },
   "keywords": [
     "server"
   ],
