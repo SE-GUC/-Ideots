@@ -7,7 +7,6 @@
  const functions = require('./function')
  
 
-
  test('postRequest',async()=>{
     expect.assertions(1)
     const then = await functions.getRequests();
@@ -21,22 +20,32 @@
 })
 
 test("no request with that id",async()=>{
+    
     expect.assertions(1)
     const request = await functions.deleteAll()
-
+    try{
     const response = await functions.getRequestById("5ca0ca9e3f3a5a302c6bd9b9")
-    expect(response.data.msg).toBe("Request does not exist")
+    }
+    catch(error)
+    {
+      expect(error.response.status).toBe(404);
+    }
 
 })
 
 
 test('postRequest violationg the validation',async()=>{
     expect.assertions(1)
+    try{
     const response = await functions.postRequest({"partnerID":"123456789123456789123456",
     "description":3,
     "consult":true
     });
-    expect(response.data.msg).toBe( "\"description\" must be a string")
+    }
+    catch(error)
+    {
+    expect(error.response.status).toBe(400)
+    }
 })
 
 test("getting requests when there is no" , async()=>{
@@ -114,27 +123,33 @@ test('violating validations when updaterequest ',async()=>{
     })
     let getRequests = await functions.getRequests()
     const lastId =  getRequests.data.data[getRequests.data.data.length-1]["_id"]
-    
+    try{
     const response = await functions.updateReuest(lastId, 
     {"description":3,
     "accepted":1,
     "consultancyID":"123456789123456789123456",
     "feedback":"dsv"})
-   
-    expect(response.data.msg).toEqual( "\"description\" must be a string")
+    }
+    catch(error)
+    {
+    expect(error.response.status).toBe(400)}
 })
 
 test('updaterequest with an id not found ',async()=>{
     
     expect.assertions(1)
     const response22 = await functions.deleteAll();
+    try{
     const response = await functions.updateReuest("5ca0ca9e3f3a5a302c6bd9b9", 
     {"description":3,
     "accepted":1,
     "consultancyID":"123456789123456789123456",
     "feedback":"dsv"})
-   
-    expect(response.data.msg).toEqual( "Request does not exist")
+    }
+    catch(error)
+    {
+    expect(error.response.status).toBe( 404)
+    }
 })
 
 test('deleterequest',async()=>{
@@ -159,7 +174,7 @@ test('deleterequest',async()=>{
     expect(now).toEqual(lengthThen-1)
 })
 
-test('delete DataBase',async ()=>{
+test('delete all requests',async ()=>{
    expect.assertions(1)
    const request = await functions.deleteAll()
    const response = await functions.getRequests();
@@ -167,4 +182,16 @@ test('delete DataBase',async ()=>{
     expect(response.data.msg).toBe("empty")
 
 })
+test('delete request with invalid id',async ()=>{
+    expect.assertions(1)
+    const request = await functions.deleteAll()
+    try{
+    const response = await functions.deleteRequest("5ca0ca9e3f3a5a302c6bd9b9")
+    }
+    catch(error)
+    {
+     expect(error.response.status).toBe(404)
+    }
+ })
+
 
