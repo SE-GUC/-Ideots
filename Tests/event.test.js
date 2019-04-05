@@ -1,4 +1,4 @@
-const fn = require("../EventFunctions/Functions");
+const fn = require("../Functions/eventFunctions");
 
 // test('Getting All The Events ' , async()=>{
 //      expect.assertions(1)
@@ -44,13 +44,20 @@ describe("testing the event entity " , ()=>{
     expect(idreceived).toEqual(EventID);
   });
   
-  //gimme an err 
+  // //gimme an err 
   // test("Searching for a non existent Event by ID ", async  () => {
-    
-  //   const eve = await  fn.getAnEventByID("5c9534d9245cba7ddab501dD")
-  //   console.log(eve)
+  //   jest.setTimeout(100000);
+
+  //   try{
+  //     const eve = await  fn.getAnEventByID("12121212121212121212121")
+  //     console.log(eve)
+  //   }
+  //     catch(error)
+  //     {
+  //       console.log(error)
+  //      expect(error.response.status).toBe(404)
+  //     }
   
-  //    expect(Object.keys(eve.data.data)).toContainEqual({error: 'The Event you are tryinig to show does not exist '})
   
   // });
   
