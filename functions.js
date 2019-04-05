@@ -264,40 +264,7 @@ putOneReview : async(id)=>{
    let res = await axios.post('https://lirten-hub-ideots.herokuapp.com/api/tasks/', params);
    return res
  },
-//--------------------------------------------------------------------(Events)--------------------------------------------------------------------------------------
 
-getAllEvents : async() =>{
-   allEvents = await axios.get('https://lirten-hub-ideots.herokuapp.com/api/events/') 
-   return allEvents 
-} , 
-getAnEventByID : async(id) => {
-   theEvent = await axios.get(`https://lirten-hub-ideots.herokuapp.com/api/events/`+id  ) 
-   return theEvent
-} , 
-getAnEventUsingLocation :async (city ,area ,Street ) => { 
-   theEvent = await axios.get(`https://lirten-hub-ideots.herokuapp.com/api/events/search/${city}/${area}/${Street}`)
-   return theEvent 
-} , 
-getAnEventByType : async (type)=>{
-   theEvent = await axios.get(`https://lirten-hub-ideots.herokuapp.com/api/events/search/${type}`)
-   return theEvent 
-},
-getRecommendedEvents: async(id)=>{
-   theEvent = await axios.get(`https://lirten-hub-ideots.herokuapp.com/api/events/recommended/${id}"`)
-   return theEvent ;
-},
-postNewEvent:async(params)=>{
-   const newEvent = await axios.post('https://lirten-hub-ideots.herokuapp.com/api/events',params) 
-   return newEvent ; 
-},
-updatingAnEvent:async(id,params)=>{
-   const theEvent = await axios.put(`https://lirten-hub-ideots.herokuapp.com/api/events/${id}`,params) 
-   return theEvent ; 
-} , 
-deleteAnEvent :async (id ) =>{
-   const deletedEvent = await axios.delete(`https://lirten-hub-ideots.herokuapp.com/api/events/${id}`)
-   return deletedEvent ; 
-},
 //--------------------------------------------------------------------(users)--------------------------------------------------------------------------------------
 //////////TESTING CRUDS FOR USERS\\\\\\\\\\\\
 
