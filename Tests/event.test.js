@@ -1,4 +1,4 @@
-const fn = require("../EventFunctions/eventFunctions");
+const fn = require("../EventFunctions/Functions");
 
 // test('Getting All The Events ' , async()=>{
 //      expect.assertions(1)
