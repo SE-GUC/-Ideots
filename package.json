@@ -31,8 +31,7 @@
     "jest": "^24.5.0",
     "nodemon": "^1.18.10"
   },
-"jest":{
-"testEnvironment":"node"
-}
-
+  "jest": {
+    "testEnvironment": "node"
+  }
 }
