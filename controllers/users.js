@@ -6,14 +6,10 @@ const validator =require('../validations/userValidations');
 const users = {
     postUser :async (req, res) => {
         try{
-            console.log("1");
             const email = req.body.email;
-            console.log(email);
             const user = await User.findOne({email});
-            console.log(user);
             if(user) return res.status(400).json({error:"There are User with this email"});
             const type = req.body.type;
-            console.log(type);
             if(type=='member'){
                 const isValidated = validator.createValidationMember(req.body);
                 if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message });
