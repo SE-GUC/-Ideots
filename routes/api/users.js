@@ -2,45 +2,19 @@ const express = require('express');
 const bcrypt =require('bcryptjs');
 const router = express.Router();
 
-const User =require('../../models/User');
+const user =require('../../Controllers/userController');
 const validator =require('../../validations/userValidations');
 
 // Get all users
-router.get('/', async (req,res) => {
-    try{
-        const user = await User.find();
-        if(user.length==0) res.status(404).send({error:"there is no user"});
-        res.json({data : user});   
-    }catch(error){
-        res.json({error:error.message});
-    }
-})
+router.get('/', user.get_All_Users);
 
 // Get all members 
-router.get('/members/', async (req,res) => {
-    try{
-        const Member = await User.find({type:'member'});
-        if(Member.length==0) res.status(404).send({error:"there is no Member"});
-        res.json({data : Member});
-    }catch(error){
-        res.json({error:error.message});
-    }
-})
+router.get('/members/', user.get_All_Memebers)
 
-router.get('/:id', async (req, res) => {
-    try{
-        const id = req.params.id;
-        console.log(id);
-        const user =await User.findOne({_id:id});
-        console.log(user);
-        if(!user) res.status(404).send({error:"there is no User with this Id"});
-        res.json(user);
-    }catch(error) {
-        res.json({error: error.message});
-   } 
-});
+router.get('/:id', user.get_Specific_User);
 
 // Create a user
+/*
 router.post('/', async (req, res) => {
     try{
         const email = req.body.email;
@@ -233,17 +207,8 @@ router.post('/', async (req, res) => {
                    
         });
 
-
-router.delete('/:id', async (req, res) => {
-     const requestedId = req.params.id;
-     const user =await User.findOne({'_id':requestedId});
-     console.log(user)
-        if(!user) return res.status(404).send({error:"there is no User with this Id"});
-        const deletedUser = await User.findByIdAndRemove(requestedId)
-       res.json({data:deletedUser})
-       
-
-        });
+*/
+router.delete('/:id', user.delete_User);
    
 
                     
