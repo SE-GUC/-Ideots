@@ -3,6 +3,12 @@ const Joi = require('joi')
 Joi.objectId = require('joi-objectid')(Joi);
 
 module.exports = {
+    createValidationUser:request=>{
+        const createSchema = {
+        
+        }
+        return Joi.validate(request, createSchema)
+    },
      //consaltancyAgency
     createValidationConsaltancyAgency: request => {
         const createSchema = {
@@ -26,7 +32,7 @@ module.exports = {
     createValidationMember: request => {
         const createSchema = {
             type: Joi.string().required().valid('partner','member','consultancy_agency'),
-            name: Joi.object().required(),
+            name: Joi.string().required(),
             email: Joi.string().email().required(),
             password: Joi.string().min(8).alphanum().required(),
             phoneNumber:Joi.array().items(Joi.string()).required(),
