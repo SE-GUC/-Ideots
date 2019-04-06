@@ -4,7 +4,6 @@ const router = express.Router();
 
 const user =require('../../Controllers/userController');
 const validator =require('../../validations/userValidations');
-
 // Get all users
 router.get('/', user.get_All_Users);
 
@@ -207,11 +206,13 @@ router.post('/', async (req, res) => {
                    
         });
 
+<<<<<<< HEAD
 */
 router.delete('/:id', user.delete_User);
    
 
                     
+
 
         // router.put('/:id', async (req,res) => {
         //     try {
@@ -238,9 +239,7 @@ router.delete('/:id', user.delete_User);
 module.exports = router
 
 
-
-
-
 ///CHANGES
 //ghayart el response kollo gwa data ella elli bykkon b id
 //zawedt crud delete
+

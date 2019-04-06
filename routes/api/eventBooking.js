@@ -20,7 +20,7 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   const requestedId = req.params.id;
   
-  const eventBooking = await EventBooking.findOne({' _id': requestedId })
+  const eventBooking = await EventBooking.findOne({'_id': requestedId })
   // .populate('eventId').populate('memberId').exec(function(err,res){
   //   if (err) return handleError(err)
   // });
@@ -30,7 +30,7 @@ router.get("/:id", async (req, res) => {
 
 router.post("/", async (req, res) => {
   const schema = {
-    eventId: Joi.objectId().require() ,
+    eventId: Joi.objectId().required() ,
     memberId: Joi.objectId().required(),
     registrationPrice: Joi.number().required(),
     paymentMethod: Joi.string().required()
@@ -49,9 +49,6 @@ router.post("/", async (req, res) => {
 
 router.put("/:id", async (req, res) => {
   const requestedId = req.params.id;
-
-  
-  
   const schema = {
     eventId: Joi.objectId(),
     memberId: Joi.objectId(),

@@ -10,23 +10,24 @@
   "keywords": [
     "server"
   ],
+  "author": "!ideots",
+  "license": "MIT",
   "jest": {
     "testEnvironment": "node"
   },
-  "author": "!ideots",
-  "license": "MIT",
   "dependencies": {
-    "axios": "^0.18.0",
-    "bcryptjs": "*",
-    "body-parser": "*",
-    "express": "^4.16.4",
+    "express": "*",
     "joi": "^14.3.1",
     "joi-objectid": "^2.0.0",
-    "mongoose": "^5.4.20",
+    "uuid": "^3.3.2",
+    "bcryptjs": "*",
     "mongoose-type-url": "*",
-    "uuid": "^3.3.2"
+    "mongoose": "*",
+    "body-parser": "*"
+
   },
   "devDependencies": {
+    "axios": "^0.18.0",
     "jest": "^24.5.0"
   }
 }

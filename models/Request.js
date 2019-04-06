@@ -14,6 +14,12 @@ const RequestSchema = new Schema(
             required : true
         }
         ,
+        consultancyID :
+        {
+            type : Schema.Types.ObjectId,
+            
+        }
+        ,
         description :
         {
             type: String,
@@ -35,7 +41,7 @@ const RequestSchema = new Schema(
         accepted : {
             
             type : Number,
-            required : true
+           // required : true
         
         },                                  //-1 rejected , 0 pending , 1 accepted
         feedback :
