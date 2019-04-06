@@ -36,11 +36,7 @@ const TaskSchema = new Schema(
             required: true
         }
         ,
-       /* finalProduct :
-        {
-            type: URL,
-           // required: true
-        }*/
+     
 
         finalProduct:
         {

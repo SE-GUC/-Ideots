@@ -4,7 +4,7 @@ Joi.objectId=require('joi-objectid')(Joi)
 module.exports = {
     createValidation: request => {
         const createSchema = { 
-            partnerID : Joi.objectId() , 
+            partnerID : Joi.objectId().required() , 
             consultancyID :  Joi.objectId() , 
             description : Joi.string().required() , 
             requiredSkills : Joi.array().items(Joi.string()).required(), 
@@ -13,7 +13,7 @@ module.exports = {
             timeLine : Joi.string() ,  
             state: Joi.string() ,  
             category : Joi.string().required() ,
-            yearsOfExperience : Joi.number(),
+            yearsOfExperience : Joi.number().required(),
             done : Joi.boolean().required() ,
             ratePartnerDoer : Joi.number() ,
             ratePartnerConsultancy : Joi.number() ,

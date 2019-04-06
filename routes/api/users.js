@@ -4,6 +4,26 @@ const router = express.Router();
 
 const User =require('../../models/User');
 const validator =require('../../validations/userValidations');
+
+const Task =require('../../models/Task');
+var taskController = require('../../controllers/taskController');
+
+
+//////////////////////////////for the task \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//view all tasks
+router.get('/tasks', taskController.viewAllTasks)
+
+
+//apply for the task ??????????
+router.put('/tasks/:id',taskController.updateOneTask)
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////
+
 // Get all users
 router.get('/', async (req,res) => {
     try{
@@ -26,8 +46,8 @@ router.get('/members/', async (req,res) => {
     }
 })
 
-router.get('/:id', async (req, res) => {
-    try{
+router.get('/:id', async (req, res,next) => {
+    try{   
         const id = req.params.id;
         console.log(id);
         const user =await User.findOne({_id:id});
@@ -35,9 +55,13 @@ router.get('/:id', async (req, res) => {
         if(!user) res.status(404).send({error:"there is no User with this Id"});
         res.json(user);
     }catch(error) {
+        console.log("laaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
         res.json({error: error.message});
    } 
 });
+
+
+
 
 // Create a user
 router.post('/', async (req, res) => {
@@ -265,6 +289,12 @@ router.delete('/:id', async (req, res) => {
         //         console.log(error)
         //     }  
         // })
+
+
+
+        ///////////////////////////candidate controllers\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+     
+
 
 
 module.exports = router
