@@ -9,7 +9,11 @@ const config ={
 }
 
 test('Randomly creating a new application',async () => {
-    const response =  await funcs.postApplication();
+    const app = {
+        applicantId: "5c9fe28433caec2078bfa349",
+        taskId:"5c9556fc528e180fd91a0b1b"
+    }
+    const response =  await funcs.postApplication(app);
     // check if the json response has data not error
     expect(Object.keys(response.data)).toContain('data');
     expect(Object.keys(response.data)).not.toContain('error');
@@ -36,7 +40,11 @@ test('Randomly creating a new application',async () => {
   });
 
   test('Updating the data of that random application', async () => {
-    const response =  await funcs.updateApplication(config.id);
+    const app = {
+        date:"2017-04-30T23:34:28.802Z",
+        acceptance:1
+    }
+    const response =  await funcs.updateApplication(config.id,app);
     // check if the json response has data not error
     expect(Object.keys(response.data)).toContain('data');
     expect(Object.keys(response.data)).not.toContain('error');
