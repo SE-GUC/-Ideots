@@ -60,9 +60,31 @@ test('Randomly creating a new application',async () => {
     config.acceptance=application.data.data.acceptance;
   });
 
-  test(`Deleting that random application`, async () => {
+  test(`Deleting that random application and test getallapplications`, async () => {
     const lengthBefor =await funcs.getAllApplication();
     await funcs.deleteApplication(config.id);
     const lengthAfter =await funcs.getAllApplication();
     expect((lengthBefor.data.data.length)-(lengthAfter.data.data.length)).toBe(1);
+  });
+
+  test('Check if validaion return status 400 in post function', async()=>{
+    try{
+        const app = {
+            taskId:"5c9556fc528e180fd91a0b1b"
+        }
+        const response =  await funcs.postApplication(app);
+        // check if the json response has data not error
+        expect(Object.keys(response.data)).toContain('data');
+        expect(Object.keys(response.data)).not.toContain('error');
+
+        const application = await funcs.getApplication(response.data.data["_id"]);
+        expect(application.data.data).toMatchObject(response.data.data);
+        config.id = application.data.data._id;
+        config.applicantId = application.data.data.applicantId;
+        config.taskId = application.data.data.taskId;
+        config.date=application.data.data.date;
+        config.acceptance=application.data.data.acceptance;
+    }catch(error){
+    expect(error.response.status).toBe(400)
+    }
   });
