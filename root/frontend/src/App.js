@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import SearchComp from "./components/search";
 import SearchByExpComp from "./components/searchByExp";
+import Edit_description from "./components/edit_description";
 import Request from './components/Request'
 import { Link } from "react-router-dom";
 import { BrowserRouter as Router, Route } from "react-router-dom";
@@ -13,10 +14,15 @@ class App extends Component {
       <Router>
         <div className="App">
           <Route exact path="/" render={props => <Home />} />
+          <Route path="/search" render={props => <SearchComp />} />
           <Route
-            path="/search"
-            render={props => <SearchComp  />}
-          /> 
+            path="/searchByExperience"
+            render={props => <SearchByExpComp />}
+          />
+          <Route
+            path="/edit_description"
+            render={props => <Edit_description />}
+          />
           <Route
             path="/requests"
             render={props => <Request  />}
@@ -24,7 +30,7 @@ class App extends Component {
           <Route
           path="/searchByExperience"
           render={props => <SearchByExpComp  />}
-        />
+          />
         </div>
       </Router>
     );
