@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 
+import axios from "axios";
 export class Events extends Component {
   
     state = {
@@ -19,7 +20,7 @@ export class Events extends Component {
     return (
       <div>
          <ul>
-        { this.state.events.map(events => <li>{person.name}</li>)}
+        { this.state.events.map(events => <li>{events}</li>)}
       </ul>
       </div>
     )
