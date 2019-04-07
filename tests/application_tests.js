@@ -85,6 +85,30 @@ test('Randomly creating a new application',async () => {
         config.date=application.data.data.date;
         config.acceptance=application.data.data.acceptance;
     }catch(error){
-    expect(error.response.status).toBe(400)
+        expect(error.response.status).toBe(400)
     }
   });
+  test('Check if validaion return status 400 in put function', async()=>{
+    try{
+        const app = {
+            date:"2017-04-30T23:34:28.802Z",
+            acceptance:"fff"
+        }
+        const response =  await funcs.updateApplication(config.id,app);
+        // check if the json response has data not error
+        expect(Object.keys(response.data)).toContain('data');
+        expect(Object.keys(response.data)).not.toContain('error');
+    
+        const application = await funcs.getApplication(config.id);
+        expect(application.data.data).not.toEqual(null);
+        expect(application.data.data.date).toEqual("2017-04-30T23:34:28.802Z");
+        expect(application.data.data.acceptance).toBe(1);
+        config.id = application.data.data._id;
+        config.applicantId = application.data.data.applicantId;
+        config.taskId = application.data.data.taskId;
+        config.date=application.data.data.date;
+        config.acceptance=application.data.data.acceptance;
+    }catch(error){
+        expect(error.response.status).toBe(400)
+        }
+   });
