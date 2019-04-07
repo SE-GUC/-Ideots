@@ -1,33 +1,27 @@
 {
-  "name": "server",
-  "version": "0.0.1",
-  "description": "Lirten ",
-  "main": "index.js",
-  "scripts": {
-    "test": "jest",
-    "start": "node index.js"
-  },
-  "keywords": [
-    "server"
-  ],
-  "author": "!ideots",
-  "license": "MIT",
-  "jest": {
-    "testEnvironment": "node"
-  },
+  "name": "first_react",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
-    "express": "*",
-    "joi": "^14.3.1",
-    "joi-objectid": "^2.0.0",
-    "uuid": "^3.3.2",
-    "bcryptjs": "*",
-    "mongoose-type-url": "*",
-    "mongoose": "*",
-    "body-parser": "*"
-
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-scripts": "2.1.8",
+    "react-router-dom":"*",
+    "axios": "^0.18.0"
   },
-  "devDependencies": {
-    "axios": "^0.18.0",
-    "jest": "^24.5.0"
-  }
+  "scripts": {
+    "start": "PORT=3500 react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

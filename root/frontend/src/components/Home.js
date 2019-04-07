@@ -5,7 +5,9 @@ export default function Home() {
   return (
     <div>
       <Link to="/search" style={{ margin: "10px", textAlign: "center" }}>
-        Search Tasks
+        Search Tasks By Category
+      </Link><Link to="/search" style={{ margin: "10px", textAlign: "center" }}>
+        Search Tasks By Experience
       </Link>
     </div>
   );
