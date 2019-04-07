@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import SearchComp from "./components/search";
 import SearchByExpComp from "./components/searchByExp";
+
+import MembersComp from "./components/Members";
+
 import Edit_description from "./components/edit_description";
+
 import Request from './components/Request'
 import { Link } from "react-router-dom";
 import { BrowserRouter as Router, Route } from "react-router-dom";
@@ -30,6 +34,11 @@ class App extends Component {
           <Route
           path="/searchByExperience"
           render={props => <SearchByExpComp  />}
+        />
+         <Route
+          path="/gettingMembers"
+          render={props => <MembersComp  />}
+        />
           />
         </div>
       </Router>
