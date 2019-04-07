@@ -19,6 +19,12 @@ export default function Home() {
       <Link to="/requests" style={{ margin: "10px", textAlign: "center" }}>
         Requests
       </Link>
+      <Link
+        to="/gettingMembers"
+        style={{ margin: "10px", textAlign: "center" }}
+      >
+        Members
+      </Link>
     </div>
   );
 }
