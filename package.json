@@ -4,7 +4,7 @@
   "description": "Lirten ",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --env=node",
     "start": "node index.js"
   },
   "keywords": [
