@@ -9,6 +9,9 @@ export default function Home() {
       </Link><Link to="/search" style={{ margin: "10px", textAlign: "center" }}>
         Search Tasks By Experience
       </Link>
+      <Link to="/requests" style={{ margin: "10px", textAlign: "center" }}>
+        Requests
+      </Link>
     </div>
   );
 }
