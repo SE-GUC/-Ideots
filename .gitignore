@@ -1,4 +1,6 @@
 node_modules/*
+./root/frontend/node_modules/*
+./root/backend/node_modules/*
 package-lock.json
 notes.txt
 README.md

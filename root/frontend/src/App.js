@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import SearchComp from "./components/search";
+import SearchByExpComp from "./components/searchByExp";
 import { Link } from "react-router-dom";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./App.css";
@@ -14,6 +15,10 @@ class App extends Component {
           <Route
             path="/search"
             render={props => <SearchComp search={this.searchTasks} />}
+          />
+          <Route
+            path="/searchByExperience"
+            render={props => <SearchByExpComp />}
           />
         </div>
       </Router>
