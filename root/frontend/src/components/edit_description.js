@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import Request from "./Request";
+import Request from "./EditRequest";
 import { Link } from "react-router-dom";
 
 export class edit_description extends Component {
