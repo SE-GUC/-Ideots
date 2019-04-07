@@ -16,6 +16,9 @@ export default function Home() {
       >
         Edit Description
       </Link>
+      <Link to="/requests" style={{ margin: "10px", textAlign: "center" }}>
+        Requests
+      </Link>
     </div>
   );
 }

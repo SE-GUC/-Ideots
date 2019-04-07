@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import SearchComp from "./components/search";
 import SearchByExpComp from "./components/searchByExp";
 import Edit_description from "./components/edit_description";
+import Request from './components/Request'
 import { Link } from "react-router-dom";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./App.css";
 import Home from "./components/Home";
-import Events from "./components/Events";
 
 class App extends Component {
   render() {
@@ -22,6 +22,14 @@ class App extends Component {
           <Route
             path="/edit_description"
             render={props => <Edit_description />}
+          />
+          <Route
+            path="/requests"
+            render={props => <Request  />}
+          />
+          <Route
+          path="/searchByExperience"
+          render={props => <SearchByExpComp  />}
           />
         </div>
       </Router>
