@@ -13,8 +13,12 @@ const eventRequest = require("./routes/api/eventRequest");
 const eventBooking = require("./routes/api/eventBooking");
 const users = require("./routes/api/users.js");
 const reviews = require("./routes/api/reviews");
+var cors = require("cors");
 
 const app = express();
+
+app.use(cors());
+
 
 app.use(express.json());
 
