@@ -63,7 +63,7 @@ router.put("/:id", async(req, res) => {
 
 
   const request = await EventRequest.findOne({'_id':requestedId})
-  if(!request) return res.status(404).send({error: 'The request you are tryinig to edit does not exist'})
+  if(!request) return res.status(400).send({error: 'The request you are tryinig to edit does not exist'})
   
   const schema = {
     location: Joi.object().keys(
@@ -103,7 +103,7 @@ router.delete("/:id", async (req, res) => {
   const requestedId = req.params.id;
   // const eventRequest = await EventRequest.find({'_id':requestedId});
   const eventRequest = await EventRequest.findByIdAndRemove(requestedId);
-  if(!eventRequest) return res.status(404).send({error: 'The request you are tryinig to delete does not exist'})
+  if(!eventRequest) return res.status(400).send({error: 'The request you are tryinig to delete does not exist'})
   res.send(eventRequest);
 });
 //---------------------------------\\
