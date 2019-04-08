@@ -73,7 +73,7 @@ router.delete("/:id", async (req, res) => {
   const eventBooking = await EventBooking.findByIdAndRemove(requestedId);
   if (!eventBooking)
     return res
-      .status(404)
+      .status(400)
       .send({ error: "The Booking you are tryinig to delete does not exist" });
 
   res.send(eventBooking);
