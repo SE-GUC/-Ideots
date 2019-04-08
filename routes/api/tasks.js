@@ -15,7 +15,7 @@ router.get('/:id', async (req, res) => {
     try{
     const  taskID = req.params.id;  
     const task = await Task.findOne({"_id":taskID})
-    if(!task) return res.status(404).send({error: 'Task does not exist'})
+    if(!task) return res.status(400).send({error: 'Task does not exist'})
     return res.json({task});
     }
     catch(error)
@@ -44,7 +44,7 @@ router.get('/:id', async (req, res) => {
      const taskApplicant = req.body.applicant
 
      const task = await Task.findById(taskID)
-     if(!task) return res.status(404).send({error: 'Task does not exist'})
+     if(!task) return res.status(400).send({error: 'Task does not exist'})
      const isValidated = validator.updateValidation(req.body)
      if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
      if(!taskApplicant){}
@@ -63,7 +63,7 @@ router.get('/:id', async (req, res) => {
     try {
      const taskID = req.params.id
      const deletedTask = await Task.findByIdAndRemove(taskID)
-     if(!deletedTask) return res.status(404).send({error: 'task does not exist' })
+     if(!deletedTask) return res.status(400).send({error: 'task does not exist' })
      res.json({msg:'Task was deleted successfully', data: deletedTask})
     }
     catch(error) {
