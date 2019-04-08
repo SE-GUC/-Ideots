@@ -20,7 +20,7 @@ router.get('/',async(req,res)=>{
     const notificationId=req.params.id;
     const notification=await Notification.findById(notificationId);
     if(!notification) 
-        return res.status(404).send({error: "Notification does not exist"});
+        return res.status(400).send({error: "Notification does not exist"});
     return res.json({notification});
 
 
@@ -61,7 +61,7 @@ router.put('/:id',async (req, res) => {
         const notificationId = req.params.id;  
         const notification = Notification.findOne({notificationId});
         if(!notification)
-          return res.status(404).send({error:'Notification does not exist'});
+          return res.status(400).send({error:'Notification does not exist'});
         
         const schema={
             isRead:Joi.boolean()
@@ -86,7 +86,7 @@ router.delete('/:id', async (req,res) => {
         const  notificationId = req.params.id;  
         const notification = Notification.findOne({notificationId});
         if(!notification)
-          return res.status(404).send({error:'Notification does not exist'});
+          return res.status(400).send({error:'Notification does not exist'});
         const deletedNotification = await Notification.findByIdAndRemove(notificationId)
         res.json({msg:'Notification was deleted successfully', data: deletedNotification})
     }
