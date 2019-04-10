@@ -7,24 +7,36 @@ class Notifications extends Component {
         notifications:[]
     }
 
-    componentDidMount(){
-        axios.get('http://localhost:3000/api/notifications').then(res=>this.setState({notifications:res.data.data}))
-        // axios.get('http://localhost:3000/api/notifications').then(res=>console.log(res.data.data))
-        // console.log(this.state.notifications)
+    async componentDidMount(){
+       await axios.get('http://localhost:3000/api/notifications').then(res=>this.setState({notifications:res.data.data}))
     }
-
-    readNotification=(id)=>{
+/*
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.data !== this.props.data) {
+        this.chart = c3.load({
+            data: this.props.data
+        });
+        }
+    }
+    */
+    readNotification=(id,isRead)=>{
         this.setState({notifications:this.state.notifications.map(notification=>{
           if(notification._id===id)
-            notification.isRead=true;
+            notification.isRead=isRead;
            return notification 
-        })});
-      
+        })}); 
     }
+    putNotification=(id)=>{
+        // axios.put(`http://localhost:3000/api/notifications${id}`).then(res=>this.setState({notifications:res.data.data}))
+        const isRead=true;
+        const params = {"isRead": isRead}  
+        axios.put(`http://localhost:3000/api/notifications/${id}`, params).then(this.readNotification(id,isRead));
+        
+    }
+
     render() {
       return (this.state.notifications.map(notification=>(
-          console.log('1',notification),
-          <NotificationItem key={notification._id} notifications={notification} readNotification={this.readNotification}/>            
+          <NotificationItem key={notification._id} notifications={notification} readNotification={this.putNotification}/>            
       )))
   }
 }
