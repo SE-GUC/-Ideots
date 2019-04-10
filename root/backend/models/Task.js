@@ -9,13 +9,13 @@ const TaskSchema = new Schema(
         partnerID :
         {
             type : Schema.Types.ObjectId,
-            required : true
+          
         }
         ,
         requiredSkills :
         {
             type : [String],
-            required : true
+           
         }
         ,
         consultancyID :
@@ -33,7 +33,7 @@ const TaskSchema = new Schema(
         payment :
         {
             type: Number,
-            required: true
+            //required: true
         }
         ,
        /* finalProduct :
@@ -63,19 +63,19 @@ const TaskSchema = new Schema(
         category : 
         {
             type : String,
-            required : true
+          //  required : true
         } 
         ,
         yearsOfExperience : {
             
             type : Number,
-            required : true
+            //required : true
         
         },                                  //-1 rejected , 0 pending , 1 accepted
         done :
         {
             type: Boolean,
-            required:true
+            //required:true
         
         },
         ratePartnerDoer :

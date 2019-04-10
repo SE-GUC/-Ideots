@@ -4,25 +4,19 @@ import {  Input, FormGroup, Label, Modal, ModalHeader, ModalBody, ModalFooter, T
 class Request extends Component {
     state = {
       requests: [],
-      newRequestData: {
-        description : '',
-        consult : '',
-        
-      },
+     
+      
       editRequestData: {
         id : '',
-        accepted :0,        
+        accepted :'',        
         feedback : '',
       },
       newRequestModal: false,
       editRequestModal: false
     }
     
-    toggleNewRequestModal() {
-      this.setState({
-        newRequestModal: ! this.state.newRequestModal
-      });
-    }
+    
+    
     toggleEditRequestModal() {
       this.setState({
         editRequestModal: ! this.state.editRequestModal
@@ -38,19 +32,7 @@ class Request extends Component {
        
     };
 
-    addRequest = async() => {
-      await axios.post('http://localhost:3000/api/requests/', this.state.newRequestData).then((response) => {
-        let { requests } = this.state;
-  
-       // requests.push(response.data);
-  
-        this.setState({ requests, newRequestModal: false, newRequestData: {
-        description : '',
-        consult : '',
-       
-        }});
-      });
-    }
+    
     updateRequest = async()=>{
       let { 
         accepted ,        
@@ -100,7 +82,7 @@ class Request extends Component {
               
               <tr key={request.id}>
                 <td>{request.description}</td>
-                <td>{''+request.consult}</td>
+                
                 <td>{acceptance}</td>
                 <td>{request.feedback}</td>
                 <td>{request.date}</td>
@@ -118,42 +100,7 @@ class Request extends Component {
             <div className="App container">
       
             <h1>Requests</h1>
-            <Button className="my-3" color="primary" onClick={this.toggleNewRequestModal.bind(this)}>Add Request</Button>
-
-<Modal isOpen={this.state.newRequestModal} toggle={this.toggleNewRequestModal.bind(this)}>
-  <ModalHeader toggle={this.toggleNewRequestModal.bind(this)}>Add a new Request</ModalHeader>
-  <ModalBody>
-    <FormGroup>
-      <Label for="description">description</Label>
-      <Input id="description" value={this.state.newRequestData.description} onChange={(e) => {
-        let { newRequestData } = this.state;
-
-        newRequestData.description = e.target.value;
-
-        this.setState({ newRequestData });
-      }} />
-    </FormGroup>
-   
-
-    <FormGroup>
-      <Label for="consult">consult</Label>
-      <Input id="consult" value={this.state.newRequestData.consult} onChange={(e) => {
-        let { newRequestData } = this.state;
-
-        newRequestData.consult = e.target.value;
-
-        this.setState({ newRequestData });
-      }} />
-    </FormGroup>
-
-   
-
-  </ModalBody>
-  <ModalFooter>
-    <Button color="primary" onClick={this.addRequest.bind(this)}>Add Request</Button>{' '}
-    <Button color="secondary" onClick={this.toggleNewRequestModal.bind(this)}>Cancel</Button>
-  </ModalFooter>
-</Modal>
+           
 
        
                  
@@ -194,7 +141,7 @@ class Request extends Component {
                   <tr>
                     
                     <th>Description</th>
-                    <th>Consult</th>
+                
                     <th>Accepted</th>
                     <th>Feedback</th>
                     <th>Date</th>

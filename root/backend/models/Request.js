@@ -26,7 +26,7 @@ const RequestSchema = new Schema(
         consult : 
         {
             type : Boolean,
-            required : true
+         //   required : true
         } 
         ,
         accepted : {
