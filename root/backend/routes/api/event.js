@@ -60,7 +60,7 @@ router.get("/recommended/:userID", async(req, res) => {
 const user = await User.findOne({'_id':requestedId})
 let userInterrests=user.interests
 // let userLocation=user.location
-if (!userInterrests.length === 0 )return res.status(404).send({error: 'you do not have interests '})
+//if (!userInterrests.length === 0 )return res.status(404).send({error: 'you do not have interests '})
 // let userCity=userLocation.city
 // let userStreet =userLocation.Street
 // let userArea = userLocation.Area

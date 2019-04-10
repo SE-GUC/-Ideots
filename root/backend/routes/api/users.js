@@ -6,24 +6,20 @@ const User =require('../../models/User');
 const validator =require('../../validations/userValidations');
 // Get all users
 router.get('/', async (req,res) => {
-    try{
+   
         const user = await User.find();
-        if(user.length==0) res.status(404).send({error:"there is no user"});
+       
         res.json({data : user});   
-    }catch(error){
-        res.json({error:error.message});
-    }
+   
 })
 
 // Get all members 
 router.get('/members/', async (req,res) => {
-    try{
+    
         const Member = await User.find({type:'member'});
-        if(Member.length==0) res.status(404).send({error:"there is no Member"});
+        
         res.json({data : Member});
-    }catch(error){
-        res.json({error:error.message});
-    }
+    
 })
 
 router.get('/:id', async (req, res) => {
