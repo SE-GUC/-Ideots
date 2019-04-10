@@ -18,7 +18,9 @@ const reviews = require('./routes/api/reviews')
 const app = express()
 
 
+
 const cors = require('cors')
+
 
 
 app.use(express.json())
@@ -26,9 +28,11 @@ app.use(express.json())
 mongoose.connect(config.mongoURI, { useNewUrlParser: true })
     .then(() => console.log('We are connected to MongoDB'))
     .catch(err => console.log(err))
+
     app.use(express.json())
     app.use(express.urlencoded({extended: false}))
     app.use(cors())
+
 
 app.get('/', (req, res) => {
     res.send(`<h2>Welcome to LirtenHub</h2> `);

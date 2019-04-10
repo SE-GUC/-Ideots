@@ -8,6 +8,7 @@ const Schema = mongoose.Schema
 const RequestSchema = new Schema(
     {
        
+
      
         
         description :
@@ -30,7 +31,9 @@ const RequestSchema = new Schema(
         ,
         accepted : {
             
+
             type : Boolean,
+
            // required : true
         
         },                                  //-1 rejected , 0 pending , 1 accepted

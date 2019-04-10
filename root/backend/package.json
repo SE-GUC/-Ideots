@@ -16,6 +16,7 @@
     "testEnvironment": "node"
   },
   "dependencies": {
+
     "bcryptjs": "*",
     "body-parser": "*",
     "cors": "^2.8.5",
@@ -25,6 +26,7 @@
     "mongoose": "*",
     "mongoose-type-url": "*",
     "uuid": "^3.3.2"
+
   },
   "devDependencies": {
     "axios": "^0.18.0",

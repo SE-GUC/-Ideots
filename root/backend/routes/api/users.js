@@ -6,20 +6,24 @@ const User =require('../../models/User');
 const validator =require('../../validations/userValidations');
 // Get all users
 router.get('/', async (req,res) => {
+
    
         const user = await User.find();
        
         res.json({data : user});   
    
+
 })
 
 // Get all members 
 router.get('/members/', async (req,res) => {
+
     
         const Member = await User.find({type:'member'});
         
         res.json({data : Member});
     
+
 })
 
 router.get('/:id', async (req, res) => {
