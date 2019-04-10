@@ -24,7 +24,6 @@
     "mongoose-type-url": "*",
     "mongoose": "*",
     "body-parser": "*"
-
   },
   "devDependencies": {
     "axios": "^0.18.0",
