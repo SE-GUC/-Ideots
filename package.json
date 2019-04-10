@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "start": "node index.js"
+    "start": "node index.js",
+    "dev":"nodemon index.js"
   },
   "keywords": [
     "server"
@@ -16,15 +17,16 @@
     "testEnvironment": "node"
   },
   "dependencies": {
+    "bcryptjs": "*",
+    "body-parser": "*",
     "express": "*",
     "joi": "^14.3.1",
     "joi-objectid": "^2.0.0",
-    "uuid": "^3.3.2",
-    "bcryptjs": "*",
-    "mongoose-type-url": "*",
+    "mongodb": "^3.2.3",
     "mongoose": "*",
-    "body-parser": "*"
-
+    "mongoose-type-url": "*",
+    "nodemon": "^1.18.11",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "axios": "^0.18.0",

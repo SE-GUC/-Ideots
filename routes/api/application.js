@@ -11,7 +11,8 @@ const Application = require('../../models/Application');
 //Get all applications
 router.get('/',async(req,res)=>{
     try{
-    const applications=await Application.find();
+    const applications=await Application.find().populate('applicantId').populate('taskId');
+    console.log(applications);
     res.json({data:applications});
     }catch(error){
         res.json({error:error.message});
