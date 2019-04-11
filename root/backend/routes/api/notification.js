@@ -22,8 +22,6 @@ router.get('/',async(req,res)=>{
     if(!notification) 
         return res.status(404).send({error: "Notification does not exist"});
     return res.json({notification});
-
-
 })
 
 // Create a new notification
@@ -95,4 +93,14 @@ router.delete('/:id', async (req,res) => {
         console.log(error)
     }  
 })
+
+//specific user
+
+router.patch('/:id',async(req,res)=>{
+    const recieverId=req.params.id;
+    const notifications=await Notification.find({"reciever":recieverId});
+    res.json({data:notifications});
+})
+
+
 module.exports = router;

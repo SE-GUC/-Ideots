@@ -18,11 +18,14 @@ class NotificationItem extends Component {
         <div style={this.notificationStyle()} onClick={this.props.readNotification.bind(this,_id)}>
             
                 <p style={{flex:1}}> {'Content: '}{content}</p>
+                <p style={{flex:1}}> {'Notifier_Id: '}{notifierId}</p>
                 <p style={{flex:1}}> {'Date: '}{date}</p>
-                <p style={{flex:1}}> {'NotifierId: '}{notifierId}</p>
-                <p style={{flex:1}}> {'Reciever Name: '}{reciever.name}</p>
-                <p style={{flex:1}}> {'IsRead: '}{isRead?"Yes":"No"}</p>
+                <p style={{flex:1}}> {'Seen: '}{isRead?"Yes":"No"}</p>
                 
+                {/*
+                  <p style={{flex:1}}> {'Reciever Name: '}{reciever.name}</p>
+                  */
+               }
         </div>
          )
     }

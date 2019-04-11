@@ -8,7 +8,9 @@ class Notifications extends Component {
     }
 
     async componentDidMount(){
-       await axios.get('http://localhost:3000/api/notifications').then(res=>this.setState({notifications:res.data.data}))
+    //    await axios.get('http://localhost:3000/api/notifications').then(res=>this.setState({notifications:res.data.data}))
+        const user_id='5cae98f10a563809bfb8891d';
+        await axios.patch(`http://localhost:3000/api/notifications/${user_id}`).then(res=>this.setState({notifications:res.data.data}))
     }
 /*
     componentDidUpdate(prevProps, prevState) {
@@ -35,7 +37,8 @@ class Notifications extends Component {
     }
 
     render() {
-      return (this.state.notifications.map(notification=>(
+      return (
+          this.state.notifications.map(notification=>(
           <NotificationItem key={notification._id} notifications={notification} readNotification={this.putNotification}/>            
       )))
   }
