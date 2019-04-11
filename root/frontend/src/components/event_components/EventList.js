@@ -35,8 +35,36 @@ export class EventList extends Component {
           hasMore={this.state.hasMore}
           dataLength={this.state.events.length}
           next={this.fetchEvents}
-          endMessage={<h3>No More Event</h3>}
-          loader={<h3>Loading...</h3>}
+          endMessage={
+            <h3
+              style={{
+                width: "100%",
+                height: "50px",
+                backgroundColor: "#ccc",
+                lineHeight: "50px",
+                textAlign: "center",
+                fontSize: "20px",
+                marginBottom: "5px"
+              }}
+            >
+              No More Event
+            </h3>
+          }
+          loader={
+            <h3
+              style={{
+                width: "100%",
+                height: "50px",
+                backgroundColor: "#ccc",
+                lineHeight: "50px",
+                textAlign: "center",
+                fontSize: "20px",
+                marginBottom: "5px"
+              }}
+            >
+              Loading...
+            </h3>
+          }
         >
           {this.state.events.map(event => (
             <Event key={event._id} event={event} />
