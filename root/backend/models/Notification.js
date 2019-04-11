@@ -8,7 +8,7 @@ const NotificationSchema = new Schema({
         type : String ,
         required : true 
     } ,
-    reciever:{
+    recieverId:{
         type : Schema.Types.ObjectId ,
         ref:'Users',
         required : true 

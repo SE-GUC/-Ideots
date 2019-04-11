@@ -9,7 +9,7 @@ const Notification = require('../../models/Notification');
 
 // Get all notification
 router.get('/',async(req,res)=>{
-    const notifications=await Notification.find().populate('reciever');
+    const notifications=await Notification.find().populate('recieverId');
     res.json({data:notifications});
 
 
@@ -29,7 +29,7 @@ router.post('/',async(req,res)=>{
    try{
        const schema = {
            content: Joi.string().required(),
-           reciever: Joi.objectId().required(), 
+           recieverId: Joi.objectId().required(), 
            notifierId:Joi.objectId().required()
         }
         
@@ -98,7 +98,7 @@ router.delete('/:id', async (req,res) => {
 
 router.patch('/:id',async(req,res)=>{
     const recieverId=req.params.id;
-    const notifications=await Notification.find({"reciever":recieverId});
+    const notifications=await Notification.find({"recieverId":recieverId});
     res.json({data:notifications});
 })
 //----------------------------------------------------------------------------------------------

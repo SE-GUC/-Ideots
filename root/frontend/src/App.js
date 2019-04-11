@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {BrowserRouter as Router,Route} from 'react-router-dom'
 import './App.css';
 
-import Notification from './components/notifications/Notifications'
+import Notification from './components/notification_components/Notifications'
 
 
 class App extends Component {

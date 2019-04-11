@@ -9,18 +9,10 @@ class Notifications extends Component {
 
     async componentDidMount(){
     //    await axios.get('http://localhost:3000/api/notifications').then(res=>this.setState({notifications:res.data.data}))
-        const user_id='5cae98f10a563809bfb8891d';
+        const user_id='5cae82d478cadf0004c4fdb1';  // get it from authentication
         await axios.patch(`http://localhost:3000/api/notifications/${user_id}`).then(res=>this.setState({notifications:res.data.data}))
     }
-/*
-    componentDidUpdate(prevProps, prevState) {
-        if (prevProps.data !== this.props.data) {
-        this.chart = c3.load({
-            data: this.props.data
-        });
-        }
-    }
-    */
+
     readNotification=(id,isRead)=>{
         this.setState({notifications:this.state.notifications.map(notification=>{
           if(notification._id===id)
