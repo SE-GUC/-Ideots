@@ -9,7 +9,9 @@ const Notification = require('../../models/Notification');
 
 // Get all notification
 router.get('/',async(req,res)=>{
+
     const notifications=await Notification.find().populate('recieverId');
+
     res.json({data:notifications});
 
 
@@ -18,9 +20,9 @@ router.get('/',async(req,res)=>{
 // Get specific notification
  router.get('/:id',async(req,res)=>{
     const notificationId=req.params.id;
-    const notification=await Notification.findById(notificationId);
+    const notification=await Notification.findById(notificationId).populate('recieverId').populate('notifierId');
     if(!notification) 
-        return res.status(404).send({error: "Notification does not exist"});
+        return res.status(400).send({error: "Notification does not exist"});
     return res.json({notification});
 })
 
@@ -59,7 +61,7 @@ router.put('/:id',async (req, res) => {
         const notificationId = req.params.id;  
         const notification = Notification.findOne({notificationId});
         if(!notification)
-          return res.status(404).send({error:'Notification does not exist'});
+          return res.status(400).send({error:'Notification does not exist'});
         
         const schema={
             isRead:Joi.boolean()
@@ -84,7 +86,7 @@ router.delete('/:id', async (req,res) => {
         const  notificationId = req.params.id;  
         const notification = Notification.findOne({notificationId});
         if(!notification)
-          return res.status(404).send({error:'Notification does not exist'});
+          return res.status(400).send({error:'Notification does not exist'});
         const deletedNotification = await Notification.findByIdAndRemove(notificationId)
         res.json({msg:'Notification was deleted successfully', data: deletedNotification})
     }
@@ -108,20 +110,20 @@ router.get("/:id/:limit/:offset", async (req, res) => {
       id:Joi.required(),
       limit: Joi.required(),
       offset: Joi.required()
-    };
-  
+    }; 
      const result = Joi.validate(req.params, schema);
   
      if (result.error)
       return res.status(400).send({ error: result.error.details[0].message });
   
     const limit = parseInt(req.params.limit, 10);
+
     const offset = parseInt(req.params.offset, 10);
     const notifications = await Notification.find({"recieverId":recieverId})
       .skip(offset)
       .limit(limit);
     res.json({ data: notifications });
   });
-  
+
 
 module.exports = router;

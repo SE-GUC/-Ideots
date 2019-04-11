@@ -15,6 +15,7 @@ const NotificationSchema = new Schema({
     },
     notifierId:{
         type : Schema.Types.ObjectId ,
+        ref:'Users',
         required : true 
     },
     date:{

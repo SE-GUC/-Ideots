@@ -16,7 +16,8 @@ router.get('/:id', async (req, res) => {
     try{
         const adminId = req.params.id;
         const admin =await Admin.findOne({"_id":adminId});
-        if(!admin) res.status(404).send({error:'Admin was not found'});
+        // send status of bad request 400
+        if(!admin) res.status(400).send({error:'Admin was not found'});
         res.json(admin);
     }catch(error) {
         res.json({error:error.message});
@@ -48,7 +49,8 @@ router.put('/:id', async (req, res) => {
     try {
             const id = req.params.id;
             const admin = await Admin.findOne({_id:id});
-            if(!admin) res.status(404).send({error:'Admin was not found'});
+            // bad request
+            if(!admin) res.status(400).send({error:'Admin was not found'});
             const isValidated = validator.updateValidation(req.body);
             if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message });
             const name =req.body.name;
@@ -72,7 +74,7 @@ router.delete('/:id', async (req, res) => {
     try{
         const id = req.params.id;
         const deletedAdmin = await Admin.deleteOne({"_id":id});
-        if(!deletedAdmin) res.status(404).send({error:'Admin was not found'});
+        if(!deletedAdmin) res.status(400).send({error:'Admin was not found'});
         res.json({msg:'Admin was deleted successfully', data: deletedAdmin});
     }catch(error) {
         res.json({error:error.message});
