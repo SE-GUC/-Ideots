@@ -7,7 +7,7 @@ const mongoose = require("mongoose");
 const Event = require("../../models/Event");
 const User=require("../../models/User")
 Joi.objectId = require('joi-objectid')(Joi);
-
+const passport = require('passport')
 // make sure to notify about object id  and pretty method 
 
 ///////////CRUDZZZZZZZ\\\\\\\\\\\\

@@ -243,7 +243,7 @@ router.delete('/:id', async (req, res) => {
        
 
         });
-        
+
 
         // router.put('/:id', async (req,res) => {
         //     try {
@@ -265,7 +265,7 @@ router.delete('/:id', async (req, res) => {
         //         console.log(error)
         //     }  
         // })
-
+    
 
 module.exports = router
 
@@ -274,3 +274,4 @@ module.exports = router
 //ghayart el response kollo gwa data ella elli bykkon b id
 //zawedt crud delete
 
+//passport.authenticate('jwt', {session: false}),
