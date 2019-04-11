@@ -9,7 +9,7 @@ const Request = require("../../models/Request");
 
 // getting the requests
 router.get("/",async (req, res) =>{
-       const requests = await Request.find()
+       const requests = await Request.find().populate('partnerID').populate('consultancyID')
        if(requests.length===0)
        res.json({msg : "empty"})
        else
@@ -22,7 +22,7 @@ router.get("/",async (req, res) =>{
 router.get('/:id', async (req, res) => {  
   try{
   const  requestId = req.params.id;
-  const request = await Request.findById(requestId)
+  const request = await Request.findById(requestId).populate('partnerID').populate('consultancyID')
   if(!request) {// res.status(404)
                 return res.status(400).json({msg : "Request does not exist"})}
                       
