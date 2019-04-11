@@ -9,7 +9,9 @@ const Notification = require('../../models/Notification');
 
 // Get all notification
 router.get('/',async(req,res)=>{
-    const notifications=await Notification.find().populate('recieverId').populate('notifierId');
+
+    const notifications=await Notification.find().populate('recieverId');
+
     res.json({data:notifications});
 
 
@@ -22,8 +24,6 @@ router.get('/',async(req,res)=>{
     if(!notification) 
         return res.status(400).send({error: "Notification does not exist"});
     return res.json({notification});
-
-
 })
 
 // Create a new notification
@@ -110,14 +110,14 @@ router.get("/:id/:limit/:offset", async (req, res) => {
       id:Joi.required(),
       limit: Joi.required(),
       offset: Joi.required()
-    };
-
-      const result = Joi.validate(req.params, schema);
-
-      if (result.error)
+    }; 
+     const result = Joi.validate(req.params, schema);
+  
+     if (result.error)
       return res.status(400).send({ error: result.error.details[0].message });
+  
+    const limit = parseInt(req.params.limit, 10);
 
-     const limit = parseInt(req.params.limit, 10);
     const offset = parseInt(req.params.offset, 10);
     const notifications = await Notification.find({"recieverId":recieverId})
       .skip(offset)
