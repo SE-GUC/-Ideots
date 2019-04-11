@@ -7,7 +7,7 @@ const validator =require('../../validations/userValidations');
 // Get all users
 router.get('/', async (req,res) => {
     try{
-        const user = await User.find().populate('partners').populate('events').populate('tasks').populate('attendedEvents')
+        const user = await User.find().populate('pastProjects').populate('events').populate('tasks').populate('attendedEvents')
         .populate('eventOrganized')
         if(user.length==0) res.status(400).send({error:"there is no user"});
         res.json({data : user});   
@@ -19,7 +19,7 @@ router.get('/', async (req,res) => {
 // Get all members 
 router.get('/members/', async (req,res) => {
     try{
-        const Member = await User.find({type:'member'}).populate('partners').populate('events').populate('tasks').populate('attendedEvents')
+        const Member = await User.find({type:'member'}).populate('pastProjects').populate('events').populate('tasks').populate('attendedEvents')
         .populate('eventOrganized');
         if(Member.length==0) res.status(400).send({error:"there is no Member"});
         res.json({data : Member});

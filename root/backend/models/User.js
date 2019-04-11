@@ -48,7 +48,7 @@ const UserSchema = new schema({
     },
     partners:{
         type:[schema.Types.ObjectId],
-        ref:'Users'
+       
     },
     events:{
         type:[schema.Types.ObjectId],
@@ -113,7 +113,8 @@ const UserSchema = new schema({
         type:Object
     },
     pastProjects:{
-        type:Object
+        type:[schema.Types.ObjectId],
+        ref:'tasks'
     },
     contactInfo:{
         type:Object

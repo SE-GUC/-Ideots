@@ -44,7 +44,6 @@ router.get("/search/:city/:Area/:Street", async(req, res) => {
 router.get("/search/:type", async(req, res) => {
   const type = req.params.type
   const event =await Event.find({'type':type}).populate('organizerId').populate('eventRequestId'); 
-  if(event.length===0) return res.status(400).send({error: 'The Event you are tryinig to search for  does not exist'})
   res.send({data : event})
 });
 //----------------------------------------------------\\
@@ -67,7 +66,7 @@ if (!userInterrests.length === 0 )return res.status(400).send({error: 'you do no
 
 //{'location.city':userCity , 'location.Street':userStreet ,'location.Area':userArea})
 
-const events = await Event.find( ({'type':{$in :userInterrests}}))
+const events = await Event.find( ({'type':{$in :userInterrests}})).populate('organizerId').populate('eventRequestId')
 if(!events) return res.status(400).send({error: 'No recommended Events currently try again later!!'})
 
 res.json({ data: events });
