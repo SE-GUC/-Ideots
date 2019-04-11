@@ -24,10 +24,10 @@
     "mongoose-type-url": "*",
     "mongoose": "*",
     "body-parser": "*"
-
   },
   "devDependencies": {
     "axios": "^0.18.0",
+    "cors": "^2.8.5",
     "jest": "^24.5.0"
   }
 }
