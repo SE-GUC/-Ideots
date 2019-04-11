@@ -8,9 +8,16 @@ class Notifications extends Component {
     }
 
     async componentDidMount(){
-    //    await axios.get('http://localhost:3000/api/notifications').then(res=>this.setState({notifications:res.data.data}))
         const user_id='5cae82d478cadf0004c4fdb1';  // get it from authentication
-        await axios.patch(`http://localhost:3000/api/notifications/${user_id}`).then(res=>this.setState({notifications:res.data.data}))
+        const limit=5
+        const offset=0
+    
+    //    await axios.get('http://localhost:3000/api/notifications').then(res=>this.setState({notifications:res.data.data}))
+    // await axios.patch(`http://localhost:3000/api/notifications/${user_id}`).then(res=>this.setState({notifications:res.data.data}))
+        
+        await axios.get(`http://localhost:3000/api/notifications/${user_id}/${limit}/${offset}`)
+                    .then(res=>this.setState({notifications:res.data.data}))
+        
     }
 
     readNotification=(id,isRead)=>{

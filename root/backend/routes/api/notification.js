@@ -102,9 +102,11 @@ router.patch('/:id',async(req,res)=>{
     res.json({data:notifications});
 })
 //----------------------------------------------------------------------------------------------
-router.get("/:limit/:offset", async (req, res) => {
-    console.log(req.params);
+router.get("/:id/:limit/:offset", async (req, res) => {
+  console.log(req.params)
+  const recieverId=req.params.id;
     const schema = {
+      id:Joi.required(),
       limit: Joi.required(),
       offset: Joi.required()
     };
@@ -117,7 +119,7 @@ router.get("/:limit/:offset", async (req, res) => {
     const limit = parseInt(req.params.limit, 10);
     const offset = parseInt(req.params.offset, 10);
     console.log(limit, offset);
-    const notifications = await Notification.find()
+    const notifications = await Notification.find({"recieverId":recieverId})
       .skip(offset)
       .limit(limit);
     res.json({ data: notifications });
