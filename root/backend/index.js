@@ -16,6 +16,8 @@ const users = require('./routes/api/users.js')
 const reviews = require('./routes/api/reviews')
 
 const app = express()
+const cors=require('cors');
+app.use(cors());
 
 
 

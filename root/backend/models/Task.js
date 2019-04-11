@@ -9,6 +9,7 @@ const TaskSchema = new Schema(
         partnerID :
         {
             type : Schema.Types.ObjectId,
+            ref:'Users',
             required : true
         }
         ,
@@ -21,6 +22,7 @@ const TaskSchema = new Schema(
         consultancyID :
         {
             type : Schema.Types.ObjectId,
+            ref:'Users'
            // required : true
         }
         ,

@@ -7,8 +7,9 @@ const validator =require('../../validations/userValidations');
 // Get all users
 router.get('/', async (req,res) => {
     try{
-        const user = await User.find();
-        if(user.length==0) res.status(404).send({error:"there is no user"});
+        const user = await User.find().populate('partners').populate('events').populate('tasks').populate('attendedEvents')
+        .populate('eventOrganized')
+        if(user.length==0) res.status(400).send({error:"there is no user"});
         res.json({data : user});   
     }catch(error){
         res.json({error:error.message});
@@ -18,8 +19,9 @@ router.get('/', async (req,res) => {
 // Get all members 
 router.get('/members/', async (req,res) => {
     try{
-        const Member = await User.find({type:'member'});
-        if(Member.length==0) res.status(404).send({error:"there is no Member"});
+        const Member = await User.find({type:'member'}).populate('partners').populate('events').populate('tasks').populate('attendedEvents')
+        .populate('eventOrganized');
+        if(Member.length==0) res.status(400).send({error:"there is no Member"});
         res.json({data : Member});
     }catch(error){
         res.json({error:error.message});
@@ -30,9 +32,10 @@ router.get('/:id', async (req, res) => {
     try{
         const id = req.params.id;
         console.log(id);
-        const user =await User.findOne({_id:id});
+        const user =await User.findOne({_id:id}).populate('partners').populate('events').populate('tasks').populate('attendedEvents')
+        .populate('eventOrganized');
         console.log(user);
-        if(!user) res.status(404).send({error:"there is no User with this Id"});
+        if(!user) res.status(400).send({error:"there is no User with this Id"});
         res.json(user);
     }catch(error) {
         res.json({error: error.message});
@@ -216,7 +219,7 @@ router.post('/', async (req, res) => {
            
                     const id = req.params.id;
                     const user = await User.findOne({_id:id});
-                    if(!user) return res.status(404).send({error: 'User does not exist'});
+                    if(!user) return res.status(400).send({error: 'User does not exist'});
                     
                     if (user.type=='member')
                     {let result = validator.updateValidationMember(req.body) }
@@ -237,7 +240,7 @@ router.delete('/:id', async (req, res) => {
      const requestedId = req.params.id;
      const user =await User.findOne({'_id':requestedId});
     //  console.log(user)
-    if(!user) return res.status(404).send({error:"there is no User with this Id"});
+    if(!user) return res.status(400).send({error:"there is no User with this Id"});
         const deletedUser = await User.findByIdAndRemove(requestedId)
        res.json({data:deletedUser})
        

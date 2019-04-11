@@ -6,14 +6,14 @@ const Schema=mongoose.Schema
 const ApplicationSchema = new Schema({
     applicantId:{
         type : Schema.Types.ObjectId ,
-        required:true
-        // ref:'User'
+        required:true,
+        ref:'Users'
     },
         
     taskId:{
         type : Schema.Types.ObjectId ,
-        required:true
-        // ref:'Task'
+        required:true,
+         ref:'tasks'
     },
     date:{
         type:Date,

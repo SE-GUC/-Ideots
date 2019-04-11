@@ -9,7 +9,7 @@ const UserSchema = new schema({
         enum:['partner','member','consultancy_agency']
     },
     name:{
-        type:Object,
+        type:String,
         required:true
     },
     email:{
@@ -47,10 +47,12 @@ const UserSchema = new schema({
         type:[String]
     },
     partners:{
-        type:[schema.Types.ObjectId]
+        type:[schema.Types.ObjectId],
+        ref:'Users'
     },
     events:{
-        type:[schema.Types.ObjectId]
+        type:[schema.Types.ObjectId],
+        ref:'events'
     },
     //member
     phoneNumber:{
@@ -75,10 +77,12 @@ const UserSchema = new schema({
         type:[String]
     },
     tasks:{
-        type:[schema.Types.ObjectId]
+        type:[schema.Types.ObjectId],
+        ref:'tasks'
     },
     attendedEvents:{
-        type:[schema.Types.ObjectId]
+        type:[schema.Types.ObjectId],
+        ref:'events'
     },
     experience:{
         type:[String]
@@ -96,17 +100,20 @@ const UserSchema = new schema({
     fieldOfWork:{
         type:[String]
     },
-    partners:{
-        type:[schema.Types.ObjectId]
-    },
+
+    // partners:{
+    //     type:[schema.Types.ObjectId]
+    // },
+
     eventOrganized:{
-        type:[schema.Types.ObjectId]
+        type:[schema.Types.ObjectId],
+        ref:'events'
     },
     formFeedBack:{
         type:Object
     },
     pastProjects:{
-        type:[schema.Types.ObjectId]
+        type:Object
     },
     contactInfo:{
         type:Object
