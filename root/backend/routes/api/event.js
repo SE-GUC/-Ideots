@@ -12,9 +12,8 @@ Joi.objectId = require("joi-objectid")(Joi);
 
 ///////////CRUDZZZZZZZ\\\\\\\\\\\\
 // Read all Events
-router.get("/", async (req, res) => {
-  const events = await Event.find();
-
+router.get("/", async(req, res) => {
+  const events = await Event.find().populate('organizerId').populate('eventRequestId')
   res.json({ data: events }); // make sure of pretty
 });
 //----------------------------------------------\\
@@ -41,44 +40,31 @@ router.get("/withRange/:limit/:offset", async (req, res) => {
 //----------------------------------------------\\
 
 // Get a certain event
-router.get("/:id", async (req, res) => {
-  const requestedId = req.params.id;
-  console.log(requestedId);
-  const event = await Event.findOne({ _id: requestedId });
-  console.log(event);
-  if (!event)
-    return res
-      .status(404)
-      .send({ error: "The Event you are tryinig to show does not exist " });
-  res.send({ data: event });
+router.get("/:id", async(req, res) => {
+  const requestedId = req.params.id
+  console.log(requestedId)
+  const event =await Event.findOne({'_id':requestedId}).populate('organizerId').populate('eventRequestId')
+  console.log(event) //bad req
+  if(!event)return  res.status(400).send({error: 'The Event you are tryinig to show does not exist '})
+  res.send({data : event})
 });
 //-----------------------------------------------\\
 //Get a certain event by location  /////////////////////////////THINK OF USING REGEX\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-router.get("/search/:city/:Area/:Street", async (req, res) => {
-  let city = req.params.city;
-  let Street = req.params.Street;
-  let Area = req.params.Area;
-  const event = await Event.find({
-    "location.city": city,
-    "location.Street": Street,
-    "location.Area": Area
-  });
-  if (!event)
-    return res
-      .status(404)
-      .send({ error: " there is no such event with these attributes " });
-  res.send({ data: event });
+router.get("/search/:city/:Area/:Street", async(req, res) => {
+  let city = req.params.city 
+  let Street = req.params.Street
+  let Area = req.params.Area
+  const event =await Event.find({'location.city':city , 'location.Street':Street ,'location.Area':Area }
+  ).populate('organizerId').populate('eventRequestId'); 
+  if(!event) return res.status(400).send({error: ' there is no such event with these attributes '})//bad req
+  res.send({data: event})
 });
 //----------------------------------------------------\\
 //Get a certain event by type
-router.get("/search/:type", async (req, res) => {
-  const type = req.params.type;
-  const event = await Event.find({ type: type });
-  if (event.length === 0)
-    return res.status(404).send({
-      error: "The Event you are tryinig to search for  does not exist"
-    });
-  res.send({ data: event });
+router.get("/search/:type", async(req, res) => {
+  const type = req.params.type
+  const event =await Event.find({'type':type}).populate('organizerId').populate('eventRequestId'); 
+  res.send({data : event})
 });
 //----------------------------------------------------\\
 //Get recommended events for a user  /////STILL BASED ON PAST EVENTS TO BE IMPLEMENTED
@@ -87,28 +73,25 @@ router.get("/search/:type", async (req, res) => {
 this method should be handled appropriatly
 
 */
-router.get("/recommended/:userID", async (req, res) => {
-  const requestedId = req.params.userID;
+router.get("/recommended/:userID", async(req, res) => {
+  const requestedId = req.params.userID
 
-  const user = await User.findOne({ _id: requestedId });
-  let userInterrests = user.interests;
-  // let userLocation=user.location
-  if (!userInterrests.length === 0)
-    return res.status(404).send({ error: "you do not have interests " });
-  // let userCity=userLocation.city
-  // let userStreet =userLocation.Street
-  // let userArea = userLocation.Area
+const user = await User.findOne({'_id':requestedId}).populate('organizerId').populate('eventRequestId')
+let userInterrests=user.interests
+// let userLocation=user.location
+if (!userInterrests.length === 0 )return res.status(400).send({error: 'you do not have interests '})
+// let userCity=userLocation.city
+// let userStreet =userLocation.Street
+// let userArea = userLocation.Area
 
-  //{'location.city':userCity , 'location.Street':userStreet ,'location.Area':userArea})
+//{'location.city':userCity , 'location.Street':userStreet ,'location.Area':userArea})
 
-  const events = await Event.find({ type: { $in: userInterrests } });
-  if (!events)
-    return res
-      .status(404)
-      .send({ error: "No recommended Events currently try again later!!" });
+const events = await Event.find( ({'type':{$in :userInterrests}})).populate('organizerId').populate('eventRequestId')
+if(!events) return res.status(400).send({error: 'No recommended Events currently try again later!!'})
 
-  res.json({ data: events });
-});
+res.json({ data: events });
+
+})
 //----------------------------------------------------\\
 // FEEDBACK FORM
 
@@ -192,6 +175,8 @@ router.put("/:id", async (req, res) => {
 // Delete a Event
 router.delete("/:id", async (req, res) => {
   const requestedId = req.params.id;
+  const event = Event.findOne({requestedId})
+  if(!event) return res.status(400).send({error: 'The Event you are tryinig to edit does not exist'})
 
   const event = Event.findOne({ requestedId });
   if (!event)
