@@ -14,7 +14,7 @@ router.get('/', async (req,res) => {
 router.get('/:id', async(req, res) => {  
       const id = req.params.id 
        const review = await Review.findOne({"_id":id});   
-       if(!review) return res.status(404).send({error: 'review does not exist'})
+       if(!review) return res.status(400).send({error: 'review does not exist'})
         
         return res.json({review});
 
@@ -51,7 +51,7 @@ router.put('/:id', async (req,res) => {
     try {
         const id = req.params.id
         const review = await Review.findOne({ "_id" : id });   
-       if(!review) return res.status(404).send({error: 'review does not exist'})
+       if(!review) return res.status(400).send({error: 'review does not exist'})
         const schema = {
             rate :   Joi.number(),
             reviewType :  Joi.any().valid([0, 1,2]),
@@ -72,7 +72,7 @@ router.delete('/:id', async (req,res) => {
     try {
         const id = req.params.id
         const deletedReview = await Review.findByIdAndRemove(id)
-        if(!deletedReview) return res.status(404).send({error: 'review does not exist' })
+        if(!deletedReview) return res.status(400).send({error: 'review does not exist' })
         res.json({msg:'review was deleted successfully', data: deletedReview})
     }
     catch(error) {

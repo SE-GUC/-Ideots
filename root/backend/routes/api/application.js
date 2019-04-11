@@ -11,7 +11,8 @@ const Application = require('../../models/Application');
 //Get all applications
 router.get('/',async(req,res)=>{
     try{
-    const applications=await Application.find();
+    const applications=await Application.find().populate('applicantId').populate('taskId');
+    console.log(applications);
     res.json({data:applications});
     }catch(error){
         res.json({error:error.message});
@@ -23,9 +24,9 @@ router.get('/',async(req,res)=>{
 router.get('/:id',async(req,res)=>{
     try{
         const applicationId=req.params.id;
-        const application=await Application.findById(applicationId);
-        if(!application) 
-            return res.status(404).send({error: "Application does not exist"});
+        const application=await Application.findById(applicationId).populate('applicantId').populate('taskId');
+        if(!application) // send bad req
+            return res.status(400).send({error: "Application does not exist"});
         return res.json({data:application});
     }catch(error){
         res.json({error:error.message});
@@ -61,8 +62,8 @@ router.put('/:id',async (req, res) => {
     
        const applicationId = req.params.id;  
        const application = Application.findById(applicationId);
-       if(!application)
-         return res.status(404).send({error:'Application does not exist'});
+       if(!application) //send bad req
+         return res.status(400).send({error:'Application does not exist'});
        
        const schema={
             date:Joi.date(),
@@ -84,8 +85,8 @@ router.put('/:id',async (req, res) => {
     try {
         const  applicationId = req.params.id;  
         const application = Application.findById(applicationId);
-        if(!application)
-          return res.status(404).send({error:'Application does not exist'});
+        if(!application)// send bad req
+          return res.status(400).send({error:'Application does not exist'});
         const deletedApplication = await Application.findByIdAndRemove(applicationId)
         res.json({msg:'Neview was deleted successfully', data: deletedApplication})
     }

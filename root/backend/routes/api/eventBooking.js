@@ -8,7 +8,7 @@ const EventBooking = require("../../models/EventBooking");
 ///////////CRUDZZZZZZZ\\\\\\\\\\\\
 // Read all EventBookings
 router.get("/", async (req, res) => {
-  eventBookings = await EventBooking.find()
+  eventBookings = await EventBooking.find().populate('eventId').populate('memberId')
   // .populate('eventId').populate('memberId').exec(function(err,res){
   //   if (err) return handleError(err)
   // });;
@@ -20,7 +20,7 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   const requestedId = req.params.id;
   
-  const eventBooking = await EventBooking.findOne({'_id': requestedId })
+  const eventBooking = await EventBooking.findOne({'_id': requestedId }).populate('eventId').populate('memberId')
   // .populate('eventId').populate('memberId').exec(function(err,res){
   //   if (err) return handleError(err)
   // });
@@ -73,7 +73,7 @@ router.delete("/:id", async (req, res) => {
   const eventBooking = await EventBooking.findByIdAndRemove(requestedId);
   if (!eventBooking)
     return res
-      .status(404)
+      .status(400)
       .send({ error: "The Booking you are tryinig to delete does not exist" });
 
   res.send(eventBooking);
