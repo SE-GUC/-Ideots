@@ -16,14 +16,15 @@
     "testEnvironment": "node"
   },
   "dependencies": {
+    "bcryptjs": "*",
+    "body-parser": "*",
+    "cors": "^2.8.5",
     "express": "*",
     "joi": "^14.3.1",
     "joi-objectid": "^2.0.0",
-    "uuid": "^3.3.2",
-    "bcryptjs": "*",
-    "mongoose-type-url": "*",
     "mongoose": "*",
-    "body-parser": "*"
+    "mongoose-type-url": "*",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "axios": "^0.18.0",

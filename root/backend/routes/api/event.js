@@ -21,7 +21,6 @@ router.get("/", async (req, res) => {
 
 // Read Events in specific range
 router.get("/withRange/:limit/:offset", async (req, res) => {
-  console.log(req.params);
   const schema = {
     limit: Joi.required(),
     offset: Joi.required()
@@ -34,7 +33,6 @@ router.get("/withRange/:limit/:offset", async (req, res) => {
 
   const limit = parseInt(req.params.limit, 10);
   const offset = parseInt(req.params.offset, 10);
-  console.log(limit, offset);
   const events = await Event.find()
     .skip(offset)
     .limit(limit);

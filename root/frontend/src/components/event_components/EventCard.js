@@ -17,8 +17,8 @@ class EventCard extends React.Component {
     return (
       <Card
         style={{
-          marginBottom: "10px",
-          border: "1px solid blue"
+          border: "1px solid blue",
+          margin: "10px"
         }}
       >
         <CardHeader
