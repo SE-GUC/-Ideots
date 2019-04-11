@@ -101,6 +101,27 @@ router.patch('/:id',async(req,res)=>{
     const notifications=await Notification.find({"reciever":recieverId});
     res.json({data:notifications});
 })
-
+//----------------------------------------------------------------------------------------------
+router.get("/:limit/:offset", async (req, res) => {
+    console.log(req.params);
+    const schema = {
+      limit: Joi.required(),
+      offset: Joi.required()
+    };
+  
+     const result = Joi.validate(req.params, schema);
+  
+     if (result.error)
+      return res.status(400).send({ error: result.error.details[0].message });
+  
+    const limit = parseInt(req.params.limit, 10);
+    const offset = parseInt(req.params.offset, 10);
+    console.log(limit, offset);
+    const notifications = await Notification.find()
+      .skip(offset)
+      .limit(limit);
+    res.json({ data: notifications });
+  });
+  
 
 module.exports = router;
