@@ -1,7 +1,7 @@
 
 const express = require('express')
 const mongoose = require('mongoose');
-
+const passport = require('passport')
 const config =require('./config/keys.js')
 
 const admins = require('./routes/api/admins')
@@ -14,7 +14,8 @@ const eventRequest = require('./routes/api/eventRequest')
 const eventBooking = require('./routes/api/eventBooking')
 const users = require('./routes/api/users.js')
 const reviews = require('./routes/api/reviews')
-
+const login = require ('./routes/api/login')
+const auth=require ('./routes/api/auth')
 const app = express()
 const cors=require('cors');
 app.use(cors());
@@ -29,10 +30,14 @@ mongoose.connect(config.mongoURI, { useNewUrlParser: true })
     .then(() => console.log('We are connected to MongoDB'))
     .catch(err => console.log(err))
 
-
+//entry point
 app.get('/', (req, res) => {
     res.send(`<h2>Welcome to LirtenHub</h2> `);
 })
+
+//passport configuration
+require('./config/passport')
+
 
 // Direct routes to appropriate files 
 app.use('/api/admins',admins)
@@ -45,7 +50,8 @@ app.use('/api/eventRequests', eventRequest)
 app.use('/api/eventBookings', eventBooking)
 app.use('/api/users', users)
 app.use('/api/reviews', reviews)
-
+app.use ('/api/login',login)
+app.use ('/api/auth',auth)
 
 //to be integrated----------------
 
