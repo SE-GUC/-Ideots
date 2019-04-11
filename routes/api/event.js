@@ -13,7 +13,7 @@ Joi.objectId = require('joi-objectid')(Joi);
 ///////////CRUDZZZZZZZ\\\\\\\\\\\\
 // Read all Events
 router.get("/", async(req, res) => {
-  const events = await Event.find()
+  const events = await Event.find().populate('organizerId').populate('eventRequestId')
     
   res.json({ data: events }); // make sure of pretty
 });
@@ -23,7 +23,7 @@ router.get("/", async(req, res) => {
 router.get("/:id", async(req, res) => {
   const requestedId = req.params.id
   console.log(requestedId)
-  const event =await Event.findOne({'_id':requestedId})
+  const event =await Event.findOne({'_id':requestedId}).populate('organizerId').populate('eventRequestId')
   console.log(event) //bad req
   if(!event)return  res.status(400).send({error: 'The Event you are tryinig to show does not exist '})
   res.send({data : event})
@@ -35,7 +35,7 @@ router.get("/search/:city/:Area/:Street", async(req, res) => {
   let Street = req.params.Street
   let Area = req.params.Area
   const event =await Event.find({'location.city':city , 'location.Street':Street ,'location.Area':Area }
-  ); 
+  ).populate('organizerId').populate('eventRequestId'); 
   if(!event) return res.status(400).send({error: ' there is no such event with these attributes '})//bad req
   res.send({data: event})
 });
@@ -43,7 +43,7 @@ router.get("/search/:city/:Area/:Street", async(req, res) => {
 //Get a certain event by type
 router.get("/search/:type", async(req, res) => {
   const type = req.params.type
-  const event =await Event.find({'type':type}); 
+  const event =await Event.find({'type':type}).populate('organizerId').populate('eventRequestId'); 
   if(event.length===0) return res.status(400).send({error: 'The Event you are tryinig to search for  does not exist'})
   res.send({data : event})
 });
@@ -57,7 +57,7 @@ this method should be handled appropriatly
 router.get("/recommended/:userID", async(req, res) => {
   const requestedId = req.params.userID
 
-const user = await User.findOne({'_id':requestedId})
+const user = await User.findOne({'_id':requestedId}).populate('organizerId').populate('eventRequestId')
 let userInterrests=user.interests
 // let userLocation=user.location
 if (!userInterrests.length === 0 )return res.status(400).send({error: 'you do not have interests '})

@@ -24,7 +24,7 @@ router.get('/',async(req,res)=>{
 router.get('/:id',async(req,res)=>{
     try{
         const applicationId=req.params.id;
-        const application=await Application.findById(applicationId);
+        const application=await Application.findById(applicationId).populate('applicantId').populate('taskId');
         if(!application) // send bad req
             return res.status(400).send({error: "Application does not exist"});
         return res.json({data:application});
