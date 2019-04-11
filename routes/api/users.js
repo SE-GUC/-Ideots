@@ -7,7 +7,8 @@ const validator =require('../../validations/userValidations');
 // Get all users
 router.get('/', async (req,res) => {
     try{
-        const user = await User.find();
+        const user = await User.find().populate('partners').populate('events').populate('tasks').populate('attendedEvents')
+        .populate('eventOrganized')
         if(user.length==0) res.status(400).send({error:"there is no user"});
         res.json({data : user});   
     }catch(error){
@@ -18,7 +19,8 @@ router.get('/', async (req,res) => {
 // Get all members 
 router.get('/members/', async (req,res) => {
     try{
-        const Member = await User.find({type:'member'});
+        const Member = await User.find({type:'member'}).populate('partners').populate('events').populate('tasks').populate('attendedEvents')
+        .populate('eventOrganized');
         if(Member.length==0) res.status(400).send({error:"there is no Member"});
         res.json({data : Member});
     }catch(error){
@@ -30,7 +32,8 @@ router.get('/:id', async (req, res) => {
     try{
         const id = req.params.id;
         console.log(id);
-        const user =await User.findOne({_id:id});
+        const user =await User.findOne({_id:id}).populate('partners').populate('events').populate('tasks').populate('attendedEvents')
+        .populate('eventOrganized');
         console.log(user);
         if(!user) res.status(400).send({error:"there is no User with this Id"});
         res.json(user);
