@@ -1,5 +1,7 @@
 import React, { Component } from "react";
+import Event from "./EventCard";
 import axios from "axios";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 export class EventList extends Component {
   state = {
@@ -8,7 +10,6 @@ export class EventList extends Component {
     offset: 0,
     hasMore: true
   };
-
   componentDidMount() {
     this.fetchEvents();
   }
@@ -28,7 +29,21 @@ export class EventList extends Component {
   };
 
   render() {
-    return <h3>hello world</h3>;
+    return (
+      <div>
+        <InfiniteScroll
+          hasMore={this.state.hasMore}
+          dataLength={this.state.events.length}
+          next={this.fetchEvents}
+          endMessage={<h3>No More Event</h3>}
+          loader={<h3>Loading...</h3>}
+        >
+          {this.state.events.map(event => (
+            <Event key={event._id} event={event} />
+          ))}
+        </InfiniteScroll>
+      </div>
+    );
   }
 }
 
