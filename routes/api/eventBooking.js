@@ -8,7 +8,7 @@ const EventBooking = require("../../models/EventBooking");
 ///////////CRUDZZZZZZZ\\\\\\\\\\\\
 // Read all EventBookings
 router.get("/", async (req, res) => {
-  eventBookings = await EventBooking.find()
+  eventBookings = await EventBooking.find().populate('eventId').populate('memberId')
   // .populate('eventId').populate('memberId').exec(function(err,res){
   //   if (err) return handleError(err)
   // });;
@@ -20,7 +20,7 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   const requestedId = req.params.id;
   
-  const eventBooking = await EventBooking.findOne({'_id': requestedId })
+  const eventBooking = await EventBooking.findOne({'_id': requestedId }).populate('eventId').populate('memberId')
   // .populate('eventId').populate('memberId').exec(function(err,res){
   //   if (err) return handleError(err)
   // });
