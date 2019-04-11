@@ -10,7 +10,7 @@ const EventRequest = require("../../models/EventRequest");
 ///////////CRUDZZZZZZZ\\\\\\\\\\\\
 // Read all eventRequests
 router.get("/", async (req, res) => {
-    eventRequests = await EventRequest.find()
+    eventRequests = await EventRequest.find().populate('organizerId')
     // .populate('organizerId').exec(function(err,res){
     //   if (err) return handleError(err)
     // })
@@ -21,7 +21,7 @@ router.get("/", async (req, res) => {
 // Get a certain event request
 router.get("/:id", async (req, res) => {
   const requestedId = req.params.id;
-  const request = await EventRequest.find({"_id":requestedId})
+  const request = await EventRequest.find({"_id":requestedId}).populate('organizerId')
   // .populate('organizerId').exec(function(err,res){
   //   if (err) return handleError(err)
   // });
