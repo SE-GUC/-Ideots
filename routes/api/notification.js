@@ -9,7 +9,7 @@ const Notification = require('../../models/Notification');
 
 // Get all notification
 router.get('/',async(req,res)=>{
-    const notifications=await Notification.find();
+    const notifications=await Notification.find().populate('recieverId').populate('notifierId');
     res.json({data:notifications});
 
 
@@ -18,7 +18,7 @@ router.get('/',async(req,res)=>{
 // Get specific notification
  router.get('/:id',async(req,res)=>{
     const notificationId=req.params.id;
-    const notification=await Notification.findById(notificationId);
+    const notification=await Notification.findById(notificationId).populate('recieverId').populate('notifierId');
     if(!notification) 
         return res.status(400).send({error: "Notification does not exist"});
     return res.json({notification});
