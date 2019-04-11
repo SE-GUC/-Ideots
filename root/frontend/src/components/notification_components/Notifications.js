@@ -68,7 +68,7 @@ class Notifications extends Component {
                 marginBottom: "5px"
               }}
             >
-              No More Event
+              No More Notification
             </h3>
           }
           loader={
