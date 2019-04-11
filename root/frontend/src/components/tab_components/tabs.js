@@ -6,6 +6,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import EventList from "../event_components/EventList";
+import TaskList from "../task_components/TaskList";
 import NotificationList from "../notification_components/Notifications";
 
 function TabContainer(props) {
@@ -50,7 +51,11 @@ function SimpleTabs() {
           <EventList />
         </TabContainer>
       )}
-      {value === 2 && <TabContainer>Item Three</TabContainer>}
+      {value === 2 && (
+        <TabContainer>
+          <TaskList />
+        </TabContainer>
+      )}
     </div>
   );
 }

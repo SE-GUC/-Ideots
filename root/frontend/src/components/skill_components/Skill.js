@@ -1,9 +1,10 @@
 import React from "react";
-import { makeStyles } from "@material-ui/styles";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
 import Chip from "@material-ui/core/Chip";
 import Paper from "@material-ui/core/Paper";
 
-const useStyles = makeStyles(theme => ({
+const styles = theme => ({
   root: {
     display: "flex",
     justifyContent: "center",
@@ -13,32 +14,44 @@ const useStyles = makeStyles(theme => ({
   chip: {
     margin: theme.spacing.unit / 2
   }
-}));
+});
 
-function ChipsArray() {
-  const skills = this.props.skills;
-  const addskills = [];
-  for (let i = 0; i < skills.length; i++) {
-    addskills.concat({ key: i, label: skills[i] });
+class Skill extends React.Component {
+  state = {
+    chipData: []
+  };
+  componentDidMount() {
+    const skill = this.props.skills;
+    let allskills = [];
+    for (let i = 0; i < skill.length; i++) {
+      allskills = allskills.concat([{ key: i, label: skill[i] }]);
+    }
+    this.setState({ chipData: allskills });
   }
-  const classes = useStyles();
-  const [chipData, setChipData] = React.useState(addskills);
+  render() {
+    const { classes } = this.props;
 
-  return (
-    <Paper className={classes.root}>
-      {chipData.map(data => {
-        let icon = null;
-        return (
-          <Chip
-            key={data.key}
-            icon={icon}
-            label={data.label}
-            className={classes.chip}
-          />
-        );
-      })}
-    </Paper>
-  );
+    return (
+      <Paper className={classes.root}>
+        {this.state.chipData.map(data => {
+          let icon = null;
+
+          return (
+            <Chip
+              key={data.key}
+              icon={icon}
+              label={data.label}
+              className={classes.chip}
+            />
+          );
+        })}
+      </Paper>
+    );
+  }
 }
 
-export default ChipsArray;
+Skill.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles)(Skill);
