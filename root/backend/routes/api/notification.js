@@ -103,7 +103,6 @@ router.patch('/:id',async(req,res)=>{
 })
 //----------------------------------------------------------------------------------------------
 router.get("/:id/:limit/:offset", async (req, res) => {
-  console.log(req.params)
   const recieverId=req.params.id;
     const schema = {
       id:Joi.required(),
@@ -118,7 +117,6 @@ router.get("/:id/:limit/:offset", async (req, res) => {
   
     const limit = parseInt(req.params.limit, 10);
     const offset = parseInt(req.params.offset, 10);
-    console.log(limit, offset);
     const notifications = await Notification.find({"recieverId":recieverId})
       .skip(offset)
       .limit(limit);
