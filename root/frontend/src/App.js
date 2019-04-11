@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Events from "./components/event_components/EventList";
+import Tabs from "./components/tab_components/tabs";
 import Home from "./components/Home";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./App.css";
@@ -10,7 +10,7 @@ class App extends Component {
       <Router>
         <div className="App">
           <Route exact path="/" render={props => <Home />} />
-          <Route path="/eventList" render={props => <Events />} />
+          <Route path="/tabs" render={props => <Tabs />} />
         </div>
       </Router>
     );
