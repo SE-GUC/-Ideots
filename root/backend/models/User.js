@@ -9,7 +9,7 @@ const UserSchema = new schema({
         enum:['partner','member','consultancy_agency']
     },
     name:{
-        type:Object,
+        type:String,
         required:true
     },
     email:{
