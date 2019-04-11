@@ -21,5 +21,10 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "@material-ui/core": "^3.9.3",
+    "axios": "^0.18.0",
+    "react-headroom": "^2.2.8"
+  }
 }

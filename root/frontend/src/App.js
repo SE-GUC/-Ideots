@@ -1,11 +1,13 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import HeaderBar from "./components/navbar_components/HeaderAppBar";
 
 class App extends Component {
   render() {
     return (
       <div className="App">
+        <HeaderBar />
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <p>
@@ -20,6 +22,17 @@ class App extends Component {
             Learn React
           </a>
         </header>
+        <h1>sadsafasasf</h1>
+        <h1>sadsafasasf</h1>
+        <h1>sadsafasasf</h1>
+        <h1>sadsafasasf</h1>
+        <h1>sadsafasasf</h1>
+
+        <h1>sadsafasasf</h1>
+        <h1>sadsafasasf</h1>
+        <h1>sadsafasasf</h1>
+        <h1>sadsafasasf</h1>
+        <h1>sadsafasasf</h1>
       </div>
     );
   }
