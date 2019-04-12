@@ -12,6 +12,17 @@ const taskController=require('../../controllers/taskController');
 
 router.get("/",async (req, res) =>{
     const tasks = await Task.find().populate('partnerID').populate('consultancyID')
+    /*
+    var myCursor = Task.bios.find( );
+
+    var myDocument = myCursor.hasNext() ? myCursor.next() : null;
+
+    if (myDocument) {
+        var myName = myDocument._id;
+        console.log (tojson(myName));
+    } 
+    // console.log('tasks:  ',await Task.);
+    */
     res.json({ data: tasks })
 });
 
@@ -33,6 +44,7 @@ router.get('/:id', async (req, res) => {
      const isValidated = validator.createValidation(req.body)
      if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
      const newTask = await Task.create(req.body)
+     
      res.json({msg:'Task was created successfully', data: newTask})
     }
     catch(error) {
@@ -51,10 +63,11 @@ router.get('/:id', async (req, res) => {
      if(!task) return res.status(400).send({error: 'Task does not exist'})
      const isValidated = validator.updateValidation(req.body)
      if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
-     if(!taskApplicant){}
-     else{Task.update({"_id":taskID},{$addToSet:{"applicants":taskApplicant}})
-            
-        recieverId=task.partnerID
+     if(!taskApplicant){ await Task.updateOne({'_id':taskID},req.body)}
+     else{await Task.update({"_id":taskID},{$addToSet:{"applicants":taskApplicant}})
+            const recieverId=task.partnerID
+            await taskController.notifyUser(taskID,recieverId,`New applicant applied on task ${taskID}`);
+     /*  
 
         body={           
                 "content": `New applicant applied on task ${taskID}` ,
@@ -62,9 +75,10 @@ router.get('/:id', async (req, res) => {
                 "notifierId": taskID
             }
         await notificationController.postNotification(body);
+    */
     }
-     const updatedTask = await Task.updateOne({'_id':taskID},req.body)
-     res.json({msg: 'Task updated successfully',data : updatedTask})
+    //  const updatedTask = await Task.updateOne({'_id':taskID},req.body)
+     res.json({msg: 'Task updated successfully'})
     }
     catch(error) {
         // We will be handling the error later
