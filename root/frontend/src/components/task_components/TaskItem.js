@@ -20,12 +20,8 @@ const styles = theme => ({
     display: "flex",
     position: "relative"
   },
-  title: {
-    color: "white"
-  },
-  subheader: {
-    color: "red"
-  }
+  title: {},
+  subheader: {}
 });
 
 class TaskCard extends React.Component {

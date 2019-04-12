@@ -8,12 +8,11 @@ const Notification = require("../../models/Notification");
 // const User = require('../../models/User');
 
 // Get all notification
-router.get('/',async(req,res)=>{
+router.get("/", async (req, res) => {
+  const notifications = await Notification.find().populate("recieverId");
 
-    const notifications=await Notification.find().populate('recieverId');
-
-    res.json({data:notifications});
-  });
+  res.json({ data: notifications });
+});
 //----------------------------------------------------------------------------------------------
 
 // Get notification in range
@@ -36,15 +35,17 @@ router.get("/:id/:limit/:offset", async (req, res) => {
 });
 
 // Get specific notification
- router.get('/:id',async(req,res)=>{
-    const notificationId=req.params.id;
-    const notification=await Notification.findById(notificationId).populate('recieverId').populate('notifierId');
-    if(!notification) 
-        return res.status(400).send({error: "Notification does not exist"});
-    return res.json({notification});
-})
+router.get("/:id", async (req, res) => {
+  const notificationId = req.params.id;
+  const notification = await Notification.findById(notificationId)
+    .populate("recieverId")
+    .populate("notifierId");
+  if (!notification)
+    return res.status(400).send({ error: "Notification does not exist" });
+  return res.json({ notification });
+});
 
-  // Create a new notification
+// Create a new notification
 router.post("/", async (req, res) => {
   try {
     const schema = {
