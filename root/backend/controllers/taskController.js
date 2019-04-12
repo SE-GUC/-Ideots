@@ -19,9 +19,9 @@ exports.notifyUser=async function (taskId,recieverId,content){
     const task = await Task.findOne({"_id":taskId})
     recieverId=task.partnerID
         body={           
-                "content": content + ' ,'+taskId ,
+                "content": content + ' , '+taskId ,
                 "recieverId": recieverId,
-                "notifierId": taskID
+                "notifierId": taskId
             }
         await notificationController.postNotification(body);
 
