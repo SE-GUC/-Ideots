@@ -4,6 +4,10 @@ const Joi = require('joi');
 Joi.objectId = require('joi-objectid')(Joi);
 const router = express.Router();
 
+const notificationController=require('../../controllers/notificationController');
+const taskController=require('../../controllers/taskController');
+
+
 // Models
 const Application = require('../../models/Application');
 
@@ -50,6 +54,19 @@ router.post('/',async(req,res)=>{
         }
      
         const newApplication=await Application.create(req.body);
+       
+       const taskId=req.body.taskId
+        const task=await taskController.getOneTask(taskId);
+        recieverId=task.partnerID
+
+        body={           
+               "content": "New applicant applied on task",
+               "recieverId": recieverId,
+               "notifierId": taskId
+           }        
+       await notificationController.postNotification(body);
+
+        
         return res.json({msg:'Application was created successfully',data:newApplication });
     }
     catch(error){
