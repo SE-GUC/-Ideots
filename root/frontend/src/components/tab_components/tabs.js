@@ -10,6 +10,7 @@ import TaskList from "../task_components/TaskList";
 import NotificationList from "../notification_components/Notifications";
 import MyTask from "../task_components/MyTaskList";
 import MyEvent from "../event_components/MyEventList";
+import Request from "../request_components/RequestList";
 
 function TabContainer(props) {
   return <Typography component="div">{props.children}</Typography>;
@@ -43,6 +44,7 @@ function SimpleTabs() {
           <Tab label="Tasks" />
           <Tab label="MyTasks" />
           <Tab label="MyEvents" />
+          <Tab label="Requests" />
         </Tabs>
       </AppBar>
       {value === 0 && (
@@ -65,9 +67,14 @@ function SimpleTabs() {
           <MyTask id={"123456789123456789123456"} />
         </TabContainer>
       )}
-      {value === 3 && (
+      {value === 4 && (
         <TabContainer>
           <MyEvent id={"123456789123456789123456"} />
+        </TabContainer>
+      )}
+      {value === 5 && (
+        <TabContainer>
+          <Request />
         </TabContainer>
       )}
     </div>
