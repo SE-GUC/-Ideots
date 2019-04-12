@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
 });
 
 // Get Tasks in range
-router.get("/:limit/:offset", async (req, res) => {
+router.get("/WithRange/:limit/:offset", async (req, res) => {
   const schema = {
     limit: Joi.required(),
     offset: Joi.required()
@@ -42,6 +42,19 @@ router.get("/:id", async (req, res) => {
     console.log(error);
   }
 });
+//get my tasks
+router.get("/Partner/:id", async (req, res) => {
+    try {
+      const partnerId = req.params.id;
+      const task = await Task.find({ partnerID: partnerId })
+        .populate("partnerID")
+        .populate("consultancyID");
+      if (!task) return res.status(400).send({ error: "Task does not exist" });
+      return res.json({ task });
+    } catch (error) {
+      console.log(error);
+    }
+  });
 
 router.post("/", async (req, res) => {
   try {

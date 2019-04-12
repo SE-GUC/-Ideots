@@ -28,7 +28,7 @@ const styles = theme => ({
   }
 });
 
-class EventCard extends React.Component {
+class TaskCard extends React.Component {
   render() {
     const { classes } = this.props;
     const { task } = this.props;
@@ -38,7 +38,7 @@ class EventCard extends React.Component {
     const month = date.getMonth();
     const year = date.getFullYear();
     const applyCount = task.applicants.length;
-    console.log(task);
+
     return (
       <Card
         style={{
@@ -119,8 +119,8 @@ class EventCard extends React.Component {
   }
 }
 
-EventCard.propTypes = {
+TaskCard.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(EventCard);
+export default withStyles(styles)(TaskCard);
