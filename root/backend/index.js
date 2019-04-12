@@ -1,6 +1,5 @@
 const express = require('express')
 const mongoose = require('mongoose');
-const cors=require('cors')
 
 const config =require('./config/keys.js')
 
@@ -16,6 +15,7 @@ const users = require('./routes/api/users.js')
 const reviews = require('./routes/api/reviews')
 
 const app = express()
+const cors=require('cors')
 
 
 app.use(cors())
