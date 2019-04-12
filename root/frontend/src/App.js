@@ -1,7 +1,12 @@
-// import React, { Component } from "react";
-// import logo from "./logo.svg";
-// import Tabs from "./components/tab_components/tabs";
-// import Home from "./components/Home";
+
+import React, { Component } from "react";
+
+  
+import logo from "./logo.svg";
+import Request from './components/Request'
+import RequestAsUser from './components/RequestAsUser'
+import Tabs from "./components/tab_components/tabs";
+import Home from "./components/Home";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 // import "./App.css";
 // import Notification from "./components/notification_components/Notifications";
@@ -51,14 +56,30 @@ import Event from "./components/event_components/Event";
 // }
 import React, { Component } from "react";
 
-export class App extends Component {
+
+
+class App extends Component {
   render() {
     return (
-        <div>
 
-            <HeaderBar />
-            <EventList />
+      <Router>
+       <HeaderBar />
+       <Route path="/" render={props => <Tabs />} />
+        <div className="App">
+          <Route  path="/" render={props => <Home />} />
+         
+          <Route
+            path="/requests"
+            render={props => <Request  />}
+          />
+           <Route
+            path="/UserRequests"
+            render={props => <RequestAsUser  />}
+          />
+         
         </div>
+      </Router>
+
     );
   }
 }
