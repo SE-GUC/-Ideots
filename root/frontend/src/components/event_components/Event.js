@@ -74,20 +74,20 @@ export class Event extends Component {
         break;
 
       case "Topics":
-      const topics = this.state.event.topics.map((topic)=>{
-        return( 
-            <li> {topic} </li>)
-    }) ; 
+        const topics = this.state.event.topics.map(topic => {
+          return <li> {topic} </li>;
+        });
         this.setState({
           title: "Topics",
           body: topics
         });
         break;
 
-        case "when":
+      case "when":
+        console.log(this.state.event.dateTime)
         this.setState({
           title: "when",
-          body: this.state.event.dateTime
+          body: this.state.event.dateTime.toString()
         });
         break;
       case "who made this event?":
@@ -96,8 +96,6 @@ export class Event extends Component {
           body: this.state.event.organizerId
         });
         break;
-
-     
     }
   };
   render() {
@@ -108,12 +106,14 @@ export class Event extends Component {
         <Button
           outline
           color="primary"
+          style ={{position:'absolute' , left:'40%' , top :'17%' , width: 190, height: 100}}
           onClick={this.modalToggle.bind(this, "Description")}
         >
           Description
         </Button>{" "}
         <Button
           outline
+          style ={{position:'absolute' , left:'20%' , top :'30%', width: 150, height: 50}}
           color="secondary"
           onClick={this.modalToggle.bind(this, "Location")}
         >
@@ -121,6 +121,7 @@ export class Event extends Component {
         </Button>{" "}
         <Button
           outline
+          style ={{position:'absolute' , left:'60%' , top :'60%' , width: 150, height: 50}}
           color="danger"
           onClick={this.modalToggle.bind(this, "Type")}
         >
@@ -128,6 +129,7 @@ export class Event extends Component {
         </Button>{" "}
         <Button
           outline
+          style ={{position:'absolute' , left:'32%' , top :'40%' , width: 150, height: 50}}
           color="success"
           onClick={this.modalToggle.bind(this, "Registration Price")}
         >
@@ -135,6 +137,8 @@ export class Event extends Component {
         </Button>{" "}
         <Button
           outline
+          style ={{position:'absolute' , left:'47%' , top :'38%' ,width: 150, height: 50}}
+
           color="info"
           onClick={this.modalToggle.bind(this, "Seats")}
         >
@@ -142,6 +146,7 @@ export class Event extends Component {
         </Button>{" "}
         <Button
           outline
+          style ={{position:'absolute' , left:'30%' , top :'50%' , width: 150, height: 50}}
           color="info"
           onClick={this.modalToggle.bind(this, "Speakers")}
         >
@@ -149,6 +154,7 @@ export class Event extends Component {
         </Button>{" "}
         <Button
           outline
+          style ={{position:'absolute' , left:'50%' , top :'50%', width: 150, height: 50}}
           color="warning"
           onClick={this.modalToggle.bind(this, "Topics")}
         >
@@ -156,6 +162,7 @@ export class Event extends Component {
         </Button>{" "}
         <Button
           outline
+          style ={{position:'absolute' , left:'60%' , top :'30%' , width: 150, height: 50}}
           color="info"
           onClick={this.modalToggle.bind(this, "when")}
         >
@@ -163,6 +170,7 @@ export class Event extends Component {
         </Button>{" "}
         <Button
           outline
+          style ={{position:'absolute' , left:'35%' , top :'60%' , width: 150, height: 60}}
           color="info"
           onClick={this.modalToggle.bind(this, "who made this event?")}
         >
