@@ -13,8 +13,6 @@ router.get("/",RequestsFunctions.get_requests);
 
 
 
-
-
 router.get('/:id', RequestsFunctions.get_requests_byId);
 
 //Creating
