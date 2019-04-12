@@ -45,7 +45,7 @@ app.use('/api/notifications', notification)
 app.use('/api/application', application)
 app.use('/api/requests', requests)
 app.use('/api/tasks',tasks)
-app.use('/api/events', event)
+app.use('/api/events',  passport.authenticate('jwt', {session: false}), event)
 app.use('/api/eventRequests', eventRequest)
 app.use('/api/eventBookings', eventBooking)
 app.use('/api/users', users)
@@ -59,6 +59,6 @@ app.use ('/api/auth',auth)
 app.use((req, res) => {
     res.status(404).send({err: 'We can not find what you are looking for'});
  })
-const port = process.env.PORT||3000
+const port = process.env.PORT||5000
 app.listen(port, () => console.log(`Server up and running on port ${port}`))
 

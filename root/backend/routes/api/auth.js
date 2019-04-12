@@ -23,7 +23,11 @@ router.post('/login', (req, res, next) =>{
            // generate a signed son web token with the contents of user object and return it in the response
 
            const userId =user._id.toJSON()
-           const token = jwt.sign(userId, 'verysecretkey');
+           const payload={
+               id:userId,
+               iat:Date().now/1000
+           }
+           const token = jwt.sign(payload, 'verysecretkey');
            return res.json({userId, token});
         });
     })(req, res);

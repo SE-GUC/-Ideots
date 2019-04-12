@@ -43,16 +43,22 @@ passport.use(new JWTStrategy({
         jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
         secretOrKey   : 'verysecretkey'
     },
-    function (jwtPayload, cb) {
+     async (jwtPayload, cb) => {
 
         //find the user in db if needed
         console.log(jwtPayload)
-        return User.findOneById(jwtPayload.id)
-            .then(user => {
-                return cb(null, user);
-            })
-            .catch(err => {
-                return cb(err);
-            });
+        let userId =jwtPayload.id
+        console.log(jwtPayload.id)
+        let user= await User.findOne({'_id':userId})
+        console.log (user)
+        if (user) return cb (null,user)
+        return cb(null,false)   
+        
+        // .then(user => {
+        //         return cb(null, user);
+        //     })
+        //     .catch(err => {
+        //         return cb(err);
+        //     });
     }
 ));
