@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const validator = require("../../validations/taskValidations");
+const Joi = require("joi");
 // We will be connecting using database
 const Task = require("../../models/Task");
 

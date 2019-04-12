@@ -18,12 +18,14 @@ export class TaskList extends Component {
     console.log(55);
     const { count, offset } = this.state;
     this.setState({ offset: offset + count });
-    axios.get("http://localhost:3000/api/tasks").then(res => {
-      console.log(56465);
-      console.log(res.data.data);
-      this.setState({ tasks: this.state.tasks.concat(res.data.data) });
-      console.log(this.state);
-    });
+    axios
+      .get("http://localhost:3000/api/tasks/" + count + "/" + offset)
+      .then(res => {
+        console.log(56465);
+        console.log(res.data.data);
+        this.setState({ tasks: this.state.tasks.concat(res.data.data) });
+        console.log(this.state);
+      });
     console.log(this.state);
   };
 
