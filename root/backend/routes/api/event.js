@@ -43,6 +43,7 @@ router.get("/withRange/:limit/:offset", async (req, res) => {
 
 router.get("/Organizer/:id", async (req, res) => {
   const organizerId = req.params.id;
+  console.log(organizerId);
   const event = await Event.findOne({ organizerId: organizerId })
     .populate("organizerId")
     .populate("eventRequestId");
