@@ -42,6 +42,14 @@ router.post("/", async (req, res) => {
     const taskID = newTask._id;
     const ids = await User.find({ $or: [ {type: "member"}, {type: "admin"} ] }, { _id: 1 });
     await taskController.notifyManyUsers(taskID, ids, `New Task is posted`);
+   
+    //------------------------(Notify Partner that his request is accepted)-------------------------------------
+    const recieverId = newTask.partnerID;
+    await taskController.notifyUser(
+      taskID,
+      recieverId,
+      `Your task request has been accepted and your task is posted`
+    );
     //------------------------------------------------------------------
     res.json({ msg: "Task was created successfully", data: newTask });
   } catch (error) {

@@ -93,6 +93,14 @@ router.delete("/:requestId", async (req, res) => {
     const deletedRequest = await Request.findByIdAndRemove(id);
     if (!deletedRequest)
       return res.status(400).json({ msg: "request does not exist" });
+    //------------------------(Notify Partner that his request is rejected)-------------------------------------
+    const recieverId = deletedRequest.partnerID;
+    await requestController.notifyUser(
+      id,
+      recieverId,
+      `Your task request has been deleted by admin`
+    );
+    //------------------------------------------------------------------  
     res.json({ msg: "Request was deleted successfully", data: deletedRequest });
   } catch (error) {
     console.log(error);
