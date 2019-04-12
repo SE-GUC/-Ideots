@@ -6,6 +6,10 @@ const validator = require('../../validations/taskValidations')
 // We will be connecting using database
 const Task = require("../../models/Task");
 
+const notificationController=require('../../controllers/notificationController');
+const taskController=require('../../controllers/taskController');
+
+
 router.get("/",async (req, res) =>{
     const tasks = await Task.find().populate('partnerID').populate('consultancyID')
     res.json({ data: tasks })
@@ -41,16 +45,26 @@ router.get('/:id', async (req, res) => {
  router.put('/:id', async (req,res) => {
     try {
      const taskID = req.params.id
-     const taskApplicant = req.body.applicant
+     const taskApplicant = req.body.applicants
 
      const task = await Task.findById(taskID)
      if(!task) return res.status(400).send({error: 'Task does not exist'})
      const isValidated = validator.updateValidation(req.body)
      if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
      if(!taskApplicant){}
-     else{Task.update({"_id":taskID},{$addToSet:{"applicants":taskApplicant}})}
+     else{Task.update({"_id":taskID},{$addToSet:{"applicants":taskApplicant}})
+            
+        recieverId=task.partnerID
+
+        body={           
+                "content": `New applicant applied on task ${taskID}` ,
+                "recieverId": recieverId,
+                "notifierId": taskID
+            }
+        await notificationController.postNotification(body);
+    }
      const updatedTask = await Task.updateOne({'_id':taskID},req.body)
-     res.json({msg: 'Task updated successfully'})
+     res.json({msg: 'Task updated successfully',data : updatedTask})
     }
     catch(error) {
         // We will be handling the error later
