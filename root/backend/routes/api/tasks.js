@@ -2,7 +2,9 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const validator = require("../../validations/taskValidations");
+
 const Joi = require("joi");
+
 // We will be connecting using database
 const Task = require("../../models/Task");
 
@@ -13,7 +15,7 @@ router.get("/", async (req, res) => {
   res.json({ data: tasks });
 });
 
-// Get Tasks in range
+
 router.get("/WithRange/:limit/:offset", async (req, res) => {
   const schema = {
     limit: Joi.required(),
@@ -30,6 +32,7 @@ router.get("/WithRange/:limit/:offset", async (req, res) => {
   res.json({ data: task });
 });
 
+
 router.get("/:id", async (req, res) => {
   try {
     const taskID = req.params.id;
@@ -42,6 +45,7 @@ router.get("/:id", async (req, res) => {
     console.log(error);
   }
 });
+
 //get my tasks
 router.get("/Partner/:id", async (req, res) => {
     try {
@@ -55,6 +59,7 @@ router.get("/Partner/:id", async (req, res) => {
       console.log(error);
     }
   });
+
 
 router.post("/", async (req, res) => {
   try {
@@ -116,7 +121,9 @@ router.delete("/:id", async (req, res) => {
 //search by category
 router.get("/search/category=:cat", async (req, res) => {
   const cat = req.params.cat;
-  const tasks = await Task.find({ category: cat })
+
+  const tasks = await Task.find({ category: { $regex: cat, $options: "i" } })
+
     .populate("partnerID")
     .populate("consultancyID");
   // if(tasks.length==0)return res.status(404).send({error: 'no tasks found'})
