@@ -30,6 +30,9 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@material-ui/core": "^3.9.3",
+    "axios": "^0.18.0",
+    "react-headroom": "^2.2.8",
     "react-router-dom": "^5.0.0"
   }
 }
