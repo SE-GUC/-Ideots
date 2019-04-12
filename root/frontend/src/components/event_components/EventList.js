@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Event from "./EventCard";
+import EventCard from "./EventCard";
 import axios from "axios";
 import InfiniteScroll from "react-infinite-scroll-component";
 
@@ -68,7 +68,7 @@ export class EventList extends Component {
           }
         >
           {this.state.events.map(event => (
-            <Event key={event._id} event={event} />
+            <EventCard key={event._id} event={event} />
           ))}
         </InfiniteScroll>
       </div>
