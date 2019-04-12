@@ -4,9 +4,8 @@ const Joi = require('joi');
 Joi.objectId = require('joi-objectid')(Joi);
 const router = express.Router();
 
-const notificationController=require('../../controllers/notificationController');
 const taskController=require('../../controllers/taskController');
-
+const notificationController = require("../../controllers/sendNotificationController");
 
 // Models
 const Application = require('../../models/Application');
@@ -54,18 +53,14 @@ router.post('/',async(req,res)=>{
         }
      
         const newApplication=await Application.create(req.body);
-       
-       const taskId=req.body.taskId
-        const task=await taskController.getOneTask(taskId);
-        recieverId=task.partnerID
-
-        body={           
-               "content": "New applicant applied on task",
-               "recieverId": recieverId,
-               "notifierId": taskId
-           }        
-       await notificationController.postNotification(body);
-
+       //-----------------------------(Notifications)----------------------------------------------------
+        const taskId=req.body.taskId
+        const task=await notificationController.getOneTask(taskId);
+        recieverId=task.partnerID  
+        await notificationController.notifyUser(taskId,recieverId,`New applicant applied on task`);
+        //-------------(Notify admin that new applicant applied on task)--------------------
+        await notificationController.notifyAdmins(taskId,`New applicant applied on task `);
+        //----------------------------------------------------------------------------------------
         
         return res.json({msg:'Application was created successfully',data:newApplication });
     }
@@ -105,6 +100,10 @@ router.put('/:id',async (req, res) => {
         if(!application)// send bad req
           return res.status(400).send({error:'Application does not exist'});
         const deletedApplication = await Application.findByIdAndRemove(applicationId)
+
+        //-------------(Notify admin that applicant no longer wanna do the task)--------------------
+         await notificationController.notifyAdmins(application.applicantId,`applicant no longer wanna do the task `);
+         //----------------------------------------------------------------------------------------
         res.json({msg:'Neview was deleted successfully', data: deletedApplication})
     }
     catch(error) {

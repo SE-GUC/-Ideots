@@ -5,9 +5,7 @@ const validator = require("../../validations/requestValidations");
 // We will be connecting using database
 const Request = require("../../models/Request");
 const Admin=require('../../models/Admin')
-
-const requestController = require("../../controllers/requestController");
-
+const notificationController = require("../../controllers/sendNotificationController");
 // getting the requests
 router.get("/", async (req, res) => {
   const requests = await Request.find()
@@ -49,22 +47,9 @@ router.post("/", async (req, res) => {
     const request = await Request.create(req.body);
     request.date = myDate;
 
-    //------------------------(Notify admins)-------------------------------------
-    
+    //------------------------(Notify Admins)-------------------------------------
     const requestId = request._id;
-    /*
-    await requestController.notifyAdmins(
-      requestID,
-      `New task request has been created`
-    );
-    */
-    //------------------------------------------------------------------
-    const ids = await Admin.find({}  , {_id:1});
-    ids.forEach(async function(idItem) {
-      const recieverId = idItem;
-      await requestController.notifyUser(requestId, recieverId,`New task request has been created`);
-    });
-    
+    await notificationController.notifyAdmins(requestId,`New task request has been created`);
     //------------------------------------------------------------------
 
     res.json({ msg: "Request was created successfully", data: request });
@@ -105,11 +90,7 @@ router.delete("/:requestId", async (req, res) => {
       return res.status(400).json({ msg: "request does not exist" });
     //------------------------(Notify Partner that his request is rejected)-------------------------------------
     const recieverId = deletedRequest.partnerID;
-    await requestController.notifyUser(
-      id,
-      recieverId,
-      `Your task request has been deleted by admin`
-    );
+    await notificationController.notifyUser(id,recieverId,`Your task request has been deleted by admin`);
     //------------------------------------------------------------------  
     res.json({ msg: "Request was deleted successfully", data: deletedRequest });
   } catch (error) {
