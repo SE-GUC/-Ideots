@@ -75,6 +75,10 @@ router.post('/', async (req, res) => {
                 experience:req.body.experience,
                 certificates:req.body.certificates
             });
+            //-------------------------( Notify admin that a new user signed on the website )-----------------------------------------
+            await notificationController.notifyAdmins(newUser._id,content);
+            //--------------------------------------------- 
+            
             res.json({msg:'User was created successfully', data: newUser});
         }else if(type=='partner'){
             const isValidated = validator.createValidationPartner(req.body);
@@ -93,8 +97,12 @@ router.post('/', async (req, res) => {
                 pastProjects:req.body.pastProjects,
                 contactInfo:req.body.contactInfo
             });
-            res.json({msg:'User was created successfully', data: newUser});
+            //-------------------------( Notify admin that a new user signed on the website )-----------------------------------------
             content='A new partner is created on the platform';
+            await notificationController.notifyAdmins(newUser._id,content);
+            //--------------------------------------------- 
+            res.json({msg:'User was created successfully', data: newUser});
+            
         }else{
             const isValidated = validator.createValidationConsaltancyAgency(req.body);
             if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message });
@@ -113,13 +121,12 @@ router.post('/', async (req, res) => {
                 partners:req.body.partners,
                 events:req.body.events
             });
-            res.json({msg:'User was created successfully', data: newUser});
+            //-------------------------( Notify admin that a new user signed on the website )-----------------------------------------
             content='A new consultant is created on the platform';
-        }
-        //-------------------------( Notify admin that a new user signed on the website )-----------------------------------------
             await notificationController.notifyAdmins(newUser._id,content);
-        //--------------------------------------------- 
-    
+            //--------------------------------------------- 
+            res.json({msg:'User was created successfully', data: newUser});
+        }    
    }
    catch(error) {
         res.json({error:error.message});
