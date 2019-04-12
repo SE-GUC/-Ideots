@@ -4,7 +4,6 @@ const Joi = require('joi');
 Joi.objectId = require('joi-objectid')(Joi);
 const router = express.Router();
 
-const taskController=require('../../controllers/taskController');
 const notificationController = require("../../controllers/sendNotificationController");
 
 // Models
