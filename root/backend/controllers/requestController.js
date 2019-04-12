@@ -5,8 +5,12 @@ const validator = require('../validations/requestValidations')
 // We will be connecting using database
 const Request = require("../models/Request");
 
+const notificationController = require("../controllers/sendNotificationController");
+
 exports.get_requests = async (req, res) => {
-    const requests = await Request.find()
+  const requests = await Request.find()
+  .populate("partnerID")
+  .populate("consultancyID");
     if(requests.length===0)
     res.json({msg : "empty"})
     else
@@ -17,6 +21,8 @@ exports.get_requests_byId = async (req, res) => {
     try{
     const  requestId = req.params.id;
     const request = await Request.findById(requestId)
+    .populate("partnerID")
+    .populate("consultancyID");
     if(!request) { return res.status(404).send({error: "Request does not exist"})}
                         
     return res.json({request});
@@ -38,7 +44,11 @@ exports.get_requests_byId = async (req, res) => {
   
     const request = await Request.create(req.body)
   
-  
+   //------------------------(Notify Admins)-------------------------------------
+   const requestId = request._id;
+   await notificationController.notifyAdmins(requestId,`New task request has been created`);
+   //------------------------------------------------------------------
+
     res.json({msg:'Request was created successfully', data: request });
     }
     catch(error)
@@ -69,6 +79,11 @@ exports.get_requests_byId = async (req, res) => {
     const id = req.params.requestId;
     const deletedRequest = await Request.findByIdAndRemove(id) 
     if(!deletedRequest) return res.status(404).send({error: 'request does not exist' })
+    //------------------------(Notify Partner that his request is rejected)-------------------------------------
+    const recieverId = deletedRequest.partnerID;
+    await notificationController.notifyUser(id,recieverId,`Your task request has been deleted by admin`);
+    //------------------------------------------------------------------  
+
     res.json({msg:'Request was deleted successfully', data: deletedRequest });
     }
     catch(error){
