@@ -1,10 +1,7 @@
 import React from "react";
 import Card from "@material-ui/core/Card";
-import CardHeader from "@material-ui/core/CardHeader";
-import Skills from "../skill_components/Skill";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
-import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/styles";
@@ -27,13 +24,13 @@ const styles = theme => ({
 class RequestCard extends React.Component {
   render() {
     const { classes } = this.props;
-    const { task } = this.props;
-    const date = new Date(task.timeLine);
+    const { request } = this.props;
+    const date = new Date(request.date);
     const day = date.toLocaleDateString("en-us", { weekday: "long" });
     const monthName = date.toString().split(" ")[1];
     const month = date.getMonth();
     const year = date.getFullYear();
-    const accept = task.accepted;
+    const accept = request.accepted;
     const color = accept === 0 ? "blue" : accept === -1 ? "red" : "green";
 
     return (
@@ -60,7 +57,7 @@ class RequestCard extends React.Component {
                 flexWrap: "wrap"
               }}
             >
-              {task.description}
+              {request.description}
             </Typography>
             <h4>{day + ", " + monthName + " " + month + ", " + year}</h4>
           </div>
