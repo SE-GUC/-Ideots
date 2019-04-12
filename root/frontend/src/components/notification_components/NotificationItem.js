@@ -41,4 +41,5 @@ class NotificationItem extends Component {
   }
 }
 
+
 export default NotificationItem;
