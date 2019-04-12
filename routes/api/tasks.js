@@ -7,14 +7,15 @@ const validator = require('../../validations/taskValidations')
 const Task = require("../../models/Task");
 
 router.get("/",async (req, res) =>{
-    const tasks = await Task.find().populate('partnerID').populate('consultancyID')
+    const tasks = await Task.find().populate('partnerID').populate('consultancyID').populate('assignedPerson').populate('applicants')
+    
     res.json({ data: tasks })
 });
 
 router.get('/:id', async (req, res) => {  
     try{
     const  taskID = req.params.id;  
-    const task = await Task.findOne({"_id":taskID}).populate('partnerID').populate('consultancyID')
+    const task = await Task.findOne({"_id":taskID}).populate('partnerID').populate('consultancyID').populate('assignedPerson').populate('applicants')
     if(!task) return res.status(400).send({error: 'Task does not exist'})
     return res.json({task});
     }
@@ -77,7 +78,7 @@ router.get('/:id', async (req, res) => {
 //search by category
 router.get('/search/category=:cat', async(req, res) => { 
 const cat = req.params.cat
-const tasks = await Task.find({"category":cat}).populate('partnerID').populate('consultancyID')
+const tasks = await Task.find({"category":cat}).populate('partnerID').populate('consultancyID').populate('assignedPerson').populate('applicants')
 // if(tasks.length==0)return res.status(404).send({error: 'no tasks found'})
 return res.json({data:tasks});
 
@@ -86,7 +87,7 @@ return res.json({data:tasks});
 //search by year of experience
 router.get('/search/experience=:exp', async(req, res) => { 
 const exp = req.params.exp
-const tasks = await Task.find({"yearsOfExperience":exp}).populate('partnerID').populate('consultancyID')
+const tasks = await Task.find({"yearsOfExperience":exp}).populate('partnerID').populate('consultancyID').populate('assignedPerson').populate('applicants')
 // if(tasks.length==0) return res.status(404).send({error: 'no tasks found'})
 return res.json({data:tasks});
 
@@ -97,7 +98,7 @@ router.get('/search/payment=:pay', async(req, res) => {
 const pay = req.params.pay
 const min =Number(pay)-50
 const max=Number(pay)+50
-const tasks = await Task.find({"payment":{ $lte:max ,$gte:min} }).populate('partnerID').populate('consultancyID')
+const tasks = await Task.find({"payment":{ $lte:max ,$gte:min} }).populate('partnerID').populate('consultancyID').populate('assignedPerson').populate('applicants')
 // if(tasks.length==0) return res.status(404).send({error: 'no tasks found'})
 return res.json({data:tasks});
 
@@ -106,7 +107,7 @@ return res.json({data:tasks});
 //recommended tasks
 router.get('/recommended/:id', async(req, res) => { 
 const id = req.params.id
-const user =await User.findById(id).populate('partnerID').populate('consultancyID')
+const user =await User.findById(id).populate('partnerID').populate('consultancyID').populate('assignedPerson').populate('applicants')
 const userSkills = user.skills
 const tasks = await Task.find({"requiredSkills":{$in:userSkills}})
 // if(tasks.length==0) return res.status(404).send({error: 'No tasks suitable for you at the moment, Try something new ?'})
