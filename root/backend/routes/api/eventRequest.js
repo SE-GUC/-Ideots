@@ -36,12 +36,12 @@ router.post("/", async (req, res) => {
   const schema = {
     location: Joi.object(),
     description: Joi.string().min(30).required(),
-    type: Joi.string().required(),
+    type: Joi.string(),
     registrationPrice: Joi.number().required(),
     numberOfSpaces: Joi.number().required(),
-    speakers: Joi.array().items(Joi.string()).required(),
-    topics:Joi.array().items(Joi.string()).required(),
-    dateTime: Joi.date().required(),
+    speakers: Joi.array().items(Joi.string()),
+    topics:Joi.array().items(Joi.string()),
+    dateTime: Joi.date(),
     organizerId: Joi.objectId().required(),
     acceptenceState: Joi.number()
   };
