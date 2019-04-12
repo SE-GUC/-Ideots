@@ -1,7 +1,7 @@
 
 const express = require('express')
 const mongoose = require('mongoose');
-
+const cors = require('cors')
 const config =require('./config/keys.js')
 
 const admins = require('./routes/api/admins')
@@ -18,7 +18,7 @@ const reviews = require('./routes/api/reviews')
 const app = express()
 
 
-
+app.use(cors())
 
 
 app.use(express.json())
@@ -31,6 +31,17 @@ mongoose.connect(config.mongoURI, { useNewUrlParser: true })
 app.get('/', (req, res) => {
     res.send(`<h2>Welcome to LirtenHub</h2> `);
 })
+
+/*app.use((req,res,next) => {
+    res.header("Access-Control-Allow-Origin","*");
+    res.header("Access-Control-Allow-Headers", 
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+    );
+    if(req.method === "OPTIONS"){
+        res.header("Access-Control-Allow-Methods","PUT, POST, PATCH, DELETE");
+        return res.status(200).json({});
+    }
+})*/
 
 // Direct routes to appropriate files 
 app.use('/api/admins',admins)
