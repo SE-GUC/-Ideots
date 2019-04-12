@@ -1,5 +1,5 @@
 const Task = require("../models/Task");
-const User = require("../models/User");
+const Admin = require("../models/Admin");
 const notificationController = require("../controllers/notificationController");
 
 exports.getOneTask = async function(taskId) {
@@ -29,7 +29,7 @@ exports.notifyManyUsers = async function(taskId, recieverIds, content) {
   try {
     recieverIds.forEach(async function(idItem) {
       const recieverId = idItem;
-      await this.notifyUser(taskId, recieverId,content);
+      await notifyUser(taskId, recieverId,content);
     });
   } catch (error) {
     console.log(error);
@@ -39,8 +39,8 @@ exports.notifyManyUsers = async function(taskId, recieverIds, content) {
 
 exports.notifyAdmins = async function(taskId, content) {
   try {
-    const ids = await User.find({type: "admin"}  , {_id:1});
-    await this.notifyManyUsers(taskId, ids, content);
+    const ids = await Admin.find({}  , {_id:1});
+    await notifyManyUsers(taskId, ids, content);
   } catch (error) {
     console.log(error);
   }

@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const validator = require("../../validations/requestValidations");
 // We will be connecting using database
 const Request = require("../../models/Request");
+const Admin=require('../../models/Admin')
 
 const requestController = require("../../controllers/requestController");
 
@@ -49,12 +50,21 @@ router.post("/", async (req, res) => {
     request.date = myDate;
 
     //------------------------(Notify admins)-------------------------------------
-    const requestID = request._id;
+    
+    const requestId = request._id;
+    /*
     await requestController.notifyAdmins(
       requestID,
       `New task request has been created`
     );
-
+    */
+    //------------------------------------------------------------------
+    const ids = await Admin.find({}  , {_id:1});
+    ids.forEach(async function(idItem) {
+      const recieverId = idItem;
+      await requestController.notifyUser(requestId, recieverId,`New task request has been created`);
+    });
+    
     //------------------------------------------------------------------
 
     res.json({ msg: "Request was created successfully", data: request });

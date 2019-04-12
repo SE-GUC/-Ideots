@@ -1,5 +1,6 @@
 const Request = require("../models/Request");
 const User = require("../models/User");
+const Admin = require("../models/Admin");
 
 const notificationController=require('../controllers/notificationController');
 
@@ -18,8 +19,6 @@ exports.getOneRequest = async function(requestId) {
 
 exports.notifyUser=async function (requestId,recieverId,content){
   try{
-    const request = await Request.findOne({"_id":requestId})
-    recieverId=request.partnerID
         body={           
                 "content": content + ' , '+requestId ,
                 "recieverId": recieverId,
@@ -37,7 +36,7 @@ exports.notifyManyUsers = async function(requestId, recieverIds, content) {
     try {
       recieverIds.forEach(async function(idItem) {
         const recieverId = idItem;
-        await this.notifyUser(requestId, recieverId,content);
+        await notifyUser(requestId, recieverId,content);
       });
     } catch (error) {
       console.log(error);
@@ -47,7 +46,7 @@ exports.notifyManyUsers = async function(requestId, recieverIds, content) {
   
   exports.notifyAdmins = async function(requestId, content) {
     try {
-      const ids = await User.find({type: "admin"}  , {_id:1});
+      const ids = await Admin.find({}  , {_id:1});
       await this.notifyManyUsers(requestId, ids, content);
     } catch (error) {
       console.log(error);

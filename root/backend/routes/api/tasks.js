@@ -5,6 +5,7 @@ const validator = require("../../validations/taskValidations");
 // We will be connecting using database
 const Task = require("../../models/Task");
 const User = require("../../models/User");
+const Admin = require("../../models/Admin");
 
 const taskController = require("../../controllers/taskController");
 
@@ -38,15 +39,28 @@ router.post("/", async (req, res) => {
         .send({ error: isValidated.error.details[0].message });
     const newTask = await Task.create(req.body);
 
-    //------------------------(Notify members and admins)-------------------------------------
-    const taskID = newTask._id;
-    const ids = await User.find({ $or: [ {type: "member"}, {type: "admin"} ] }, { _id: 1 });
-    await taskController.notifyManyUsers(taskID, ids, `New Task is posted`);
-   
+    //------------------------(Notify members)-------------------------------------
+    const taskId = newTask._id;
+    const ids = await User.find({type: "member" }, { _id: 1 });
+    // await taskController.notifyManyUsers(taskId, ids, `New Task is posted`);
+    ids.forEach(async function(idItem) {
+      const recieverId = idItem;
+      await taskController.notifyUser(taskId, recieverId,`New Task is posted`);
+    }); 
+    
+    //------------------------(Notify Admins)-------------------------------------
+    // await taskController.notifyAdmins(taskID,`New Task is posted `);
+    
+    const adminIds = await Admin.find({}  , {_id:1});
+    adminIds.forEach(async function(idItem) {
+      const recieverId = idItem;
+      await taskController.notifyUser(taskId, recieverId,`New Task is posted`);
+    }); 
+    
     //------------------------(Notify Partner that his request is accepted)-------------------------------------
     const recieverId = newTask.partnerID;
     await taskController.notifyUser(
-      taskID,
+      taskId,
       recieverId,
       `Your task request has been accepted and your task is posted`
     );
@@ -79,6 +93,12 @@ router.put("/:id", async (req, res) => {
           recieverId,
           `You are accepted to work on task `
         );
+      //-------------(Notify admins that an applicant was choosen)--------------------
+      const adminIds = await Admin.find({}  , {_id:1});
+      adminIds.forEach(async function(idItem) {
+      const recieverId = idItem;
+      await taskController.notifyUser(taskID, recieverId,`An applicant was choosen to complete the task `);
+    });
        //--------------------------------------------- 
       }
       await Task.updateOne({ _id: taskID }, req.body);
@@ -95,8 +115,14 @@ router.put("/:id", async (req, res) => {
         `New applicant applied on task `
       );
       //-------------(Notify admin that new applicant applied on task)--------------------
-      await taskController.notifyAdmins(taskID,`New applicant applied on task `);
+      // await taskController.notifyAdmins(taskID,`New applicant applied on task `);
       
+
+     const adminIds = await Admin.find({}  , {_id:1});
+     adminIds.forEach(async function(idItem) {
+      const recieverId = idItem;
+      await taskController.notifyUser(taskID, recieverId,`New applicant applied on task `);
+    });
        //--------------------------------------------- 
     }
     //  const updatedTask = await Task.updateOne({'_id':taskID},req.body)
@@ -114,8 +140,13 @@ router.delete("/:id", async (req, res) => {
     if (!deletedTask)
       return res.status(400).send({ error: "task does not exist" });
 
-    //-------------(Notify admin that new applicant applied on task)--------------------
-    await taskController.notifyAdmins(taskID,`Task is deleted `);
+    //-------------(Notify admin that task is deleted)--------------------
+    // await taskController.notifyAdmins(taskID,`Task is deleted `);
+    const adminIds = await Admin.find({}  , {_id:1});
+     adminIds.forEach(async function(idItem) {
+      const recieverId = idItem;
+      await taskController.notifyUser(taskID, recieverId,`Task is deleted `);
+    });
     //---------------------------------------------   
 
     res.json({ msg: "Task was deleted successfully", data: deletedTask });
