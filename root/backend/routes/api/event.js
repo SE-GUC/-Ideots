@@ -90,6 +90,7 @@ router.get("/search/:type", async (req, res) => {
 this method should be handled appropriatly
 
 */
+
 router.get("/recommended/:userID", async (req, res) => {
   const requestedId = req.params.userID;
 
@@ -98,8 +99,8 @@ router.get("/recommended/:userID", async (req, res) => {
     .populate("eventRequestId");
   let userInterrests = user.interests;
   // let userLocation=user.location
-  if (!userInterrests.length === 0)
-    return res.status(400).send({ error: "you do not have interests " });
+ // if (!userInterrests.length === 0)
+   // return res.status(400).send({ error: "you do not have interests " });
   // let userCity=userLocation.city
   // let userStreet =userLocation.Street
   // let userArea = userLocation.Area
@@ -109,13 +110,14 @@ router.get("/recommended/:userID", async (req, res) => {
   const events = await Event.find({ type: { $in: userInterrests } })
     .populate("organizerId")
     .populate("eventRequestId");
-  if (!events)
-    return res
-      .status(400)
-      .send({ error: "No recommended Events currently try again later!!" });
+ // if (!events)
+   // return res
+     // .status(400)
+      //.send({ error: "No recommended Events currently try again later!!" });
 
   res.json({ data: events });
 });
+
 //----------------------------------------------------\\
 // FEEDBACK FORM
 
