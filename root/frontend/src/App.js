@@ -31,7 +31,7 @@ class App extends Component {
          
          <Route
            path="/eventRequests"
-           render={props => <EventRequest  />}
+           render={props => <EventRequest  />}></Route>
            <Route
             path="/UserRequests"
             render={props => <RequestAsUser  />}
