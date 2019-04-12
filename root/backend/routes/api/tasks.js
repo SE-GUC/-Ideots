@@ -41,10 +41,7 @@ router.post("/", async (req, res) => {
     //------------------------(Notify members and admins)-------------------------------------
     const taskID = newTask._id;
     const ids = await User.find({ $or: [ {type: "member"}, {type: "admin"} ] }, { _id: 1 });
-    ids.forEach(async function(idItem) {
-      const recieverId = idItem;
-      await taskController.notifyUser(taskID, recieverId, `New Task is posted`);
-    });
+    await taskController.notifyManyUsers(taskID, ids, `New Task is posted`);
     //------------------------------------------------------------------
     res.json({ msg: "Task was created successfully", data: newTask });
   } catch (error) {
@@ -90,11 +87,8 @@ router.put("/:id", async (req, res) => {
         `New applicant applied on task `
       );
       //-------------(Notify admin that new applicant applied on task)--------------------
-      const ids = await User.find({type: "admin"}  , {_id:1});
-      ids.forEach(async function(idItem) {
-        const recieverId = idItem;
-        await taskController.notifyUser(taskID, recieverId, `New applicant applied on task `);
-      });
+      await taskController.notifyAdmins(taskID,`New applicant applied on task `);
+      
        //--------------------------------------------- 
     }
     //  const updatedTask = await Task.updateOne({'_id':taskID},req.body)
@@ -113,11 +107,7 @@ router.delete("/:id", async (req, res) => {
       return res.status(400).send({ error: "task does not exist" });
 
     //-------------(Notify admin that new applicant applied on task)--------------------
-    const ids = await User.find({type: "admin"}  , {_id:1});
-    ids.forEach(async function(idItem) {
-    const recieverId = idItem;
-    await taskController.notifyUser(taskID, recieverId, `Task is deleted `);
-    });
+    await taskController.notifyAdmins(taskID,`Task is deleted `);
     //---------------------------------------------   
 
     res.json({ msg: "Task was deleted successfully", data: deletedTask });
