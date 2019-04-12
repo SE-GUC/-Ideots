@@ -11,11 +11,10 @@ const NotificationSchema = new Schema({
     recieverId:{
         type : Schema.Types.ObjectId ,
         ref:'Users',
-        required : true 
+        // required : true 
     },
     notifierId:{
         type : Schema.Types.ObjectId ,
-        ref:'Users',
         required : true 
     },
     date:{
@@ -25,6 +24,10 @@ const NotificationSchema = new Schema({
     isRead : {
         type : Boolean ,
         default:false
+    },
+    adminId:{
+        type : Schema.Types.ObjectId ,
+        ref:'Admins'
     }
      
 }) ; 
