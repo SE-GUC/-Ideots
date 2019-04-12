@@ -8,6 +8,7 @@ import Tabs from "./components/tab_components/tabs";
 import Home from "./components/Home";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./App.css";
+
 import Notification from "./components/notification_components/Notifications";
 import HeaderBar from "./components/navbar_components/HeaderAppBar";
 

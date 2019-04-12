@@ -2,6 +2,9 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const validator = require("../../validations/taskValidations");
+
+const Joi = require("joi");
+
 // We will be connecting using database
 const Task = require("../../models/Task");
 
@@ -11,6 +14,24 @@ router.get("/", async (req, res) => {
     .populate("consultancyID");
   res.json({ data: tasks });
 });
+
+
+router.get("/WithRange/:limit/:offset", async (req, res) => {
+  const schema = {
+    limit: Joi.required(),
+    offset: Joi.required()
+  };
+  const result = Joi.validate(req.params, schema);
+  if (result.error)
+    return res.status(400).send({ error: result.error.details[0].message });
+  const limit = parseInt(req.params.limit, 10);
+  const offset = parseInt(req.params.offset, 10);
+  const task = await Task.find()
+    .skip(offset)
+    .limit(limit);
+  res.json({ data: task });
+});
+
 
 router.get("/:id", async (req, res) => {
   try {
@@ -24,6 +45,21 @@ router.get("/:id", async (req, res) => {
     console.log(error);
   }
 });
+
+//get my tasks
+router.get("/Partner/:id", async (req, res) => {
+    try {
+      const partnerId = req.params.id;
+      const task = await Task.find({ partnerID: partnerId })
+        .populate("partnerID")
+        .populate("consultancyID");
+      if (!task) return res.status(400).send({ error: "Task does not exist" });
+      return res.json({ task });
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
 
 router.post("/", async (req, res) => {
   try {
@@ -85,7 +121,9 @@ router.delete("/:id", async (req, res) => {
 //search by category
 router.get("/search/category=:cat", async (req, res) => {
   const cat = req.params.cat;
+
   const tasks = await Task.find({ category: { $regex: cat, $options: "i" } })
+
     .populate("partnerID")
     .populate("consultancyID");
   // if(tasks.length==0)return res.status(404).send({error: 'no tasks found'})
