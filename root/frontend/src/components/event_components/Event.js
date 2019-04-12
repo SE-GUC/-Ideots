@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-import Background from './backy.jpg';
+import Background from './backy1.jpg';
 import axios from "axios" 
 export class Event extends Component {
   state = {
