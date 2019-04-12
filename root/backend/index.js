@@ -1,5 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose');
+const cors=require('cors')
 
 const config =require('./config/keys.js')
 
@@ -18,10 +19,7 @@ const app = express()
 const cors=require('cors');
 app.use(cors());
 
-
-
-
-
+app.use(cors())
 app.use(express.json())
 
 mongoose.connect(config.mongoURI, { useNewUrlParser: true })

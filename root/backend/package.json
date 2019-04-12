@@ -25,6 +25,7 @@
     "mongoose": "*",
     "mongoose-type-url": "*",
     "uuid": "^3.3.2"
+    "body-parser": "*"
   },
   "devDependencies": {
     "axios": "^0.18.0",

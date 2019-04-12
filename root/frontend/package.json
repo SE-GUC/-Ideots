@@ -6,14 +6,16 @@
     "@material-ui/core": "^3.9.3",
     "@material-ui/styles": "^3.0.0-alpha.10",
     "axios": "^0.18.0",
+    "bootstrap": "^4.3.1",
     "react": "^16.8.6",
+    "react-bootstrap": "^1.0.0-beta.6",
     "react-dom": "^16.8.6",
     "react-infinite-scroll-component": "^4.5.2",
     "react-router-dom": "^5.0.0",
     "react-scripts": "2.1.8"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "PORT=4000 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -26,5 +28,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "react-router-dom": "^5.0.0"
+  }
 }
