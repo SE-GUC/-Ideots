@@ -8,7 +8,7 @@
 // import HeaderBar from "./components/navbar_components/HeaderAppBar";
 import EventList from './components/event_components/EventList'
 import EventCard from './components/event_components/EventCard'
-
+import Event from './components/event_components/Event'
 // class App extends Component {
 //   render() {
 //     return (
@@ -55,7 +55,7 @@ export class App extends Component {
   render() {
     return (
       <div>
-        <EventList/>
+        <Event/>
 
       </div>
 

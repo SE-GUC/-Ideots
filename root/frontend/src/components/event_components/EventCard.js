@@ -20,6 +20,7 @@ class EventCard extends React.Component {
           border: "1px solid blue",
           margin: "10px"
         }}
+        onClick
       >
         <CardHeader
           avatar={
