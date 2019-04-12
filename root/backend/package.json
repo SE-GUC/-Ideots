@@ -23,7 +23,13 @@
     "joi-objectid": "^2.0.0",
     "mongoose": "^5.5.1",
     "mongoose-type-url": "*",
-    "uuid": "^3.3.2"
+    "uuid": "^3.3.2",
+
+
+    "cors": "^2.8.5"
+   
+
+
   },
   "devDependencies": {
     "axios": "^0.18.0",
