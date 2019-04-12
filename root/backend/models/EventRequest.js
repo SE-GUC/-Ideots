@@ -27,7 +27,7 @@ const EventRequestSchema = new Schema ({
     dateTime: {type: Date},
     organizerId : {
         type : Schema.Types.ObjectId ,
-      //  ref :user  ,
+        ref : 'Users'  ,
         required : true 
     } ,
     acceptenceState :{type: Number}   // -1 rejected , 0 pending , 1 accepted

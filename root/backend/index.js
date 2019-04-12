@@ -1,7 +1,7 @@
-
 const express = require('express')
 const mongoose = require('mongoose');
-const cors = require('cors')
+const cors=require('cors')
+
 const config =require('./config/keys.js')
 
 const admins = require('./routes/api/admins')
@@ -17,10 +17,7 @@ const reviews = require('./routes/api/reviews')
 
 const app = express()
 
-
 app.use(cors())
-
-
 app.use(express.json())
 
 mongoose.connect(config.mongoURI, { useNewUrlParser: true })
@@ -60,8 +57,7 @@ app.use('/api/reviews', reviews)
 
 // Handling 404
 app.use((req, res) => {
-    res.status(404).send({err: 'We can not find what you are looking for'});
- })
-const port = process.env.PORT||3000
-app.listen(port, () => console.log(`Server up and running on port ${port}`))
-
+  res.status(404).send({ err: "We can not find what you are looking for" });
+});
+const port = process.env.PORT || 3000;
+app.listen(port, () => console.log(`Server up and running on port ${port}`));
