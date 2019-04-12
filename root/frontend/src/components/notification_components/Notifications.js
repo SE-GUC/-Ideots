@@ -1,4 +1,3 @@
-
 import React, { Component } from "react";
 import NotificationItem from "./NotificationItem";
 import axios from "axios";
@@ -89,11 +88,11 @@ class Notifications extends Component {
           }
         >
           {this.state.notifications.map(notification => (
-
             <NotificationItem
               key={notification._id}
               notifications={notification}
               readNotification={this.putNotification}
+            />
           ))}
         </InfiniteScroll>
       </div>
