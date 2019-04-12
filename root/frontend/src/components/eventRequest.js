@@ -7,10 +7,11 @@ class eventRequest extends Component {
     eventRequests:[],
     newRequestData:{
      // location:"",
+     
       description:"",
       registrationPrice:0,
       numberOfSpaces:0,
-      organizerId:0
+      organizerId:""
     },
     newRequestModal:false
   }
@@ -18,7 +19,7 @@ class eventRequest extends Component {
 
   componentWillMount(){
 
-    axios.get('http://localhost:3000/api/eventRequests').then((response)=>{
+    axios.get('http://localhost:4000/api/eventRequests').then((response)=>{
 
       this.setState({
         eventRequests:response.data.data
@@ -35,16 +36,25 @@ class eventRequest extends Component {
 
 
   addRequest(){
-    axios.post('http://localhost:3000/api/eventRequests',this.state.newRequestData).then((response)=>{
+    console.log("maher")
+    const stst = {
+      description:"QQQQQQ12323111111111111111111111111111111111111444444444444444444444444444444444444444444444444111111111111111111111111111111111",
+     registrationPrice:12,
+     numberOfSpaces:123,
+     organizerId:"987654321987654321987654"
+    }
+    console.log(this.state.newRequestData)
+    axios.post('http://localhost:4000/api/eventRequests',this.state.newRequestData).then((response)=>{
 
     let {eventRequests}=this.state  ;
     eventRequests.push(response.data.data)
     this.setState({eventRequests,newRequestModal:false, newRequestData:{
      // location:{},
+     
       description:"",
       registrationPrice:0,
       numberOfSpaces:0,
-      organizerId:0
+      organizerId:""
     }}) 
 
   })
@@ -84,14 +94,14 @@ class eventRequest extends Component {
           <Label for="registrationPrice">RegistrationPrice</Label>
           <Input id="registrationPrice" value={this.state.newRequestData.registrationPrice} onChange={(e)=>{
             let {newRequestData}=this.state;
-            newRequestData.registrationPrice=e.target.value;
+            newRequestData.registrationPrice=parseInt(e.target.value,10);
             this.setState({newRequestData})
           }}/>
           <br></br>
           <Label for="numberOfSpaces">NumberOfSpaces</Label>
           <Input id="numberOfSpaces" value={this.state.newRequestData.numberOfSpaces} onChange={(e)=>{
             let {newRequestData}=this.state;
-            newRequestData.numberOfSpaces=e.target.value;
+            newRequestData.numberOfSpaces=parseInt(e.target.value,10);
             this.setState({newRequestData})
           }}/>
           <br></br>
@@ -100,7 +110,29 @@ class eventRequest extends Component {
             let {newRequestData}=this.state;
             newRequestData.organizerId=e.target.value;
             this.setState({newRequestData})
+            
           }}/>
+           {/* <Label for="topic">OrganizerId</Label>
+          <Input id="organizerId" value={this.state.newRequestData.organizerId} onChange={(e)=>{
+            let {newRequestData}=this.state;
+            newRequestData.organizerId=e.target.value;
+            this.setState({newRequestData})
+            
+          }}/>
+           <Label for="organizerId">OrganizerId</Label>
+          <Input id="organizerId" value={this.state.newRequestData.organizerId} onChange={(e)=>{
+            let {newRequestData}=this.state;
+            newRequestData.organizerId=e.target.value;
+            this.setState({newRequestData})
+            
+          }}/>
+           <Label for="organizerId">OrganizerId</Label>
+          <Input id="organizerId" value={this.state.newRequestData.organizerId} onChange={(e)=>{
+            let {newRequestData}=this.state;
+            newRequestData.organizerId=e.target.value;
+            this.setState({newRequestData})
+            
+          }}/> */}
           
       </FormGroup>          
       </ModalBody>
