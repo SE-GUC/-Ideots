@@ -34,7 +34,7 @@ router.post("/", async (req, res) => {
   
 
   const schema = {
-    location: Joi.object().required(),
+    location: Joi.object(),
     description: Joi.string().min(30).required(),
     type: Joi.string().required(),
     registrationPrice: Joi.number().required(),
