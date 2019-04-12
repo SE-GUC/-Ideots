@@ -2,13 +2,13 @@
 // import logo from "./logo.svg";
 // import Tabs from "./components/tab_components/tabs";
 // import Home from "./components/Home";
-// import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 // import "./App.css";
 // import Notification from "./components/notification_components/Notifications";
-// import HeaderBar from "./components/navbar_components/HeaderAppBar";
-import EventList from './components/event_components/EventList'
-import EventCard from './components/event_components/EventCard'
-import Event from './components/event_components/Event'
+import HeaderBar from "./components/navbar_components/HeaderAppBar";
+import EventList from "./components/event_components/EventList";
+import EventCard from "./components/event_components/EventCard";
+import Event from "./components/event_components/Event";
 // class App extends Component {
 //   render() {
 //     return (
@@ -49,27 +49,18 @@ import Event from './components/event_components/Event'
 //     );
 //   }
 // }
-import React, { Component } from 'react'
+import React, { Component } from "react";
 
 export class App extends Component {
   render() {
     return (
-      <div>
-        <Event/>
+        <div>
 
-      </div>
-
-      // <h1>
-      //   diiff
-      // </h1>
-      // <div>
-
-      //   <EventCard/>
-        
-      // </div>
-    ) ; 
+            <HeaderBar />
+            <EventList />
+        </div>
+    );
   }
 }
 
-export default App
-
+export default App;

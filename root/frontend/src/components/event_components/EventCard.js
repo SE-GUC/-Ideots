@@ -4,9 +4,22 @@ import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
-
+import {BrowserRouter as Router , Route , Redirect ,Link } from 'react-router-dom' 
+import Event from "./Event"
 class EventCard extends React.Component {
+
+  state ={
+    redirect:false 
+  }
+  handleClick=()=>{
+    this.setState({
+      redirect:true 
+    })
+  }
   render() {
+    if (this.state.redirect) { 
+      return <Event key={this.props.event._id} event = {this.props.event}/>
+    }
     const { event } = this.props;
     const remainSeat = event.numberOfSpaces - event.numberOfRegisterations;
     const date = new Date(event.dateTime);
@@ -15,12 +28,17 @@ class EventCard extends React.Component {
     const month = date.getMonth();
     const year = date.getFullYear();
     return (
-      <Card
+      // <Router > 
+      //   <Route exact path="/" render ={props =>(
+        
+      //   <Link to="/Event">
+
+        <Card 
         style={{
           border: "1px solid blue",
           margin: "10px"
         }}
-        onClick
+        onClick= {this.handleClick}
       >
         <CardHeader
           avatar={
@@ -71,6 +89,9 @@ class EventCard extends React.Component {
           </div>
         </div>
       </Card>
+      // </Link>)} /> 
+      // <Route  exact path = "/Event" component={Event} />
+      // </Router>
     );
   }
 }

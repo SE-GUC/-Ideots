@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import Background from './backy.jpg';
+import axios from "axios" 
 export class Event extends Component {
   state = {
     modal: false,
@@ -26,33 +28,52 @@ export class Event extends Component {
       rate: 5
     }
   };
-  modalToggle = whichOne => {
+  componentDidMount() {
+    this.setState({
+      event : this.props.event 
+    })
+  }
+
+
+  
+
+  modalToggle = async whichOne => {
     this.setState({
       modal: !this.state.modal
     });
+    console.log(this.props.event._id)
     switch (whichOne) {
       case "Description":
         this.setState({
           title: "Description",
-          body: this.state.event.description
+          body: this.state.event.description ? this.state.event.description : "no available data"
         });
         break;
       case "Location":
+        const specific = ()=>{
+          return (
+            <ul>
+            <li>City : {this.state.event.location? this.state.event.location.city  : "no available data"} </li>
+            <li>Area : {this.state.event.location ?this.state.event.location.Area : "no available data"} </li>
+            <li>Street : {this.state.event.location ?this.state.event.location.Street : "no available data"} </li>
+            </ul>
+          ) ; 
+        }
         this.setState({
           title: "Location",
-          body: this.state.event.location
+          body: specific()
         });
         break;
       case "Type":
         this.setState({
           title: "Type",
-          body: this.state.event.type
+          body: this.state.event.type ? this.state.event.type : "no available data"
         });
         break;
       case "Registration Price":
         this.setState({
           title: "Registration Price",
-          body: this.state.event.registrationPrice
+          body: this.state.event.registrationPrice ? this.state.event.registrationPrice  : "no available data"
         });
         break;
       case "Seats":
@@ -84,25 +105,35 @@ export class Event extends Component {
         break;
 
       case "when":
-        console.log(this.state.event.dateTime)
         this.setState({
           title: "when",
-          body: this.state.event.dateTime.toString()
+          body: this.state.event.dateTime ? this.state.event.dateTime.toString() :"no available data "
         });
         break;
       case "who made this event?":
+      const bod = this.state.event.organizerId ?  await this.getTheNameOfOrganizer(this.state.event.organizerId) :"no available data"
+      console.log(this.state.event.organizerId)
         this.setState({
           title: "who made this event ?",
-          body: this.state.event.organizerId
+          body:  bod
         });
         break;
     }
   };
+
+  getTheNameOfOrganizer = async id =>{
+   const user= await axios.get(`http://localhost:3000/api/users/${id}`)
+   const name = user.data.name 
+   return name  
+  }
+
   render() {
     const title = this.state.title;
     const body = this.state.body;
     return (
-      <div>
+        <div>
+        {/* <img src={Background}  alt="background" style= {{width :'100%' , height:'100%' , objectFit:'contain'}}  /> */}
+
         <Button
           outline
           color="primary"
@@ -177,7 +208,7 @@ export class Event extends Component {
           who made this event?{" "}
         </Button>{" "}
         <Modal isOpen={this.state.modal} toggle={this.modalToggle}>
-          <ModalHeader toggle={this.modalToggle}>{title}</ModalHeader>
+          <ModalHeader key = {this.state.event._id} toggle={this.modalToggle}>{title}</ModalHeader>
           <ModalBody>{body}</ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={this.modalToggle}>
