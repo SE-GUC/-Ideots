@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import logo from "./logo.svg";
+import Tabs from "./components/tab_components/tabs";
+import Home from "./components/Home";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./App.css";
+import Notification from "./components/notification_components/Notifications";
 import HeaderBar from "./components/navbar_components/HeaderAppBar";
 
 class App extends Component {
@@ -8,7 +12,7 @@ class App extends Component {
     return (
       <div className="App">
         <HeaderBar />
-        <header className="App-header">
+        {/* <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <p>
             Edit <code>src/App.js</code> and save to reload.
@@ -33,6 +37,12 @@ class App extends Component {
         <h1>sadsafasasf</h1>
         <h1>sadsafasasf</h1>
         <h1>sadsafasasf</h1>
+        <div className="App">
+      <Route exact path="/" render={props => <Home />} /> */}
+        <Router>
+          <Route path="/" render={props => <Tabs />} />
+          {/* </div> */}
+        </Router>
       </div>
     );
   }
