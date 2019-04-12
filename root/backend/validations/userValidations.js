@@ -26,7 +26,7 @@ module.exports = {
     createValidationMember: request => {
         const createSchema = {
             type: Joi.string().required().valid('partner','member','consultancy_agency'),
-            name: Joi.object().required(),
+            name: Joi.string().required(),
             email: Joi.string().email().required(),
             password: Joi.string().min(8).alphanum().required(),
             phoneNumber:Joi.array().items(Joi.string()).required(),
@@ -83,7 +83,7 @@ module.exports = {
     //member
     updateValidationMember: request => {
         const updateSchema = {
-            name: Joi.object(),
+            name: Joi.string(),
             email: Joi.string().email(),
             password: Joi.string().min(8).alphanum(),
             rate:Joi.number(),

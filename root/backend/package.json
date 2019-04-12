@@ -17,17 +17,21 @@
   },
   "dependencies": {
     "bcryptjs": "*",
-    "body-parser": "*",
+
     "cors": "^2.8.5",
     "express": "*",
     "joi": "^14.3.1",
     "joi-objectid": "^2.0.0",
     "mongoose": "*",
     "mongoose-type-url": "*",
-    "uuid": "^3.3.2"
+
+    "uuid": "^3.3.2",
+    "body-parser": "*"
+
   },
   "devDependencies": {
     "axios": "^0.18.0",
+    "cors": "^2.8.5",
     "jest": "^24.5.0"
   }
 }

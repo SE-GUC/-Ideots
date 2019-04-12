@@ -10,10 +10,12 @@ const NotificationSchema = new Schema({
     } ,
     recieverId:{
         type : Schema.Types.ObjectId ,
+        ref:'Users',
         required : true 
     },
     notifierId:{
         type : Schema.Types.ObjectId ,
+        ref:'Users',
         required : true 
     },
     date:{

@@ -7,12 +7,12 @@ const EventBookingSchema = new Schema ({
  
     eventId:{
         type : Schema.Types.ObjectId ,
-  //      ref:event,
+        ref:'events',
         required :true 
     },
     memberId :{
         type : Schema.Types.ObjectId ,
-  //      ref:user,
+        ref:'Users',
         required : true 
     } ,
     registrationPrice:{

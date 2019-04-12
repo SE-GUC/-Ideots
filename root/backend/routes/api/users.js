@@ -7,9 +7,11 @@ const validator =require('../../validations/userValidations');
 // Get all users
 router.get('/', async (req,res) => {
 
-   
-        const user = await User.find();
-       
+  
+        const user = await User.find().populate('pastProjects').populate('events').populate('tasks').populate('attendedEvents')
+        .populate('eventOrganized')
+      
+
         res.json({data : user});   
    
 
@@ -18,9 +20,11 @@ router.get('/', async (req,res) => {
 // Get all members 
 router.get('/members/', async (req,res) => {
 
-    
-        const Member = await User.find({type:'member'});
-        
+   
+        const Member = await User.find({type:'member'}).populate('pastProjects').populate('events').populate('tasks').populate('attendedEvents')
+        .populate('eventOrganized');
+      
+
         res.json({data : Member});
     
 
@@ -30,7 +34,8 @@ router.get('/:id', async (req, res) => {
     try{
         const id = req.params.id;
         console.log(id);
-        const user =await User.findOne({_id:id});
+        const user =await User.findOne({_id:id}).populate('partners').populate('events').populate('tasks').populate('attendedEvents')
+        .populate('eventOrganized');
         console.log(user);
         if(!user) res.status(404).send({error:"there is no User with this Id"});
         res.json(user);

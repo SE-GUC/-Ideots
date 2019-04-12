@@ -41,12 +41,12 @@ const EventSchema = new Schema({
     },
     organizerId:{
         type : Schema.Types.ObjectId ,
-   //     ref:user,
+        ref:'Users',
         required : true  
     },
     eventRequestId :{
         type : Schema.Types.ObjectId ,
-    //    ref: eventRequest , 
+        ref: 'eventRequests' , 
         required :true 
     } ,
     rate:{

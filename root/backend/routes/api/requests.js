@@ -9,11 +9,11 @@ const RequestsFunctions = require('../../controllers/requestController')
 
 
 // getting the requests
+
 router.get("/",RequestsFunctions.get_requests);
 
 
 
-// getting specific request
 
 
 router.get('/:id', RequestsFunctions.get_requests_byId);
@@ -22,6 +22,7 @@ router.get('/:id', RequestsFunctions.get_requests_byId);
 router.post("/", RequestsFunctions.create_request);
 
 //update
+
 router.put("/:id",RequestsFunctions.update_request);
 
 //Delete
