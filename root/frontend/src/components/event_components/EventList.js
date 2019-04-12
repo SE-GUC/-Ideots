@@ -1,53 +1,32 @@
-
 import React, { Component } from "react";
-import NotificationItem from "./NotificationItem";
+import Event from "./EventCard";
 import axios from "axios";
 import InfiniteScroll from "react-infinite-scroll-component";
 
-class Notifications extends Component {
+export class EventList extends Component {
   state = {
-    notifications: [],
-    count: 7,
+    events: [],
+    count: 2,
     offset: 0,
     hasMore: true
   };
   componentDidMount() {
-    this.fetchNotifications();
+    this.fetchEvents();
   }
 
-  fetchNotifications = () => {
+  fetchEvents = () => {
     const { count, offset } = this.state;
-    const user_id = "5cae82d478cadf0004c4fdb1"; // get it from authentication
     this.setState({ offset: offset + count });
     axios
-      .get(
-        `http://localhost:3000/api/notifications/${user_id}/${count}/${offset}`
-      )
+      .get("http://localhost:3000/api/events/withRange/" + count + "/" + offset)
       .then(res => {
         if (res.data.data.length > 0) {
-          this.setState({
-            notifications: this.state.notifications.concat(res.data.data)
-          });
+          this.setState({ events: this.state.events.concat(res.data.data) });
         } else {
           this.setState({ hasMore: false });
         }
       });
-  };
-
-  readNotification = (id, isRead) => {
-    this.setState({
-      notifications: this.state.notifications.map(notification => {
-        if (notification._id === id) notification.isRead = isRead;
-        return notification;
-      })
-    });
-  };
-  putNotification = id => {
-    const isRead = true;
-    const params = { isRead: isRead };
-    axios
-      .put(`http://localhost:3000/api/notifications/${id}`, params)
-      .then(this.readNotification(id, isRead));
+    console.log(this.state);
   };
 
   render() {
@@ -55,8 +34,8 @@ class Notifications extends Component {
       <div>
         <InfiniteScroll
           hasMore={this.state.hasMore}
-          dataLength={this.state.notifications.length}
-          next={this.fetchNotifications}
+          dataLength={this.state.events.length}
+          next={this.fetchEvents}
           endMessage={
             <h3
               style={{
@@ -69,7 +48,7 @@ class Notifications extends Component {
                 marginBottom: "5px"
               }}
             >
-              No More Notification
+              No More Event
             </h3>
           }
           loader={
@@ -88,16 +67,13 @@ class Notifications extends Component {
             </h3>
           }
         >
-          {this.state.notifications.map(notification => (
-
-            <NotificationItem
-              key={notification._id}
-              notifications={notification}
-              readNotification={this.putNotification}
+          {this.state.events.map(event => (
+            <Event key={event._id} event={event} />
           ))}
         </InfiniteScroll>
       </div>
     );
   }
 }
-export default Notifications;
+
+export default EventList;

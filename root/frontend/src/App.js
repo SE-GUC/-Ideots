@@ -1,6 +1,10 @@
-import React, { Component } from 'react';
-import {BrowserRouter as Router,Route} from 'react-router-dom'
-import './App.css';
+
+import React, { Component } from "react";
+import Tabs from "./components/tab_components/tabs";
+import Home from "./components/Home";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import "./App.css";
+
 
 import Notification from './components/notification_components/Notifications'
 
@@ -14,15 +18,8 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <div className="container">
-              <Route path='/notifications' render={props=>(
-                  <React.Fragment>
-                      <Notification  />
-                  </React.Fragment>
-
-              )}
-              />
-          </div>
+          <Route exact path="/" render={props => <Home />} />
+          <Route path="/tabs" render={props => <Tabs />} />
         </div>
       </Router>
     );
