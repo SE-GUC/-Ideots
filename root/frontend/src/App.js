@@ -1,26 +1,19 @@
 import React, { Component } from "react";
-
 import "./App.css";
-import SignIn from "./Components/login_Components/SignIn";
+import SignIn from "./components/login_Components/SignIn";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Redirect } from "react-router-dom";
-import Welcome from "./Components/login_Components/Welcome";
-const axios = require("axios");
+import Welcome from "./components/login_Components/Welcome";
 
-
-  
-
-
-import Request from './components/Request'
-import RequestAsUser from './components/RequestAsUser'
+import Request from "./components/Request";
+import RequestAsUser from "./components/RequestAsUser";
 import Tabs from "./components/tab_components/tabs";
 import Home from "./components/Home";
-
 
 import Notification from "./components/notification_components/Notifications";
 import HeaderBar from "./components/navbar_components/HeaderAppBar";
 
-
+const axios = require("axios");
 
 class App extends Component {
   state = {
@@ -59,10 +52,17 @@ class App extends Component {
   render() {
     if (this.state.loggedIn) {
       return <Welcome token={this.state.token} />;
-    }
+    }else{
     return (
-
       <Router>
+
+        <HeaderBar />
+        <Route path="/" render={props => <Tabs />} />
+        <div className="App">
+          <Route path="/" render={props => <Home />} />
+
+          <Route path="/requests" render={props => <Request />} />
+          <Route path="/UserRequests" render={props => <RequestAsUser />} />
         <Route path="/login" />
         <div>
           <SignIn
@@ -71,27 +71,10 @@ class App extends Component {
             pass={this.passwordHandler}
           />
         </div>
-      
-       <HeaderBar />
-       <Route path="/" render={props => <Tabs />} />
-        <div className="App">
-          <Route  path="/" render={props => <Home />} />
-         
-          <Route
-            path="/requests"
-            render={props => <Request  />}
-          />
-           <Route
-            path="/UserRequests"
-            render={props => <RequestAsUser  />}
-          />
-         
         </div>
       </Router>
-
-
     );
-  }
+  }}
 }
 
 export default App;
