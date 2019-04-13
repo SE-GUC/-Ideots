@@ -6,8 +6,7 @@
   "scripts": {
     "test": "jest",
     "start": "node index.js",
-    "dev":"nodemon index.js"
-
+    "dev": "nodemon index.js"
   },
   "keywords": [
     "server"
@@ -18,23 +17,28 @@
     "testEnvironment": "node"
   },
   "dependencies": {
+    "bcrypt": "^3.0.5",
+    "body-parser": "*",
+    "express": "^4.16.4",
+    "passport-jwt": "^4.0.0",
     "bcryptjs": "*",
-
-    "cors": "^2.8.5",
-    "express": "*",
     "joi": "^14.3.1",
     "joi-objectid": "^2.0.0",
-    "mongoose": "*",
+    "mongoose": "^5.5.1",
     "mongoose-type-url": "*",
-
     "uuid": "^3.3.2",
-    "body-parser": "*"
-
+    "cors": "^2.8.5"
   },
   "devDependencies": {
     "axios": "^0.18.0",
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
-    "jest": "^24.5.0"
+    "jest": "^24.5.0",
+    "joi-objectid": "^2.0.0",
+    "mongoose": "^5.5.1",
+    "mongoose-type-url": "^1.0.5",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0"
   }
 }
 
