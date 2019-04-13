@@ -60,7 +60,6 @@ app.get('/', (req, res) => {
 //passport configuration
 require('./config/passport')
 
-
 // Direct routes to appropriate files 
 app.use('/api/admins',admins)
 app.use('/api/notifications', notification)
