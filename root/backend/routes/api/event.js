@@ -8,6 +8,7 @@ const Event = require("../../models/Event");
 const User = require("../../models/User");
 Joi.objectId = require("joi-objectid")(Joi);
 
+const notificationController = require("../../controllers/sendNotificationController");
 // make sure to notify about object id  and pretty method
 
 ///////////CRUDZZZZZZZ\\\\\\\\\\\\
@@ -160,6 +161,15 @@ router.post("/", async (req, res) => {
     return res.status(400).send({ error: result.error.details[0].message });
 
   const newEvent = await Event.create(req.body);
+  //------------------------(Notify members)-------------------------------------
+  const eventId = newEvent._id;
+  await notificationController.notifyAllMembers(eventId,`New Event is posted`);
+  //------------------------(Notify Admins)-------------------------------------
+  await notificationController.notifyAdmins(eventId,`New Event is posted`);
+  //------------------------(Notify Partner that his request is accepted)-------------------------------------
+  const recieverId = newEvent.organizerId;
+  await notificationController.notifyUser(eventId,recieverId,`Your event request has been accepted and your event is posted`);
+  //------------------------------------------------------------------
   return res.json({ data: newEvent });
 });
 //----------------------------------------\\
@@ -208,6 +218,9 @@ router.delete("/:id", async (req, res) => {
       .send({ error: "The Event you are tryinig to edit does not exist" });
 
   const deletedEvent = await Event.findByIdAndRemove(requestedId);
+  //------------------------(Notify Admins)-------------------------------------
+  await notificationController.notifyAdmins(requestedId,`Event is deleted`);
+  //----------------------------------------------------------------------------
   res.send({ "you have deleted ": deletedEvent });
 });
 //---------------------------------\\
