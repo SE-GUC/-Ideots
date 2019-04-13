@@ -29,7 +29,7 @@ module.exports = {
             name: Joi.string().required(),
             email: Joi.string().email().required(),
             password: Joi.string().min(8).alphanum().required(),
-            phoneNumber:Joi.array().items(Joi.string()).required(),
+            // phoneNumber:Joi.array().items(Joi.string()).required(),
             birthDate:Joi.date().required(),
             location:Joi.object().required(),
             otherContacts:Joi.array().items(Joi.string()).required(),

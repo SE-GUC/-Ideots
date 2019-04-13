@@ -1,9 +1,11 @@
 const express = require('express')
 const mongoose = require('mongoose');
 
+
 const passport = require('passport')
 
 const cors=require('cors')
+
 
 
 const config =require('./config/keys.js')
@@ -21,6 +23,7 @@ const reviews = require('./routes/api/reviews')
 const login = require ('./routes/api/login')
 const auth=require ('./routes/api/auth')
 const app = express()
+const cors=require('cors')
 
 
 app.use(cors())
@@ -51,7 +54,7 @@ require('./config/passport')
 // Direct routes to appropriate files 
 app.use('/api/admins',admins)
 app.use('/api/notifications', notification)
-app.use('/api/application', application)
+app.use('/api/applications', application)
 app.use('/api/requests', requests)
 app.use('/api/tasks',tasks)
 app.use('/api/events',  passport.authenticate('jwt', {session: false}), event)

@@ -2,8 +2,11 @@ const express = require('express');
 const bcrypt =require('bcryptjs');
 const router = express.Router();
 
+const Admin = require("../../models/Admin");
 const User =require('../../models/User');
 const validator =require('../../validations/userValidations');
+const notificationController = require("../../controllers/sendNotificationController");
+
 // Get all users
 router.get('/', async (req,res) => {
 
@@ -53,6 +56,7 @@ router.post('/', async (req, res) => {
         const salt =bcrypt.genSaltSync(10);
         const passAfterHashing =bcrypt.hashSync(req.body.password,salt);
         const type = req.body.type;
+        var content='A new member is created on the platform';
         if(type=='member'){
             const isValidated = validator.createValidationMember(req.body);
             if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message });
@@ -73,6 +77,10 @@ router.post('/', async (req, res) => {
                 experience:req.body.experience,
                 certificates:req.body.certificates
             });
+            //-------------------------( Notify admin that a new user signed on the website )-----------------------------------------
+            await notificationController.notifyAdmins(newUser._id,content);
+            //--------------------------------------------- 
+            
             res.json({msg:'User was created successfully', data: newUser});
         }else if(type=='partner'){
             const isValidated = validator.createValidationPartner(req.body);
@@ -91,7 +99,12 @@ router.post('/', async (req, res) => {
                 pastProjects:req.body.pastProjects,
                 contactInfo:req.body.contactInfo
             });
+            //-------------------------( Notify admin that a new user signed on the website )-----------------------------------------
+            content='A new partner is created on the platform';
+            await notificationController.notifyAdmins(newUser._id,content);
+            //--------------------------------------------- 
             res.json({msg:'User was created successfully', data: newUser});
+            
         }else{
             const isValidated = validator.createValidationConsaltancyAgency(req.body);
             if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message });
@@ -110,8 +123,12 @@ router.post('/', async (req, res) => {
                 partners:req.body.partners,
                 events:req.body.events
             });
+            //-------------------------( Notify admin that a new user signed on the website )-----------------------------------------
+            content='A new consultant is created on the platform';
+            await notificationController.notifyAdmins(newUser._id,content);
+            //--------------------------------------------- 
             res.json({msg:'User was created successfully', data: newUser});
-        }
+        }    
    }
    catch(error) {
         res.json({error:error.message});
@@ -242,12 +259,15 @@ router.delete('/:id', async (req, res) => {
      const requestedId = req.params.id;
      const user =await User.findOne({'_id':requestedId});
     //  console.log(user)
-    if(!user) return res.status(404).send({error:"there is no User with this Id"});
-        const deletedUser = await User.findByIdAndRemove(requestedId)
-       res.json({data:deletedUser})
-       
-
-        });
+    if(!user) return res.status(400).send({error:"there is no User with this Id"});
+    const deletedUser = await User.findByIdAndRemove(requestedId)
+    res.json({data:deletedUser})
+    //-------------------------( Notify admin that user was deleted from the website )-----------------------------------------
+        await notificationController.notifyAdmins(deletedUser._id,'User is deleted from plateform');
+    
+    //-----------------------------------------------------------------------------
+    
+});
         
 
         // router.put('/:id', async (req,res) => {

@@ -5,10 +5,11 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 import Welcome from "./components/login_Components/Welcome";
 
-import Request from "./components/Request";
-import RequestAsUser from "./components/RequestAsUser";
+import Request from "./components/userRequest_components/Request";
+import RequestAsUser from "./components/userRequest_components/RequestAsUser";
 import Tabs from "./components/tab_components/tabs";
 import Home from "./components/Home";
+
 
 import Notification from "./components/notification_components/Notifications";
 import HeaderBar from "./components/navbar_components/HeaderAppBar";
