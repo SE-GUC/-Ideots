@@ -19,6 +19,8 @@ import Home from "./components/Home";
 import Notification from "./components/notification_components/Notifications";
 import HeaderBar from "./components/navbar_components/HeaderAppBar";
 
+import PaperBase from "./components/Actions/Paperbase";
+
 const axios = require("axios");
 
 class App extends Component {
@@ -79,6 +81,9 @@ class App extends Component {
             pass={this.passwordHandler}
 
           />
+        </div>
+        <div className="App">
+            <PaperBase/>
         </div>
         </div>
       </Router>
