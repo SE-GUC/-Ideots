@@ -2,6 +2,11 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const validator = require("../../validations/taskValidations");
+
+
+const Joi = require("joi");
+
+
 // We will be connecting using database
 const Task = require("../../models/Task");
 const User = require("../../models/User");
@@ -9,18 +14,36 @@ const Admin = require("../../models/Admin");
 
 const notificationController = require("../../controllers/sendNotificationController");
 
+
 router.get("/", async (req, res) => {
   const tasks = await Task.find()
     .populate("partnerID")
     .populate("consultancyID");
-
   res.json({ data: tasks });
 });
 
+
+router.get("/WithRange/:limit/:offset", async (req, res) => {
+  const schema = {
+    limit: Joi.required(),
+    offset: Joi.required()
+  };
+  const result = Joi.validate(req.params, schema);
+  if (result.error)
+    return res.status(400).send({ error: result.error.details[0].message });
+  const limit = parseInt(req.params.limit, 10);
+  const offset = parseInt(req.params.offset, 10);
+  const task = await Task.find()
+    .skip(offset)
+    .limit(limit);
+  res.json({ data: task });
+});
+
+
 router.get("/:id", async (req, res) => {
   try {
-    const taskId = req.params.id;
-    const task = await Task.findOne({ _id: taskId })
+    const taskID = req.params.id;
+    const task = await Task.findOne({ _id: taskID })
       .populate("partnerID")
       .populate("consultancyID");
     if (!task) return res.status(400).send({ error: "Task does not exist" });
@@ -29,6 +52,22 @@ router.get("/:id", async (req, res) => {
     console.log(error);
   }
 });
+
+//get my tasks
+router.get("/Partner/:id", async (req, res) => {
+    try {
+      const partnerId = req.params.id;
+      const task = await Task.find({ partnerID: partnerId })
+        .populate("partnerID")
+        .populate("consultancyID");
+      if (!task) return res.status(400).send({ error: "Task does not exist" });
+      return res.json({ task });
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
+
 
 router.post("/", async (req, res) => {
   try {
@@ -39,6 +78,7 @@ router.post("/", async (req, res) => {
         .send({ error: isValidated.error.details[0].message });
     const newTask = await Task.create(req.body);
 
+
     //------------------------(Notify members)-------------------------------------
     const taskId = newTask._id;
     await notificationController.notifyAllMembers(taskId,`New Task is posted`);
@@ -48,6 +88,7 @@ router.post("/", async (req, res) => {
     const recieverId = newTask.partnerID;
     await notificationController.notifyUser(taskId,recieverId,`Your task request has been accepted and your task is posted`);
     //------------------------------------------------------------------
+
     res.json({ msg: "Task was created successfully", data: newTask });
   } catch (error) {
     // We will be handling the error later
@@ -57,10 +98,12 @@ router.post("/", async (req, res) => {
 
 router.put("/:id", async (req, res) => {
   try {
+
     const taskId = req.params.id;
     const taskApplicant = req.body.applicants;
     const assignedPerson= req.body.assignedPerson;
     const task = await Task.findById(taskId);
+
     if (!task) return res.status(400).send({ error: "Task does not exist" });
     const isValidated = validator.updateValidation(req.body);
     if (isValidated.error)
@@ -99,6 +142,7 @@ router.put("/:id", async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
   try {
+
     const taskId = req.params.id;
     const deletedTask = await Task.findByIdAndRemove(taskId);
     if (!deletedTask)
@@ -107,6 +151,7 @@ router.delete("/:id", async (req, res) => {
     //-------------(Notify admin that task is deleted)--------------------
     await notificationController.notifyAdmins(taskId,`Task is deleted`);
     //---------------------------------------------   
+
 
     res.json({ msg: "Task was deleted successfully", data: deletedTask });
   } catch (error) {
@@ -120,7 +165,9 @@ router.delete("/:id", async (req, res) => {
 //search by category
 router.get("/search/category=:cat", async (req, res) => {
   const cat = req.params.cat;
-  const tasks = await Task.find({ category: cat })
+
+
+  const tasks = await Task.find({ category: { $regex: cat, $options: "i" } })
     .populate("partnerID")
     .populate("consultancyID");
   // if(tasks.length==0)return res.status(404).send({error: 'no tasks found'})

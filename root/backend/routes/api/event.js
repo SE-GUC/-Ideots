@@ -42,6 +42,18 @@ router.get("/withRange/:limit/:offset", async (req, res) => {
 });
 //----------------------------------------------\\
 
+router.get("/Organizer/:id", async (req, res) => {
+  const organizerId = req.params.id;
+  const event = await Event.findOne({ organizerId: organizerId })
+    .populate("organizerId")
+    .populate("eventRequestId");
+  if (!event)
+    return res
+      .status(400)
+      .send({ error: "The Event you are tryinig to show does not exist " });
+  res.send({ data: event });
+});
+
 // Get a certain event
 router.get("/:id", async (req, res) => {
   const requestedId = req.params.id;

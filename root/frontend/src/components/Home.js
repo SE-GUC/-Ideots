@@ -13,7 +13,7 @@ export default function Home() {
       <Link to="/UserRequests" style={{ margin: "10px", textAlign: "center" }}>
         RequestsAsUser
       </Link>
-    </div>
+    
 
     
     
