@@ -90,7 +90,7 @@ router.get("/resend?email", async (req, res) => {
       host: "smtp.gmail.com",
       auth: {
         user: "omarabousamaha99@gmail.com",
-        pass: "Tarek98hd"
+        pass: "*******"
       }
     })
   );
@@ -158,7 +158,7 @@ router.post("/register", async (req, res) => {
         // service: "Sendgrid",
         auth: {
           user: "omarabousamaha99@gmail.com",
-          pass: "Tarek98hd"
+          pass: "*********"
           // user: process.env.SENDGRID_USERNAME,
           // pass: process.env.SENDGRID_PASSWORD
         }
