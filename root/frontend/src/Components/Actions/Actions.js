@@ -17,14 +17,7 @@ const styles = theme => ({
       maxWidth: 360,
       backgroundColor: theme.palette.background.paper,
     },
-    avatar: {
-        margin: 10,
-      },
-      bigAvatar: {
-        margin: 10,
-        width: 60,
-        height: 60,
-      },
+  
   });
   
 

@@ -1,29 +1,41 @@
 
 import React, { Component } from "react";
+
+  
 import logo from "./logo.svg";
-import Tabs from "./Components/tab_components/tabs";
-import Home from "./Components/Home";
+import Request from './components/Request'
+import RequestAsUser from './components/RequestAsUser'
+import Tabs from "./components/tab_components/tabs";
+import Home from "./components/Home";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./App.css";
-import Notification from "./Components/notification_components/Notifications";
-import HeaderBar from "./Components/navbar_components/HeaderAppBar";
-//import Applyfortask from "./Components/Applyfortask-components/Applyfortasks";
-import Actions from "./Components/Actions/Actions"
-import Applyfortasks from "./Components/Applyfortask-components/Applyfortasks";
+
+import Notification from "./components/notification_components/Notifications";
+import HeaderBar from "./components/navbar_components/HeaderAppBar";
 
 
 class App extends Component {
   render() {
-    
-    //Try <Actions/> and Try <Applyfortasks> afterward, note don't forget to increment the applicantId in submit() method
     return (
-  <div > 
-   
-   <Actions/>
-  </div>
 
-       
-    
+      <Router>
+       <HeaderBar />
+       <Route path="/" render={props => <Tabs />} />
+        <div className="App">
+          <Route  path="/" render={props => <Home />} />
+         
+          <Route
+            path="/requests"
+            render={props => <Request  />}
+          />
+           <Route
+            path="/UserRequests"
+            render={props => <RequestAsUser  />}
+          />
+         
+        </div>
+      </Router>
+
     );
   }
 }
