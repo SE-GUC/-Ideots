@@ -2,38 +2,44 @@ import React, { Component } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import Background from './backy1.jpg';
 import axios from "axios" 
+import EventBookingButton from './EventBookingButton'
 export class Event extends Component {
   state = {
     modal: false,
     title: "",
     body: "",
     event: {
-      location: {
-        city: "cairo",
-        Street: "Abbas al akkad",
-        Area: "nasr city"
-      },
-      description:
-        " hallo it is me i was wondering if after all these years you would like to meet ",
-
-      type: "singing",
-      registrationPrice: 250,
-      numberOfSpaces: 200,
-      speakers: ["ahmad", "Ali"],
-      topics: ["things", "another things "],
-      dateTime: new Date(2011, 0, 1, 0, 0, 0, 0),
-      organizerId: "alkfsnlaknsflaknflkn alksndlkn asd",
-      numberOfRegisterations: 12,
-      eventRequestId: "fsafas2f1as2f1a2fs121",
-      rate: 5
     }
+    ,
+    isFull:false ,
+    isBooked:false 
   };
   componentDidMount() {
     this.setState({
-      event : this.props.event 
+      event : this.props.event ,
+      isFull:this.props.event.numberOfSpaces ==this.props.event.numberOfRegisterations ? true :false , 
     })
+    this.updateIsBooked()
   }
 
+
+  updateIsBooked = async ()=>{
+    /*must change the user ID when using authentication 
+   */
+  console.log(this.props.event._id)
+    axios.get(`http://localhost:3000/api/eventBookings/${this.props.event._id}/5cadf068d52a741dfc65cd9f`)
+    .then(res =>{
+      console.log(res.data.data)
+
+      this.setState({
+        isBooked : res.data.data.length>0 ?true :false 
+      })
+    })
+    .catch(err=>{
+      console.log(err)
+    })
+   
+  }
 
   
 
@@ -216,6 +222,9 @@ export class Event extends Component {
             </Button>{" "}
           </ModalFooter>
         </Modal>
+
+        <EventBookingButton isBooked={this.state.isBooked}/>
+        
       </div>
     );
   }
