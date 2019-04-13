@@ -5,8 +5,10 @@ export default function Home() {
   return (
     <div>
 
+
       <Link to="/eventRequests" style={{ margin: "10px", textAlign: "center" }}>
         Event Request</Link>
+
 
 
       <Link to="/requests" style={{ margin: "10px", textAlign: "center" }}>
@@ -26,6 +28,5 @@ export default function Home() {
         tabs
       </Link>
     </div>
-
   );
 }
