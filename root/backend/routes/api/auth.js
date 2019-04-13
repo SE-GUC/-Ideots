@@ -75,7 +75,7 @@ router.get("/resend?email", async (req, res) => {
     return res
       .status(400)
       .send({ msg: "We were unable to find a user with that email." });
-  if (ourUser.registrationPhase === 1)
+  if (ourUser.registrationPhase === 2)
     return res
       .status(400)
       .send({ msg: "This account has already been verified. Please log in." });
