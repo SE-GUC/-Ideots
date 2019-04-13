@@ -9,7 +9,7 @@ const Notification = require("../../models/Notification");
 
 // Get all notification
 router.get("/", async (req, res) => {
-  const notifications = await Notification.find().populate("recieverId");
+  const notifications = await Notification.find().populate("recieverId").populate("adminId");
 
   res.json({ data: notifications });
 });
@@ -50,8 +50,10 @@ router.post("/", async (req, res) => {
   try {
     const schema = {
       content: Joi.string().required(),
-      recieverId: Joi.objectId().required(),
-      notifierId: Joi.objectId().required()
+      // recieverId: Joi.objectId().required(),
+      notifierId: Joi.objectId().required(),
+      recieverId: Joi.objectId(),
+      adminId: Joi.objectId()
     };
 
     const result = Joi.validate(req.body, schema);
