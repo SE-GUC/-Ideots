@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Chip from "@material-ui/core/Chip";
-import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
 
 const styles = theme => ({
   root: {
@@ -32,20 +32,25 @@ class Skill extends React.Component {
     const { classes } = this.props;
 
     return (
-      <Paper className={classes.root}>
-        {this.state.chipData.map(data => {
-          let icon = null;
-
-          return (
-            <Chip
-              key={data.key}
-              icon={icon}
-              label={data.label}
-              className={classes.chip}
-            />
-          );
-        })}
-      </Paper>
+      <div style={{ borderTop: "1px solid #ccc", padding: "5px" }}>
+        <Typography component="h5" style={{ textAlign: "center" }}>
+          Needed Skills :
+        </Typography>
+        <div className={classes.root}>
+          {this.state.chipData.map(data => {
+            let icon = null;
+            return (
+              <Chip
+                style={{ background: "#3f51b5", color: "white" }}
+                key={data.key}
+                icon={icon}
+                label={data.label}
+                className={classes.chip}
+              />
+            );
+          })}
+        </div>
+      </div>
     );
   }
 }

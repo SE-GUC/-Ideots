@@ -26,7 +26,6 @@ export class EventList extends Component {
           this.setState({ hasMore: false });
         }
       });
-    console.log(this.state);
   };
 
   render() {
