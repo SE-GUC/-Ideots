@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+
 import "./App.css";
 import SignIn from "./components/login_Components/SignIn";
 import { BrowserRouter as Router, Route } from "react-router-dom";
@@ -9,6 +10,7 @@ import Request from "./components/userRequest_components/Request";
 import RequestAsUser from "./components/userRequest_components/RequestAsUser";
 import Tabs from "./components/tab_components/tabs";
 import Home from "./components/Home";
+
 
 
 import Notification from "./components/notification_components/Notifications";
@@ -55,11 +57,13 @@ class App extends Component {
       return <Welcome token={this.state.token} />;
     }else{
     return (
+
       <Router>
 
         <HeaderBar />
         <Route path="/" render={props => <Tabs />} />
         <div className="App">
+
           <Route path="/" render={props => <Home />} />
 
           <Route path="/requests" render={props => <Request />} />
@@ -70,6 +74,7 @@ class App extends Component {
             signInMethod={this.logIn}
             mail={this.emailHandler}
             pass={this.passwordHandler}
+
           />
         </div>
         </div>
@@ -79,3 +84,4 @@ class App extends Component {
 }
 
 export default App;
+

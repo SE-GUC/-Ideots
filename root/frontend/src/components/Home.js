@@ -4,6 +4,13 @@ import { Link } from "react-router-dom";
 export default function Home() {
   return (
     <div>
+
+
+      <Link to="/eventRequests" style={{ margin: "10px", textAlign: "center" }}>
+        Event Request</Link>
+
+
+
       <Link to="/requests" style={{ margin: "10px", textAlign: "center" }}>
         Requests
       </Link>
@@ -15,6 +22,7 @@ export default function Home() {
 
     
     
+
 
       <Link to="/tabs" style={{ margin: "10px", textAlign: "center" }}>
         tabs

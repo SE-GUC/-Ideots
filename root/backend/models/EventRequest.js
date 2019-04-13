@@ -7,7 +7,7 @@ const EventRequestSchema = new Schema ({
 
     location :{
         type:Object,
-        required : true 
+        
 
     } ,
     description : {
