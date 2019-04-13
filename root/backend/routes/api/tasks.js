@@ -1,3 +1,4 @@
+
 const express = require('express') 
 const router = express.Router();
 const mongoose = require('mongoose')
@@ -32,4 +33,5 @@ router.get('/search/payment=:pay',taskController.searchByMonetaryCompensation )
 //recommended tasks
 router.get('/recommended/:id',taskController.getRecommendedTasks )
 
-module.exports = router ; 
+
+module.exports = router;

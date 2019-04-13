@@ -1,6 +1,5 @@
 const express = require('express')
 const mongoose = require('mongoose');
-const cors=require('cors')
 
 const config =require('./config/keys.js')
 
@@ -16,6 +15,7 @@ const users = require('./routes/api/users.js')
 const reviews = require('./routes/api/reviews')
 
 const app = express()
+const cors=require('cors')
 
 
 app.use(cors())
@@ -38,7 +38,7 @@ app.get('/', (req, res) => {
 // Direct routes to appropriate files 
 app.use('/api/admins',admins)
 app.use('/api/notifications', notification)
-app.use('/api/application', application)
+app.use('/api/applications', application)
 app.use('/api/requests', requests)
 app.use('/api/tasks',tasks)
 app.use('/api/events', event)
