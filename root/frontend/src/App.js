@@ -2,8 +2,10 @@ import React, { Component } from "react";
 
   
 import logo from "./logo.svg";
-import Request from './components/Request'
-import RequestAsUser from './components/RequestAsUser'
+// import Request from './components/Request'
+import Request from './components/userRequest_components/Request'
+import RequestAsUser from './components/userRequest_components/RequestAsUser'
+// import RequestAsUser from './components/RequestAsUser'
 import Tabs from "./components/tab_components/tabs";
 import Home from "./components/Home";
 import { BrowserRouter as Router, Route } from "react-router-dom";
