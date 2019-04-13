@@ -1,3 +1,4 @@
+
 import React, { Component } from "react";
 
 import "./App.css";
@@ -17,6 +18,8 @@ import Home from "./components/Home";
 
 import Notification from "./components/notification_components/Notifications";
 import HeaderBar from "./components/navbar_components/HeaderAppBar";
+
+import PaperBase from "./components/Actions/Paperbase";
 
 const axios = require("axios");
 
@@ -79,11 +82,15 @@ class App extends Component {
 
           />
         </div>
+        <div className="App">
+            <PaperBase/>
+        </div>
         </div>
       </Router>
     );
   }}
 }
+
 
 export default App;
 

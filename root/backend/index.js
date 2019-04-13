@@ -46,9 +46,19 @@ app.get('/', (req, res) => {
     res.send(`<h2>Welcome to LirtenHub</h2> `);
 })
 
+/*app.use((req,res,next) => {
+    res.header("Access-Control-Allow-Origin","*");
+    res.header("Access-Control-Allow-Headers", 
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+    );
+    if(req.method === "OPTIONS"){
+        res.header("Access-Control-Allow-Methods","PUT, POST, PATCH, DELETE");
+        return res.status(200).json({});
+    }
+})*/
+
 //passport configuration
 require('./config/passport')
-
 
 // Direct routes to appropriate files 
 app.use('/api/admins',admins)
