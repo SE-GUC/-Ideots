@@ -42,8 +42,8 @@ router.get("/withRange/:limit/:offset", async (req, res) => {
 });
 //----------------------------------------------\\
 
-router.get("/Organizer/:id", async (req, res) => {
-  const organizerId = req.params.id;
+router.get("/Organizer/organizer", async (req, res) => {
+  const organizerId = req.user._id;
   const event = await Event.findOne({ organizerId: organizerId })
     .populate("organizerId")
     .populate("eventRequestId");
@@ -112,8 +112,8 @@ router.get("/recommended/:userID", async (req, res) => {
     .populate("eventRequestId");
   let userInterrests = user.interests;
   // let userLocation=user.location
- // if (!userInterrests.length === 0)
-   // return res.status(400).send({ error: "you do not have interests " });
+  // if (!userInterrests.length === 0)
+  // return res.status(400).send({ error: "you do not have interests " });
   // let userCity=userLocation.city
   // let userStreet =userLocation.Street
   // let userArea = userLocation.Area
@@ -123,10 +123,10 @@ router.get("/recommended/:userID", async (req, res) => {
   const events = await Event.find({ type: { $in: userInterrests } })
     .populate("organizerId")
     .populate("eventRequestId");
- // if (!events)
-   // return res
-     // .status(400)
-      //.send({ error: "No recommended Events currently try again later!!" });
+  // if (!events)
+  // return res
+  // .status(400)
+  //.send({ error: "No recommended Events currently try again later!!" });
 
   res.json({ data: events });
 });
@@ -175,12 +175,16 @@ router.post("/", async (req, res) => {
   const newEvent = await Event.create(req.body);
   //------------------------(Notify members)-------------------------------------
   const eventId = newEvent._id;
-  await notificationController.notifyAllMembers(eventId,`New Event is posted`);
+  await notificationController.notifyAllMembers(eventId, `New Event is posted`);
   //------------------------(Notify Admins)-------------------------------------
-  await notificationController.notifyAdmins(eventId,`New Event is posted`);
+  await notificationController.notifyAdmins(eventId, `New Event is posted`);
   //------------------------(Notify Partner that his request is accepted)-------------------------------------
   const recieverId = newEvent.organizerId;
-  await notificationController.notifyUser(eventId,recieverId,`Your event request has been accepted and your event is posted`);
+  await notificationController.notifyUser(
+    eventId,
+    recieverId,
+    `Your event request has been accepted and your event is posted`
+  );
   //------------------------------------------------------------------
   return res.json({ data: newEvent });
 });
@@ -231,7 +235,7 @@ router.delete("/:id", async (req, res) => {
 
   const deletedEvent = await Event.findByIdAndRemove(requestedId);
   //------------------------(Notify Admins)-------------------------------------
-  await notificationController.notifyAdmins(requestedId,`Event is deleted`);
+  await notificationController.notifyAdmins(requestedId, `Event is deleted`);
   //----------------------------------------------------------------------------
   res.send({ "you have deleted ": deletedEvent });
 });
