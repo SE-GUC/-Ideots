@@ -81,12 +81,7 @@ const styles = theme => ({
       display: "flex"
     }
   },
-  sectionMobile: {
-    display: "flex",
-    [theme.breakpoints.up("md")]: {
-      display: "none"
-    }
-  },
+
   Select: {
     position: "relative",
     backgroundColor: fade(theme.palette.common.white, 0.15),
@@ -261,7 +256,7 @@ class PrimarySearchAppBar extends React.Component {
                 onClick={this.handleMobileMenuOpen}
                 color="inherit"
               >
-                <MoreIcon />
+                {/* <MoreIcon /> */}
               </IconButton>
             </div>
           </Toolbar>

@@ -1,4 +1,3 @@
-
 import React, { Component } from "react";
 
 import "./App.css";
@@ -7,19 +6,17 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 import Welcome from "./components/login_Components/Welcome";
 
-
 import Request from "./components/userRequest_components/Request";
 import RequestAsUser from "./components/userRequest_components/RequestAsUser";
 
 import Tabs from "./components/tab_components/tabs";
 import Home from "./components/Home";
 
-
-
 import Notification from "./components/notification_components/Notifications";
 import HeaderBar from "./components/navbar_components/HeaderAppBar";
 
 import PaperBase from "./components/Actions/Paperbase";
+import createMixins from "@material-ui/core/styles/createMixins";
 
 const axios = require("axios");
 
@@ -45,52 +42,90 @@ class App extends Component {
       password: this.state.password
     };
     console.log(body);
-    const res = await axios.post("http://localhost:3000/api/auth/login", body);
-    if (res.status === 200) {
-      this.setState({
-        loggedIn: true,
-        currentUserId: res.data._id,
-        token: res.data.token
-      });
-    } else {
+    let res;
+    try {
+      res = await axios.post("http://localhost:3000/api/auth/login", body);
+      if (res.status === 200) {
+        localStorage.setItem("loggedIn", true);
+        localStorage.setItem("token", res.data.token);
+        this.setState({
+          loggedIn: true,
+          token: res.data.token
+        });
+      }
+    } catch {
       console.log("wrong email or password");
     }
   };
+  componentWillMount() {
+    this.setState({
+      loggedIn: localStorage.getItem("loggedIn"),
+      token: localStorage.getItem("token")
+    });
+  }
 
   render() {
-    if (this.state.loggedIn) {
-      return <Welcome token={this.state.token} />;
-    }else{
-    return (
-
-      <Router>
-
-        <HeaderBar />
-        <Route path="/" render={props => <Tabs />} />
-        <div className="App">
-
-          <Route path="/" render={props => <Home />} />
-
-          <Route path="/requests" render={props => <Request />} />
-          <Route path="/UserRequests" render={props => <RequestAsUser />} />
-        <Route path="/login" />
+    if (!localStorage.getItem("loggedIn")) {
+      console.log("heyhey");
+      return (
         <div>
           <SignIn
             signInMethod={this.logIn}
             mail={this.emailHandler}
             pass={this.passwordHandler}
-
           />
         </div>
+      );
+    }
+    return (
+      <Router>
+        <div className="Header">
+          <HeaderBar token={this.state.token} />
+        </div>
+        {/* <Route exact path="/" render={props => <Tabs />} /> */}
         <div className="App">
-            <PaperBase/>
+          <Route
+            exact
+            path="/"
+            render={props => <Home token={this.state.token} />}
+          />
+
+          <Route
+            exact
+            path="/requests"
+            render={props => <Request token={this.state.token} />}
+          />
+          <Route
+            exact
+            path="/UserRequests"
+            render={props => <RequestAsUser token={this.state.token} />}
+          />
+          {/* <Route
+            exact
+            path="/login"
+            render={props => (
+              <div>
+                <SignIn
+                  signInMethod={this.logIn}
+                  mail={this.emailHandler}
+                  pass={this.passwordHandler}
+                />
+              </div>
+            )}
+          /> */}
+          <div className="App">
+            <PaperBase token={this.state.token} />
+          </div>
         </div>
-        </div>
+        <Route
+          exact
+          path="/tabs"
+          render={props => <Tabs token={this.state.token} />}
+        />
       </Router>
     );
-  }}
+  }
 }
-
+// }
 
 export default App;
-
