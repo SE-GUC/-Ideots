@@ -36,10 +36,10 @@ router.get('/members/', async (req,res) => {
 router.get('/:id', async (req, res) => {
     try{
         const id = req.params.id;
-        console.log(id);
+        // console.log(id);
         const user =await User.findOne({_id:id}).populate('partners').populate('events').populate('tasks').populate('attendedEvents')
         .populate('eventOrganized');
-        console.log(user);
+        // console.log(user);
         if(!user) res.status(404).send({error:"there is no User with this Id"});
         res.json(user);
     }catch(error) {

@@ -7,6 +7,17 @@ const Schema = mongoose.Schema
 
 const RequestSchema = new Schema(
     {
+        partnerID :
+        {
+            type : Schema.Types.ObjectId,
+            required : true
+        }
+        ,
+        consultancyID :
+        {
+            type : Schema.Types.ObjectId,
+        }
+        ,
         description :
         {
             type: String,
@@ -37,7 +48,8 @@ const RequestSchema = new Schema(
         {
             type: String,
         
-        }
+        },
+
 
     }
 )
