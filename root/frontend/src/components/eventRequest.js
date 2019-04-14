@@ -27,6 +27,7 @@ class eventRequest extends Component {
     });
   }
 
+  
 
   toggleNewRequestModal(){
    this.setState({
