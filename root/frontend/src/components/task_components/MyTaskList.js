@@ -4,18 +4,23 @@ import axios from "axios";
 
 export class MyTaskList extends Component {
   state = {
-    tasks: [],
-    id: this.props.id
+    tasks: []
   };
   componentDidMount() {
     this.fetchTasks();
   }
 
   fetchTasks = () => {
-    const { id } = this.state;
-    axios.get("http://localhost:3000/api/tasks/Partner/" + id).then(res => {
-      this.setState({ tasks: res.data.task });
-    });
+    console.log("Mytaskaaaaaaaaaaaaaaaaa");
+    axios
+      .get("http://localhost:3000/api/tasks/partner/partner", {
+        headers: { Authorization: `Bearer ` + this.props.token }
+      })
+      .then(res => {
+        console.log("hihaaaaa");
+        this.setState({ tasks: res.data.task });
+      });
+    console.log(this.state.tasks);
   };
 
   render() {

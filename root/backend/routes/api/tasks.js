@@ -22,6 +22,7 @@ router.get("/search/category=:cat", taskController.searchByCategory);
 
 router.get("/search/assignedPerson=:ap", taskController.searchByAssignedPerson);
 
+router.get("/partner/partner", taskController.getmyTask);
 //search by year of experience
 router.get("/search/experience=:exp", taskController.searchByYearsOfEXP);
 
