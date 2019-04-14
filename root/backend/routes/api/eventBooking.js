@@ -46,7 +46,6 @@ router.post("/", async (req, res) => {
   
   //-------------(Notify partner that someone has booked a place in the event)--------------------
   const event = await Event.findOne({'_id': newEventBooking.eventId });
-  console.log(`hereeeeeee  ${event.organizerId}`)
   await notificationController.notifyUser(newEventBooking.eventId,event.organizerId,`someone has booked a place in the event `);
   //------------------------(Notify Admins)-------------------------------------
   await notificationController.notifyAdmins(newEventBooking.eventId,`someone has booked a place in the event`);
