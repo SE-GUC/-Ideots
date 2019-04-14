@@ -7,7 +7,7 @@ class HeaderAppBar extends Component {
     return (
       <div className="App">
         <HeadRoom>
-          <AppBar />
+          <AppBar logOut={this.props.logOut} />
         </HeadRoom>
       </div>
     );

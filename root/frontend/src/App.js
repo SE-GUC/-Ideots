@@ -72,7 +72,21 @@ class App extends Component {
     });
   }
 
-  render() { if (!localStorage.getItem("loggedIn")) {
+
+  logOut = () => {
+    console.log(
+      localStorage.getItem("loggedIn") + "  " + localStorage.getItem("token")
+    );
+    localStorage.setItem("loggedIn", false);
+    localStorage.setItem("token", null);
+    this.render();
+  };
+
+  render() {
+    let logged = localStorage.getItem("loggedIn") == "true";
+
+    if (!logged) {
+
       console.log("heyhey");
       return (
         <div>
@@ -81,15 +95,14 @@ class App extends Component {
             mail={this.emailHandler}
             pass={this.passwordHandler}
           />
+        </div>
+      );
+    }
 
-    
-          </div>)}
-          
     return (
-    
       <div>
         <div className="Header">
-          <HeaderBar token={this.state.token} />
+          <HeaderBar token={this.state.token} logOut={this.logOut} />
         </div>
         <Router>
           <div className="App" style={{ marginLeft: "19%" }}>

@@ -11,27 +11,7 @@ const Admin = require("../models/Admin");
 exports.viewAllTasks = async (req, res) =>{
     const tasks = await Task.find().populate('partnerID').populate('consultancyID').populate('assignedPerson').populate('applicants')
     res.json({ data: tasks })
-
- 
-
-exports.viewAllTasks = async (req, res) => {
-  const tasks = await Task.find();
-  res.json({ data: tasks });
-};
-
-exports.viewOneTaskByID = async (req, res) => {
-  try {
-    const taskID = req.params.id;
-    const task = await Task.findOne({ _id: taskID });
-    if (!task) return res.status(400).send({ error: "Task does not exist" });
-    return res.json({ task });
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-
-
+}
 
 exports.viewOneTaskByID=async (req, res) => {  
     try{
@@ -44,7 +24,7 @@ exports.viewOneTaskByID=async (req, res) => {
     {
       console.log(error)   
     }
-
+  }
 exports.getinRange = async (req, res) => {
   const schema = {
     limit: Joi.required(),
@@ -74,64 +54,47 @@ exports.getmyTask = async (req, res) => {
 };
 exports.updateOneTask = async (req, res) => {
     try {
-
-     const isValidated = validator.createValidation(req.body)
-     if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
-     const newTask = await Task.create(req.body)
-     res.json({msg:'Task was created successfully', data: newTask})
+    const taskId = req.params.id;
+    const taskApplicant = req.body.applicants;
+    const assignedPerson= req.body.assignedPerson;
+    const task = await Task.findById(taskId);
+    if (!task) return res.status(400).send({ error: "Task does not exist" });
+    const isValidated = validator.updateValidation(req.body);
+    if (isValidated.error)
+      return res
+        .status(400)
+        .send({ error: isValidated.error.details[0].message });
+    if (!taskApplicant) {
+      if(assignedPerson){
+        //-------------(Notify assigned person that he was accepted)--------------------
+        const recieverId =assignedPerson;
+        await notificationController.notifyUser(taskId,recieverId,`You are accepted to work on task `);
+      //-------------(Notify admins that an applicant was choosen)--------------------
+     await notificationController.notifyAdmins(taskId,`An applicant was choosen to complete the task `);
+       //--------------------------------------------- 
+      }
+      await Task.updateOne({ _id: taskId }, req.body);
+    } else {
+      await Task.update(
+        { _id: taskId },
+        { $addToSet: { applicants: taskApplicant } }
+      );
+      //-------------(Notify partner that new applicant applied on task)--------------------
+      const recieverId = task.partnerID;
+      await notificationController.notifyUser(taskId,recieverId,`New applicant applied on task `);
+      //-------------(Notify admin that new applicant applied on task)--------------------
+      await notificationController.notifyAdmins(taskId,`New applicant applied on task `);
+       //--------------------------------------------- 
     }
-    catch(error) {
-        console.log(error)
-    }  
+    //  const updatedTask = await Task.updateOne({'_id':taskId},req.body)
+    res.json({ msg: "Task updated successfully" });
+  } catch (error) {
+    // We will be handling the error later
+    console.log(error);
+  }
  };
 
 
- exports.searchByCategory=async(req, res) => { 
-    const cat = req.params.cat
-    const tasks = await Task.find({"category":cat}).populate('partnerID').populate('consultancyID').populate('assignedPerson').populate('applicants')
-    return res.json({data:tasks});
-
-        const taskId = req.params.id;
-        const taskApplicant = req.body.applicants;
-        const assignedPerson= req.body.assignedPerson;
-        const task = await Task.findById(taskId);
-        if (!task) return res.status(400).send({ error: "Task does not exist" });
-        const isValidated = validator.updateValidation(req.body);
-        if (isValidated.error)
-          return res
-            .status(400)
-            .send({ error: isValidated.error.details[0].message });
-        if (!taskApplicant) {
-          if(assignedPerson){
-            //-------------(Notify assigned person that he was accepted)--------------------
-            const recieverId =assignedPerson;
-            await notificationController.notifyUser(taskId,recieverId,`You are accepted to work on task `);
-          //-------------(Notify admins that an applicant was choosen)--------------------
-         await notificationController.notifyAdmins(taskId,`An applicant was choosen to complete the task `);
-           //--------------------------------------------- 
-          }
-          await Task.updateOne({ _id: taskId }, req.body);
-        } else {
-          await Task.update(
-            { _id: taskId },
-            { $addToSet: { applicants: taskApplicant } }
-          );
-          //-------------(Notify partner that new applicant applied on task)--------------------
-          const recieverId = task.partnerID;
-          await notificationController.notifyUser(taskId,recieverId,`New applicant applied on task `);
-          //-------------(Notify admin that new applicant applied on task)--------------------
-          await notificationController.notifyAdmins(taskId,`New applicant applied on task `);
-           //--------------------------------------------- 
-        }
-        //  const updatedTask = await Task.updateOne({'_id':taskId},req.body)
-        res.json({ msg: "Task updated successfully" });
-      } catch (error) {
-        // We will be handling the error later
-        console.log(error);
-      }
-
-    
-};
 
 exports.deleteOneTask = async (req, res) => {
     try {
@@ -152,13 +115,7 @@ exports.deleteOneTask = async (req, res) => {
 };
 
 
-    exports.searchByAssignedPerson=async(req, res) => { 
-        const cat = req.params.ap
-        const tasks = await Task.find({"assignedPerson":ap}).populate('partnerID').populate('consultancyID').populate('assignedPerson').populate('applicants')
-        return res.json({data:tasks});
-        
-        };
-
+   
 exports.postOneTask = async (req, res) => {
   try {
     const isValidated = validator.createValidation(req.body);
@@ -189,51 +146,35 @@ exports.postOneTask = async (req, res) => {
 
 exports.searchByCategory = async (req, res) => {
   const cat = req.params.cat;
-
-
-    exports.searchByYearsOfEXP= async(req, res) => { 
-        const exp = req.params.exp
-        const tasks = await Task.find({"yearsOfExperience":exp}).populate('partnerID').populate('consultancyID').populate('assignedPerson').populate('applicants')
-        return res.json({data:tasks});
-    };
-
-  const tasks = await Task.find({ category: { $regex: cat, $options: "i" } })
-
-
-    .populate("partnerID")
+  const tasks = await Task.find({ category: { $regex: cat, $options: "i" } }).populate("partnerID").populate('consultancyID').populate('assignedPerson').populate('applicants')
     .populate("consultancyID");
   // if(tasks.length==0)return res.status(404).send({error: 'no tasks found'})
   return res.json({ data: tasks });
 };
 
-
-exports.searchByAssignedPerson = async (req, res) => {
-  const cat = req.params.ap;
-  const tasks = await Task.find({ assignedPerson: ap });
-  return res.json({ data: tasks });
+exports.searchByYearsOfEXP= async(req, res) => { 
+  const exp = req.params.exp
+  const tasks = await Task.find({"yearsOfExperience":exp}).populate('partnerID').populate('consultancyID').populate('assignedPerson').populate('applicants')
+  return res.json({data:tasks});
 };
 
 
-exports.searchByYearsOfEXP = async (req, res) => {
-  const exp = req.params.exp;
+exports.searchByAssignedPerson=async(req, res) => { 
+  const cat = req.params.ap
+  const tasks = await Task.find({"assignedPerson":ap}).populate('partnerID').populate('consultancyID').populate('assignedPerson').populate('applicants')
+  return res.json({data:tasks});
+  
+  };
 
 
 exports.getRecommendedTasks=async(req, res) => { 
-    const id = req.params.id
-    const user =await User.findById(id).populate('partnerID').populate('consultancyID').populate('assignedPerson').populate('applicants')
-    const userSkills = user.skills
-    const tasks = await Task.find({"requiredSkills":{$in:userSkills}})
-    return res.json({data:tasks});
-    
-    };     
-
-  const tasks = await Task.find({ yearsOfExperience: exp })
-    .populate("partnerID")
-    .populate("consultancyID");
-  // if(tasks.length==0) return res.status(404).send({error: 'no tasks found'})
-  return res.json({ data: tasks });
-};
-
+  const id = req.params.id
+  const user =await User.findById(id).populate('partnerID').populate('consultancyID').populate('assignedPerson').populate('applicants')
+  const userSkills = user.skills
+  const tasks = await Task.find({"requiredSkills":{$in:userSkills}})
+  return res.json({data:tasks});
+  
+  };     
 
 exports.searchByMonetaryCompensation = async (req, res) => {
   const pay = req.params.pay;
@@ -247,14 +188,5 @@ exports.searchByMonetaryCompensation = async (req, res) => {
   return res.json({ data: tasks });
 };
 
-exports.getRecommendedTasks = async (req, res) => {
-  const id = req.params.id;
-  const user = await User.findById(id)
-    .populate("partnerID")
-    .populate("consultancyID");
-  const userSkills = user.skills;
-  const tasks = await Task.find({ requiredSkills: { $in: userSkills } });
-  // if(tasks.length==0) return res.status(404).send({error: 'No tasks suitable for you at the moment, Try something new ?'})
-  return res.json({ data: tasks });
-};
+
 
