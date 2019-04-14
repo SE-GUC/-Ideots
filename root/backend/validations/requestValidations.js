@@ -4,7 +4,8 @@ module.exports = {
 requestCreateValidation : request => {
     const createSchema = {
 
-       
+        partnerID : Joi.objectId(), 
+        consultancyID:Joi.objectId(), 
         description : Joi.string().required(),
        // consult : Joi.boolean().required(),
       //  accepted : Joi.any().valid([-1,0,1]),        //-1 rejected , 0 pending , 1 accepted

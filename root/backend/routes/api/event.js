@@ -57,11 +57,11 @@ router.get("/Organizer/organizer", async (req, res) => {
 // Get a certain event
 router.get("/:id", async (req, res) => {
   const requestedId = req.params.id;
-  console.log(requestedId);
+  // console.log(requestedId);
   const event = await Event.findOne({ _id: requestedId })
     .populate("organizerId")
     .populate("eventRequestId");
-  console.log(event); //bad req
+  // console.log(event); //bad req
   if (!event)
     return res
       .status(400)
