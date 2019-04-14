@@ -63,7 +63,6 @@ exports.updateOneTask = async (req, res) => {
 exports.getmyTask = async (req, res) => {
   try {
     const partnerId = req.user._id;
-    console.log(partnerId);
     const task = await Task.find({ partnerID: partnerId });
     if (!task) return res.status(400).send({ error: "Task does not exist" });
     return res.json({ task });

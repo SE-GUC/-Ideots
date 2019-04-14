@@ -22,7 +22,6 @@ router.get("/", async (req, res) => {
 // Get notification in range
 router.get("/:limit/:offset", async (req, res) => {
   const recieverId = req.user._id;
-  console.log(recieverId);
   const schema = {
     limit: Joi.required(),
     offset: Joi.required()
@@ -32,11 +31,9 @@ router.get("/:limit/:offset", async (req, res) => {
     return res.status(400).send({ error: result.error.details[0].message });
   const limit = parseInt(req.params.limit, 10);
   const offset = parseInt(req.params.offset, 10);
-  console.log(limit, offset);
   const notifications = await Notification.find({ recieverId: recieverId })
     .skip(offset)
     .limit(limit);
-  console.log(notifications);
   res.json({ data: notifications });
 });
 
