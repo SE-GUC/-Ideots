@@ -6,10 +6,10 @@ export default function EventBookingButton(props) {
     const isBooked = props.isBooked
     console.log(isBooked)
     if(isBooked){
-        return <BookedEvent/>
+        return <BookedEvent onClick={props.onClick}/>
     }
     else {
-        return <NonBookedEvent/>
+        return <NonBookedEvent onClick={props.onClick}/>
     }
  
 }

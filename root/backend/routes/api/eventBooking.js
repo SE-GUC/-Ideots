@@ -32,8 +32,6 @@ router.get("/:id", async (req, res) => {
 router.get("/:Event/:User" , async (req,res) =>{
   theEvent = req.params.Event 
   theUser = req.params.User 
-  console.log(theEvent)
-  console.log("2184asfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff")
   const eventBooking = await EventBooking.find({'eventId' :theEvent , 'memberId' :theUser})
   return res.send({data:eventBooking})
 

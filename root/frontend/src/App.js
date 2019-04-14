@@ -51,14 +51,45 @@ import Event from "./components/event_components/Event";
 // }
 import React, { Component } from "react";
 
+
+
 export class App extends Component {
+state = {
+  clickedEvent: {
+  }
+}
+setTheEvent=(eventProps)=>{
+  console.log(eventProps)
+  this.setState({
+    clickedEvent:eventProps
+  })
+}
   render() {
     return (
-        <div>
-
-            <HeaderBar />
-            <EventList />
+      <Router>
+        <div className="Header">
+          <HeaderBar/>
         </div>
+        <div className="App">
+         
+
+          <Route
+            exact
+            path="/EventList"
+            render={() => <EventList setTheEvent={this.setTheEvent} />}
+          />
+          
+          <Route
+          exact
+          path="/Event"
+          render={() => 
+            <Event key={this.state.clickedEvent._id} event={this.state.clickedEvent} />
+           } 
+        />
+        
+        </div>
+        
+      </Router>
     );
   }
 }

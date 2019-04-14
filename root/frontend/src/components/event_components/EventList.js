@@ -2,7 +2,13 @@ import React, { Component } from "react";
 import EventCard from "./EventCard";
 import axios from "axios";
 import InfiniteScroll from "react-infinite-scroll-component";
-
+import {
+  BrowserRouter as Router,
+  Route,
+  Redirect,
+  Link
+} from "react-router-dom";
+import Event from "./Event";
 export class EventList extends Component {
   state = {
     events: [],
@@ -32,6 +38,7 @@ export class EventList extends Component {
   render() {
     return (
       <div>
+        
         <InfiniteScroll
           hasMore={this.state.hasMore}
           dataLength={this.state.events.length}
@@ -68,7 +75,7 @@ export class EventList extends Component {
           }
         >
           {this.state.events.map(event => (
-            <EventCard key={event._id} event={event} />
+            <EventCard key={event._id} event={event} setTheEvent={this.props.setTheEvent} />
           ))}
         </InfiniteScroll>
       </div>

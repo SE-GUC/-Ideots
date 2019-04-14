@@ -23,11 +23,22 @@ export class Event extends Component {
   }
 
 
+  handleClickOfBookedButton = async ()=>{
+    /*
+    YOU SHOULD CHANGE THE ID OF THE USER 
+    */
+    const bookings = await  axios.get(`http://localhost:3000/api/eventBookings/${this.props.event._id}/5cb109419cf6047a9651c7ba`)
+    const oneBooking = bookings.data.data[0]
+    
+    
+
+  }
+
   updateIsBooked = async ()=>{
     /*must change the user ID when using authentication 
    */
   console.log(this.props.event._id)
-    axios.get(`http://localhost:3000/api/eventBookings/${this.props.event._id}/5cadf068d52a741dfc65cd9f`)
+    axios.get(`http://localhost:3000/api/eventBookings/${this.props.event._id}/5cb109419cf6047a9651c7ba`)
     .then(res =>{
       console.log(res.data.data)
 
@@ -124,6 +135,31 @@ export class Event extends Component {
           body:  bod
         });
         break;
+    case "BookedEvent" : 
+      /*
+    YOU SHOULD CHANGE THE ID OF THE USER 
+    */
+   const bookings = await  axios.get(`http://localhost:3000/api/eventBookings/${this.props.event._id}/5cb109419cf6047a9651c7ba`)
+   const oneBooking = bookings.data.data[0]
+   const bookingInfo = ()=>{
+     return (
+       <ul>
+         <li>Payment method : {oneBooking.paymentMethod}</li>
+         <li>You have paid  : {oneBooking.registrationPrice}</li>
+       </ul>
+     )
+   }
+   this.setState({
+     title : "Payment Info " , 
+     body  : bookingInfo()
+   }) ; break ; 
+   case "NonBookedEvent" : 
+   this.setState({
+     title : "Pay Online " , 
+     body : "API"
+   })
+   break ; 
+    
     }
   };
 
@@ -134,6 +170,7 @@ export class Event extends Component {
   }
 
   render() {
+    console.log("haapppyy")
     const title = this.state.title;
     const body = this.state.body;
     return (
@@ -223,7 +260,7 @@ export class Event extends Component {
           </ModalFooter>
         </Modal>
 
-        <EventBookingButton isBooked={this.state.isBooked}/>
+        <EventBookingButton isBooked={this.state.isBooked} onClick = {this.modalToggle}/>
         
       </div>
     );
