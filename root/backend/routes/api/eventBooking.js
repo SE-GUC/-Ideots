@@ -29,6 +29,14 @@ router.get("/:id", async (req, res) => {
 });
 //-----------------------------------------------\\
 
+// search if user booked an event 
+router.get("/:Event" , async (req,res) =>{
+  theEvent = req.params.Event 
+  theUser =  req.user._id;
+  const eventBooking = await EventBooking.find({'eventId' :theEvent , 'memberId' :theUser})
+  return res.send({data:eventBooking})
+
+})
 router.post("/", async (req, res) => {
   const schema = {
     eventId: Joi.objectId().required() ,

@@ -18,14 +18,14 @@ export default function Home() {
       <Link to="/UserRequests" style={{ margin: "10px", textAlign: "center" }}>
         RequestsAsUser
       </Link>
-    
-
-    
-    
 
 
       <Link to="/tabs" style={{ margin: "10px", textAlign: "center" }}>
         tabs
+      </Link>
+
+      <Link to="/EventList" style={{ margin: "10px", textAlign: "center" }}>
+        Events
       </Link>
     </div>
   );
