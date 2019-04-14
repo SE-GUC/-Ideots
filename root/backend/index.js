@@ -77,5 +77,5 @@ app.use("/api/auth", auth);
 app.use((req, res) => {
   res.status(404).send({ err: "We can not find what you are looking for" });
 });
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Server up and running on port ${port}`));

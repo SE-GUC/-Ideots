@@ -17,11 +17,14 @@ class Notifications extends Component {
   fetchNotifications = () => {
     const { count, offset } = this.state;
     this.setState({ offset: offset + count });
+    console.log(this.props.token);
     axios
       .get(`http://localhost:3000/api/notifications/${count}/${offset}`, {
-        headers: {Authorization: `Bearer ` + this.props.token}
+        headers: { Authorization: `Bearer ` + this.props.token }
       })
       .then(res => {
+        console.log("5");
+        console.log(res.data.data);
         if (res.data.data.length > 0) {
           this.setState({
             notifications: this.state.notifications.concat(res.data.data)
@@ -30,6 +33,7 @@ class Notifications extends Component {
           this.setState({ hasMore: false });
         }
       });
+    console.log(this.state);
   };
 
   readNotification = (id, isRead) => {
