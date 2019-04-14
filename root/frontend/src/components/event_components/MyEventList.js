@@ -27,11 +27,10 @@ export class MyEventList extends Component {
   };
 
   render() {
-    console.log(this.state.events)
     return (
       <div>
         {this.state.events.map(event => (
-          <Event key={event._id} task={event} />
+          <Event key={event._id} event={event} />
         ))}
         <h3
           style={{

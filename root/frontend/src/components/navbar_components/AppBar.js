@@ -10,12 +10,12 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import { fade } from "@material-ui/core/styles/colorManipulator";
 import { withStyles } from "@material-ui/core/styles";
-import MenuIcon from "@material-ui/icons/Menu";
+// import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MailIcon from "@material-ui/icons/Mail";
 import NotificationsIcon from "@material-ui/icons/Notifications";
-import MoreIcon from "@material-ui/icons/MoreVert";
+// import MoreIcon from "@material-ui/icons/MoreVert";
 import Select from "@material-ui/core/Select";
 import axios from "axios";
 
@@ -116,6 +116,7 @@ class PrimarySearchAppBar extends React.Component {
       console.log(res.data.data);
     }
   };
+
   //------------------------END OF Added Methods-------------------------
 
   handleProfileMenuOpen = event => {
@@ -149,8 +150,7 @@ class PrimarySearchAppBar extends React.Component {
         open={isMenuOpen}
         onClose={this.handleMenuClose}
       >
-        <MenuItem onClick={this.handleMenuClose}>Profile</MenuItem>
-        <MenuItem onClick={this.handleMenuClose}>My account</MenuItem>
+        <MenuItem onClick={this.props.logOut.bind(this)}>LogOut</MenuItem>
       </Menu>
     );
 
@@ -191,7 +191,7 @@ class PrimarySearchAppBar extends React.Component {
       <div className={classes.root}>
         <AppBar position="static">
           <Toolbar style={{ backgroundColor: "#000" }}>
-           
+
             <Typography
               className={classes.title}
               variant="h6"
