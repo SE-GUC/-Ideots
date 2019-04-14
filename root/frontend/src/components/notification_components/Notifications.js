@@ -64,7 +64,9 @@ class Notifications extends Component {
                 lineHeight: "50px",
                 textAlign: "center",
                 fontSize: "20px",
-                marginBottom: "5px"
+                marginBottom: "5px",
+                // marginLeft: "25%"
+
               }}
             >
               No More Notification

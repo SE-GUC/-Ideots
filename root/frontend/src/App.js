@@ -19,7 +19,7 @@ import PaperBase from "./components/Actions/Paperbase";
 import createMixins from "@material-ui/core/styles/createMixins";
 
 const axios = require("axios");
-
+  
 class App extends Component {
   state = {
     email: "",
@@ -41,7 +41,7 @@ class App extends Component {
       email: this.state.email,
       password: this.state.password
     };
-    console.log(body);
+     console.log(body);
     let res;
     try {
       res = await axios.post("http://localhost:3000/api/auth/login", body);
@@ -83,7 +83,7 @@ class App extends Component {
           <HeaderBar token={this.state.token} />
         </div>
         <Router>
-          <div className="App" style={{ marginLeft: "19%" }}>
+          <div className="App" style={{ marginLeft: "15%" }}>
             <Route
               exact
               path="/"
