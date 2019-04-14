@@ -112,7 +112,12 @@ exports.postOneTask = async (req, res) => {
 
 exports.searchByCategory = async (req, res) => {
   const cat = req.params.cat;
-  const tasks = await Task.find({ category: cat });
+
+  const tasks = await Task.find({ category: { $regex: cat, $options: "i" } })
+
+    .populate("partnerID")
+    .populate("consultancyID");
+  // if(tasks.length==0)return res.status(404).send({error: 'no tasks found'})
   return res.json({ data: tasks });
 };
 
@@ -124,7 +129,10 @@ exports.searchByAssignedPerson = async (req, res) => {
 
 exports.searchByYearsOfEXP = async (req, res) => {
   const exp = req.params.exp;
-  const tasks = await Task.find({ yearsOfExperience: exp });
+  const tasks = await Task.find({ yearsOfExperience: exp })
+    .populate("partnerID")
+    .populate("consultancyID");
+  // if(tasks.length==0) return res.status(404).send({error: 'no tasks found'})
   return res.json({ data: tasks });
 };
 
@@ -132,14 +140,20 @@ exports.searchByMonetaryCompensation = async (req, res) => {
   const pay = req.params.pay;
   const min = Number(pay) - 50;
   const max = Number(pay) + 50;
-  const tasks = await Task.find({ payment: { $lte: max, $gte: min } });
+  const tasks = await Task.find({ payment: { $lte: max, $gte: min } })
+    .populate("partnerID")
+    .populate("consultancyID");
+  // if(tasks.length==0) return res.status(404).send({error: 'no tasks found'})
   return res.json({ data: tasks });
 };
 
 exports.getRecommendedTasks = async (req, res) => {
   const id = req.params.id;
-  const user = await User.findById(id);
+  const user = await User.findById(id)
+    .populate("partnerID")
+    .populate("consultancyID");
   const userSkills = user.skills;
   const tasks = await Task.find({ requiredSkills: { $in: userSkills } });
+  // if(tasks.length==0) return res.status(404).send({error: 'No tasks suitable for you at the moment, Try something new ?'})
   return res.json({ data: tasks });
 };
