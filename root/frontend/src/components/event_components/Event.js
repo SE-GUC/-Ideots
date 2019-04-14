@@ -117,7 +117,7 @@ export class Event extends Component {
           body: this.state.event.dateTime ? this.state.event.dateTime.toString() :"no available data "
         });
         break;
-      case "who made this event?":
+      case "who_made_this_event?":
       const bod = this.state.event.organizerId ?  await this.getTheNameOfOrganizer(this.state.event.organizerId) :"no available data"
       console.log(this.state.event.organizerId)
         this.setState({
@@ -248,7 +248,7 @@ export class Event extends Component {
           outline
           style ={{position:'absolute' , left:'35%' , top :'60%' , width: 150, height: 60}}
           color="info"
-          onClick={this.modalToggle.bind(this, "who made this event?")}
+          onClick={this.modalToggle.bind(this, "who_made_this_event?")}
         >
           who made this event?{" "}
         </Button>{" "}
