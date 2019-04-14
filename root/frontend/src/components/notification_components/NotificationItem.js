@@ -16,22 +16,23 @@ class NotificationItem extends Component {
   };
   render() {
     const { content, date, _id, notifierId, isRead } = this.props.notifications;
-    const color=isRead?"#FF9100":"#4a26fd";
+    const color=isRead?"#9C27B0":"#4a26fd";
     return (
      
 
-     <Card style={{ border: "1px solid blue", margin: "2%",marginLeft:"25%",marginRight:"25%"}}  onClick={this.props.readNotification.bind(this, _id)} >
+     <Card style={{ border: `1px solid ${color}`, margin: "2%",marginLeft:"25%",marginRight:"25%"}}  onClick={this.props.readNotification.bind(this, _id)} >
      
      <CardContent>
-       <Typography component="p">{`${content}`}</Typography>
+       <Typography component="p" style={{fontSize:"30px"}}>{`${content}`}</Typography>
      </CardContent>
      <div style={{ display: "flex", position: "relative" }}>
        <h1> </h1>
        <div
          style={{
            position: "absolute",
+           bottom: "0px",
            width: "60%",
-           height: "100px",
+           height: "10px",
            //backgroundColor: "#FF9100",//58c6ff,//4a26fd
            backgroundColor:color,
            opacity: ".8",
@@ -43,7 +44,7 @@ class NotificationItem extends Component {
            marginRight:"20%",
          }}
        >
-         {'L51'}
+         
        </div>
     
      </div>
