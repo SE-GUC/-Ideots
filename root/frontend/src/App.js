@@ -1,7 +1,4 @@
-
-
 import React, { Component } from "react";
-
 
 import "./App.css";
 import SignIn from "./components/login_Components/SignIn";
@@ -20,10 +17,6 @@ import HeaderBar from "./components/navbar_components/HeaderAppBar";
 import EventList from "./components/event_components/EventList";
 import Event from "./components/event_components/Event";
 
-
-
-
-
 import PaperBase from "./components/Actions/Paperbase";
 import createMixins from "@material-ui/core/styles/createMixins";
 
@@ -31,19 +24,17 @@ const axios = require("axios");
 
 class App extends Component {
   state = {
-    clickedEvent: {
-    }
-  }
-  setTheEvent=(eventProps)=>{
+    clickedEvent: {}
+  };
+  setTheEvent = eventProps => {
     this.setState({
-      clickedEvent:eventProps , 
+      clickedEvent: eventProps,
       email: "",
-    password: "",
-    loggedIn: false,
-    token: ""
-    })
-  }
-  
+      password: "",
+      loggedIn: false,
+      token: ""
+    });
+  };
 
   emailHandler = email => {
     this.setState({ email });
@@ -81,9 +72,7 @@ class App extends Component {
     });
   }
 
-  render() {
-
-    if (!localStorage.getItem("loggedIn")) {
+  render() { if (!localStorage.getItem("loggedIn")) {
       console.log("heyhey");
       return (
         <div>
@@ -163,12 +152,12 @@ class App extends Component {
               path="/tabs"
               render={props => <Tabs token={this.state.token} />}
             />
-          </div>
+          
         </Router>
         <div>
           <PaperBase token={this.state.token} />
         </div>
-      </div>
+    </div>
     );
   }
 }
