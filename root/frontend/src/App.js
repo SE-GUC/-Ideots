@@ -78,51 +78,38 @@ class App extends Component {
       );
     }
     return (
-      <Router>
+      <div>
         <div className="Header">
           <HeaderBar token={this.state.token} />
         </div>
-        {/* <Route exact path="/" render={props => <Tabs />} /> */}
-        <div className="App">
-          <Route
-            exact
-            path="/"
-            render={props => <Home token={this.state.token} />}
-          />
-
-          <Route
-            exact
-            path="/requests"
-            render={props => <Request token={this.state.token} />}
-          />
-          <Route
-            exact
-            path="/UserRequests"
-            render={props => <RequestAsUser token={this.state.token} />}
-          />
-          {/* <Route
-            exact
-            path="/login"
-            render={props => (
-              <div>
-                <SignIn
-                  signInMethod={this.logIn}
-                  mail={this.emailHandler}
-                  pass={this.passwordHandler}
-                />
-              </div>
-            )}
-          /> */}
-          <div className="App">
-            <PaperBase token={this.state.token} />
+        <Router>
+          <div className="App" style={{ marginLeft: "19%" }}>
+            <Route
+              exact
+              path="/"
+              render={props => <Home token={this.state.token} />}
+            />
+            <Route
+              exact
+              path="/requests"
+              render={props => <Request token={this.state.token} />}
+            />
+            <Route
+              exact
+              path="/UserRequests"
+              render={props => <RequestAsUser token={this.state.token} />}
+            />
+            <Route
+              exact
+              path="/tabs"
+              render={props => <Tabs token={this.state.token} />}
+            />
           </div>
+        </Router>
+        <div>
+          <PaperBase token={this.state.token} />
         </div>
-        <Route
-          exact
-          path="/tabs"
-          render={props => <Tabs token={this.state.token} />}
-        />
-      </Router>
+      </div>
     );
   }
 }

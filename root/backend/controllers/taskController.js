@@ -1,5 +1,7 @@
 const Task = require("../models/Task");
 const validator = require("../validations/taskValidations");
+const Joi = require("joi");
+
 
 const User = require("../models/User");
 const Admin = require("../models/Admin");
@@ -22,6 +24,32 @@ exports.viewOneTaskByID = async (req, res) => {
   }
 };
 
+exports.getinRange = async (req, res) => {
+  const schema = {
+    limit: Joi.required(),
+    offset: Joi.required()
+  };
+  const result = Joi.validate(req.params, schema);
+  if (result.error)
+    return res.status(400).send({ error: result.error.details[0].message });
+  const limit = parseInt(req.params.limit, 10);
+  const offset = parseInt(req.params.offset, 10);
+  const task = await Task.find()
+    .skip(offset)
+    .limit(limit);
+  res.json({ data: task });
+};
+
+exports.getmyTask = async (req, res) => {
+  try {
+    const partnerId = req.user._id;
+    const task = await Task.find({ partnerID: partnerId });
+    if (!task) return res.status(400).send({ error: "Task does not exist" });
+    return res.json({ task });
+  } catch (error) {
+    console.log(error);
+  }
+};
 exports.updateOneTask = async (req, res) => {
     try {
         const taskId = req.params.id;
@@ -129,6 +157,7 @@ exports.searchByAssignedPerson = async (req, res) => {
 
 exports.searchByYearsOfEXP = async (req, res) => {
   const exp = req.params.exp;
+
   const tasks = await Task.find({ yearsOfExperience: exp })
     .populate("partnerID")
     .populate("consultancyID");
@@ -140,6 +169,7 @@ exports.searchByMonetaryCompensation = async (req, res) => {
   const pay = req.params.pay;
   const min = Number(pay) - 50;
   const max = Number(pay) + 50;
+
   const tasks = await Task.find({ payment: { $lte: max, $gte: min } })
     .populate("partnerID")
     .populate("consultancyID");
