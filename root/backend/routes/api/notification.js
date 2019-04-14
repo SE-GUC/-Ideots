@@ -3,21 +3,25 @@ const express = require("express");
 const Joi = require("joi");
 const router = express.Router();
 Joi.objectId = require("joi-objectid")(Joi);
+const passport = require("passport");
+
 // Models
 const Notification = require("../../models/Notification");
 // const User = require('../../models/User');
 
 // Get all notification
 router.get("/", async (req, res) => {
-  const notifications = await Notification.find().populate("recieverId").populate("adminId");
+  const notifications = await Notification.find()
+    .populate("recieverId")
+    .populate("adminId");
 
   res.json({ data: notifications });
 });
 //----------------------------------------------------------------------------------------------
 
 // Get notification in range
-router.get("/:id/:limit/:offset", async (req, res) => {
-  const recieverId = req.params.id;
+router.get("/:limit/:offset", async (req, res) => {
+  const recieverId = req.user._id;
   const schema = {
     id: Joi.required(),
     limit: Joi.required(),

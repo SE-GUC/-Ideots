@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function SimpleTabs() {
+function SimpleTabs(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -49,32 +49,32 @@ function SimpleTabs() {
       </AppBar>
       {value === 0 && (
         <TabContainer>
-          <NotificationList />
+          <NotificationList token={props.token} />
         </TabContainer>
       )}
       {value === 1 && (
         <TabContainer>
-          <EventList />
+          <EventList token={props.token} />
         </TabContainer>
       )}
       {value === 2 && (
         <TabContainer>
-          <TaskList />
+          <TaskList token={props.token} />
         </TabContainer>
       )}
       {value === 3 && (
         <TabContainer>
-          <MyTask id={"123456789123456789123456"} />
+          <MyTask token={props.token} />
         </TabContainer>
       )}
       {value === 4 && (
         <TabContainer>
-          <MyEvent id={"123456789123456789123456"} />
+          <MyEvent token={props.token} />
         </TabContainer>
       )}
       {value === 5 && (
         <TabContainer>
-          <Request />
+          <Request token={props.token} />
         </TabContainer>
       )}
     </div>
