@@ -11,7 +11,7 @@ import RequestAsUser from "./components/userRequest_components/RequestAsUser";
 
 import Tabs from "./components/tab_components/tabs";
 import Home from "./components/Home";
-
+import EventRequest from './components/eventRequest'
 import Notification from "./components/notification_components/Notifications";
 import HeaderBar from "./components/navbar_components/HeaderAppBar";
 import EventList from "./components/event_components/EventList";
@@ -72,8 +72,7 @@ class App extends Component {
     });
   }
 
-  render() {
-    if (!localStorage.getItem("loggedIn")) {
+  render() { if (!localStorage.getItem("loggedIn")) {
       console.log("heyhey");
       return (
         <div>
@@ -82,11 +81,12 @@ class App extends Component {
             mail={this.emailHandler}
             pass={this.passwordHandler}
           />
-        </div>
-      );
-    }
 
+    
+          </div>)}
+          
     return (
+    
       <div>
         <div className="Header">
           <HeaderBar token={this.state.token} />
@@ -103,44 +103,61 @@ class App extends Component {
               path="/requests"
               render={props => <Request token={this.state.token} />}
             />
-            <Route
-              exact
-              path="/EventList"
-              render={() => (
-                <EventList
-                  setTheEvent={this.setTheEvent}
-                  token={this.state.token}
-                />
-              )}
-            />
+               <Route
+            exact
+            path="/EventList"
+            render={() => <EventList setTheEvent={this.setTheEvent} />}
+          />
+          
+          <Route
 
-            <Route
-              exact
-              path="/Event"
-              render={() => (
-                <Event
-                  key={this.state.clickedEvent._id}
-                  event={this.state.clickedEvent}
-                  token={this.state.token}
+            path="/eventRequests"
+            render={props => <EventRequest  token={this.state.token}/>}/>
+           />
+
+        
+          <Route
+            exact
+            path="/UserRequests"
+            render={props => <RequestAsUser token={this.state.token} />}
+          />
+          {/* <Route
+            exact
+            path="/login"
+            render={props => (
+              <div>
+                <SignIn
+                  signInMethod={this.logIn}
+                  mail={this.emailHandler}
+                  pass={this.passwordHandler}
                 />
-              )}
-            />
-            <Route
-              exact
-              path="/UserRequests"
-              render={props => <RequestAsUser token={this.state.token} />}
-            />
+              </div>
+            )}
+          /> */}
+          <div className="App">
+            <PaperBase token={this.state.token} />
+          </div>
+        </div>
+        <Route
+
+          exact
+          path="/Event"
+          render={() => 
+            <Event key={this.state.clickedEvent._id} event={this.state.clickedEvent}  token={this.state.token} />
+           } 
+        />
+         
             <Route
               exact
               path="/tabs"
               render={props => <Tabs token={this.state.token} />}
             />
-          </div>
+          
         </Router>
         <div>
           <PaperBase token={this.state.token} />
         </div>
-      </div>
+    </div>
     );
   }
 }

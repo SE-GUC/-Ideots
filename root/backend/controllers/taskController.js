@@ -207,15 +207,6 @@ exports.searchByCategory = async (req, res) => {
 };
 
 
-exports.searchByMonetaryCompensation=async(req, res) => { 
-    const pay = req.params.pay
-    const min =Number(pay)-50
-    const max=Number(pay)+50
-    const tasks = await Task.find({"payment":{ $lte:max ,$gte:min} }).populate('partnerID').populate('consultancyID').populate('assignedPerson').populate('applicants')
-    return res.json({data:tasks});
-    
-    };   
-
 exports.searchByAssignedPerson = async (req, res) => {
   const cat = req.params.ap;
   const tasks = await Task.find({ assignedPerson: ap });
@@ -266,3 +257,4 @@ exports.getRecommendedTasks = async (req, res) => {
   // if(tasks.length==0) return res.status(404).send({error: 'No tasks suitable for you at the moment, Try something new ?'})
   return res.json({ data: tasks });
 };
+
