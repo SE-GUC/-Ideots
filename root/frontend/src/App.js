@@ -11,7 +11,7 @@ import RequestAsUser from "./components/userRequest_components/RequestAsUser";
 
 import Tabs from "./components/tab_components/tabs";
 import Home from "./components/Home";
-
+import EventRequest from './components/eventRequest'
 import Notification from "./components/notification_components/Notifications";
 import HeaderBar from "./components/navbar_components/HeaderAppBar";
 
@@ -89,6 +89,11 @@ class App extends Component {
             path="/"
             render={props => <Home token={this.state.token} />}
           />
+
+          <Route
+            path="/eventRequests"
+            render={props => <EventRequest  />}/>
+           />
 
           <Route
             exact
