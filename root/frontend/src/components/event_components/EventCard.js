@@ -5,12 +5,8 @@ import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
 import {
-  BrowserRouter as Router,
-  Route,
-  Redirect,
   Link
 } from "react-router-dom";
-import Event from "./Event";
 class EventCard extends React.Component {
   state = {
     redirect: false

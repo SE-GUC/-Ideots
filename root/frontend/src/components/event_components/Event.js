@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-import Background from './backy1.jpg';
 import axios from "axios" 
 import EventBookingButton from './EventBookingButton'
 export class Event extends Component {
@@ -17,22 +16,13 @@ export class Event extends Component {
   componentDidMount() {
     this.setState({
       event : this.props.event ,
-      isFull:this.props.event.numberOfSpaces ==this.props.event.numberOfRegisterations ? true :false , 
+      isFull:this.props.event.numberOfSpaces ===this.props.event.numberOfRegisterations ? true :false , 
     })
     this.updateIsBooked()
   }
 
 
-  handleClickOfBookedButton = async ()=>{
-    /*
-    YOU SHOULD CHANGE THE ID OF THE USER 
-    */
-    const bookings = await  axios.get(`http://localhost:3000/api/eventBookings/${this.props.event._id}/5cb109419cf6047a9651c7ba`)
-    const oneBooking = bookings.data.data[0]
-    
-    
-
-  }
+ 
 
   updateIsBooked = async ()=>{
     /*must change the user ID when using authentication 
@@ -154,12 +144,24 @@ export class Event extends Component {
      body  : bookingInfo()
    }) ; break ; 
    case "NonBookedEvent" : 
+   if (this.state.isFull){
+    this.setState({
+      title : "Booking" , 
+      body : "Sorry , the Event is Full"
+    })
+   }
+   else {
    this.setState({
      title : "Pay Online " , 
      body : "API"
    })
+  }
    break ; 
-    
+    default :
+    this.setState({
+      title:"" , 
+      body :""
+    })
     }
   };
 

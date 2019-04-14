@@ -2,13 +2,7 @@ import React, { Component } from "react";
 import EventCard from "./EventCard";
 import axios from "axios";
 import InfiniteScroll from "react-infinite-scroll-component";
-import {
-  BrowserRouter as Router,
-  Route,
-  Redirect,
-  Link
-} from "react-router-dom";
-import Event from "./Event";
+
 export class EventList extends Component {
   state = {
     events: [],
