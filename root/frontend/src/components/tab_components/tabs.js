@@ -8,7 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import EventList from "../event_components/EventList";
 import TaskList from "../task_components/TaskList";
 import NotificationList from "../notification_components/Notifications";
-
+import {Link} from 'react-router-dom'
 function TabContainer(props) {
   return <Typography component="div">{props.children}</Typography>;
 }
@@ -43,12 +43,12 @@ function SimpleTabs() {
       </AppBar>
       {value === 0 && (
         <TabContainer>
-          <NotificationList />
+          <NotificationList  />
         </TabContainer>
       )}
       {value === 1 && (
         <TabContainer>
-          <EventList />
+          <Link to ="/EventList" />
         </TabContainer>
       )}
       {value === 2 && (

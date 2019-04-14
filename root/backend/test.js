@@ -5,6 +5,8 @@ const axios =  require('axios')
 const functions = require('./functions')
 
  //-----------------------------------------------------------------((Task))---------------------------------------------
+
+
 test("Delete all records",async()=>{
     const delteAll=await functions.deleteAllTasks();
     const getAll = await functions.getAllTasks();
@@ -74,6 +76,7 @@ test("deleting one Task",async()=>{
     // expect(getAfter.data.data.length).toBe(getBefore.data.data.length-1)
     expect(getAfter.data.data.length).toBe(getBefore.data.data.length-1)
 });
+
 
  //-----------------------------------------------------------------((Request))---------------------------------------------
  test('postRequest',async()=>{
@@ -236,6 +239,7 @@ test('delete DataBase',async ()=>{
 
 })
              //-----------------------------------------------------------------((Admin))---------------------------------------------
+
 test('posting an admin',async () => {
     expect.assertions(2)
     const getBefore=await functions.getadmins();
@@ -817,3 +821,4 @@ test('Randomly creating a new application',async () => {
     const lengthAfter =await functions.getAllApplication();
     expect((lengthBefor.data.data.length)-(lengthAfter.data.data.length)).toBe(1);
   });
+
