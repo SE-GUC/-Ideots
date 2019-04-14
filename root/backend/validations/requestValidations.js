@@ -7,7 +7,7 @@ requestCreateValidation : request => {
         partnerID : Joi.objectId(), 
         consultancyID:Joi.objectId(), 
         description : Joi.string().required(),
-       // consult : Joi.boolean().required(),
+       consult : Joi.boolean(),
       //  accepted : Joi.any().valid([-1,0,1]),        //-1 rejected , 0 pending , 1 accepted
       //  feedback : Joi.string(),
         date : Joi.string(),
