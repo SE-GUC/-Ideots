@@ -35,7 +35,7 @@ class EventCard extends React.Component {
        
         <Link
           to="/Event"
-          style={{ margin: "10px", textAlign: "center" }}
+          style={{  textAlign: "center" }}
           onClick={this.props.setTheEvent.bind(this,this.props.event)}
         >
           <Card
