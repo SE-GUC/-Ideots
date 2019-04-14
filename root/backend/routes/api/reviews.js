@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 const Review=require('../../models/Review')
 const Joi = require('joi');
 
+const notificationController = require("../../controllers/sendNotificationController");
 
 // Get all members
 router.get('/', async (req,res) => {
@@ -43,7 +44,9 @@ router.get('/:id', async(req, res) => {
     if (result.error) return res.status(400).send({ error: result.error.details[0].message })
     
     const newReview = await Review.create(req.body)
-    
+    //------------------------(Notify member)-------------------------------------
+    await notificationController.notifyUser(reviewer,reviewed,`reviewer has reviewed you`);
+    //------------------------------------------------------------------------------
     return res.json({ msg:'Review was created successfully',data: newReview })
 });
 
@@ -61,7 +64,10 @@ router.put('/:id', async (req,res) => {
     if (result.error) return res.status(400).send({ error: result.error.details[0].message })
     
     const updatedReview = await Review.updateOne({ "_id" : id },req.body)
-     res.json({data:updatedReview})
+    //------------------------(Notify member)-------------------------------------
+       await notificationController.notifyUser(review.reviewer,review.reviewed,`reviewer has updated his review`);
+     //------------------------------------------------------------------------------
+    res.json({data:updatedReview})
     }
     catch(error) {
         // We will be handling the error later

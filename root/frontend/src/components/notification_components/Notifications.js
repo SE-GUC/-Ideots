@@ -16,12 +16,11 @@ class Notifications extends Component {
 
   fetchNotifications = () => {
     const { count, offset } = this.state;
-    const user_id = "5cae82d478cadf0004c4fdb1"; // get it from authentication
     this.setState({ offset: offset + count });
     axios
-      .get(
-        `http://localhost:3000/api/notifications/${user_id}/${count}/${offset}`
-      )
+      .get(`http://localhost:3000/api/notifications/${count}/${offset}`, {
+        headers: { Authorization: `Bearer ` + this.props.token }
+      })
       .then(res => {
         if (res.data.data.length > 0) {
           this.setState({

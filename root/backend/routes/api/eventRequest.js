@@ -5,7 +5,7 @@ const router = express.Router();
 
 // Models
 const EventRequest = require("../../models/EventRequest");
-
+const notificationController = require("../../controllers/sendNotificationController");
 
 ///////////CRUDZZZZZZZ\\\\\\\\\\\\
 // Read all eventRequests
@@ -34,14 +34,14 @@ router.post("/", async (req, res) => {
   
 
   const schema = {
-    location: Joi.object().required(),
+    location: Joi.object(),
     description: Joi.string().min(30).required(),
-    type: Joi.string().required(),
+    type: Joi.string(),
     registrationPrice: Joi.number().required(),
     numberOfSpaces: Joi.number().required(),
-    speakers: Joi.array().items(Joi.string()).required(),
-    topics:Joi.array().items(Joi.string()).required(),
-    dateTime: Joi.date().required(),
+    speakers: Joi.array().items(Joi.string()),
+    topics:Joi.array().items(Joi.string()),
+    dateTime: Joi.date(),
     organizerId: Joi.objectId().required(),
     acceptenceState: Joi.number()
   };
@@ -52,6 +52,9 @@ router.post("/", async (req, res) => {
     return res.status(400).send({ error: result.error.details[0].message });
 
     const newEventRequest = await EventRequest.create(req.body)
+  //------------------------(Notify Admins)-------------------------------------
+  await notificationController.notifyAdmins(newEventRequest._id,`New Event request is posted`);
+  //----------------------------------------------------------------------------
 
   return res.json({msg:"Event request created successfully", data: newEventRequest });
 });
@@ -93,7 +96,9 @@ router.put("/:id", async(req, res) => {
 
   const eventRequest = await EventRequest.updateOne({'_id' :requestedId } , req.body);// comment 
 
-
+  //------------------------(Notify Admins)-------------------------------------
+  await notificationController.notifyAdmins(eventRequest._id,`Event request was updated`);
+  //----------------------------------------------------------------------------
   res.send(eventRequest);
 });
 //-----------------------------------\\
@@ -104,6 +109,9 @@ router.delete("/:id", async (req, res) => {
   // const eventRequest = await EventRequest.find({'_id':requestedId});
   const eventRequest = await EventRequest.findByIdAndRemove(requestedId);
   if(!eventRequest) return res.status(400).send({error: 'The request you are tryinig to delete does not exist'})
+  //------------------------(Notify Admins)-------------------------------------
+  await notificationController.notifyAdmins(eventRequest._id,`Event request was deleted`);
+  //----------------------------------------------------------------------------
   res.send(eventRequest);
 });
 //---------------------------------\\

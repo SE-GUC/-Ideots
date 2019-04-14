@@ -15,24 +15,66 @@ export class TaskList extends Component {
   }
 
   fetchTasks = () => {
-    console.log(55);
     const { count, offset } = this.state;
     this.setState({ offset: offset + count });
-    axios.get("http://localhost:3000/api/tasks").then(res => {
-      console.log(56465);
-      console.log(res.data.data);
-      this.setState({ tasks: this.state.tasks.concat(res.data.data) });
-      console.log(this.state);
-    });
-    console.log(this.state);
+    axios
+      .get(
+        "http://localhost:3000/api/tasks/WithRange/" + count + "/" + offset,
+        {
+          headers: { Authorization: `Bearer ` + this.props.token }
+        }
+      )
+      .then(res => {
+        if (res.data.data.length > 0) {
+          this.setState({ tasks: this.state.tasks.concat(res.data.data) });
+        } else {
+          this.setState({ hasMore: false });
+        }
+      });
   };
 
   render() {
     return (
       <div>
-        {this.state.tasks.map(task => (
-          <Task key={task._id} task={task} />
-        ))}
+        <InfiniteScroll
+          hasMore={this.state.hasMore}
+          dataLength={this.state.tasks.length}
+          next={this.fetchTasks}
+          endMessage={
+            <h3
+              style={{
+                width: "100%",
+                height: "50px",
+                backgroundColor: "#ccc",
+                lineHeight: "50px",
+                textAlign: "center",
+                fontSize: "20px",
+                marginBottom: "5px"
+              }}
+            >
+              No More Task
+            </h3>
+          }
+          loader={
+            <h3
+              style={{
+                width: "100%",
+                height: "50px",
+                backgroundColor: "#ccc",
+                lineHeight: "50px",
+                textAlign: "center",
+                fontSize: "20px",
+                marginBottom: "5px"
+              }}
+            >
+              Loading...
+            </h3>
+          }
+        >
+          {this.state.tasks.map(task => (
+            <Task key={task._id} task={task} />
+          ))}
+        </InfiniteScroll>
       </div>
     );
   }

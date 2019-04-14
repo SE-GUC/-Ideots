@@ -28,7 +28,9 @@ export class Event extends Component {
     /*must change the user ID when using authentication 
    */
   console.log(this.props.event._id)
-    axios.get(`http://localhost:3000/api/eventBookings/${this.props.event._id}/5cb109419cf6047a9651c7ba`)
+    axios.get(`http://localhost:3000/api/eventBookings/${this.props.event._id}` , {
+      headers: { Authorization: `Bearer ` + this.props.token }
+    })
     .then(res =>{
       console.log(res.data.data)
 

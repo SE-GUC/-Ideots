@@ -6,6 +6,11 @@ export default function Home() {
     <div>
 
 
+      <Link to="/eventRequests" style={{ margin: "10px", textAlign: "center" }}>
+        Event Request</Link>
+
+
+
       <Link to="/requests" style={{ margin: "10px", textAlign: "center" }}>
         Requests
       </Link>
@@ -14,10 +19,14 @@ export default function Home() {
         RequestsAsUser
       </Link>
 
+
       <Link to="/tabs" style={{ margin: "10px", textAlign: "center" }}>
         tabs
       </Link>
-    </div>
 
+      <Link to="/EventList" style={{ margin: "10px", textAlign: "center" }}>
+        Events
+      </Link>
+    </div>
   );
 }

@@ -9,6 +9,10 @@ import EventList from "../event_components/EventList";
 import TaskList from "../task_components/TaskList";
 import NotificationList from "../notification_components/Notifications";
 import {Link} from 'react-router-dom'
+import MyTask from "../task_components/MyTaskList";
+import MyEvent from "../event_components/MyEventList";
+import Request from "../request_components/RequestList";
+
 function TabContainer(props) {
   return <Typography component="div">{props.children}</Typography>;
 }
@@ -24,7 +28,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function SimpleTabs() {
+function SimpleTabs(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -37,23 +41,35 @@ function SimpleTabs() {
       <AppBar position="static">
         <Tabs value={value} onChange={handleChange}>
           <Tab label="Notifications" />
-          <Tab label="Events" />
           <Tab label="Tasks" />
+          <Tab label="MyTasks" />
+          <Tab label="MyEvents" />
+          <Tab label="Requests" />
         </Tabs>
       </AppBar>
       {value === 0 && (
         <TabContainer>
-          <NotificationList  />
+          <NotificationList token={props.token} />
         </TabContainer>
       )}
       {value === 1 && (
         <TabContainer>
-          <Link to ="/EventList" />
+          <TaskList token={props.token} />
         </TabContainer>
       )}
       {value === 2 && (
         <TabContainer>
-          <TaskList />
+          <MyTask token={props.token} />
+        </TabContainer>
+      )}
+      {value === 3 && (
+        <TabContainer>
+          <MyEvent token={props.token} />
+        </TabContainer>
+      )}
+      {value === 4 && (
+        <TabContainer>
+          <Request token={props.token} />
         </TabContainer>
       )}
     </div>

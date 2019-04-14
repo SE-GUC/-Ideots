@@ -54,6 +54,7 @@ const functions={
    },
    
    deleteAllTasks : async() => {
+      jest.setTimeout(30000);
       let tasks = await functions.getAllTasks()
       
       let length = tasks.data.data ?tasks.data.data.length:0

@@ -18,7 +18,12 @@ export class EventList extends Component {
     const { count, offset } = this.state;
     this.setState({ offset: offset + count });
     axios
-      .get("http://localhost:3000/api/events/withRange/" + count + "/" + offset)
+      .get(
+        "http://localhost:3000/api/events/withRange/" + count + "/" + offset,
+        {
+          headers: { Authorization: `Bearer ` + this.props.token }
+        }
+      )
       .then(res => {
         if (res.data.data.length > 0) {
           this.setState({ events: this.state.events.concat(res.data.data) });
@@ -26,7 +31,6 @@ export class EventList extends Component {
           this.setState({ hasMore: false });
         }
       });
-    console.log(this.state);
   };
 
   render() {
