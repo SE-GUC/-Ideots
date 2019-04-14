@@ -31,8 +31,9 @@ router.get("/:limit/:offset", async (req, res) => {
   if (result.error)
     return res.status(400).send({ error: result.error.details[0].message });
   const limit = parseInt(req.params.limit, 10);
-  const offset = parseInt(req.params.offset, 10);
-  const notifications = await Notification.find({ recieverId: recieverId })
+  const offset = parseInt(req.params.offset, 10); // if some thing wrong happend remove the populate 
+  const notifications = await Notification.find({ recieverId: recieverId }).populate("recieverId")
+  .populate("adminId")
     .skip(offset)
     .limit(limit);
   res.json({ data: notifications });
@@ -43,7 +44,7 @@ router.get("/:id", async (req, res) => {
   const notificationId = req.params.id;
   const notification = await Notification.findById(notificationId)
     .populate("recieverId")
-    .populate("notifierId");
+    .populate("adminId");
   if (!notification)
     return res.status(400).send({ error: "Notification does not exist" });
   return res.json({ notification });
