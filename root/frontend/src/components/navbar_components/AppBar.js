@@ -10,18 +10,19 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import { fade } from "@material-ui/core/styles/colorManipulator";
 import { withStyles } from "@material-ui/core/styles";
-import MenuIcon from "@material-ui/icons/Menu";
+// import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MailIcon from "@material-ui/icons/Mail";
 import NotificationsIcon from "@material-ui/icons/Notifications";
-import MoreIcon from "@material-ui/icons/MoreVert";
+// import MoreIcon from "@material-ui/icons/MoreVert";
 import Select from "@material-ui/core/Select";
 import axios from "axios";
 
 const styles = theme => ({
   root: {
-    width: "100%"
+    width: "100%",
+    // height:"10px"
   },
   grow: {
     flexGrow: 1
@@ -189,14 +190,8 @@ class PrimarySearchAppBar extends React.Component {
     return (
       <div className={classes.root}>
         <AppBar position="static">
-          <Toolbar style={{ backgroundColor: "#191970" }}>
-            {/* <IconButton
-              className={classes.menuButton}
-              color="inherit"
-              aria-label="Open drawer"
-            >
-              <MenuIcon />
-            </IconButton> */}
+          <Toolbar style={{ backgroundColor: "#000" }}>
+
             <Typography
               className={classes.title}
               variant="h6"

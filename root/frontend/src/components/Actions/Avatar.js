@@ -3,14 +3,15 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
-import mohanad from "../../assets/DSC_1062.jpg"
+// import mohanad from "../../assets/DSC_1062.jpg"
+import mohanad from "../../assets/download.png"
 
 const styles = {
   avatar: {
-    margin: 10,
+    margin: 1,
   },
   bigAvatar: {
-    margin: 10,
+    margin: 1,
     width: 150,
     height: 150,
   },

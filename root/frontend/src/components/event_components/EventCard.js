@@ -15,7 +15,7 @@ class EventCard extends React.Component {
     this.setState({
       redirect: true
     });
-    console.log("hahahaha");
+    // console.log("hahahaha");
     // return <Event key={this.props.event._id} event={this.props.event} />;
   };
   render() {
@@ -27,6 +27,7 @@ class EventCard extends React.Component {
     const month = date.getMonth();
     const year = date.getFullYear();
     return (
+
       <div>
        
         <Link
@@ -99,3 +100,46 @@ class EventCard extends React.Component {
 }
 
 export default EventCard;
+
+/*
+  <Card
+      /*  
+      style={{
+          border: "1px solid blue",
+          margin: "10px"
+        }}
+        // 
+        style={{ border: `1px solid blue`, margin: "2%",marginLeft:"10%",marginRight:"15%"}}
+      >
+        <CardHeader
+          avatar={
+            <Avatar aria-label="Recipe" style={{ background: "#20d86a" }}>
+              {event.type.substring(0, 1)}
+            </Avatar>
+          }
+          style={{ background: "#58c6ff" }}
+          title={event.type + " in " + event.topics + " with " + event.speakers}
+          subheader={day + ", " + monthName + " " + month + ", " + year}
+        />
+        <CardContent>
+          <Typography component="p">{event.description}</Typography>
+        </CardContent>
+        <div style={{ display: "flex", position: "relative" }}>
+          <h1> </h1>
+          <div
+            style={{
+              position: "absolute",
+              width: "70%",
+              height: "60px",
+              backgroundColor: "#58c6ff",
+              opacity: ".8",
+              lineHeight: "40px",
+              textAlign: "center",
+              fontSize: "20px",
+              marginBottom: "5px"
+            }}
+          >
+            {remainSeat + " Remaining Seat"}
+          </div>
+          <div
+*/

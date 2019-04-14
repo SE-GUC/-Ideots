@@ -5,10 +5,10 @@ import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
-import EventList from "../event_components/EventList";
+// import EventList from "../event_components/EventList";
 import TaskList from "../task_components/TaskList";
 import NotificationList from "../notification_components/Notifications";
-import {Link} from 'react-router-dom'
+// import {Link} from 'react-router-dom'
 import MyTask from "../task_components/MyTaskList";
 import MyEvent from "../event_components/MyEventList";
 import Request from "../request_components/RequestList";

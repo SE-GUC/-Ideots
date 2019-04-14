@@ -27,7 +27,6 @@ export class MyEventList extends Component {
   };
 
   render() {
-    console.log(this.state.events);
     return (
       <div>
         {this.state.events.map(event => (

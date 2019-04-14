@@ -35,8 +35,9 @@ class RequestCard extends React.Component {
           border: "1px solid blue",
           background:
             accept === 1 ? "#159f5c" : accept === -1 ? "#dd5246" : "#4a8af4",
-          margin: "10px"
+            margin: "2%",marginLeft:"10%",marginRight:"15%"
         }}
+        
       >
         <ThemeProvider theme={theme}>
           <div

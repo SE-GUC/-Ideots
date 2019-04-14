@@ -127,7 +127,10 @@ theme = {
   }
 };
 
-const drawerWidth = 256;
+// const drawerWidth = 256;
+const drawerWidth = "15%";
+const drawerHeight = 100;
+const marginTop = "63px";
 
 const styles = {
   root: {
@@ -137,7 +140,9 @@ const styles = {
   drawer: {
     [theme.breakpoints.up("sm")]: {
       width: drawerWidth,
-      flexShrink: 0
+      flexShrink: 0,
+      height:drawerHeight,
+      marginTop:marginTop
     }
   },
   appContent: {
@@ -178,7 +183,7 @@ class Paperbase extends React.Component {
               />
             </Hidden>
             <Hidden xsDown implementation="css">
-              <Navigator PaperProps={{ style: { width: drawerWidth } }} />
+              <Navigator PaperProps={{ style: { width: drawerWidth ,marginTop:marginTop} }} />
             </Hidden>
           </nav>
           <div className={classes.appContent}>

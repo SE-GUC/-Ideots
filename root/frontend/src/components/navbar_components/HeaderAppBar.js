@@ -6,9 +6,7 @@ class HeaderAppBar extends Component {
   render() {
     return (
       <div className="App">
-        <HeadRoom>
-          <AppBar logOut={this.props.logOut} />
-        </HeadRoom>
+        <AppBar logOut={this.props.logOut} />
       </div>
     );
   }

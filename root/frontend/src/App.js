@@ -3,22 +3,25 @@ import React, { Component } from "react";
 import "./App.css";
 import SignIn from "./components/login_Components/SignIn";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import { Redirect } from "react-router-dom";
-import Welcome from "./components/login_Components/Welcome";
+// import { Redirect } from "react-router-dom";
+// import Welcome from "./components/login_Components/Welcome";
 
 import Request from "./components/userRequest_components/Request";
 import RequestAsUser from "./components/userRequest_components/RequestAsUser";
 
 import Tabs from "./components/tab_components/tabs";
 import Home from "./components/Home";
-import EventRequest from './components/eventRequest'
-import Notification from "./components/notification_components/Notifications";
+import EventRequest from "./components/eventRequest";
+// import Notification from "./components/notification_components/Notifications";
 import HeaderBar from "./components/navbar_components/HeaderAppBar";
+
+// import AppBar from './components/navbar_components/AppBar'
+
 import EventList from "./components/event_components/EventList";
 import Event from "./components/event_components/Event";
 
 import PaperBase from "./components/Actions/Paperbase";
-import createMixins from "@material-ui/core/styles/createMixins";
+// import createMixins from "@material-ui/core/styles/createMixins";
 
 const axios = require("axios");
 
@@ -72,7 +75,6 @@ class App extends Component {
     });
   }
 
-
   logOut = () => {
     console.log(
       localStorage.getItem("loggedIn") + "  " + localStorage.getItem("token")
@@ -83,10 +85,9 @@ class App extends Component {
   };
 
   render() {
-    let logged = localStorage.getItem("loggedIn") == "true";
+    let logged = localStorage.getItem("loggedIn") === "true";
 
     if (!logged) {
-
       console.log("heyhey");
       return (
         <div>
@@ -101,14 +102,18 @@ class App extends Component {
 
     return (
       <div>
-        <div className="Header">
+        <div
+          style={{ position: "fixed", top: "0px", left: "0px", width: "100%" }}
+          className="Header"
+        >
           <HeaderBar token={this.state.token} logOut={this.logOut} />
         </div>
         <Router>
-          <div className="App" style={{ marginLeft: "19%" }}>
+          <div className="App" style={{ marginLeft: "15%", marginTop: "3%",paddingTop: "5px" }}>
             <Route
               exact
               path="/"
+              style={{   }}
               render={props => <Home token={this.state.token} />}
             />
             <Route
@@ -116,64 +121,46 @@ class App extends Component {
               path="/requests"
               render={props => <Request token={this.state.token} />}
             />
-               <Route
-            exact
-            path="/EventList"
-            render={() => <EventList setTheEvent={this.setTheEvent} />}
-          />
-          
-          <Route
-
-            path="/eventRequests"
-            render={props => <EventRequest  token={this.state.token}/>}/>
-           />
-
-        
-          <Route
-            exact
-            path="/UserRequests"
-            render={props => <RequestAsUser token={this.state.token} />}
-          />
-          {/* <Route
-            exact
-            path="/login"
-            render={props => (
-              <div>
-                <SignIn
-                  signInMethod={this.logIn}
-                  mail={this.emailHandler}
-                  pass={this.passwordHandler}
+            <Route
+              exact
+              path="/EventList"
+              render={() => <EventList setTheEvent={this.setTheEvent} />}
+            />
+            <Route
+              path="/eventRequests"
+              render={props => <EventRequest token={this.state.token} />}
+            />
+            
+            <Route
+              exact
+              path="/UserRequests"
+              render={props => <RequestAsUser token={this.state.token} />}
+            />
+            <Route
+              exact
+              path="/Event"
+              render={() => (
+                <Event
+                  key={this.state.clickedEvent._id}
+                  event={this.state.clickedEvent}
+                  token={this.state.token}
                 />
-              </div>
-            )}
-          /> */}
-          <div className="App">
-            <PaperBase token={this.state.token} />
-          </div>
-        </div>
-        <Route
-
-          exact
-          path="/Event"
-          render={() => 
-            <Event key={this.state.clickedEvent._id} event={this.state.clickedEvent}  token={this.state.token} />
-           } 
-        />
-         
+              )}
+            />
             <Route
               exact
               path="/tabs"
               render={props => <Tabs token={this.state.token} />}
-            />
-          
+            />          
+          </div>
         </Router>
         <div>
           <PaperBase token={this.state.token} />
         </div>
-    </div>
+        
+      </div>
     );
   }
 }
-// }
 
 export default App;

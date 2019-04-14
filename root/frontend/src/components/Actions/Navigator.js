@@ -84,7 +84,7 @@ const styles = theme => ({
     fontSize: 24,
     fontFamily: theme.typography.fontFamily,
     color: theme.palette.common.white,
-    marginTop: '175px',
+    marginTop: '1px',
     
   },
   itemActionable: {

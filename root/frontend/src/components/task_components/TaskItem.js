@@ -37,10 +37,13 @@ class TaskCard extends React.Component {
 
     return (
       <Card
-        style={{
+      /*  
+      style={{
           border: "1px solid blue",
           margin: "10px"
         }}
+        */
+        style={{ border: `1px solid blue`, margin: "2%",marginLeft:"10%",marginRight:"15%"}}
       >
         <CardHeader
           classes={{
