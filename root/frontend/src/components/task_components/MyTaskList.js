@@ -11,16 +11,13 @@ export class MyTaskList extends Component {
   }
 
   fetchTasks = () => {
-    console.log("Mytaskaaaaaaaaaaaaaaaaa");
     axios
       .get("http://localhost:3000/api/tasks/partner/partner", {
         headers: { Authorization: `Bearer ` + this.props.token }
       })
       .then(res => {
-        console.log("hihaaaaa");
         this.setState({ tasks: res.data.task });
       });
-    console.log(this.state.tasks);
   };
 
   render() {
