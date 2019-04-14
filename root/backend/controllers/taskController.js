@@ -4,7 +4,7 @@ const validator = require('../validations/taskValidations')
 
 
 exports.viewAllTasks = async (req, res) =>{
-    const tasks = await Task.find()
+    const tasks = await Task.find().populate('partnerID').populate('consultancyID').populate('assignedPerson').populate('applicants')
     res.json({ data: tasks })
 
 };
@@ -15,7 +15,7 @@ exports.viewAllTasks = async (req, res) =>{
 exports.viewOneTaskByID=async (req, res) => {  
     try{
     const  taskID = req.params.id;  
-    const task = await Task.findOne({"_id":taskID})
+    const task = await Task.findOne({"_id":taskID}).populate('partnerID').populate('consultancyID').populate('assignedPerson').populate('applicants')
     if(!task) return res.status(400).send({error: 'Task does not exist'})
     return res.json({task});
     }
@@ -76,7 +76,7 @@ exports.viewOneTaskByID=async (req, res) => {
 
  exports.searchByCategory=async(req, res) => { 
     const cat = req.params.cat
-    const tasks = await Task.find({"category":cat})
+    const tasks = await Task.find({"category":cat}).populate('partnerID').populate('consultancyID').populate('assignedPerson').populate('applicants')
     return res.json({data:tasks});
     
     };
@@ -84,7 +84,7 @@ exports.viewOneTaskByID=async (req, res) => {
 
     exports.searchByAssignedPerson=async(req, res) => { 
         const cat = req.params.ap
-        const tasks = await Task.find({"assignedPerson":ap})
+        const tasks = await Task.find({"assignedPerson":ap}).populate('partnerID').populate('consultancyID').populate('assignedPerson').populate('applicants')
         return res.json({data:tasks});
         
         };
@@ -92,7 +92,7 @@ exports.viewOneTaskByID=async (req, res) => {
 
     exports.searchByYearsOfEXP= async(req, res) => { 
         const exp = req.params.exp
-        const tasks = await Task.find({"yearsOfExperience":exp})
+        const tasks = await Task.find({"yearsOfExperience":exp}).populate('partnerID').populate('consultancyID').populate('assignedPerson').populate('applicants')
         return res.json({data:tasks});
     };
 
@@ -101,7 +101,7 @@ exports.searchByMonetaryCompensation=async(req, res) => {
     const pay = req.params.pay
     const min =Number(pay)-50
     const max=Number(pay)+50
-    const tasks = await Task.find({"payment":{ $lte:max ,$gte:min} })
+    const tasks = await Task.find({"payment":{ $lte:max ,$gte:min} }).populate('partnerID').populate('consultancyID').populate('assignedPerson').populate('applicants')
     return res.json({data:tasks});
     
     };   
@@ -109,7 +109,7 @@ exports.searchByMonetaryCompensation=async(req, res) => {
 
 exports.getRecommendedTasks=async(req, res) => { 
     const id = req.params.id
-    const user =await User.findById(id)
+    const user =await User.findById(id).populate('partnerID').populate('consultancyID').populate('assignedPerson').populate('applicants')
     const userSkills = user.skills
     const tasks = await Task.find({"requiredSkills":{$in:userSkills}})
     return res.json({data:tasks});
