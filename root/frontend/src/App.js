@@ -1,4 +1,7 @@
+
+
 import React, { Component } from "react";
+
 
 import "./App.css";
 import SignIn from "./components/login_Components/SignIn";
@@ -14,6 +17,12 @@ import Home from "./components/Home";
 
 import Notification from "./components/notification_components/Notifications";
 import HeaderBar from "./components/navbar_components/HeaderAppBar";
+import EventList from "./components/event_components/EventList";
+import Event from "./components/event_components/Event";
+
+
+
+
 
 import PaperBase from "./components/Actions/Paperbase";
 import createMixins from "@material-ui/core/styles/createMixins";
@@ -22,11 +31,19 @@ const axios = require("axios");
 
 class App extends Component {
   state = {
-    email: "",
+    clickedEvent: {
+    }
+  }
+  setTheEvent=(eventProps)=>{
+    this.setState({
+      clickedEvent:eventProps , 
+      email: "",
     password: "",
     loggedIn: false,
     token: ""
-  };
+    })
+  }
+  
 
   emailHandler = email => {
     this.setState({ email });
@@ -65,6 +82,7 @@ class App extends Component {
   }
 
   render() {
+
     if (!localStorage.getItem("loggedIn")) {
       console.log("heyhey");
       return (
@@ -74,10 +92,12 @@ class App extends Component {
             mail={this.emailHandler}
             pass={this.passwordHandler}
           />
-        </div>
-      );
-    }
+
+    
+          </div>)}
+          
     return (
+    
       <div>
         <div className="Header">
           <HeaderBar token={this.state.token} />
@@ -94,6 +114,19 @@ class App extends Component {
               path="/requests"
               render={props => <Request token={this.state.token} />}
             />
+               <Route
+            exact
+            path="/EventList"
+            render={() => <EventList setTheEvent={this.setTheEvent} />}
+          />
+          
+          <Route
+          exact
+          path="/Event"
+          render={() => 
+            <Event key={this.state.clickedEvent._id} event={this.state.clickedEvent}  token={this.state.token} />
+           } 
+        />
             <Route
               exact
               path="/UserRequests"
