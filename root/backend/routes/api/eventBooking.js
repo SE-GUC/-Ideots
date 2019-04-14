@@ -29,6 +29,14 @@ router.get("/:id", async (req, res) => {
 });
 //-----------------------------------------------\\
 
+// search if user booked an event 
+router.get("/:Event" , async (req,res) =>{
+  theEvent = req.params.Event 
+  theUser =  req.user._id;
+  const eventBooking = await EventBooking.find({'eventId' :theEvent , 'memberId' :theUser})
+  return res.send({data:eventBooking})
+
+})
 router.post("/", async (req, res) => {
   const schema = {
     eventId: Joi.objectId().required() ,
@@ -46,7 +54,6 @@ router.post("/", async (req, res) => {
   
   //-------------(Notify partner that someone has booked a place in the event)--------------------
   const event = await Event.findOne({'_id': newEventBooking.eventId });
-  console.log(`hereeeeeee  ${event.organizerId}`)
   await notificationController.notifyUser(newEventBooking.eventId,event.organizerId,`someone has booked a place in the event `);
   //------------------------(Notify Admins)-------------------------------------
   await notificationController.notifyAdmins(newEventBooking.eventId,`someone has booked a place in the event`);

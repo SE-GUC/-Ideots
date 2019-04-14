@@ -15,7 +15,9 @@ export class MyEventList extends Component {
     try {
       const { id } = this.state;
       axios
-        .get("http://localhost:3000/api/events/Organizer/" + id)
+        .get("http://localhost:3000/api/events/Organizer/organizer", {
+          headers: { Authorization: `Bearer ` + this.props.token }
+        })
         .then(res => {
           this.setState({ events: res.data.task });
         });

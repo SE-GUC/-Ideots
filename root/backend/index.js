@@ -62,7 +62,7 @@ app.use(
 );
 app.use("/api/applications", application);
 app.use("/api/requests", requests);
-app.use("/api/tasks", tasks);
+app.use("/api/tasks", passport.authenticate("jwt", { session: false }), tasks);
 app.use("/api/events", passport.authenticate("jwt", { session: false }), event);
 app.use("/api/eventRequests", eventRequest);
 app.use("/api/eventBookings", eventBooking);

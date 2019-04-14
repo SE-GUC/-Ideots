@@ -19,7 +19,7 @@ class Notifications extends Component {
     this.setState({ offset: offset + count });
     axios
       .get(`http://localhost:3000/api/notifications/${count}/${offset}`, {
-        headers: {Authorization: `Bearer ` + this.props.token}
+        headers: { Authorization: `Bearer ` + this.props.token }
       })
       .then(res => {
         if (res.data.data.length > 0) {

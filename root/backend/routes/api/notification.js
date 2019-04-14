@@ -23,7 +23,6 @@ router.get("/", async (req, res) => {
 router.get("/:limit/:offset", async (req, res) => {
   const recieverId = req.user._id;
   const schema = {
-    id: Joi.required(),
     limit: Joi.required(),
     offset: Joi.required()
   };
