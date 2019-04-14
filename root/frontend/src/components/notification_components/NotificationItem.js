@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import Card from "@material-ui/core/Card";
-import CardHeader from "@material-ui/core/CardHeader";
+// import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
-import Avatar from "@material-ui/core/Avatar";
+// import Avatar from "@material-ui/core/Avatar";
 
 class NotificationItem extends Component {
   readNotification = () => {};

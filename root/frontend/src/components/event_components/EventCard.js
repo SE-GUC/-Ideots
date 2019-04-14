@@ -15,7 +15,7 @@ class EventCard extends React.Component {
     this.setState({
       redirect: true
     });
-    console.log("hahahaha");
+    // console.log("hahahaha");
     // return <Event key={this.props.event._id} event={this.props.event} />;
   };
   render() {
@@ -27,9 +27,7 @@ class EventCard extends React.Component {
     const month = date.getMonth();
     const year = date.getFullYear();
     return (
-//<<<<<<< HEAD
 
-//=======
       <div>
        
         <Link
@@ -38,7 +36,6 @@ class EventCard extends React.Component {
           onClick={this.props.setTheEvent.bind(this,this.props.event)}
         >
           <Card
-//>>>>>>> origin/stage-changes
             style={{
               border: "1px solid blue",
               margin: "10px"
