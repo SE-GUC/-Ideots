@@ -14,7 +14,7 @@ import Home from "./components/Home";
 
 import Notification from "./components/notification_components/Notifications";
 import HeaderBar from "./components/navbar_components/HeaderAppBar";
-
+import AppBar from './components/navbar_components/AppBar'
 import PaperBase from "./components/Actions/Paperbase";
 import createMixins from "@material-ui/core/styles/createMixins";
 
@@ -79,11 +79,11 @@ class App extends Component {
     }
     return (
       <div>
-        <div className="Header">
+        <div style ={{position:"fixed",top:'0px',left:"0px",width:"100%"}} className="Header">
           <HeaderBar token={this.state.token} />
         </div>
         <Router>
-          <div className="App" style={{ marginLeft: "15%" }}>
+          <div className="App" style={{ marginLeft: "15%" ,marginTop:"3%"}}>
             <Route
               exact
               path="/"

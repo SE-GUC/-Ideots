@@ -6,9 +6,9 @@ class HeaderAppBar extends Component {
   render() {
     return (
       <div className="App">
-        <HeadRoom>
+        {/* <HeadRoom> </HeadRoom>*/}
           <AppBar />
-        </HeadRoom>
+        
       </div>
     );
   }

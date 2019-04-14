@@ -190,14 +190,8 @@ class PrimarySearchAppBar extends React.Component {
     return (
       <div className={classes.root}>
         <AppBar position="static">
-          <Toolbar style={{ backgroundColor: "#191970" }}>
-            <IconButton
-              className={classes.menuButton}
-              color="inherit"
-              aria-label="Open drawer"
-            >
-              <MenuIcon />
-            </IconButton>
+          <Toolbar style={{ backgroundColor: "#000" }}>
+           
             <Typography
               className={classes.title}
               variant="h6"
