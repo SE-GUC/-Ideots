@@ -19,7 +19,7 @@ export class MyEventList extends Component {
           headers: { Authorization: `Bearer ` + this.props.token }
         })
         .then(res => {
-          this.setState({ events: res.data.task });
+          this.setState({ events: this.state.events.concat(res.data.data) });
         });
     } catch (error) {
       this.setState({ events: [] });
@@ -27,10 +27,11 @@ export class MyEventList extends Component {
   };
 
   render() {
+    console.log(this.state.events);
     return (
       <div>
         {this.state.events.map(event => (
-          <Event key={event._id} task={event} />
+          <Event key={event._id} event={event} />
         ))}
         <h3
           style={{
