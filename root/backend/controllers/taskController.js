@@ -1,10 +1,10 @@
 const Task = require("../models/Task");
 const validator = require("../validations/taskValidations");
 
-const User = require("../../models/User");
-const Admin = require("../../models/Admin");
+const User = require("../models/User");
+const Admin = require("../models/Admin");
 
-const notificationController = require("../../controllers/sendNotificationController");
+const notificationController = require("../controllers/sendNotificationController");
 
 exports.viewAllTasks = async (req, res) => {
   const tasks = await Task.find();
