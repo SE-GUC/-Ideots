@@ -72,4 +72,4 @@ res.render('contact',{msg:'Email has been sent'});
 
 });
 });
-app.listen(3000,()=>console.log('server started'));
+app.listen(3000,()=>console.log('server started at port 3000'));
