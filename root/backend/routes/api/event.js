@@ -23,6 +23,7 @@ router.get("/", async (req, res) => {
 
 // Read Events in specific range
 router.get("/withRange/:limit/:offset", async (req, res) => {
+  console.log(555);
   const schema = {
     limit: Joi.required(),
     offset: Joi.required()
@@ -35,10 +36,12 @@ router.get("/withRange/:limit/:offset", async (req, res) => {
 
   const limit = parseInt(req.params.limit, 10);
   const offset = parseInt(req.params.offset, 10);
+  console.log(limit, offset);
   const events = await Event.find()
     .skip(offset)
     .limit(limit);
   res.json({ data: events });
+  console.log(events);
 });
 //----------------------------------------------\\
 
@@ -112,8 +115,8 @@ router.get("/recommended/:userID", async (req, res) => {
     .populate("eventRequestId");
   let userInterrests = user.interests;
   // let userLocation=user.location
- // if (!userInterrests.length === 0)
-   // return res.status(400).send({ error: "you do not have interests " });
+  // if (!userInterrests.length === 0)
+  // return res.status(400).send({ error: "you do not have interests " });
   // let userCity=userLocation.city
   // let userStreet =userLocation.Street
   // let userArea = userLocation.Area
@@ -123,10 +126,10 @@ router.get("/recommended/:userID", async (req, res) => {
   const events = await Event.find({ type: { $in: userInterrests } })
     .populate("organizerId")
     .populate("eventRequestId");
- // if (!events)
-   // return res
-     // .status(400)
-      //.send({ error: "No recommended Events currently try again later!!" });
+  // if (!events)
+  // return res
+  // .status(400)
+  //.send({ error: "No recommended Events currently try again later!!" });
 
   res.json({ data: events });
 });
@@ -175,12 +178,16 @@ router.post("/", async (req, res) => {
   const newEvent = await Event.create(req.body);
   //------------------------(Notify members)-------------------------------------
   const eventId = newEvent._id;
-  await notificationController.notifyAllMembers(eventId,`New Event is posted`);
+  await notificationController.notifyAllMembers(eventId, `New Event is posted`);
   //------------------------(Notify Admins)-------------------------------------
-  await notificationController.notifyAdmins(eventId,`New Event is posted`);
+  await notificationController.notifyAdmins(eventId, `New Event is posted`);
   //------------------------(Notify Partner that his request is accepted)-------------------------------------
   const recieverId = newEvent.organizerId;
-  await notificationController.notifyUser(eventId,recieverId,`Your event request has been accepted and your event is posted`);
+  await notificationController.notifyUser(
+    eventId,
+    recieverId,
+    `Your event request has been accepted and your event is posted`
+  );
   //------------------------------------------------------------------
   return res.json({ data: newEvent });
 });
@@ -231,7 +238,7 @@ router.delete("/:id", async (req, res) => {
 
   const deletedEvent = await Event.findByIdAndRemove(requestedId);
   //------------------------(Notify Admins)-------------------------------------
-  await notificationController.notifyAdmins(requestedId,`Event is deleted`);
+  await notificationController.notifyAdmins(requestedId, `Event is deleted`);
   //----------------------------------------------------------------------------
   res.send({ "you have deleted ": deletedEvent });
 });
