@@ -1,7 +1,4 @@
-
-
 import React, { Component } from "react";
-
 
 import "./App.css";
 import SignIn from "./components/login_Components/SignIn";
@@ -20,10 +17,6 @@ import HeaderBar from "./components/navbar_components/HeaderAppBar";
 import EventList from "./components/event_components/EventList";
 import Event from "./components/event_components/Event";
 
-
-
-
-
 import PaperBase from "./components/Actions/Paperbase";
 import createMixins from "@material-ui/core/styles/createMixins";
 
@@ -31,19 +24,17 @@ const axios = require("axios");
 
 class App extends Component {
   state = {
-    clickedEvent: {
-    }
-  }
-  setTheEvent=(eventProps)=>{
+    clickedEvent: {}
+  };
+  setTheEvent = eventProps => {
     this.setState({
-      clickedEvent:eventProps , 
+      clickedEvent: eventProps,
       email: "",
-    password: "",
-    loggedIn: false,
-    token: ""
-    })
-  }
-  
+      password: "",
+      loggedIn: false,
+      token: ""
+    });
+  };
 
   emailHandler = email => {
     this.setState({ email });
@@ -81,9 +72,19 @@ class App extends Component {
     });
   }
 
-  render() {
+  logOut = () => {
+    console.log(
+      localStorage.getItem("loggedIn") + "  " + localStorage.getItem("token")
+    );
+    localStorage.setItem("loggedIn", false);
+    localStorage.setItem("token", null);
+    this.render();
+  };
 
-    if (!localStorage.getItem("loggedIn")) {
+  render() {
+    let logged = localStorage.getItem("loggedIn") == "true";
+
+    if (!logged) {
       console.log("heyhey");
       return (
         <div>
@@ -92,15 +93,14 @@ class App extends Component {
             mail={this.emailHandler}
             pass={this.passwordHandler}
           />
+        </div>
+      );
+    }
 
-    
-          </div>)}
-          
     return (
-    
       <div>
         <div className="Header">
-          <HeaderBar token={this.state.token} />
+          <HeaderBar token={this.state.token} logOut={this.logOut} />
         </div>
         <Router>
           <div className="App" style={{ marginLeft: "19%" }}>
@@ -114,19 +114,23 @@ class App extends Component {
               path="/requests"
               render={props => <Request token={this.state.token} />}
             />
-               <Route
-            exact
-            path="/EventList"
-            render={() => <EventList setTheEvent={this.setTheEvent} />}
-          />
-          
-          <Route
-          exact
-          path="/Event"
-          render={() => 
-            <Event key={this.state.clickedEvent._id} event={this.state.clickedEvent}  token={this.state.token} />
-           } 
-        />
+            <Route
+              exact
+              path="/EventList"
+              render={() => <EventList setTheEvent={this.setTheEvent} />}
+            />
+
+            <Route
+              exact
+              path="/Event"
+              render={() => (
+                <Event
+                  key={this.state.clickedEvent._id}
+                  event={this.state.clickedEvent}
+                  token={this.state.token}
+                />
+              )}
+            />
             <Route
               exact
               path="/UserRequests"

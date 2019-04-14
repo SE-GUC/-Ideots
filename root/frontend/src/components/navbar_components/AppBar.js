@@ -115,6 +115,7 @@ class PrimarySearchAppBar extends React.Component {
       console.log(res.data.data);
     }
   };
+
   //------------------------END OF Added Methods-------------------------
 
   handleProfileMenuOpen = event => {
@@ -148,8 +149,7 @@ class PrimarySearchAppBar extends React.Component {
         open={isMenuOpen}
         onClose={this.handleMenuClose}
       >
-        <MenuItem onClick={this.handleMenuClose}>Profile</MenuItem>
-        <MenuItem onClick={this.handleMenuClose}>My account</MenuItem>
+        <MenuItem onClick={this.props.logOut.bind(this)}>LogOut</MenuItem>
       </Menu>
     );
 
@@ -190,13 +190,13 @@ class PrimarySearchAppBar extends React.Component {
       <div className={classes.root}>
         <AppBar position="static">
           <Toolbar style={{ backgroundColor: "#191970" }}>
-            <IconButton
+            {/* <IconButton
               className={classes.menuButton}
               color="inherit"
               aria-label="Open drawer"
             >
               <MenuIcon />
-            </IconButton>
+            </IconButton> */}
             <Typography
               className={classes.title}
               variant="h6"
