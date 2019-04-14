@@ -15,12 +15,20 @@ export class TaskList extends Component {
   }
 
   fetchTasks = () => {
+    console.log("56625");
     const { count, offset } = this.state;
     this.setState({ offset: offset + count });
+    console.log("56625");
     axios
-      .get("http://localhost:3000/api/tasks/WithRange/" + count + "/" + offset)
+      .get(
+        "http://localhost:3000/api/tasks/WithRange/" + count + "/" + offset,
+        {
+          headers: { Authorization: `Bearer ` + this.props.token }
+        }
+      )
       .then(res => {
         if (res.data.data.length > 0) {
+          console.log(res.data.data);
           this.setState({ tasks: this.state.tasks.concat(res.data.data) });
         } else {
           this.setState({ hasMore: false });
