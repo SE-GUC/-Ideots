@@ -62,9 +62,6 @@ exports.updateOneTask = async (req, res) => {
 
 exports.getmyTask = async (req, res) => {
   try {
-    console.log(
-      "**********************************************************************"
-    );
     const partnerId = req.user._id;
     console.log(partnerId);
     const task = await Task.find({ partnerID: partnerId });
