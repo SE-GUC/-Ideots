@@ -58,14 +58,16 @@ class Notifications extends Component {
           endMessage={
             <h3
               style={{
-                width: "100%",
+                width: "30%",
                 height: "50px",
-                backgroundColor: "#ccc",
+                backgroundColor: "#fff",
+                borderRadius: 15,
                 lineHeight: "50px",
                 textAlign: "center",
                 fontSize: "20px",
-                marginBottom: "5px",
-                // marginLeft: "25%"
+                marginLeft: "35%",
+                marginRight: "35%",
+                marginBottom: "1%",
 
               }}
             >

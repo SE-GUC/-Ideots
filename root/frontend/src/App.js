@@ -109,7 +109,7 @@ class App extends Component {
           <HeaderBar token={this.state.token} logOut={this.logOut} />
         </div>
         <Router>
-          <div className="App" style={{ marginLeft: "15%", marginTop: "3%",paddingTop: "5px" }}>
+          <div className="App" style={{ marginLeft: "15%", marginTop: "3%",paddingTop: "2%" }}>
             <Route
               exact
               path="/"
