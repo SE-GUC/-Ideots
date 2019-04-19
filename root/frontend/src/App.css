@@ -1,10 +1,11 @@
 .App {
-
+  height: 32%;
   text-align: center;
 }
 
 .Header{
   margin-left: 0px;
+  height: 32%;
 }
 .loading{
   width:97% ;
