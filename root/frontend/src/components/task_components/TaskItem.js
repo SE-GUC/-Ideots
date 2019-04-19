@@ -8,6 +8,8 @@ import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/styles";
+import "../../App.css";
+
 const theme = createMuiTheme({});
 
 const styles = theme => ({
@@ -37,13 +39,7 @@ class TaskCard extends React.Component {
 
     return (
       <Card
-      /*  
-      style={{
-          border: "1px solid blue",
-          margin: "10px"
-        }}
-        */
-        style={{ border: `1px solid blue`, margin: "2%",marginLeft:"10%",marginRight:"15%"}}
+        style={{ border: `1px solid #4a26fd`, margin: "2%",marginLeft:"25%",marginRight:"25%",borderRadius: 15}}       
       >
         <CardHeader
           classes={{

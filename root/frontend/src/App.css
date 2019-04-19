@@ -6,6 +6,26 @@
 .Header{
   margin-left: 0px;
 }
+.loading{
+  width:97% ;
+  height:  50px ;
+  background-color:  #ccc ;
+  border-radius: 50px;
+  line-height:  50px ;
+  text-align:  center ;
+  font-size:  50px ;
+  margin-left:  1.5% ;
+  margin-right:  1.5% ;
+  margin-bottom:  1% ;
+}
+
+
+
+
+
+
+
+
 
 /*
 
