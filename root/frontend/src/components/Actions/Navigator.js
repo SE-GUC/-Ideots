@@ -85,6 +85,7 @@ const styles = theme => ({
     fontFamily: theme.typography.fontFamily,
     color: theme.palette.common.white,
     marginTop: '1 px',
+    backgroundColor: "#18202c",   //background under photo
     
   },
   itemActionableMember: {

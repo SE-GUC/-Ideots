@@ -27,6 +27,7 @@ let theme = createMuiTheme({
       dark: "#006db3"
     }
   },
+  // 18202c
   shape: {
     borderRadius: 8 
   }
@@ -150,7 +151,7 @@ const styles = {
   appContent: {
     flex: 1,
     display: "flex",
-    flexDirection: "column"
+    flexDirection: "column",
   },
   /*
   mainContent: {
