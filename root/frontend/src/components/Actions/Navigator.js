@@ -97,16 +97,16 @@ const styles = theme => ({
   },
   itemActionablePartner: {
     '&:hover': {
-      backgroundColor: '#18FFFF',
+      backgroundColor: '#FE6B8B',
       color:"#000"
       // backgroundColor: 'rgba(255, 255, 255, 0.08)',
     },
   },
   itemActionableConsultancy: {
     '&:hover': {
-      backgroundColor: '#607D8B',
+      backgroundColor: '#FF8E53',
+      color:"#000"
       // backgroundColor: 'rgba(255, 255, 255, 0.08)',
-      // color:"#000"
     },
   },
   itemActiveItem: {
