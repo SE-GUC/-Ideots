@@ -10,12 +10,14 @@ const RequestSchema = new Schema(
         partnerID :
         {
             type : Schema.Types.ObjectId,
-            required : true
+            required : true,
+            ref:'Users',
         }
         ,
         consultancyID :
         {
             type : Schema.Types.ObjectId,
+            ref:'Users',
         }
         ,
         description :
