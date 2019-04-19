@@ -28,7 +28,7 @@ let theme = createMuiTheme({
     }
   },
   shape: {
-    borderRadius: 8
+    borderRadius: 8 
   }
 });
 
@@ -37,7 +37,7 @@ theme = {
   overrides: {
     MuiDrawer: {
       paper: {
-        backgroundColor: "#18202c"
+        backgroundColor: "#18202c"  // background under member,partner , consultancy
       }
     },
     MuiButton: {
@@ -109,8 +109,8 @@ theme = {
     },
     MuiAvatar: {
       root: {
-        width: 32,
-        height: 32
+        width: 30,
+        height: 30,
       }
     }
   },
@@ -129,19 +129,21 @@ theme = {
 
 // const drawerWidth = 256;
 const drawerWidth = "15%";
-const drawerHeight = 100;
-const marginTop = "63px";
+const drawerHeight = "98%";
+// const marginTop = "63px";
+const marginTop = "3%";
 
 const styles = {
   root: {
     display: "flex",
-    minHeight: "100vh"
+    // minHeight: "100vh",
+    minHeight: "10%"
   },
   drawer: {
     [theme.breakpoints.up("sm")]: {
       width: drawerWidth,
-      flexShrink: 0,
       height:drawerHeight,
+      flexShrink: 0,
       marginTop:marginTop
     }
   },
@@ -150,11 +152,14 @@ const styles = {
     display: "flex",
     flexDirection: "column"
   },
+  /*
   mainContent: {
     flex: 1,
     padding: "48px 36px 0",
-    background: "#eaeff1"
+    background: "#000"
+    // background: "#eaeff1"
   }
+  */
 };
 
 class Paperbase extends React.Component {
@@ -183,7 +188,7 @@ class Paperbase extends React.Component {
               />
             </Hidden>
             <Hidden xsDown implementation="css">
-              <Navigator PaperProps={{ style: { width: drawerWidth ,marginTop:marginTop} }} />
+              <Navigator PaperProps={{ style: { width: drawerWidth,height: drawerHeight  ,marginTop:marginTop} }} />
             </Hidden>
           </nav>
           <div className={classes.appContent}>

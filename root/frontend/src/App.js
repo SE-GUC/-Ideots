@@ -101,7 +101,7 @@ class App extends Component {
     }
 
     return (
-      <div>
+      <section>
         <div
           style={{ position: "fixed", top: "0px", left: "0px", width: "100%" }}
           className="Header"
@@ -158,7 +158,7 @@ class App extends Component {
           <PaperBase token={this.state.token} />
         </div>
         
-      </div>
+      </section>
     );
   }
 }
