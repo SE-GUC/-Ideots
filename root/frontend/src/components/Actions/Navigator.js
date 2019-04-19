@@ -104,9 +104,9 @@ const styles = theme => ({
   },
   itemActionableConsultancy: {
     '&:hover': {
-      backgroundColor: '#76FF03',
-      color:"#000"
+      backgroundColor: '#607D8B',
       // backgroundColor: 'rgba(255, 255, 255, 0.08)',
+      // color:"#000"
     },
   },
   itemActiveItem: {
