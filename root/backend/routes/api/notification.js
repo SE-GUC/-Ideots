@@ -31,7 +31,8 @@ router.get("/:limit/:offset", async (req, res) => {
     return res.status(400).send({ error: result.error.details[0].message });
   const limit = parseInt(req.params.limit, 10);
   const offset = parseInt(req.params.offset, 10); // if some thing wrong happend remove the populate 
-  const notifications = await Notification.find({ recieverId: recieverId }).populate("recieverId")
+  // const notifications = await Notification.find({ recieverId: recieverId }).populate("recieverId")
+  const notifications = await Notification.find({ recieverId: recieverId }).sort({isRead:1,date: -1}).populate("recieverId")
   .populate("adminId")
     .skip(offset)
     .limit(limit);
