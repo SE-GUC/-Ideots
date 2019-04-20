@@ -19,7 +19,7 @@ const login = require("./routes/api/login");
 const auth = require("./routes/api/auth");
 const app = express();
 const cors = require("cors");
-
+const adminRequests = require('./routes/api/adminRequests');
 app.use(cors());
 
 app.use(express.json());
@@ -60,8 +60,9 @@ app.use(
   passport.authenticate("jwt", { session: false }),
   notification
 );
+app.use("/api/adminRequests",adminRequests)
 app.use("/api/applications", application);
-app.use("/api/requests", requests);
+app.use("/api/requests", passport.authenticate("jwt", { session: false }),requests);
 app.use("/api/tasks", passport.authenticate("jwt", { session: false }), tasks);
 app.use("/api/events", passport.authenticate("jwt", { session: false }), event);
 app.use("/api/eventRequests", eventRequest);

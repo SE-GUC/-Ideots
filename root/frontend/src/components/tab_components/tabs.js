@@ -12,6 +12,8 @@ import NotificationList from "../notification_components/Notifications";
 import MyTask from "../task_components/MyTaskList";
 import MyEvent from "../event_components/MyEventList";
 import Request from "../request_components/RequestList";
+import RequestAsUser from "../userRequest_components/RequestAsUser";
+import Request2 from "../userRequest_components/Request";
 
 function TabContainer(props) {
   return <Typography component="div">{props.children}</Typography>;
@@ -45,6 +47,8 @@ function SimpleTabs(props) {
           <Tab label="MyTasks" />
           <Tab label="MyEvents" />
           <Tab label="Requests" />
+          <Tab label="RequestAsUser" />
+          <Tab label="RequestsAsAdmin" />
         </Tabs>
       </AppBar>
       {value === 0 && (
@@ -70,6 +74,16 @@ function SimpleTabs(props) {
       {value === 4 && (
         <TabContainer>
           <Request token={props.token} />
+        </TabContainer>
+      )}
+       {value === 5 && (
+        <TabContainer>
+          <RequestAsUser token={props.token} />
+        </TabContainer>
+      )}
+       {value === 6 && (
+        <TabContainer>
+          <Request2 token={props.token} />
         </TabContainer>
       )}
     </div>

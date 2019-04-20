@@ -148,8 +148,8 @@ class App extends Component {
               )}
             />
             <Route
-              exact
-              path="/tabs"
+            
+              path="/"
               render={props => <Tabs token={this.state.token} />}
             />          
           </div>

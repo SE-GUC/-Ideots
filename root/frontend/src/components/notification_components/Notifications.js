@@ -17,7 +17,7 @@ class Notifications extends Component {
   fetchNotifications = () => {
     const { count, offset } = this.state;
     this.setState({ offset: offset + count });
-    console.log(this.props.token)
+   // console.log(this.props.token)
     axios
       .get(`http://localhost:3000/api/notifications/${count}/${offset}`, {headers: { Authorization: `Bearer ` + this.props.token }
       })
