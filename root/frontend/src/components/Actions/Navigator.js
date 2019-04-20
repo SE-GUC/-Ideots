@@ -30,26 +30,22 @@ const categories = [
   {
     id: 'Member',
     children: [
-      { id: 'View Tasks', icon: <SettingsInputComponentIcon />, link: '/tabs' },
-      { id: 'Submit final product', icon: <DnsRoundedIcon /> },
-      {
-        id: 'View Events',
-        icon: <PermMediaOutlinedIcon />,
-        link: '/Eventlist'
-      },
-      { id: 'Notifications', icon: <PublicIcon />, link: '/Notifications' },
+      { id: 'Notifications', icon: <PublicIcon />, link: '/Main/Notifications' },
+      { id: 'View Tasks', icon: <SettingsInputComponentIcon />, link: '/Main/Tasks'  },
+      // { id: 'Submit final product', icon: <DnsRoundedIcon /> },
+      {id: 'View Events',icon: <PermMediaOutlinedIcon />,link: '/Main/Eventlist'},
       { id: 'My Profile', icon: <PeopleIcon />, link: '/Eventlist' }
     ]
   },
   {
     id: 'Partner',
     children: [
+      { id: 'Notifications', icon: <PublicIcon />,link: '/Main/Notifications' },
+      { id: 'My Tasks', icon: <SettingsInputComponentIcon /> , link: '/Main/Tasks' },
       { id: 'Create New Task', icon: <PhonelinkSetupIcon /> },
-      { id: 'My Tasks', icon: <SettingsInputComponentIcon /> },
       { id: 'My Products', icon: <DnsRoundedIcon /> },
       { id: 'Review Consultancy', icon: <PhonelinkSetupIcon /> },
       { id: 'Create New Request', icon: <PhonelinkSetupIcon /> },
-      { id: 'Notifications', icon: <PublicIcon /> },
       { id: 'Feedbacks', icon: <PublicIcon /> },
       { id: 'My Profile', icon: <PeopleIcon /> }
     ]
@@ -58,9 +54,9 @@ const categories = [
   {
     id: 'Consultancy',
     children: [
+      { id: 'Notifications', icon: <PublicIcon />,link: '/Main/Notifications' },
+      { id: 'My Created Tasks', icon: <PermMediaOutlinedIcon/> , link: '/Main/Tasks'},
       { id: 'My Descriptions', icon: <PermMediaOutlinedIcon /> },
-      { id: 'My Created Tasks', icon: <PermMediaOutlinedIcon/> },
-      { id: 'Notifications', icon: <PublicIcon /> },
       { id: 'My Profile', icon: <PeopleIcon /> }
     ]
   }
@@ -188,6 +184,9 @@ function Navigator(props) {
                   onClick={reload}
                   component={RouterLink}
                   to={link}
+                  props= {{
+                    value:1
+                  }}
                   button
                   dense
                   key={childId}

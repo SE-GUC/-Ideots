@@ -20,8 +20,8 @@ export default function Home() {
       </Link>
 
 
-      <Link to="/tabs" style={{ margin: "10px", textAlign: "center" }}>
-        tabs
+      <Link to="/Main" style={{ margin: "10px", textAlign: "center" }}>
+        Main
       </Link>
 
       <Link to="/EventList" style={{ margin: "10px", textAlign: "center" }}>

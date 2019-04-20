@@ -103,7 +103,6 @@ class App extends Component {
     return (
       <div>
         <div
-        
           className="Header"
         >
           <HeaderBar token={this.state.token} logOut={this.logOut} />
@@ -149,8 +148,33 @@ class App extends Component {
             />
             <Route
               exact
-              path="/tabs"
-              render={props => <Tabs token={this.state.token} />}
+              path="/Main"
+              render={props => <Tabs token={this.state.token} value={0}/>}
+            />
+            <Route
+              exact
+              path="/Main/Notifications"
+              render={props => <Tabs token={this.state.token} value={0}/>}
+            />
+            <Route
+              exact
+              path="/Main/Tasks"
+              render={props => <Tabs token={this.state.token} value={1}/>}
+            />  
+             <Route
+              exact
+              path="/Main/MyTasks"
+              render={props => <Tabs token={this.state.token} value={2}/>}
+            />  
+            <Route
+              exact
+              path="/Main/MyEvents"
+              render={props => <Tabs token={this.state.token} value={3}/>}
+            />  
+            <Route
+              exact
+              path="/Main/Requests"
+              render={props => <Tabs token={this.state.token} value={4}/>}
             />  
             <Route
               exact

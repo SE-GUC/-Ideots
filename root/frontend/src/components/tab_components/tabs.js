@@ -29,14 +29,16 @@ const useStyles = makeStyles(theme => ({
     //   backgroundColor: theme.palette.background.paper
     // backgroundColor:"#757575",
     // background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-    borderRadius: 50,
+    borderRadius: 25,
     border: 50,
     color: 'white',
     marginBottom: '0.5%',
     marginTop: '-7%',
+    // marginLeft: '0.5%',
+    // marginRight: '0.5%',
     padding: '10 10px',
     // boxShadow: '0 50px 100px 10px rgba(0, 0, 204, .7)',
-    boxShadow: '0 3px 5px 2px rgba(0, 0, 204, .7)',
+    boxShadow: '0 5px 5px 2px rgba(0, 0, 204, .7)',
   },
   rootGradient: {
     // flexGrow: 15,
@@ -56,7 +58,7 @@ const useStyles = makeStyles(theme => ({
     border: 50,
     color: 'white',
     marginBottom: '0.5%',
-    marginTop: '-5%',
+    marginTop: '-7%',
     // paddingTop: '2%',
     padding: '10 10px',
     boxShadow: '0 3px 5px 2px rgba(33, 203, 243, .3)',
@@ -73,17 +75,18 @@ const useStyles = makeStyles(theme => ({
 
 function SimpleTabs(props) {
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
+  // const [value, setValue] = React.useState(0);
+  const [value, setValue] = React.useState(props.value); 
   var coloring=classes.root;
 
   function handleChange(event, newValue) {
     setValue(newValue);
   }
+  // const val=this.props.value;
   return (
     <div className={value===0?classes.rootGradient:classes.root}>
       <AppBar position="static" >
-        <Tabs  classes={{ indicator: classes.indicator 
-                          }} 
+        <Tabs  classes={{ indicator: classes.indicator }} 
                 value={value} onChange={handleChange}>
           <Tab indicatorColor={"#000"} label="Notifications" />
           <Tab label="Tasks" />
