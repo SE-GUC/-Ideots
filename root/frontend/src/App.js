@@ -103,13 +103,13 @@ class App extends Component {
     return (
       <div>
         <div
-          style={{ position: "fixed", top: "0px", left: "0px", width: "100%" }}
+        
           className="Header"
         >
           <HeaderBar token={this.state.token} logOut={this.logOut} />
         </div>
         <Router>
-          <div className="App" style={{ marginLeft: "15%", marginTop: "3%",paddingTop: "5px" }}>
+          <div className="App" style={{ marginLeft: "15%", marginTop: "3%",paddingTop: "3%" }}>
             <Route
               exact
               path="/"

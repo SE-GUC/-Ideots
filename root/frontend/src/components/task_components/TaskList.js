@@ -3,6 +3,7 @@ import Task from "./TaskItem";
 import axios from "axios";
 import InfiniteScroll from "react-infinite-scroll-component";
 
+import "../../App.css";
 export class TaskList extends Component {
   state = {
     tasks: [],
@@ -42,30 +43,14 @@ export class TaskList extends Component {
           next={this.fetchTasks}
           endMessage={
             <h3
-              style={{
-                width: "100%",
-                height: "50px",
-                backgroundColor: "#ccc",
-                lineHeight: "50px",
-                textAlign: "center",
-                fontSize: "20px",
-                marginBottom: "5px"
-              }}
+              className="loading"
             >
               No More Task
             </h3>
           }
           loader={
             <h3
-              style={{
-                width: "100%",
-                height: "50px",
-                backgroundColor: "#ccc",
-                lineHeight: "50px",
-                textAlign: "center",
-                fontSize: "20px",
-                marginBottom: "5px"
-              }}
+            className="loading"
             >
               Loading...
             </h3>
@@ -79,5 +64,5 @@ export class TaskList extends Component {
     );
   }
 }
-
+ 
 export default TaskList;

@@ -14,6 +14,7 @@ const styles = {
     margin: 1,
     width: 150,
     height: 150,
+    
   },
 };
 
