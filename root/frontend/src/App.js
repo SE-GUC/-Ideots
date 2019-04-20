@@ -12,7 +12,7 @@ import RequestAsUser from "./components/userRequest_components/RequestAsUser";
 import Tabs from "./components/tab_components/tabs";
 import Home from "./components/Home";
 import EventRequest from "./components/eventRequest";
-// import Notification from "./components/notification_components/Notifications";
+import NotificationList from "./components/notification_components/Notifications";
 import HeaderBar from "./components/navbar_components/HeaderAppBar";
 
 // import AppBar from './components/navbar_components/AppBar'
@@ -151,6 +151,11 @@ class App extends Component {
               exact
               path="/tabs"
               render={props => <Tabs token={this.state.token} />}
+            />  
+            <Route
+              exact
+              path="/Notifications"
+              render={props => <NotificationList token={this.state.token} />}
             />          
           </div>
         </Router>
