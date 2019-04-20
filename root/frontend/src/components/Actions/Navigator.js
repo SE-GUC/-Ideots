@@ -76,8 +76,8 @@ function refresh() {
 
 const styles = theme => ({
   categoryHeader: {
-    paddingTop: 16,
-    paddingBottom: 16
+    paddingTop: 14,
+    paddingBottom: 14
   },
   categoryHeaderPrimary: {
     color: theme.palette.common.white
@@ -145,6 +145,10 @@ function Navigator(props) {
     <Drawer variant='permanent' {...other}>
       <List disablePadding>
         <Router>
+        <h1 style={{color:"white",textAlign: "center"}}>
+          Lirten-Hub
+        </h1>
+              
           <ListItem
             className={classNames(
               classes.firebase,
