@@ -22,7 +22,7 @@ import axios from "axios";
 const styles = theme => ({
   root: {
     width: "100%",
-    // height:"10px"
+    height:"3%"
   },
   grow: {
     flexGrow: 1
@@ -53,7 +53,7 @@ const styles = theme => ({
     }
   },
   searchIcon: {
-    width: theme.spacing.unit * 9,
+    width: theme.spacing.unit * 5,
     height: "100%",
     position: "absolute",
     pointerEvents: "none",
@@ -63,13 +63,15 @@ const styles = theme => ({
   },
   inputRoot: {
     color: "inherit",
-    width: "100%"
+    width: "90%",
+    justifyContent: "center"
   },
   inputInput: {
     paddingTop: theme.spacing.unit,
-    paddingRight: theme.spacing.unit,
+    paddingRight: theme.spacing.unit*60,
     paddingBottom: theme.spacing.unit,
-    paddingLeft: theme.spacing.unit * 10,
+    // paddingLeft: theme.spacing.unit * 10,
+    paddingLeft: theme.spacing.unit * 60,
     transition: theme.transitions.create("width"),
     width: "100%",
     [theme.breakpoints.up("md")]: {
@@ -190,7 +192,7 @@ class PrimarySearchAppBar extends React.Component {
     return (
       <div className={classes.root}>
         <AppBar position="static">
-          <Toolbar style={{ backgroundColor: "#000" }}>
+          <Toolbar style={{ backgroundColor: "#18202c" }}>
 
             <Typography
               className={classes.title}
