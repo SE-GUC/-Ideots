@@ -84,12 +84,29 @@ const styles = theme => ({
     fontSize: 24,
     fontFamily: theme.typography.fontFamily,
     color: theme.palette.common.white,
-    marginTop: '1px',
+    marginTop: '1 px',
+    backgroundColor: "#18202c",   //background under photo
     
   },
-  itemActionable: {
+  itemActionableMember: {
     '&:hover': {
-      backgroundColor: 'rgba(255, 255, 255, 0.08)',
+      backgroundColor: '#FFFF00',
+      color:"#000"
+      // backgroundColor: 'rgba(255, 255, 255, 0.08)',
+    },
+  },
+  itemActionablePartner: {
+    '&:hover': {
+      backgroundColor: '#FE6B8B',
+      color:"#000"
+      // backgroundColor: 'rgba(255, 255, 255, 0.08)',
+    },
+  },
+  itemActionableConsultancy: {
+    '&:hover': {
+      backgroundColor: '#FF8E53',
+      color:"#000"
+      // backgroundColor: 'rgba(255, 255, 255, 0.08)',
     },
   },
   itemActiveItem: {
@@ -118,8 +135,9 @@ function Navigator(props) {
         <ListItem className={classNames(classes.firebase, classes.item, classes.itemCategory)}>
           <Avatar/>
         </ListItem>
+          {/*
         <ListItem className={classNames(classes.item, classes.itemCategory)}>
-          <ListItemIcon>
+           <ListItemIcon>
             <HomeIcon />
           </ListItemIcon>
           <ListItemText
@@ -128,14 +146,16 @@ function Navigator(props) {
             }}
           >
             Tools & Actions
-          </ListItemText>
+          </ListItemText> 
         </ListItem>
+          */}
         {categories.map(({ id, children }) => (
-          <React.Fragment key={id}>
-            <ListItem className={classes.categoryHeader}>
+          <React.Fragment key={id} >
+            <ListItem className={classes.categoryHeader } >
               <ListItemText
                 classes={{
                   primary: classes.categoryHeaderPrimary,
+                  
                 }}
               >
                 {id}
@@ -149,6 +169,7 @@ function Navigator(props) {
                 className={classNames(
                   classes.item,
                   classes.itemActionable,
+                  id==='Member'?classes.itemActionableMember:id==='Partner'?classes.itemActionablePartner:classes.itemActionableConsultancy,
                   active && classes.itemActiveItem,
                 )}
               >

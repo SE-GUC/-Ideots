@@ -20,7 +20,8 @@ class NotificationItem extends Component {
     return (
      
 
-     <Card style={{ border: `1px solid ${color}`, margin: "2%",marginLeft:"25%",marginRight:"25%"}}  onClick={this.props.readNotification.bind(this, _id)} >
+     <Card style={{ border: `1px solid ${color}`, margin: "2%",marginLeft:"25%",marginRight:"25%",borderRadius: 15}} 
+           onClick={this.props.readNotification.bind(this, _id)} >
      
      <CardContent>
        <Typography component="p" style={{fontSize:"30px"}}>{`${content}`}</Typography>
