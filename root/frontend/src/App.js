@@ -2,6 +2,9 @@ import React, { Component } from "react";
 
 import "./App.css";
 import SignIn from "./components/login_Components/SignIn";
+import ButtonAppBar from "./components/login_Components/ButtonAppBar";
+import FormPage from "./components/login_Components/FormPage";
+import SignUp from "./components/login_Components/SignUp";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 // import { Redirect } from "react-router-dom";
 // import Welcome from "./components/login_Components/Welcome";
@@ -27,7 +30,8 @@ const axios = require("axios");
 
 class App extends Component {
   state = {
-    clickedEvent: {}
+    clickedEvent: {},
+    wantsToLogin: true
   };
   setTheEvent = eventProps => {
     this.setState({
@@ -68,6 +72,18 @@ class App extends Component {
       console.log("wrong email or password");
     }
   };
+ 
+  loginORsignup = async flag => {
+    this.setState({wantsToLogin: flag });
+  };
+
+  signUp = async ()=>{
+    let body ={
+      email:this.state.email,
+      password:this.state.password
+    }
+  }
+ 
   componentWillMount() {
     this.setState({
       loggedIn: localStorage.getItem("loggedIn"),
@@ -88,32 +104,42 @@ class App extends Component {
     let logged = localStorage.getItem("loggedIn") === "true";
 
     if (!logged) {
-      console.log("heyhey");
-      return (
-        <div>
-          <SignIn
-            signInMethod={this.logIn}
-            mail={this.emailHandler}
-            pass={this.passwordHandler}
-          />
-        </div>
-      );
+      if (this.state.wantsToLogin)
+        return (
+          <div>
+            {" "}
+            <ButtonAppBar flag={this.loginORsignup} />
+            <SignIn
+              signInMethod={this.logIn}
+              mail={this.emailHandler}
+              pass={this.passwordHandler}
+            />
+          </div>
+        );
+      else
+        return (
+          <div>
+            <ButtonAppBar flag={this.loginORsignup} />
+            <SignUp />
+            {/* <FormPage /> */}
+          </div>
+        );
     }
 
     return (
       <div>
-        <div
-        
-          className="Header"
-        >
+        <div className="Header">
           <HeaderBar token={this.state.token} logOut={this.logOut} />
         </div>
         <Router>
-          <div className="App" style={{ marginLeft: "15%", marginTop: "3%",paddingTop: "3%" }}>
+          <div
+            className="App"
+            style={{ marginLeft: "15%", marginTop: "3%", paddingTop: "3%" }}
+          >
             <Route
               exact
               path="/"
-              style={{   }}
+              style={{}}
               render={props => <Home token={this.state.token} />}
             />
             <Route
@@ -130,7 +156,7 @@ class App extends Component {
               path="/eventRequests"
               render={props => <EventRequest token={this.state.token} />}
             />
-            
+
             <Route
               exact
               path="/UserRequests"
@@ -151,13 +177,12 @@ class App extends Component {
               exact
               path="/tabs"
               render={props => <Tabs token={this.state.token} />}
-            />          
+            />
           </div>
         </Router>
         <div>
           <PaperBase token={this.state.token} />
         </div>
-        
       </div>
     );
   }
