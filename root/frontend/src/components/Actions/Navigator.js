@@ -99,22 +99,22 @@ const styles = theme => ({
   },
   itemActionableMember: {
     '&:hover': {
-      backgroundColor: '#FFFF00',
+      backgroundColor:'#B3E5FC', //'#FFFF00',
       color:"#000"
       // backgroundColor: 'rgba(255, 255, 255, 0.08)',
     },
   },
   itemActionablePartner: {
     '&:hover': {
-      backgroundColor: '#FE6B8B',
+      backgroundColor:'#03A9F4',// '#FE6B8B',
       color:"#000"
       // backgroundColor: 'rgba(255, 255, 255, 0.08)',
     },
   },
   itemActionableConsultancy: {
     '&:hover': {
-      backgroundColor: '#FF8E53',
-      color:"#000"
+      backgroundColor:'#01579B', //'#FF8E53',
+      color:"#fff"
       // backgroundColor: 'rgba(255, 255, 255, 0.08)',
     },
   },
