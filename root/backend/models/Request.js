@@ -1,5 +1,5 @@
 
-//const uuid = require('uuid')
+const uuid = require('uuid')
 const mongoose = require('mongoose')
 
 const Schema = mongoose.Schema
@@ -10,8 +10,10 @@ const RequestSchema = new Schema(
         partnerID :
         {
             type : Schema.Types.ObjectId,
-            required : true,
+
             ref:'Users',
+//required : true
+
         }
         ,
         consultancyID :

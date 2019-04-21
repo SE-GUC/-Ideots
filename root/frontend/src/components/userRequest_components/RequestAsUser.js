@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import {  Input, FormGroup, Label, Modal, ModalHeader, ModalBody, ModalFooter, Table, Button } from 'reactstrap';
+import {  Input, FormGroup, Label, Modal, ModalHeader, ModalBody, ModalFooter, Table, Button ,Alert} from 'reactstrap';
 class RequestAsUser extends Component {
     state = {
       requests: [],
@@ -59,7 +59,7 @@ class RequestAsUser extends Component {
     getRequests = async  ()=> {
         
       const res = await axios.get(
-        "http://localhost:3000/api/requests/" 
+        "http://localhost:3000/api/requests/", {headers: { Authorization: `Bearer ` + this.props.token }}
       );
       this.setState({ requests: res.data.data });
        
@@ -67,7 +67,8 @@ class RequestAsUser extends Component {
  
 
     addRequest = async() => {
-      await axios.post('http://localhost:3000/api/requests/', this.state.newRequestData).then((response) => {
+      try{
+      await axios.post('http://localhost:3000/api/requests/', this.state.newRequestData,{headers: { Authorization: `Bearer ` + this.props.token }}).then((response) => {
         let { requests } = this.state;
   
        // requests.push(response.data);
@@ -77,11 +78,15 @@ class RequestAsUser extends Component {
         
        
         }});
-      });
+      });}
+      catch(error){
+        alert(   error+"\n"+"Description is required")
+      }
     }
     
-    addTask = async() => {
-        await axios.post('http://localhost:3000/api/tasks/', this.state.newTaskData).then((response) => {
+    addTask = async(req,res) => {
+      try{
+        await axios.post('http://localhost:3000/api/tasks/', this.state.newTaskData,{headers: { Authorization: `Bearer ` + this.props.token }}).then((response) => {
           let { tasks } = this.state;
     
          // requests.push(response.data);
@@ -96,15 +101,29 @@ class RequestAsUser extends Component {
             yearsOfExperience : 0,
           }});
         });
+        }
+        catch(error)
+        {
+
+          alert(
+            error+"\n"+
+            "Check the following :-" +"\n"
+                +"- Description is required" +"\n"
+                +"- Required Skills is required" +"\n"
+                +"- Category is required" +"\n"
+                +'- Required Skills should be in the form of ["skill1","skill2"..]' +"\n")
+        } 
+      
+    
       }
     updateRequest = async()=>{
       let { 
        description  } = this.state.editRequestData;
-  
+  try{
       await axios.put('http://localhost:3000/api/requests/' + this.state.editRequestData.id, {
        
         description
-      }).then((response) => {
+      },{headers: { Authorization: `Bearer ` + this.props.token }}).then((response) => {
         
         this.getRequests()
         this.setState({
@@ -112,6 +131,11 @@ class RequestAsUser extends Component {
           description:"" }
         })
       });
+    }
+    catch(error)
+    {
+      alert(   error+"\n"+"Description can't be empty")
+    }
     }
     editRequest( id,
      description ) {
@@ -121,17 +145,19 @@ class RequestAsUser extends Component {
       });
     }
     deleteRequest(id) {
-      axios.delete('http://localhost:3000/api/requests/' + id).then((response) => {
+      axios.delete('http://localhost:3000/api/requests/' + id,{headers: { Authorization: `Bearer ` + this.props.token }}).then((response) => {
        this.getRequests()
       });
     }
-       
+      
     
       
 
     render() {
+
+     
       this.getRequests()
-      
+     
     
        let  requests = this.state.requests?this.state.requests.map((request) => {
        
@@ -156,6 +182,7 @@ class RequestAsUser extends Component {
             )
           }):""
           return (
+            
             <div className="App container">
       
             <h1>Requests</h1>
@@ -222,7 +249,10 @@ class RequestAsUser extends Component {
 
     <FormGroup>
       <Label for="requiredSkills">requiredSkills</Label>
-      <Input id="requiredSkills" value={this.state.newTaskData.requiredSkills} onChange={(e) => {
+      <Input id="requiredSkills" value={this.state.newTaskData.requiredSkills}
+      
+      onChange={(e) => {
+     
         let { newTaskData } = this.state;
 
         newTaskData.requiredSkills = e.target.value;
