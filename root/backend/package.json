@@ -27,7 +27,6 @@
     "nodemailer-smtp-transport": "^2.7.4",
     "passport-jwt": "^4.0.0",
     "bcryptjs": "*",
-    "joi": "^14.3.1",
     "joi-objectid": "^2.0.0",
     "mongoose": "^5.5.1",
     "mongoose-type-url": "*",
