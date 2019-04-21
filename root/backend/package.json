@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "start": "node index.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "keywords": [
     "server"
@@ -25,7 +26,13 @@
     "nodemailer": "^6.1.0",
     "nodemailer-smtp-transport": "^2.7.4",
     "passport-jwt": "^4.0.0",
-    "uuid": "^3.3.2"
+    "bcryptjs": "*",
+    "joi": "^14.3.1",
+    "joi-objectid": "^2.0.0",
+    "mongoose": "^5.5.1",
+    "mongoose-type-url": "*",
+    "uuid": "^3.3.2",
+    "cors": "^2.8.5"
   },
   "devDependencies": {
     "axios": "^0.18.0",

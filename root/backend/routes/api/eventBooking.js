@@ -4,7 +4,8 @@ const Joi = require("joi");
 const router = express.Router();
 // Models
 const EventBooking = require("../../models/EventBooking");
-
+const Event= require("../../models/Event");
+const notificationController = require("../../controllers/sendNotificationController");
 ///////////CRUDZZZZZZZ\\\\\\\\\\\\
 // Read all EventBookings
 router.get("/", async (req, res) => {
@@ -28,6 +29,14 @@ router.get("/:id", async (req, res) => {
 });
 //-----------------------------------------------\\
 
+// search if user booked an event 
+router.get("/:Event" , async (req,res) =>{
+  theEvent = req.params.Event 
+  theUser =  req.user._id;
+  const eventBooking = await EventBooking.find({'eventId' :theEvent , 'memberId' :theUser})
+  return res.send({data:eventBooking})
+
+})
 router.post("/", async (req, res) => {
   const schema = {
     eventId: Joi.objectId().required() ,
@@ -42,7 +51,13 @@ router.post("/", async (req, res) => {
     return res.status(400).send({ error: result.error.details[0].message });
  
   const newEventBooking = await EventBooking.create(req.body);
-
+  
+  //-------------(Notify partner that someone has booked a place in the event)--------------------
+  const event = await Event.findOne({'_id': newEventBooking.eventId });
+  await notificationController.notifyUser(newEventBooking.eventId,event.organizerId,`someone has booked a place in the event `);
+  //------------------------(Notify Admins)-------------------------------------
+  await notificationController.notifyAdmins(newEventBooking.eventId,`someone has booked a place in the event`);
+  //------------------------------------------------------------------
   return res.json({ data: newEventBooking });
 });
 //----------------------------------------\\
@@ -62,6 +77,11 @@ router.put("/:id", async (req, res) => {
     return res.status(400).send({ error: result.error.details[0].message });
 
  const updatedBooking  = await EventBooking.updateOne({ '_id': requestedId }, req.body);
+ //-------------(Notify member that the booking was edited)--------------------
+ await notificationController.notifyUser(updatedBooking.eventId,updatedBooking.memberId,`Booking was edited`);
+ //------------------------(Notify Admins)-------------------------------------
+ await notificationController.notifyAdmins(newEventBooking.eventId,`someone has booked a place in the event`);
+ //------------------------------------------------------------------
 
   res.send(updatedBooking);
 });
@@ -75,7 +95,9 @@ router.delete("/:id", async (req, res) => {
     return res
       .status(400)
       .send({ error: "The Booking you are tryinig to delete does not exist" });
-
+//-------------(Notify member that the booking was edited)--------------------
+await notificationController.notifyUser(requestedId,eventBooking.memberId,`Your booking was rejected`);
+//------------------------------------------------------------------
   res.send(eventBooking);
 });
 //---------------------------------\\

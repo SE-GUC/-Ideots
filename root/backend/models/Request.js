@@ -7,18 +7,17 @@ const Schema = mongoose.Schema
 
 const RequestSchema = new Schema(
     {
-       
         partnerID :
         {
             type : Schema.Types.ObjectId,
+            required : true,
             ref:'Users',
-            required : true
         }
         ,
         consultancyID :
         {
             type : Schema.Types.ObjectId,
-            ref:'Users',            
+            ref:'Users',
         }
         ,
         description :
@@ -36,12 +35,14 @@ const RequestSchema = new Schema(
         consult : 
         {
             type : Boolean,
-            required : true
+         //   required : true
         } 
         ,
         accepted : {
             
-            type : Number,
+
+            type : Boolean,
+
            // required : true
         
         },                                  //-1 rejected , 0 pending , 1 accepted
@@ -49,7 +50,8 @@ const RequestSchema = new Schema(
         {
             type: String,
         
-        }
+        },
+
 
     }
 )
