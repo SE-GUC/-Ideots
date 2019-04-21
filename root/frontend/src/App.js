@@ -21,6 +21,7 @@ import EventList from "./components/event_components/EventList";
 import Event from "./components/event_components/Event";
 
 import PaperBase from "./components/Actions/Paperbase";
+import Profile from "./components/profile/profile";
 // import createMixins from "@material-ui/core/styles/createMixins";
 
 const axios = require("axios");
@@ -151,7 +152,12 @@ class App extends Component {
               exact
               path="/tabs"
               render={props => <Tabs token={this.state.token} />}
-            />          
+            />   
+            <Route
+              exact
+              path="/profile"
+              render={props => <Profile token={this.state.token} />}
+            />       
           </div>
         </Router>
         <div>
