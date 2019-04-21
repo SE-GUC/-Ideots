@@ -8,9 +8,21 @@ const UserSchema = new schema({
 
         enum:['partner','member','consultancy_agency']
     },
+    registrationPhase:{
+        type:Number,               // 1 registered with email and password    //2 email verfied           //3 contract signed
+        required:true
+    },
+    // passwordResetToken :{
+    //     type:String,
+    //     required:true
+    // },
+    // passwordResetExpires:{
+    //     type:Date,
+    //     required:true
+    // },
     name:{
         type:String,
-        required:true
+        //required:true
     },
     email:{
         type:String,

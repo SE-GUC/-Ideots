@@ -30,7 +30,9 @@ passport.use(new LocalStrategy({
    await bcrypt.compare(password ,user.password, function(err, res) {
         if(res) {
         //passwords match
+          if (user.registrationPhase===3)
           return   cb(null, user, {message: 'Logged In Successfully'});
+          return   cb(null, false, {message: 'Email not verified yet'});
         } else {
          // Passwords don't match
          cb(null, false, {message: 'Incorrect email or password.'});
