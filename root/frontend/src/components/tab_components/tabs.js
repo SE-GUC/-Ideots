@@ -42,19 +42,20 @@ const useStyles = makeStyles(theme => ({
   },
   rootGradient: {
     // flexGrow: 15,
-    background: 'linear-gradient(45deg, #01579B 30%, #84FFFF 90%)',
-    // background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 50%)',
+    // background: 'linear-gradient(45deg, #130030 , #172f63 , #130030 )',
+    // background: 'linear-gradient(45deg, #01579B 30%, #84FFFF 90%)',      //blue
+    // background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 50%)',      //red
     borderRadius: 15,
     border: 10,
     color: 'white',
     marginBottom: '0.5%',
     marginTop: '-7%',
     // padding: '10 10px',
-    boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+    // boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
   },
   rootBlue: {
     flexGrow: 1,
-    background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)',
+    background: 'linear-gradient(45deg, #FF6F00 30%, #FFFF00 90%)', 
     borderRadius: 50,
     border: 50,
     color: 'white',
@@ -65,7 +66,9 @@ const useStyles = makeStyles(theme => ({
     boxShadow: '0 3px 5px 2px rgba(33, 203, 243, .3)',
   },
   indicator: {
-    backgroundColor: "#FFFF00"
+    // backgroundColor: "#FFFF00",
+    background: 'linear-gradient(45deg, #FF6F00 30%, #FFFF00 90%)',      //red
+    height:"4px"
   },
   flexContainer:{
     backgroundColor:"#000",
@@ -85,7 +88,7 @@ function SimpleTabs(props) {
   }
   // const val=this.props.value;
   return (
-    <div className={value===0?classes.rootGradient:classes.root}>
+    <div className={value===0?classes.rootGradient:classes.rootGradient}>
       <AppBar position="static" >
         <Tabs  classes={{ indicator: classes.indicator }} 
                 value={value} onChange={handleChange}>

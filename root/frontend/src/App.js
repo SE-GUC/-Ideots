@@ -101,7 +101,7 @@ class App extends Component {
     }
 
     return (
-      <div>
+      <div style={{backgroundImage: "linear-gradient(45deg, #130030 , #172f63 , #130030 )"}}>
         <div
           className="Header"
         >

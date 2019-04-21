@@ -16,7 +16,7 @@ class NotificationItem extends Component {
   };
   render() {
     const { content, date, _id, notifierId, isRead } = this.props.notifications;
-    const color=isRead?"#41c300":"#4a26fd";//"#9C27B0":"#4a26fd"  ;"#FF9100";"#58c6ff";"#75e900"
+    const color=isRead?"#41c300":"#E65100";//"#9C27B0":"#4a26fd"  ;"#FF9100";"#58c6ff";"#75e900";"#76FF03"
     const notificationDate = new Date(date);
     const day = notificationDate.toLocaleDateString("en-us", { weekday: "long" });
     const monthName = notificationDate.toString().split(" ")[1];
@@ -26,7 +26,7 @@ class NotificationItem extends Component {
     return (
      
 
-     <Card style={{ border: `1px solid ${color}`, margin: "2%",marginLeft:"25%",marginRight:"25%",borderRadius: 15}} 
+     <Card style={{backgroundColor: "#f1f2f9", border: `1px solid ${color}`, margin: "2%",marginLeft:"25%",marginRight:"25%",borderRadius: 15}} 
            onClick={this.props.readNotification.bind(this, _id)} >
        
      <CardContent>

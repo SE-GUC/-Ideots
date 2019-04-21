@@ -1,6 +1,7 @@
 .App {
   /* height: 32%; */
   text-align: center;
+  background: 'linear-gradient(45deg, #130030 , #172f63 , #130030 )'
 }
 
 .Header{
