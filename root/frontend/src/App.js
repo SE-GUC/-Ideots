@@ -180,6 +180,7 @@ class App extends Component {
               exact
               path="/Notifications"
               render={props => <NotificationList token={this.state.token} />}
+
             />          
           </div>
         </Router>
