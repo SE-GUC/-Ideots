@@ -8,6 +8,8 @@ import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/styles";
+import "../../App.css";
+
 const theme = createMuiTheme({});
 
 const styles = theme => ({
@@ -37,13 +39,8 @@ class TaskCard extends React.Component {
 
     return (
       <Card
-      /*  
-      style={{
-          border: "1px solid blue",
-          margin: "10px"
-        }}
-        */
-        style={{ border: `1px solid blue`, margin: "2%",marginLeft:"10%",marginRight:"15%"}}
+      //#adaeb5
+        style={{  backgroundColor: "#f1f2f9",border: `1px solid #130030`, margin: "2%",marginLeft:"25%",marginRight:"25%",borderRadius: 15}}       
       >
         <CardHeader
           classes={{
@@ -76,11 +73,12 @@ class TaskCard extends React.Component {
               component="p"
               style={{
                 width: "70%",
-                backgroundColor: "#58c6ff",
+                backgroundColor: "#010c73",
                 opacity: ".8",
                 textAlign: "center",
                 fontSize: "20px",
-                border: "1px solid #ccc"
+                border: "1px solid #ccc",
+                color:"#fff"
               }}
             >
               {"$ " + task.payment}
@@ -89,11 +87,12 @@ class TaskCard extends React.Component {
               component="p"
               style={{
                 width: "70%",
-                backgroundColor: "#58c6ff",
+                backgroundColor: "#010c73",
                 opacity: ".8",
                 textAlign: "center",
                 fontSize: "20px",
-                border: "1px solid #ccc"
+                border: "1px solid #ccc",
+                color:"#fff"
               }}
             >
               {"Year of Experience needed " + task.yearsOfExperience}
@@ -102,11 +101,12 @@ class TaskCard extends React.Component {
               component="p"
               style={{
                 width: "70%",
-                backgroundColor: "#58c6ff",
+                backgroundColor: "#010c73",
                 opacity: ".8",
                 textAlign: "center",
                 fontSize: "20px",
-                border: "1px solid #ccc"
+                border: "1px solid #ccc",
+                color:"#fff"
               }}
             >
               {applyCount + " applications"}
