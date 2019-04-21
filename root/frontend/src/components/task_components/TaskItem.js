@@ -39,7 +39,8 @@ class TaskCard extends React.Component {
 
     return (
       <Card
-        style={{ border: `1px solid #4a26fd`, margin: "2%",marginLeft:"25%",marginRight:"25%",borderRadius: 15}}       
+      //#adaeb5
+        style={{  backgroundColor: "#f1f2f9",border: `1px solid #130030`, margin: "2%",marginLeft:"25%",marginRight:"25%",borderRadius: 15}}       
       >
         <CardHeader
           classes={{
@@ -72,11 +73,12 @@ class TaskCard extends React.Component {
               component="p"
               style={{
                 width: "70%",
-                backgroundColor: "#58c6ff",
+                backgroundColor: "#010c73",
                 opacity: ".8",
                 textAlign: "center",
                 fontSize: "20px",
-                border: "1px solid #ccc"
+                border: "1px solid #ccc",
+                color:"#fff"
               }}
             >
               {"$ " + task.payment}
@@ -85,11 +87,12 @@ class TaskCard extends React.Component {
               component="p"
               style={{
                 width: "70%",
-                backgroundColor: "#58c6ff",
+                backgroundColor: "#010c73",
                 opacity: ".8",
                 textAlign: "center",
                 fontSize: "20px",
-                border: "1px solid #ccc"
+                border: "1px solid #ccc",
+                color:"#fff"
               }}
             >
               {"Year of Experience needed " + task.yearsOfExperience}
@@ -98,11 +101,12 @@ class TaskCard extends React.Component {
               component="p"
               style={{
                 width: "70%",
-                backgroundColor: "#58c6ff",
+                backgroundColor: "#010c73",
                 opacity: ".8",
                 textAlign: "center",
                 fontSize: "20px",
-                border: "1px solid #ccc"
+                border: "1px solid #ccc",
+                color:"#fff"
               }}
             >
               {applyCount + " applications"}

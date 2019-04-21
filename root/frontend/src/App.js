@@ -81,6 +81,13 @@ class App extends Component {
     let body ={
       email:this.state.email,
       password:this.state.password
+    };
+    let res;
+    try{
+      res = await axios.post("http://localhost:3000/api/auth/login",body)
+    }
+    catch {
+      
     }
   }
  

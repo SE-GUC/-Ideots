@@ -18,67 +18,76 @@ import SettingsInputComponentIcon from '@material-ui/icons/SettingsInputComponen
 import TimerIcon from '@material-ui/icons/Timer';
 import SettingsIcon from '@material-ui/icons/Settings';
 import PhonelinkSetupIcon from '@material-ui/icons/PhonelinkSetup';
-import Avatar from "./Avatar";
+import Avatar from './Avatar';
+import { Link, LinearProgress } from '@material-ui/core';
+import { Link as RouterLink } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import EventList from '../event_components/EventList';
+import Tabs from '../tab_components/tabs';
+import MyEventList from '../event_components/MyEventList';
 
 const categories = [
   {
     id: 'Member',
     children: [
-      { id: 'View Tasks', icon: <SettingsInputComponentIcon/> },
-      { id: 'Submit final product', icon: <DnsRoundedIcon /> },
-      { id: 'View Events', icon: <PermMediaOutlinedIcon /> },
-      { id: 'Notifications', icon: <PublicIcon /> },
-      { id: 'My Profile', icon: <PeopleIcon /> },
-     
-    ],
+      { id: 'Notifications', icon: <PublicIcon />, link: '/Main/Notifications' },
+      { id: 'View Tasks', icon: <SettingsInputComponentIcon />, link: '/Main/Tasks'  },
+      // { id: 'Submit final product', icon: <DnsRoundedIcon /> },
+      {id: 'View Events',icon: <PermMediaOutlinedIcon />,link: '/Eventlist'},
+      { id: 'My Profile', icon: <PeopleIcon />, link: '/Eventlist' }
+    ]
   },
   {
     id: 'Partner',
     children: [
+      { id: 'Notifications', icon: <PublicIcon />,link: '/Main/Notifications' },
+      { id: 'My Tasks', icon: <SettingsInputComponentIcon /> , link: '/Main/Tasks' },
       { id: 'Create New Task', icon: <PhonelinkSetupIcon /> },
-      { id: 'My Tasks', icon: <SettingsInputComponentIcon /> },
       { id: 'My Products', icon: <DnsRoundedIcon /> },
       { id: 'Review Consultancy', icon: <PhonelinkSetupIcon /> },
       { id: 'Create New Request', icon: <PhonelinkSetupIcon /> },
-      { id: 'Notifications', icon: <PublicIcon /> },
-      { id: 'Feedbacks', icon: <PublicIcon  /> },
-      { id: 'My Profile', icon: <PeopleIcon /> },
-    ],
+      { id: 'Feedbacks', icon: <PublicIcon /> },
+      { id: 'My Profile', icon: <PeopleIcon /> }
+    ]
   },
 
   {
     id: 'Consultancy',
     children: [
+      { id: 'Notifications', icon: <PublicIcon />,link: '/Main/Notifications' },
+      { id: 'My Created Tasks', icon: <PermMediaOutlinedIcon/> , link: '/Main/Tasks'},
       { id: 'My Descriptions', icon: <PermMediaOutlinedIcon /> },
-      { id: 'My Created Tasks', icon: <PermMediaOutlinedIcon/> },
-      { id: 'Notifications', icon: <PublicIcon  /> },
-      { id: 'My Profile', icon: <PeopleIcon  /> },
-      
-    ],
-  },
+      { id: 'My Profile', icon: <PeopleIcon /> }
+    ]
+  }
 ];
+
+function reload() {
+  return window.setTimeout(refresh, 300);
+}
+
+function refresh() {
+  return window.location.reload();
+}
 
 const styles = theme => ({
   categoryHeader: {
-    paddingTop: 16,
-    paddingBottom: 16,
-    
+    paddingTop: 14,
+    paddingBottom: 14
   },
   categoryHeaderPrimary: {
-    color: theme.palette.common.white,
+    color: theme.palette.common.white
   },
   item: {
     paddingTop: 4,
     paddingBottom: 4,
-    color: 'rgba(255, 255, 255, 0.7)',
-    
+    color: 'rgba(255, 255, 255, 0.7)'
   },
   itemCategory: {
     backgroundColor: '#232f3e',
     boxShadow: '0 -1px 0 #404854 inset',
     paddingTop: 16,
-    paddingBottom: 16,
-    
+    paddingBottom: 16
   },
   firebase: {
     fontSize: 24,
@@ -90,110 +99,126 @@ const styles = theme => ({
   },
   itemActionableMember: {
     '&:hover': {
-      backgroundColor: '#FFFF00',
+      backgroundColor:'#B3E5FC', //'#FFFF00',
       color:"#000"
       // backgroundColor: 'rgba(255, 255, 255, 0.08)',
     },
   },
   itemActionablePartner: {
     '&:hover': {
-      backgroundColor: '#FE6B8B',
+      backgroundColor:'#03A9F4',// '#FE6B8B',
       color:"#000"
       // backgroundColor: 'rgba(255, 255, 255, 0.08)',
     },
   },
   itemActionableConsultancy: {
     '&:hover': {
-      backgroundColor: '#FF8E53',
-      color:"#000"
+      backgroundColor:'#01579B', //'#FF8E53',
+      color:"#fff"
       // backgroundColor: 'rgba(255, 255, 255, 0.08)',
     },
   },
   itemActiveItem: {
-    color: '#4fc3f7',
+    color: '#4fc3f7'
   },
   itemPrimary: {
     color: 'inherit',
     fontSize: theme.typography.fontSize,
     '&$textDense': {
-      fontSize: theme.typography.fontSize,
-      
-    },
+      fontSize: theme.typography.fontSize
+    }
   },
   textDense: {},
   divider: {
-    marginTop: theme.spacing.unit * 2,
-  },
+    marginTop: theme.spacing.unit * 2
+  }
 });
 
 function Navigator(props) {
   const { classes, ...other } = props;
 
   return (
-    <Drawer variant="permanent" {...other}>
+    <Drawer variant='permanent' {...other}>
       <List disablePadding>
-        <ListItem className={classNames(classes.firebase, classes.item, classes.itemCategory)}>
-          <Avatar/>
-        </ListItem>
-          {/*
-        <ListItem className={classNames(classes.item, classes.itemCategory)}>
-           <ListItemIcon>
-            <HomeIcon />
-          </ListItemIcon>
-          <ListItemText
-            classes={{
-              primary: classes.itemPrimary,
-            }}
+        <Router>
+        <h1 style={{color:"white",textAlign: "center"}}>
+          Lirten-Hub
+        </h1>
+              
+          <ListItem
+            className={classNames(
+              classes.firebase,
+              classes.item,
+              classes.itemCategory
+            )}
           >
-            Tools & Actions
-          </ListItemText> 
-        </ListItem>
-          */}
-        {categories.map(({ id, children }) => (
-          <React.Fragment key={id} >
-            <ListItem className={classes.categoryHeader } >
-              <ListItemText
-                classes={{
-                  primary: classes.categoryHeaderPrimary,
-                  
-                }}
-              >
-                {id}
-              </ListItemText>
-            </ListItem>
-            {children.map(({ id: childId, icon, active }) => (
-              <ListItem
-                button
-                dense
-                key={childId}
-                className={classNames(
-                  classes.item,
-                  classes.itemActionable,
-                  id==='Member'?classes.itemActionableMember:id==='Partner'?classes.itemActionablePartner:classes.itemActionableConsultancy,
-                  active && classes.itemActiveItem,
-                )}
-              >
-                <ListItemIcon>{icon}</ListItemIcon>
+            <Avatar />
+          </ListItem>
+          {/*
+          <ListItem className={classNames(classes.item, classes.itemCategory)}>
+            <ListItemIcon>
+              <HomeIcon />
+            </ListItemIcon>
+            <ListItemText
+              classes={{
+                primary: classes.itemPrimary,
+              }}
+            >
+              Tools & Actions
+            </ListItemText>
+          </ListItem>
+            */}
+          {categories.map(({ id, children }) => (
+            <React.Fragment key={id}>
+              <ListItem className={classes.categoryHeader}>
                 <ListItemText
                   classes={{
-                    primary: classes.itemPrimary,
-                    textDense: classes.textDense,
+                    primary: classes.categoryHeaderPrimary
                   }}
                 >
-                  {childId}
+                  {id}
                 </ListItemText>
               </ListItem>
-            ))}
-            <Divider className={classes.divider} />
-          </React.Fragment>
-        ))}
+              {children.map(({ id: childId, icon, link , active}) => (
+                <ListItem
+                  onClick={reload}
+                  component={RouterLink}
+                  to={link}
+                  props= {{
+                    value:1
+                  }}
+                  button
+                  dense
+                  key={childId}
+                  className={classNames(
+                    classes.item,
+                     classes.itemActionable,
+                     id==='Member'?classes.itemActionableMember:id==='Partner'?classes.itemActionablePartner:classes.itemActionableConsultancy,
+                     active && classes.itemActiveItem,
+                     )}
+                >
+                  <ListItemIcon>{icon}</ListItemIcon>
+                  <ListItemText
+                    classes={{
+                      primary: classes.itemPrimary,
+                      textDense: classes.textDense
+                    }}
+                  >
+                    {childId}
+                  </ListItemText>
+                </ListItem>
+              ))}
+              <Divider className={classes.divider} />
+            </React.Fragment>
+          ))}
+        </Router>
       </List>
     </Drawer>
   );
 }
 
 Navigator.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(Navigator);
@@ -303,15 +328,15 @@ export default withStyles(styles)(Navigator);
 //       <div className={classes.root}>
 //         <CssBaseline />
 //         <AppBar
-//           position="fixed"
+//           position='fixed'
 //           className={classNames(classes.appBar, {
 //             [classes.appBarShift]: this.state.open,
 //           })}
 //         >
 //           <Toolbar disableGutters={!this.state.open}>
 //             <IconButton
-//               color="inherit"
-//               aria-label="Open drawer"
+//               color='inherit'
+//               aria-label='Open drawer'
 //               onClick={this.handleDrawerOpen}
 //               className={classNames(classes.menuButton, {
 //                 [classes.hide]: this.state.open,
@@ -319,13 +344,13 @@ export default withStyles(styles)(Navigator);
 //             >
 //               <MenuIcon />
 //             </IconButton>
-//             <Typography variant="h6" color="inherit" noWrap>
-             
+//             <Typography variant='h6' color='inherit' noWrap>
+
 //             </Typography>
 //           </Toolbar>
 //         </AppBar>
 //         <Drawer
-//           variant="permanent"
+//           variant='permanent'
 //           className={classNames(classes.drawer, {
 //             [classes.drawerOpen]: this.state.open,
 //             [classes.drawerClose]: !this.state.open,
@@ -362,7 +387,7 @@ export default withStyles(styles)(Navigator);
 //             ))}
 //           </List>
 //         </Drawer>
-      
+
 //       </div>
 //     );
 //   }

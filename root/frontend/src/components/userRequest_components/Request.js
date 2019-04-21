@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import {  Input, FormGroup, Label, Modal, ModalHeader, ModalBody, ModalFooter, Table, Button } from 'reactstrap';
-class Request extends Component {
+class Request2 extends Component {
     state = {
       requests: [],
      
@@ -26,7 +26,7 @@ class Request extends Component {
     getRequests = async  ()=> {
         
       const res = await axios.get(
-        "http://localhost:3000/api/requests/" 
+        "http://localhost:3000/api/adminRequests/all" 
       );
       this.setState({ requests: res.data.data });
        
@@ -37,8 +37,8 @@ class Request extends Component {
       let { 
         accepted ,        
         feedback  } = this.state.editRequestData;
-  
-      await axios.put('http://localhost:3000/api/requests/' + this.state.editRequestData.id, {
+  try{
+      await axios.put('http://localhost:3000/api/adminRequests/' + this.state.editRequestData.id, {
        
         accepted ,        
         feedback 
@@ -47,10 +47,11 @@ class Request extends Component {
         this.getRequests()
         this.setState({
           editRequestModal: false, editRequestData: { id: '', 
-          accepted : 0,        
+          accepted : '',        
           feedback : '', }
         })
-      });
+      });}catch(error)
+      {alert("accepted should be true or false and please write a feedback")}
     }
     editRequest( id,
       accepted ,        
@@ -62,7 +63,7 @@ class Request extends Component {
       });
     }
     deleteRequest(id) {
-      axios.delete('http://localhost:3000/api/requests/' + id).then((response) => {
+      axios.delete('http://localhost:3000/api/adminRequests/' + id).then((response) => {
        this.getRequests()
       });
     }
@@ -159,4 +160,4 @@ class Request extends Component {
           );
         }
 }
-export default Request;
+export default Request2;

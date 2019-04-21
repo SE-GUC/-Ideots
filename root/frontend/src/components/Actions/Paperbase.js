@@ -130,22 +130,24 @@ theme = {
 
 // const drawerWidth = 256;
 const drawerWidth = "15%";
-const drawerHeight = "98%";
+const drawerHeight = "100%";
 // const marginTop = "63px";
-const marginTop = "3%";
+// const marginTop = "3%";
+const marginTop = "0%";
+const paddingTop = "1%";
 
 const styles = {
   root: {
     display: "flex",
-    // minHeight: "100vh",
-    minHeight: "10%"
+    minHeight: "100vh",
+    // minHeight: "10%"
   },
   drawer: {
     [theme.breakpoints.up("sm")]: {
       width: drawerWidth,
       height:drawerHeight,
       flexShrink: 0,
-      marginTop:marginTop
+      marginTop:marginTop,
     }
   },
   appContent: {
