@@ -16,9 +16,10 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import MailIcon from "@material-ui/icons/Mail";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 // import MoreIcon from "@material-ui/icons/MoreVert";
-import Select from "@material-ui/core/Select";
 import axios from "axios";
 import { ModalHeader, FormGroup, Modal, ModalBody } from "reactstrap";
+import Searchcontent from "./searchContent";
+import Divider from "@material-ui/core/Divider";
 const styles = theme => ({
   root: {
     width: "100%",
@@ -300,11 +301,33 @@ class PrimarySearchAppBar extends React.Component {
           toggle={this.toggleSearchModal.bind(this)}
         >
           <ModalHeader toggle={this.toggleSearchModal.bind(this)}>
-            consultancy
+            Search Content
           </ModalHeader>
           <ModalBody>
             <FormGroup>
-              <h1>kj;lkjk</h1>
+              <h6>Category</h6>
+              <Searchcontent tasks={this.state.category} searchBy="category" />
+            </FormGroup>
+            <Divider />
+            <FormGroup>
+              <h6>Assigned Person</h6>
+              <Searchcontent
+                tasks={this.state.assignedPerson}
+                searchBy="assignedPerson"
+              />
+            </FormGroup>
+            <Divider />
+            <FormGroup>
+              <h6>Experience</h6>
+              <Searchcontent
+                tasks={this.state.experience}
+                searchBy="experience"
+              />
+            </FormGroup>
+            <Divider />
+            <FormGroup>
+              <h6>Payment</h6>
+              <Searchcontent tasks={this.state.payment} searchBy="payment" />
             </FormGroup>
           </ModalBody>
         </Modal>

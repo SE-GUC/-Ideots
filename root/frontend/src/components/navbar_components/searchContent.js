@@ -22,8 +22,16 @@ function ListDividers(props) {
         <div>
           <ListItem button>
             <ListItemText
-              primary={event.searchBy}
-              secondary={event.description}
+              primary={
+                searchBy == "category"
+                  ? task.category
+                  : searchBy == "payment"
+                  ? task.payment
+                  : searchBy == "yearsOfExperience"
+                  ? task.yearsOfExperience
+                  : task.requiredSkills
+              }
+              secondary={task.description}
             />
           </ListItem>
           <Divider />
