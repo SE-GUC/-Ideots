@@ -28,7 +28,7 @@ export class Event extends Component {
     /*must change the user ID when using authentication 
    */
   console.log(this.props.event._id)
-    axios.get(`http://localhost:3000/api/eventBookings/${this.props.event._id}` , {
+    axios.get(`https://lirten-hub-guc.herokuapp.com/api/eventBookings/${this.props.event._id}` , {
       headers: { Authorization: `Bearer ` + this.props.token }
     })
     .then(res =>{
@@ -131,7 +131,7 @@ export class Event extends Component {
       /*
     YOU SHOULD CHANGE THE ID OF THE USER 
     */
-   const bookings = await  axios.get(`http://localhost:3000/api/eventBookings/${this.props.event._id}/5cb109419cf6047a9651c7ba`)
+   const bookings = await  axios.get(`https://lirten-hub-guc.herokuapp.com/api/eventBookings/${this.props.event._id}/5cb109419cf6047a9651c7ba`)
    const oneBooking = bookings.data.data[0]
    const bookingInfo = ()=>{
      return (
@@ -168,7 +168,7 @@ export class Event extends Component {
   };
 
   getTheNameOfOrganizer = async id =>{
-   const user= await axios.get(`http://localhost:3000/api/users/${id}`)
+   const user= await axios.get(`https://lirten-hub-guc.herokuapp.com/api/users/${id}`)
    const name = user.data.name 
    return name  
   }

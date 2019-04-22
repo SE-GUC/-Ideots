@@ -25,7 +25,7 @@ export class Applyfortasks extends Component {
   applicants ;
   
   componentDidMount() {
-    axios.get("http://localhost:3000/api/tasks/5caf03a293cf2015f42e2446")
+    axios.get("https://lirten-hub-guc.herokuapp.com/api/tasks/5caf03a293cf2015f42e2446")
       .then(res => {
         const tasks = res.data.task;
          this.applicants = res.data.task.applicants;
@@ -125,7 +125,7 @@ export class Applyfortasks extends Component {
 Submit = () => {
 
   
-  axios.post("http://localhost:3000/api/application", {  applicantId: "5c9fe28433caec2078bfa358",
+  axios.post("https://lirten-hub-guc.herokuapp.com/api/application", {  applicantId: "5c9fe28433caec2078bfa358",
   taskId:"5caf03a293cf2015f42e2446" })
   .then(res => {
     console.log(res);
@@ -135,7 +135,7 @@ Submit = () => {
    
  
   console.log(this.applicants)
-  axios.put("http://localhost:3000/api/tasks/5caf03a293cf2015f42e2446", {
+  axios.put("https://lirten-hub-guc.herokuapp.com/api/tasks/5caf03a293cf2015f42e2446", {
       applicants:this.getUnique( [...this.applicants,"5c9fe28433caec2078bfa358"])
   })
   .then(res => {
