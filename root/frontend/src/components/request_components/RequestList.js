@@ -11,7 +11,7 @@ export class RequestList extends Component {
   }
 
   fetchTasks = () => {
-    axios.get("http://localhost:3000/api/requests").then(res => {
+    axios.get("https://lirten-hub-guc.herokuapp.com/api/requests").then(res => {
       this.setState({ requests: res.data.data });
     });
   };
