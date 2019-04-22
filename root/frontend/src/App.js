@@ -50,6 +50,10 @@ class App extends Component {
   passwordHandler = password => {
     this.setState({ password });
   };
+  
+  typeHandler = type => {
+    this.setState({type})
+  }
 
   logIn = async () => {
     let body = {
@@ -72,25 +76,30 @@ class App extends Component {
       console.log("wrong email or password");
     }
   };
- 
+
   loginORsignup = async flag => {
-    this.setState({wantsToLogin: flag });
+    this.setState({ wantsToLogin: flag });
   };
 
-  signUp = async ()=>{
-    let body ={
-      email:this.state.email,
-      password:this.state.password
+  signUp = async (pass1,pass2,type) => {
+    if (pass1!==pass2){
+      console.log("not the same password")
+    }
+    else {
+    let body = {
+      email: this.state.email,
+      password: this.state.password,
+      type:type
     };
+    console.log(body);
     let res;
-    try{
-      res = await axios.post("http://localhost:3000/api/auth/login",body)
-    }
-    catch {
-      
-    }
-  }
- 
+    try {
+      res = await axios.post("http://localhost:3000/api/auth/register", body);
+      if (res.status === 200) {
+      }
+    } catch {}
+  }};
+
   componentWillMount() {
     this.setState({
       loggedIn: localStorage.getItem("loggedIn"),
@@ -127,7 +136,12 @@ class App extends Component {
         return (
           <div>
             <ButtonAppBar flag={this.loginORsignup} />
-            <SignUp />
+            <SignUp
+              signUpMethod={this.signUp}
+              mail={this.emailHandler}
+              pass={this.passwordHandler}
+              t={this.typeHandler}
+            />
             {/* <FormPage /> */}
           </div>
         );

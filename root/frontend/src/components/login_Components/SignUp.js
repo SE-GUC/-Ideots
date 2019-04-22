@@ -6,13 +6,15 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
+import * as ReactBootstrap from 'react-bootstrap';
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
-
+import { DropdownButton } from 'react-bootstrap';
+import Dropdown from 'react-bootstrap';
 const styles = theme => ({
   main: {
     width: "auto",
@@ -45,6 +47,9 @@ const styles = theme => ({
     marginTop: theme.spacing.unit * 3
   }
 });
+let x;
+let y;
+let no3="";
 
 const SignUp = props => {
   const { classes } = props;
@@ -79,10 +84,11 @@ const SignUp = props => {
             <Input
               name="password"
               type="password"
-              id="password"
+              id="password1"
               autoComplete="current-password"
               onChange={e => {
                 props.pass(e.target.value);
+                y=e.target.value
               }}
             />
           </FormControl>
@@ -91,24 +97,28 @@ const SignUp = props => {
             <Input
               name="password"
               type="password"
-              id="password"
+              id="password2"
               autoComplete="current-password"
               onChange={e => {
-                props.pass(e.target.value);
+                x=(e.target.value);
               }}
             />
           </FormControl>
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
+          <FormControl margin="normal" required fullWidth>
+          <DropdownButton id="dropdown-basic-button" title="Type">
+         
+              <ReactBootstrap.Dropdown.Item as="button" onClick={()=>no3="member"}>Member</ReactBootstrap.Dropdown.Item>
+              <ReactBootstrap.Dropdown.Item as="button" onClick={()=>no3="partner"}>Partner</ReactBootstrap.Dropdown.Item>
+              <ReactBootstrap.Dropdown.Item as="button" onClick={()=>no3="consultancy_agency"}>consultancy Agency</ReactBootstrap.Dropdown.Item>
+            </DropdownButton>
+          </FormControl>
           <Button
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
-          //  onClick={() => props.signInMethod()}
+            onClick={() => props.signUpMethod(x,y,no3)}
           >
             Sign up
           </Button>
