@@ -15,7 +15,7 @@ export class MyEventList extends Component {
     try {
       const { id } = this.state;
       axios
-        .get("http://localhost:3000/api/events/Organizer/organizer", {
+        .get("https://lirten-hub-guc.herokuapp.com/api/events/Organizer/organizer", {
           headers: { Authorization: `Bearer ` + this.props.token }
         })
         .then(res => {
