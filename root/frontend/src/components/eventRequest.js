@@ -63,6 +63,14 @@ class eventRequest extends Component {
   }
 
 
+
+
+  editEventRequest(){
+
+  }
+
+
+
   render() {
     let eventRequests=this.state.eventRequests.map((eventRequest)=>{
       return(
@@ -70,6 +78,11 @@ class eventRequest extends Component {
        
         <th>{eventRequest.description }</th>
         <th>{eventRequest.numberOfSpaces }</th>
+        <td>
+
+          <Button color="sucsses" size="sm" className="mr-2" onClick={this.editEventRequest.bind(eventRequest.description,eventRequest.numberOfSpaces)}>Edit</Button>
+          <Button color="danger" size="sm">Delete</Button>
+        </td>
       </tr>
 
       )
@@ -80,7 +93,7 @@ class eventRequest extends Component {
       <h3>Create Your Event</h3>
       <Button className="my-3" color="primary" onClick={this.toggleNewRequestModal.bind(this)}>add Request</Button>
         <Modal isOpen={this.state.newRequestModal} toggle={this.toggleNewRequestModal.bind(this)}>
-          <ModalHeader toggle={this.toggleNewRequestModal.bind(this)}>Modal title</ModalHeader>
+          <ModalHeader toggle={this.toggleNewRequestModal.bind(this)}>Add EventRequest</ModalHeader>
           <ModalBody>
           <FormGroup>
           
@@ -113,32 +126,58 @@ class eventRequest extends Component {
             this.setState({newRequestData})
             
           }}/>
-           {/* <Label for="topic">OrganizerId</Label>
-          <Input id="organizerId" value={this.state.newRequestData.organizerId} onChange={(e)=>{
-            let {newRequestData}=this.state;
-            newRequestData.organizerId=e.target.value;
-            this.setState({newRequestData})
-            
-          }}/>
-           <Label for="organizerId">OrganizerId</Label>
-          <Input id="organizerId" value={this.state.newRequestData.organizerId} onChange={(e)=>{
-            let {newRequestData}=this.state;
-            newRequestData.organizerId=e.target.value;
-            this.setState({newRequestData})
-            
-          }}/>
-           <Label for="organizerId">OrganizerId</Label>
-          <Input id="organizerId" value={this.state.newRequestData.organizerId} onChange={(e)=>{
-            let {newRequestData}=this.state;
-            newRequestData.organizerId=e.target.value;
-            this.setState({newRequestData})
-            
-          }}/> */}
+          
           
       </FormGroup>          
       </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={this.addRequest.bind(this)}>Add EventRequest</Button>{' '}
+            <Button color="secondary" onClick={this.toggleNewRequestModal.bind(this)}>Cancel</Button>
+          </ModalFooter>
+        </Modal>
+
+
+
+        <Modal isOpen={this.state.editRequestModal} toggle={this.toggleEditRequestModal.bind(this)}>
+          <ModalHeader toggle={this.toggleNewRequestModal.bind(this)}>Edit EventRequest</ModalHeader>
+          <ModalBody>
+          <FormGroup>
+          
+          <br></br>
+          <Label for="description">Description</Label>
+          <Input id="description" value={this.state.newRequestData.description} onChange={(e)=>{
+            let {newRequestData}=this.state;
+            newRequestData.description=e.target.value;
+            this.setState({newRequestData})
+          }}/>
+          <br></br>
+          <Label for="registrationPrice">RegistrationPrice</Label>
+          <Input id="registrationPrice" value={this.state.newRequestData.registrationPrice} onChange={(e)=>{
+            let {newRequestData}=this.state;
+            newRequestData.registrationPrice=parseInt(e.target.value,10);
+            this.setState({newRequestData})
+          }}/>
+          <br></br>
+          <Label for="numberOfSpaces">NumberOfSpaces</Label>
+          <Input id="numberOfSpaces" value={this.state.newRequestData.numberOfSpaces} onChange={(e)=>{
+            let {newRequestData}=this.state;
+            newRequestData.numberOfSpaces=parseInt(e.target.value,10);
+            this.setState({newRequestData})
+          }}/>
+          <br></br>
+          <Label for="organizerId">OrganizerId</Label>
+          <Input id="organizerId" value={this.state.newRequestData.organizerId} onChange={(e)=>{
+            let {newRequestData}=this.state;
+            newRequestData.organizerId=e.target.value;
+            this.setState({newRequestData})
+            
+          }}/>
+          
+          
+      </FormGroup>          
+      </ModalBody>
+          <ModalFooter>
+            <Button color="primary" onClick={this.editEventRequest.bind(this)}>Add EventRequest</Button>{' '}
             <Button color="secondary" onClick={this.toggleNewRequestModal.bind(this)}>Cancel</Button>
           </ModalFooter>
         </Modal>
@@ -152,6 +191,7 @@ class eventRequest extends Component {
               
               <th>description </th>
               <th>numberOfSpaces </th>
+              <th>Actions</th>
 
             </tr>
           </thead>
