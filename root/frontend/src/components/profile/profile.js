@@ -8,6 +8,8 @@ import Events from './attendedEvents';
 import Experience from './experience';
 import Certificates from './certificates';
 import Field from './field';
+import Reports from './reports';
+import Specialization from './specialization';
 
 export class profile extends Component {
     state={
@@ -39,22 +41,27 @@ export class profile extends Component {
         } catch (error) {
           this.setState({ info: null });
         }
-      };
-   
-  render() {
+      };  
+     
+      
+      render() {
+       
       
     return (
       <div >
         <h1 style={{color:"#fff"}}>profile page</h1>
-       <Info info={this.state.info}/>
+       <Info style={{margin:"10px" }} info={this.state.info}/>
        
-       <Skills info={this.state.info}/>
+       <Skills style={{margin:"100px"}} info={this.state.info}/>
        <Interests info={this.state.info}/>
        <Tasks info={this.state.info}/>
        <Events info={this.state.info}/>
        <Experience info={this.state.info}/>
        <Certificates info={this.state.info}/>
        <Field info={this.state.info}/>
+       <Reports info={this.state.info}/>
+       <Specialization info={this.state.info}/>
+       
       </div>
     )
   }
