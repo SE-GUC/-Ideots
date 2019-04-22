@@ -14,6 +14,7 @@ class eventRequest extends Component {
       organizerId:""
     },
     editRequestData:{
+      id:'',
       description:'',
       registrationPrice:0,
       numberOfSpaces:0
@@ -77,14 +78,53 @@ class eventRequest extends Component {
 
 
 
-  UpdateEventRequest(){
+  // UpdateEventRequest(id){
+  //   let {description,registrationPrice,numberOfSpaces}=this.state.editRequestData
+  //   axios.put('http://localhost:3000/api/eventRequests/'+this.state.editRequestData.id,
+  //   {description,registrationPrice,numberOfSpaces}).then((response)=>{
+  //         console.log(response.data.data);
+  //   })
+  // }
 
+  getRequests = async  ()=> {
+        
+    const res = await axios.get(
+      "http://localhost:3000/api/eventRequests/", {headers: { Authorization: `Bearer ` + this.props.token }}
+    );
+    this.setState({ eventRequests: res.data.data });
+     
+  };
+
+
+  UpdateEventRequest = async()=>{
+    let { 
+     description,registrationPrice,numberOfSpaces  } = this.state.editRequestData;
+try{
+    await axios.put('http://localhost:3000/api/eventRequests/' + this.state.editRequestData.id, {
+     
+      description,registrationPrice,numberOfSpaces
+    },{headers: { Authorization: `Bearer ` + this.props.token }}).then((response) => {
+      
+      this.getRequests()
+      this.setState({
+        editRequestModal: false, editRequestData: { id: '', 
+        description:"",
+      registrationPrice:0,
+    numberOfSpaces:0
+    }
+      })
+    });
+  }
+  catch(error)
+  {
+    alert(   error+"\n"+"Description can't be empty")
+  }
   }
 
-  editEventRequest(description,registrationPrice,numberOfSpaces){
+  editEventRequest(id,description,registrationPrice,numberOfSpaces){
 
     this.setState({
-      editRequestData:{description,registrationPrice,numberOfSpaces},
+      editRequestData:{id,description,registrationPrice,numberOfSpaces},
       editRequestModal:! this.state.editRequestModal
     })
   }
@@ -100,7 +140,7 @@ class eventRequest extends Component {
         <th>{eventRequest.numberOfSpaces }</th>
         <td>
 
-          <Button color="sucsses" size="sm" className="mr-2" onClick={this.editEventRequest.bind(this,eventRequest.description,eventRequest.registrationPrice,eventRequest.numberOfSpaces)}>Edit</Button>
+          <Button color="sucsses" size="sm" className="mr-2" onClick={this.editEventRequest.bind(this,eventRequest['_id'],eventRequest.description,eventRequest.registrationPrice,eventRequest.numberOfSpaces)}>Edit</Button>
           <Button color="danger" size="sm">Delete</Button>
         </td>
       </tr>

@@ -137,8 +137,7 @@ class RequestAsUser extends Component {
       alert(   error+"\n"+"Description can't be empty")
     }
     }
-    editRequest( id,
-     description ) {
+    editRequest( id,description ) {
       this.setState({
         editRequestData: { id, 
           description }, editRequestModal: ! this.state.editRequestModal
