@@ -43,7 +43,7 @@ const categories = [
       { id: 'Notifications', icon: <PublicIcon />,link: '/Main/Notifications' },
       { id: 'My Tasks', icon: <SettingsInputComponentIcon /> , link: '/Main/Tasks' },
       { id: 'Create New Task', icon: <PhonelinkSetupIcon /> },
-      { id: 'My Products', icon: <DnsRoundedIcon /> },
+      { id: 'Create New Event', icon: <PhonelinkSetupIcon /> },
       { id: 'Review Consultancy', icon: <PhonelinkSetupIcon /> },
       { id: 'Create New Request', icon: <PhonelinkSetupIcon /> },
       { id: 'Feedbacks', icon: <PublicIcon /> },
