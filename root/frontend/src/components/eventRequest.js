@@ -117,8 +117,15 @@ try{
   }
   catch(error)
   {
-    alert(   error+"\n"+"Description can't be empty")
+    alert(   error+"\n"+"There is an error in your updates")
   }
+  }
+
+
+  deleteEventRequest(id) {
+    axios.delete('http://localhost:3000/api/eventRequests/' + id,{headers: { Authorization: `Bearer ` + this.props.token }}).then((response) => {
+     this.getRequests()
+    });
   }
 
   editEventRequest(id,description,registrationPrice,numberOfSpaces){
@@ -141,7 +148,7 @@ try{
         <td>
 
           <Button color="sucsses" size="sm" className="mr-2" onClick={this.editEventRequest.bind(this,eventRequest['_id'],eventRequest.description,eventRequest.registrationPrice,eventRequest.numberOfSpaces)}>Edit</Button>
-          <Button color="danger" size="sm">Delete</Button>
+          <Button color="danger" size="sm" onClick={this.deleteEventRequest.bind(this,eventRequest['_id'])}>Delete</Button>
         </td>
       </tr>
 
