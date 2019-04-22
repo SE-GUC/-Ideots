@@ -77,15 +77,6 @@ class eventRequest extends Component {
   }
 
 
-
-  // UpdateEventRequest(id){
-  //   let {description,registrationPrice,numberOfSpaces}=this.state.editRequestData
-  //   axios.put('http://localhost:3000/api/eventRequests/'+this.state.editRequestData.id,
-  //   {description,registrationPrice,numberOfSpaces}).then((response)=>{
-  //         console.log(response.data.data);
-  //   })
-  // }
-
   getRequests = async  ()=> {
         
     const res = await axios.get(
