@@ -22,7 +22,7 @@ import axios from "axios";
 const styles = theme => ({
   root: {
     width: "100%",
-    height:"3%"
+    height: "3%"
   },
   grow: {
     flexGrow: 1
@@ -68,7 +68,7 @@ const styles = theme => ({
   },
   inputInput: {
     paddingTop: theme.spacing.unit,
-    paddingRight: theme.spacing.unit*60,
+    paddingRight: theme.spacing.unit * 60,
     paddingBottom: theme.spacing.unit,
     // paddingLeft: theme.spacing.unit * 10,
     paddingLeft: theme.spacing.unit * 60,
@@ -109,11 +109,38 @@ class PrimarySearchAppBar extends React.Component {
   onChange = async e => this.setState({ [e.target.name]: e.target.value });
   keyPress = async e => {
     if (e.keyCode === 13) {
+      console.log(this.props.token);
+      console.log(1);
       const res = await axios.get(
-        "http://localhost:3000/api/tasks/search/" +
-          this.state.searchBy +
-          "=" +
-          this.state.searchText
+        "http://localhost:3000/api/tasks/search/category=" +
+          this.state.searchText,
+        {
+          headers: { Authorization: `Bearer ` + this.props.token }
+        }
+      );
+      console.log(1);
+      const res1 = await axios.get(
+        "http://localhost:3000/api/tasks/search/assignedPerson=" +
+          this.state.searchText,
+        {
+          headers: { Authorization: `Bearer ` + this.props.token }
+        }
+      );
+      console.log(1);
+      const res2 = await axios.get(
+        "http://localhost:3000/api/tasks/search/experience=" +
+          this.state.searchText,
+        {
+          headers: { Authorization: `Bearer ` + this.props.token }
+        }
+      );
+      console.log(1);
+      const res3 = await axios.get(
+        "http://localhost:3000/api/tasks/search/payment=" +
+          this.state.searchText,
+        {
+          headers: { Authorization: `Bearer ` + this.props.token }
+        }
       );
       console.log(res.data.data);
     }
@@ -193,7 +220,6 @@ class PrimarySearchAppBar extends React.Component {
       <div className={classes.root}>
         <AppBar position="static">
           <Toolbar style={{ backgroundColor: "#18202c" }}>
-
             <Typography
               className={classes.title}
               variant="h6"
@@ -226,16 +252,6 @@ class PrimarySearchAppBar extends React.Component {
                 onKeyDown={this.keyPress}
               />
             </div>
-            <Select
-              className={classes.Select}
-              name="searchBy"
-              value={this.state.searchBy}
-              onChange={this.onChange}
-            >
-              <MenuItem value={"category"}>category</MenuItem>
-              <MenuItem value={"experience"}>experience</MenuItem>
-              <MenuItem value={"payment"}>payment</MenuItem>
-            </Select>
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
               <IconButton
