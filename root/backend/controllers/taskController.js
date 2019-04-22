@@ -3,6 +3,8 @@ const validator = require("../validations/taskValidations");
 const Joi = require("joi");
 const notificationController = require("../controllers/sendNotificationController");
 
+var ObjectId = require("mongoose").Types.ObjectId;
+
 const User = require("../models/User");
 const Admin = require("../models/Admin");
 
@@ -157,9 +159,7 @@ exports.postOneTask = async (req, res) => {
 };
 
 exports.searchByCategory = async (req, res) => {
-  console.log(1);
   const cat = req.params.cat;
-  console.log(cat);
   const tasks = await Task.find({ category: { $regex: cat, $options: "i" } })
     .populate("partnerID")
     .populate("consultancyID")
@@ -167,28 +167,35 @@ exports.searchByCategory = async (req, res) => {
     .populate("applicants")
     .populate("consultancyID");
   // if(tasks.length==0)return res.status(404).send({error: 'no tasks found'})
-  console.log(tasks);
   return res.json({ data: tasks });
 };
 
 exports.searchByYearsOfEXP = async (req, res) => {
   const exp = req.params.exp;
-  const tasks = await Task.find({ yearsOfExperience: exp })
-    .populate("partnerID")
-    .populate("consultancyID")
-    .populate("assignedPerson")
-    .populate("applicants");
-  return res.json({ data: tasks });
+  if (!isNaN(exp) && isFinite(exp)) {
+    const tasks = await Task.find({ yearsOfExperience: exp })
+      .populate("partnerID")
+      .populate("consultancyID")
+      .populate("assignedPerson")
+      .populate("applicants");
+    return res.json({ data: tasks });
+  } else {
+    return res.json({ data: [] });
+  }
 };
 
 exports.searchByAssignedPerson = async (req, res) => {
-  const cat = req.params.ap;
-  const tasks = await Task.find({ assignedPerson: ap })
-    .populate("partnerID")
-    .populate("consultancyID")
-    .populate("assignedPerson")
-    .populate("applicants");
-  return res.json({ data: tasks });
+  const ap = req.params.ap;
+  if (ObjectId.isValid(ap)) {
+    const tasks = await Task.find({ assignedPerson: ap })
+      .populate("partnerID")
+      .populate("consultancyID")
+      .populate("assignedPerson")
+      .populate("applicants");
+    return res.json({ data: tasks });
+  } else {
+    return res.json({ data: [] });
+  }
 };
 
 exports.getRecommendedTasks = async (req, res) => {
@@ -205,12 +212,16 @@ exports.getRecommendedTasks = async (req, res) => {
 
 exports.searchByMonetaryCompensation = async (req, res) => {
   const pay = req.params.pay;
-  const min = Number(pay) - 50;
-  const max = Number(pay) + 50;
+  if (!isNaN(pay) && isFinite(pay)) {
+    const min = Number(pay) - 50;
+    const max = Number(pay) + 50;
 
-  const tasks = await Task.find({ payment: { $lte: max, $gte: min } })
-    .populate("partnerID")
-    .populate("consultancyID");
-  // if(tasks.length==0) return res.status(404).send({error: 'no tasks found'})
-  return res.json({ data: tasks });
+    const tasks = await Task.find({ payment: { $lte: max, $gte: min } })
+      .populate("partnerID")
+      .populate("consultancyID");
+    // if(tasks.length==0) return res.status(404).send({error: 'no tasks found'})
+    return res.json({ data: tasks });
+  } else {
+    return res.json({ data: [] });
+  }
 };
