@@ -18,7 +18,7 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 // import MoreIcon from "@material-ui/icons/MoreVert";
 import Select from "@material-ui/core/Select";
 import axios from "axios";
-
+import { ModalHeader, FormGroup, Modal, ModalBody } from "reactstrap";
 const styles = theme => ({
   root: {
     width: "100%",
@@ -101,10 +101,19 @@ class PrimarySearchAppBar extends React.Component {
   state = {
     anchorEl: null,
     mobileMoreAnchorEl: null,
-    searchBy: "category",
-    searchText: ""
+    searchText: "",
+    searchModel: false,
+    category: [],
+    assignedPerson: [],
+    experience: [],
+    payment: []
   };
 
+  toggleSearchModal() {
+    this.setState({
+      searchModel: !this.state.searchModel
+    });
+  }
   //----------------------------Added Methods-------------------------
   onChange = async e => this.setState({ [e.target.name]: e.target.value });
   keyPress = async e => {
@@ -143,6 +152,10 @@ class PrimarySearchAppBar extends React.Component {
         }
       );
       console.log(res.data.data);
+      {
+        this.toggleSearchModal();
+      }
+      console.log(this.state.searchModel);
     }
   };
 
@@ -276,6 +289,19 @@ class PrimarySearchAppBar extends React.Component {
         </AppBar>
         {renderMenu}
         {renderMobileMenu}
+        <Modal
+          isOpen={this.state.searchModel}
+          toggle={this.toggleSearchModal.bind(this)}
+        >
+          <ModalHeader toggle={this.toggleSearchModal.bind(this)}>
+            consultancy
+          </ModalHeader>
+          <ModalBody>
+            <FormGroup>
+              <h1>kj;lkjk</h1>
+            </FormGroup>
+          </ModalBody>
+        </Modal>
       </div>
     );
   }
