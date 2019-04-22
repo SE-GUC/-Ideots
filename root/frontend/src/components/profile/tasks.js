@@ -13,7 +13,13 @@ const styles = theme => ({
 });
 
 function PaperSheet(props) {
-  const { classes } = props;
+    const type=props.info.type;
+    console.log("pppppppppppppppppppppppppppppppppppppppppppppppppppp")
+    console.log(type)
+  
+    const { classes } = props;
+    if(type==="member"){
+
   var tasks=[];
   if(props.info.tasks)
   tasks=props.info.tasks
@@ -37,7 +43,14 @@ function PaperSheet(props) {
        
       </Paper>
     </div>
-  );
+  );}
+  else{
+    return (
+        <div>
+          
+        </div>
+      );
+  }
 }
 
 PaperSheet.propTypes = {

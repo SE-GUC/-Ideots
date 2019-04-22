@@ -13,7 +13,12 @@ const styles = theme => ({
 });
 
 function PaperSheet(props) {
-  const { classes } = props;
+    const type=props.info.type;
+    console.log("pppppppppppppppppppppppppppppppppppppppppppppppppppp")
+    console.log(type)
+  
+    const { classes } = props;
+    if(type==="member"){
   var field=[];
   if(props.info.field)
   field=props.info.field
@@ -24,7 +29,7 @@ function PaperSheet(props) {
     <div>
       <Paper className={classes.root} elevation={1}>
         <Typography variant="h5" component="h2">
-           user experience
+           user fields
         </Typography>
         <div>
         {field.map(fieldd=>(
@@ -35,8 +40,17 @@ function PaperSheet(props) {
   
       </Paper>
     </div>
-  );
+  );}
+  else{
+    return (
+        <div>
+          
+        </div>
+      );
+  }
 }
+
+
 
 PaperSheet.propTypes = {
   classes: PropTypes.object.isRequired,

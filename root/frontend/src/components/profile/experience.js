@@ -13,7 +13,12 @@ const styles = theme => ({
 });
 
 function PaperSheet(props) {
-  const { classes } = props;
+    const type=props.info.type;
+    console.log("pppppppppppppppppppppppppppppppppppppppppppppppppppp")
+    console.log(type)
+  
+    const { classes } = props;
+    if(type==="member"){
   var experience=[];
   if(props.info.experience)
   experience=props.info.experience
@@ -35,7 +40,8 @@ function PaperSheet(props) {
   
       </Paper>
     </div>
-  );
+  );}
+  else {return(<div></div>)}
 }
 
 PaperSheet.propTypes = {

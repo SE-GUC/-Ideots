@@ -29,33 +29,17 @@ function createData(name, calories) {
 
 function SimpleTable(props) {
   
+   
   
-  if(props.info.contactInfo){
-    const p=props.info.contactInfo;
-    const k=Object.keys(p)
-    const v=Object.values(p)
-    console.log(v[1]);
-  }
  
     const type=props.info.type;
+    console.log("typpeeeeeeinfooooooooooooo")
+    console.log(props.info.type)
+
     var rows=[]
 
-    if(type==="partner"){
-       rows = [
-        createData('user name', props.info.name?props.info.name:"none"),
-        createData('type', props.info.type?props.info.type:"none"),
-        createData('email',  props.info.email?props.info.email:"none" ),
-        createData('rate', props.info.rate?props.info.rate:"none"),
-        
-        createData('phoneNumber', props.info.phoneNumber?props.info.phoneNumber:"none"),
-        createData('website',props.info.website?props.info.website:"none"),
-        createData('fax',props.info.fax?props.info.fax:"none"),
-        createData('address',props.info.address?props.info.address:"none"),
-        createData('fieldOfWork',props.info.fieldOfWork?props.info.fieldOfWork:"none"),
-        createData('description',props.info.description?props.info.description:"none")
-      ];
-    }
-    else if(type==="member"){
+    
+     if(type==="member"){
       const location=props.info.location
       var city=""
       var area=""
@@ -86,14 +70,50 @@ function SimpleTable(props) {
         createData('Area', area),
         createData('street', street),
         createData('contactstring', contactstring),
-        createData('phoneNumber', props.info.phoneNumber?props.info.phoneNumber:"none"),
-        createData('website',props.info.website?props.info.website:"none"),
-        createData('fax',props.info.fax?props.info.fax:"none"),
-        createData('address',props.info.address?props.info.address:"none"),
-        createData('fieldOfWork',props.info.fieldOfWork?props.info.fieldOfWork:"none"),
-        createData('description',props.info.description?props.info.description:"none")
+        // createData('phoneNumber', props.info.phoneNumber?props.info.phoneNumber:"none"),
+        // createData('website',props.info.website?props.info.website:"none"),
+        // createData('fax',props.info.fax?props.info.fax:"none"),
+        // createData('address',props.info.address?props.info.address:"none"),
+        // createData('fieldOfWork',props.info.fieldOfWork?props.info.fieldOfWork:"none"),
+        // createData('description',props.info.description?props.info.description:"none")
       ];
     }
+    else if(type==="partner"){
+      rows = [
+       createData('user name', props.info.name?props.info.name:"none"),
+       createData('type', props.info.type?props.info.type:"none"),
+       createData('email',  props.info.email?props.info.email:"none" ),
+       createData('rate', props.info.rate?props.info.rate:"none"),
+       
+      //  createData('phoneNumber', props.info.phoneNumber?props.info.phoneNumber:"none"),
+      //  createData('website',props.info.website?props.info.website:"none"),
+      //  createData('fax',props.info.fax?props.info.fax:"none"),
+      //  createData('address',props.info.address?props.info.address:"none"),
+      //  createData('fieldOfWork',props.info.fieldOfWork?props.info.fieldOfWork:"none"),
+      //  createData('description',props.info.description?props.info.description:"none")
+     ];
+   }
+   else if(type === "consultancy_agency"){
+    rows = [
+     createData('user name', props.info.name?props.info.name:"none"),
+     createData('type', props.info.type?props.info.type:"none"),
+     createData('email',  props.info.email?props.info.email:"none" ),
+     createData('rate', props.info.rate?props.info.rate:"none"),
+     createData('description',props.info.description?props.info.description:"none"),
+     createData('fax',props.info.fax?props.info.fax:"none"),
+     createData('website',props.info.website?props.info.website:"none"),
+     
+    //  createData('phoneNumber', props.info.phoneNumber?props.info.phoneNumber:"none"),
+    //  createData('address',props.info.address?props.info.address:"none"),
+    //  createData('fieldOfWork',props.info.fieldOfWork?props.info.fieldOfWork:"none"),
+   ];
+ }
+
+
+
+
+
+
 
     
   const { classes } = props;

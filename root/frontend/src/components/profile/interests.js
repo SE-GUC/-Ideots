@@ -13,31 +13,46 @@ const styles = theme => ({
 });
 
 function PaperSheet(props) {
+    
+   const type=props.info.type;
+  console.log("pppppppppppppppppppppppppppppppppppppppppppppppppppp")
+  console.log(type)
+
   const { classes } = props;
-  var interests=[];
-  if(props.info.interests)
-  interests=props.info.interests
-  console.log("interests")  
-  console.log(interests)
-  
-  return (
-    <div>
-      <Paper className={classes.root} elevation={1}>
-        <Typography variant="h5" component="h2">
-           interestes of the user
-        </Typography>
+  if(type==="member"){
+    var interests=[];
+    if(props.info.interests)
+    interests=props.info.interests
+    console.log("interests")  
+    console.log(interests)
+    
+    return (
+      <div>
+        <Paper className={classes.root} elevation={1}>
+          <Typography variant="h5" component="h2">
+             interestes of the user
+          </Typography>
+          <div>
+          {interests.map(interest=>(
+              <li>{interests}</li>
+          )
+  )}
+          </div>
+         
+          
+         
+        </Paper>
+      </div>
+    );
+  }
+  else{
+    return (
         <div>
-        {interests.map(interest=>(
-            <li>{interests}</li>
-        )
-)}
+          
         </div>
-       
-        
-       
-      </Paper>
-    </div>
-  );
+      );
+  }
+  
 }
 
 PaperSheet.propTypes = {

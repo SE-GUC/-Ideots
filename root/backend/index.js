@@ -74,7 +74,7 @@ app.use("/api/login", login);
 app.use("/api/auth", auth);
 
 //to be integrated----------------
-
+  
 // Handling 404
 app.use((req, res) => {
   res.status(404).send({ err: "We can not find what you are looking for" });
