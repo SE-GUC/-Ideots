@@ -77,7 +77,7 @@ function SimpleTable(props) {
       
       rows = [
         createData('user name', props.info.name?props.info.name:"none"),
-        createData('user name', props.info.name?props.info.name:"none"),
+        
         createData('type', props.info.type?props.info.type:"none"),
         createData('email',  props.info.email?props.info.email:"none" ),
         createData('rate', props.info.rate?props.info.rate:"none"),

@@ -1,6 +1,13 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import Info from './info'
+import Skills from './skills'
+import Interests from './interests'
+import Tasks from './tasks';
+import Events from './attendedEvents';
+import Experience from './experience';
+import Certificates from './certificates';
+import Field from './field';
 
 export class profile extends Component {
     state={
@@ -40,6 +47,14 @@ export class profile extends Component {
       <div >
         <h1>profile page</h1>
        <Info info={this.state.info}/>
+       
+       <Skills info={this.state.info}/>
+       <Interests info={this.state.info}/>
+       <Tasks info={this.state.info}/>
+       <Events info={this.state.info}/>
+       <Experience info={this.state.info}/>
+       <Certificates info={this.state.info}/>
+       <Field info={this.state.info}/>
       </div>
     )
   }
