@@ -29,13 +29,11 @@ class App extends Component {
   state = {
     clickedEvent: {}
   };
+
+
   setTheEvent = eventProps => {
     this.setState({
-      clickedEvent: eventProps,
-      email: "",
-      password: "",
-      loggedIn: false,
-      token: ""
+      clickedEvent: eventProps
     });
   };
 
@@ -123,7 +121,7 @@ class App extends Component {
             <Route
               exact
               path="/EventList"
-              render={() => <EventList setTheEvent={this.setTheEvent} />}
+              render={() => <EventList setTheEvent={this.setTheEvent} token={this.state.token}  />}
             />
             <Route
               path="/eventRequests"
@@ -149,37 +147,37 @@ class App extends Component {
             <Route
               exact
               path="/Main"
-              render={props => <Tabs token={this.state.token} value={0}/>}
+              render={props => <Tabs token={this.state.token} value={0} setTheEvent={this.setTheEvent} />}
             />
             <Route
               exact
               path="/Main/Notifications"
-              render={props => <Tabs token={this.state.token} value={0}/>}
+              render={props => <Tabs token={this.state.token} value={0} setTheEvent={this.setTheEvent} />}
             />
             <Route
               exact
               path="/Main/Tasks"
-              render={props => <Tabs token={this.state.token} value={1}/>}
+              render={props => <Tabs token={this.state.token} value={1} setTheEvent={this.setTheEvent} />}
             />  
              <Route
               exact
               path="/Main/MyTasks"
-              render={props => <Tabs token={this.state.token} value={2}/>}
+              render={props => <Tabs token={this.state.token} value={2} setTheEvent={this.setTheEvent} />}
             />  
             <Route
               exact
               path="/Main/MyEvents"
-              render={props => <Tabs token={this.state.token} value={3}/>}
+              render={props => <Tabs token={this.state.token} value={3} setTheEvent={this.setTheEvent} />}
             />  
             <Route
               exact
               path="/Main/Requests"
-              render={props => <Tabs token={this.state.token} value={4}/>}
+              render={props => <Tabs token={this.state.token} value={4} setTheEvent={this.setTheEvent} />}
             />  
             <Route
               exact
               path="/Notifications"
-              render={props => <NotificationList token={this.state.token} />}
+              render={props => <NotificationList token={this.state.token} setTheEvent={this.setTheEvent} />}
 
             />          
           </div>
