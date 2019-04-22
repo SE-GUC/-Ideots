@@ -16,13 +16,14 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import MailIcon from "@material-ui/icons/Mail";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 // import MoreIcon from "@material-ui/icons/MoreVert";
-import Select from "@material-ui/core/Select";
 import axios from "axios";
-
+import { ModalHeader, FormGroup, Modal, ModalBody } from "reactstrap";
+import Searchcontent from "./searchContent";
+import Divider from "@material-ui/core/Divider";
 const styles = theme => ({
   root: {
     width: "100%",
-    height:"3%"
+    height: "3%"
   },
   grow: {
     flexGrow: 1
@@ -68,7 +69,7 @@ const styles = theme => ({
   },
   inputInput: {
     paddingTop: theme.spacing.unit,
-    paddingRight: theme.spacing.unit*60,
+    paddingRight: theme.spacing.unit * 60,
     paddingBottom: theme.spacing.unit,
     // paddingLeft: theme.spacing.unit * 10,
     paddingLeft: theme.spacing.unit * 60,
@@ -101,21 +102,67 @@ class PrimarySearchAppBar extends React.Component {
   state = {
     anchorEl: null,
     mobileMoreAnchorEl: null,
-    searchBy: "category",
-    searchText: ""
+    searchText: "",
+    searchModel: false,
+    category: [],
+    assignedPerson: [],
+    experience: [],
+    payment: []
   };
 
+  toggleSearchModal() {
+    this.setState({
+      searchModel: !this.state.searchModel
+    });
+  }
   //----------------------------Added Methods-------------------------
   onChange = async e => this.setState({ [e.target.name]: e.target.value });
   keyPress = async e => {
     if (e.keyCode === 13) {
+      console.log(this.props.token);
+      console.log(1);
       const res = await axios.get(
-        "http://localhost:3000/api/tasks/search/" +
-          this.state.searchBy +
-          "=" +
-          this.state.searchText
+        "http://localhost:3000/api/tasks/search/category=" +
+          this.state.searchText,
+        {
+          headers: { Authorization: `Bearer ` + this.props.token }
+        }
       );
+      console.log(1);
+      const res1 = await axios.get(
+        "http://localhost:3000/api/tasks/search/assignedPerson=" +
+          this.state.searchText,
+        {
+          headers: { Authorization: `Bearer ` + this.props.token }
+        }
+      );
+      console.log(1);
+      const res2 = await axios.get(
+        "http://localhost:3000/api/tasks/search/experience=" +
+          this.state.searchText,
+        {
+          headers: { Authorization: `Bearer ` + this.props.token }
+        }
+      );
+      console.log(1);
+      const res3 = await axios.get(
+        "http://localhost:3000/api/tasks/search/payment=" +
+          this.state.searchText,
+        {
+          headers: { Authorization: `Bearer ` + this.props.token }
+        }
+      );
+      this.setState({
+        category: res.data.data,
+        assignedPerson: res1.data.data,
+        experience: res2.data.data,
+        payment: res3.data.data
+      });
       console.log(res.data.data);
+      {
+        this.toggleSearchModal();
+      }
+      console.log(this.state.searchModel);
     }
   };
 
@@ -193,7 +240,6 @@ class PrimarySearchAppBar extends React.Component {
       <div className={classes.root}>
         <AppBar position="static">
           <Toolbar style={{ backgroundColor: "#18202c" }}>
-
             <Typography
               className={classes.title}
               variant="h6"
@@ -226,16 +272,6 @@ class PrimarySearchAppBar extends React.Component {
                 onKeyDown={this.keyPress}
               />
             </div>
-            <Select
-              className={classes.Select}
-              name="searchBy"
-              value={this.state.searchBy}
-              onChange={this.onChange}
-            >
-              <MenuItem value={"category"}>category</MenuItem>
-              <MenuItem value={"experience"}>experience</MenuItem>
-              <MenuItem value={"payment"}>payment</MenuItem>
-            </Select>
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
               <IconButton
@@ -260,6 +296,41 @@ class PrimarySearchAppBar extends React.Component {
         </AppBar>
         {renderMenu}
         {renderMobileMenu}
+        <Modal
+          isOpen={this.state.searchModel}
+          toggle={this.toggleSearchModal.bind(this)}
+        >
+          <ModalHeader toggle={this.toggleSearchModal.bind(this)}>
+            Search Content
+          </ModalHeader>
+          <ModalBody>
+            <FormGroup>
+              <h6>Category</h6>
+              <Searchcontent tasks={this.state.category} searchBy="category" />
+            </FormGroup>
+            <Divider />
+            <FormGroup>
+              <h6>Assigned Person</h6>
+              <Searchcontent
+                tasks={this.state.assignedPerson}
+                searchBy="assignedPerson"
+              />
+            </FormGroup>
+            <Divider />
+            <FormGroup>
+              <h6>Experience</h6>
+              <Searchcontent
+                tasks={this.state.experience}
+                searchBy="experience"
+              />
+            </FormGroup>
+            <Divider />
+            <FormGroup>
+              <h6>Payment</h6>
+              <Searchcontent tasks={this.state.payment} searchBy="payment" />
+            </FormGroup>
+          </ModalBody>
+        </Modal>
       </div>
     );
   }
