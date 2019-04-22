@@ -110,7 +110,7 @@ class PrimarySearchAppBar extends React.Component {
   keyPress = async e => {
     if (e.keyCode === 13) {
       const res = await axios.get(
-        "http://localhost:3000/api/tasks/search/" +
+        "https://lirten-hub-guc.herokuapp.com/api/tasks/search/" +
           this.state.searchBy +
           "=" +
           this.state.searchText
