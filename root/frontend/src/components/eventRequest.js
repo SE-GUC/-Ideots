@@ -77,11 +77,15 @@ class eventRequest extends Component {
 
 
 
+  UpdateEventRequest(){
+
+  }
 
   editEventRequest(description,registrationPrice,numberOfSpaces){
 
     this.setState({
-      editRequestData:{description,registrationPrice,numberOfSpaces}
+      editRequestData:{description,registrationPrice,numberOfSpaces},
+      editRequestModal:! this.state.editRequestModal
     })
   }
 
@@ -96,7 +100,7 @@ class eventRequest extends Component {
         <th>{eventRequest.numberOfSpaces }</th>
         <td>
 
-          <Button color="sucsses" size="sm" className="mr-2" onClick={this.editEventRequest.bind(eventRequest.description,eventRequest.numberOfSpaces)}>Edit</Button>
+          <Button color="sucsses" size="sm" className="mr-2" onClick={this.editEventRequest.bind(this,eventRequest.description,eventRequest.registrationPrice,eventRequest.numberOfSpaces)}>Edit</Button>
           <Button color="danger" size="sm">Delete</Button>
         </td>
       </tr>
@@ -155,7 +159,7 @@ class eventRequest extends Component {
 
 
         <Modal isOpen={this.state.editRequestModal} toggle={this.toggleEditRequestModal.bind(this)}>
-          <ModalHeader toggle={this.toggleNewRequestModal.bind(this)}>Edit EventRequest</ModalHeader>
+          <ModalHeader toggle={this.toggleEditRequestModal.bind(this)}>Edit EventRequest</ModalHeader>
           <ModalBody>
           <FormGroup>
           
