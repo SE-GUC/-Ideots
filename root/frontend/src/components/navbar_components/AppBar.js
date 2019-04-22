@@ -151,6 +151,12 @@ class PrimarySearchAppBar extends React.Component {
           headers: { Authorization: `Bearer ` + this.props.token }
         }
       );
+      this.setState({
+        category: res.data.data,
+        assignedPerson: res1.data.data,
+        experience: res2.data.data,
+        payment: res3.data.data
+      });
       console.log(res.data.data);
       {
         this.toggleSearchModal();
