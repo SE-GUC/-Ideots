@@ -138,7 +138,11 @@ exports.postOneTask = async (req, res) => {
       return res
         .status(400)
         .send({ error: isValidated.error.details[0].message });
+    //dont remove while solving conflicts
+    const partnerId = req.user._id;
+    req.body.partnerID=partnerId
     const newTask = await Task.create(req.body);
+    //---------------------------------------------
     //------------------------(Notify members)-------------------------------------
     const taskId = newTask._id;
     await notificationController.notifyAllMembers(taskId, `New Task is posted`);
