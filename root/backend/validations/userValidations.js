@@ -18,7 +18,8 @@ module.exports = {
             reports:Joi.array().items(Joi.string()),
             boardMembers:Joi.array().items(Joi.objectId()),
             partners:Joi.array().items(Joi.objectId()),
-            events:Joi.array().items(Joi.objectId())
+            events:Joi.array().items(Joi.objectId()),
+            registrationPhase:Joi.number()
         }
         return Joi.validate(request, createSchema)
     },

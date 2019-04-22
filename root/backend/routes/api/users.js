@@ -75,7 +75,8 @@ router.post('/', async (req, res) => {
                 tasks:req.body.tasks,
                 attendedEvents:req.body.attendedEvents,
                 experience:req.body.experience,
-                certificates:req.body.certificates
+                certificates:req.body.certificates,
+                registrationPhase:req.body.registrationPhase
             });
             //-------------------------( Notify admin that a new user signed on the website )-----------------------------------------
             await notificationController.notifyAdmins(newUser._id,content);
