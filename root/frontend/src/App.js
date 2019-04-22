@@ -55,7 +55,7 @@ class App extends Component {
     console.log(body);
     let res;
     try {
-      res = await axios.post("http://localhost:3000/api/auth/login", body);
+      res = await axios.post("https://lirten-hub-guc.herokuapp.com/api/auth/login", body);
       if (res.status === 200) {
         localStorage.setItem("loggedIn", true);
         localStorage.setItem("token", res.data.token);
