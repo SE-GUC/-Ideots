@@ -12,7 +12,7 @@ import RequestAsUser from "./components/userRequest_components/RequestAsUser";
 import Tabs from "./components/tab_components/tabs";
 import Home from "./components/Home";
 import EventRequest from "./components/eventRequest";
-// import Notification from "./components/notification_components/Notifications";
+import NotificationList from "./components/notification_components/Notifications";
 import HeaderBar from "./components/navbar_components/HeaderAppBar";
 
 // import AppBar from './components/navbar_components/AppBar'
@@ -102,9 +102,8 @@ class App extends Component {
     }
 
     return (
-      <div>
+      <div style={{backgroundImage: "linear-gradient(45deg, #130030 , #172f63 , #130030 )"}}>
         <div
-        
           className="Header"
         >
           <HeaderBar token={this.state.token} logOut={this.logOut} />
@@ -150,10 +149,42 @@ class App extends Component {
             />
             <Route
               exact
-              path="/tabs"
-              render={props => <Tabs token={this.state.token} />}
-            />   
+
+              path="/Main"
+              render={props => <Tabs token={this.state.token} value={0}/>}
+            />
             <Route
+              exact
+              path="/Main/Notifications"
+              render={props => <Tabs token={this.state.token} value={0}/>}
+            />
+            <Route
+              exact
+              path="/Main/Tasks"
+              render={props => <Tabs token={this.state.token} value={1}/>}
+            />  
+             <Route
+              exact
+              path="/Main/MyTasks"
+              render={props => <Tabs token={this.state.token} value={2}/>}
+            />  
+            <Route
+              exact
+              path="/Main/MyEvents"
+              render={props => <Tabs token={this.state.token} value={3}/>}
+            />  
+            <Route
+              exact
+              path="/Main/Requests"
+              render={props => <Tabs token={this.state.token} value={4}/>}
+            />  
+            <Route
+              exact
+              path="/Notifications"
+              render={props => <NotificationList token={this.state.token} />}
+
+            />          
+                  <Route
               exact
               path="/profile"
               render={props => <Profile token={this.state.token} />}

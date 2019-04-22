@@ -17,6 +17,8 @@ const styles = theme => ({
   table: {
     minWidth: 700,
   },
+  color:"#fff",
+  backgroundColor:"#000"
 });
 
 let id = 0;

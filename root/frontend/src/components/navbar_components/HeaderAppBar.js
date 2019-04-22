@@ -6,7 +6,7 @@ class HeaderAppBar extends Component {
   render() {
     return (
       <div className="App">
-        <AppBar logOut={this.props.logOut} />
+        <AppBar logOut={this.props.logOut} token={this.props.token} />
       </div>
     );
   }

@@ -1,11 +1,16 @@
 .App {
-  height: 32%;
+  /* height: 32%; */
   text-align: center;
+  background: 'linear-gradient(45deg, #130030 , #172f63 , #130030 )'
 }
 
 .Header{
   margin-left: 0px;
   height: 32%;
+  /* position: fixed; */
+  top: "0px";
+  left: "0px";
+  width: "100%" 
 }
 .loading{
   width:97% ;

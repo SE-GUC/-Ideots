@@ -45,7 +45,7 @@ export class profile extends Component {
       
     return (
       <div >
-        <h1>profile page</h1>
+        <h1 style={{color:"#fff"}}>profile page</h1>
        <Info info={this.state.info}/>
        
        <Skills info={this.state.info}/>
