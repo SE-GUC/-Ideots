@@ -13,7 +13,13 @@ class eventRequest extends Component {
       numberOfSpaces:0,
       organizerId:""
     },
-    newRequestModal:false
+    editRequestData:{
+      description:'',
+      registrationPrice:0,
+      numberOfSpaces:0
+    },
+    newRequestModal:false,
+    editRequestModal:false
   }
 
 
@@ -34,6 +40,13 @@ class eventRequest extends Component {
      newRequestModal:! this.state.newRequestModal
    })
   }
+
+
+  toggleEditRequestModal(){
+    this.setState({
+      editRequestModal:! this.state.editRequestModal
+    })
+   }
 
 
   addRequest(){
@@ -65,8 +78,11 @@ class eventRequest extends Component {
 
 
 
-  editEventRequest(){
+  editEventRequest(description,registrationPrice,numberOfSpaces){
 
+    this.setState({
+      editRequestData:{description,registrationPrice,numberOfSpaces}
+    })
   }
 
 
@@ -145,40 +161,34 @@ class eventRequest extends Component {
           
           <br></br>
           <Label for="description">Description</Label>
-          <Input id="description" value={this.state.newRequestData.description} onChange={(e)=>{
-            let {newRequestData}=this.state;
-            newRequestData.description=e.target.value;
-            this.setState({newRequestData})
+          <Input id="description" value={this.state.editRequestData.description} onChange={(e)=>{
+            let {editRequestData}=this.state;
+            editRequestData.description=e.target.value;
+            this.setState({editRequestData})
           }}/>
           <br></br>
           <Label for="registrationPrice">RegistrationPrice</Label>
-          <Input id="registrationPrice" value={this.state.newRequestData.registrationPrice} onChange={(e)=>{
-            let {newRequestData}=this.state;
-            newRequestData.registrationPrice=parseInt(e.target.value,10);
-            this.setState({newRequestData})
+          <Input id="registrationPrice" value={this.state.editRequestData.registrationPrice} onChange={(e)=>{
+            let {editRequestData}=this.state;
+            editRequestData.registrationPrice=parseInt(e.target.value,10);
+            this.setState({editRequestData})
           }}/>
           <br></br>
           <Label for="numberOfSpaces">NumberOfSpaces</Label>
-          <Input id="numberOfSpaces" value={this.state.newRequestData.numberOfSpaces} onChange={(e)=>{
-            let {newRequestData}=this.state;
-            newRequestData.numberOfSpaces=parseInt(e.target.value,10);
-            this.setState({newRequestData})
+          <Input id="numberOfSpaces" value={this.state.editRequestData.numberOfSpaces} onChange={(e)=>{
+            let {editRequestData}=this.state;
+            editRequestData.numberOfSpaces=parseInt(e.target.value,10);
+            this.setState({editRequestData})
           }}/>
           <br></br>
-          <Label for="organizerId">OrganizerId</Label>
-          <Input id="organizerId" value={this.state.newRequestData.organizerId} onChange={(e)=>{
-            let {newRequestData}=this.state;
-            newRequestData.organizerId=e.target.value;
-            this.setState({newRequestData})
-            
-          }}/>
+          
           
           
       </FormGroup>          
       </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={this.editEventRequest.bind(this)}>Add EventRequest</Button>{' '}
-            <Button color="secondary" onClick={this.toggleNewRequestModal.bind(this)}>Cancel</Button>
+            <Button color="primary" onClick={this.UpdateEventRequest.bind(this)}>Update EventRequest</Button>{' '}
+            <Button color="secondary" onClick={this.toggleEditRequestModal.bind(this)}>Cancel</Button>
           </ModalFooter>
         </Modal>
 
