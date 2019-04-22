@@ -132,23 +132,26 @@ try{
   render() {
     let eventRequests=this.state.eventRequests.map((eventRequest)=>{
       return(
+        <div style={{color:"#fff"}}>
+
         <tr key={eventRequest.id}>
        
         <th>{eventRequest.description }</th>
         <th>{eventRequest.numberOfSpaces }</th>
         <td>
 
-          <Button color="sucsses" size="sm" className="mr-2" onClick={this.editEventRequest.bind(this,eventRequest['_id'],eventRequest.description,eventRequest.registrationPrice,eventRequest.numberOfSpaces)}>Edit</Button>
+          <Button color="success" size="sm" className="mr-2" onClick={this.editEventRequest.bind(this,eventRequest['_id'],eventRequest.description,eventRequest.registrationPrice,eventRequest.numberOfSpaces)}>Edit</Button>
           <Button color="danger" size="sm" onClick={this.deleteEventRequest.bind(this,eventRequest['_id'])}>Delete</Button>
         </td>
       </tr>
+        </div>
 
       )
     })
 
     return (
-      <div className="App container">
-      <h3>Create Your Event</h3>
+      <div className="App container" style={{color:"#fff"}}>
+      <h3 >Create Your Event</h3>
       <Button className="my-3" color="primary" onClick={this.toggleNewRequestModal.bind(this)}>add Request</Button>
         <Modal isOpen={this.state.newRequestModal} toggle={this.toggleNewRequestModal.bind(this)}>
           <ModalHeader toggle={this.toggleNewRequestModal.bind(this)}>Add EventRequest</ModalHeader>
@@ -156,7 +159,7 @@ try{
           <FormGroup>
           
           <br></br>
-          <Label for="description">Description</Label>
+          <Label for="description" >Description</Label>
           <Input id="description" value={this.state.newRequestData.description} onChange={(e)=>{
             let {newRequestData}=this.state;
             newRequestData.description=e.target.value;
