@@ -25,27 +25,77 @@ function createData(name, calories) {
   return { id, name, calories };
 }
 
-const rows = [
-  createData('Frozen yoghurt', 159),
-  createData('Ice cream sandwich', 237),
-  createData('Eclair', 262),
-  createData('Cupcake', 305),
-  createData('Gingerbread', 356),
-];
+
 
 function SimpleTable(props) {
-    console.log(props.info.contactInfo)
-    const rows = [
+  
+  
+  if(props.info.contactInfo){
+    const p=props.info.contactInfo;
+    const k=Object.keys(p)
+    const v=Object.values(p)
+    console.log(v[1]);
+  }
+ 
+    const type=props.info.type;
+    var rows=[]
+
+    if(type==="partner"){
+       rows = [
         createData('user name', props.info.name?props.info.name:"none"),
+        createData('type', props.info.type?props.info.type:"none"),
         createData('email',  props.info.email?props.info.email:"none" ),
         createData('rate', props.info.rate?props.info.rate:"none"),
         
-        // createData('description', props.info.description?props.info.description:"none"),
-        // createData('website',props.info.website?props.info.website:"none"),
-        // createData('fax',props.info.fax?props.info.fax:"none"),
-        // createData('address',props.info.address?props.info.address:"none"),
-        createData('fieldOfWork',props.info.fieldOfWork?props.info.fieldOfWork:"none")
+        createData('phoneNumber', props.info.phoneNumber?props.info.phoneNumber:"none"),
+        createData('website',props.info.website?props.info.website:"none"),
+        createData('fax',props.info.fax?props.info.fax:"none"),
+        createData('address',props.info.address?props.info.address:"none"),
+        createData('fieldOfWork',props.info.fieldOfWork?props.info.fieldOfWork:"none"),
+        createData('description',props.info.description?props.info.description:"none")
       ];
+    }
+    else if(type==="member"){
+      const location=props.info.location
+      var city=""
+      var area=""
+      var street=""
+      
+      if(location){
+        city=props.info.location.city
+        area=props.info.location.Area
+        street= props.info.location.street
+      }
+      const otherContacts=props.info.otherContacts
+      var contactstring=""
+      if(otherContacts){
+        otherContacts.forEach(function(element, i) {
+          contactstring+=" "+element;
+        });
+        console.log(contactstring)
+      }
+      
+      rows = [
+        createData('user name', props.info.name?props.info.name:"none"),
+        createData('user name', props.info.name?props.info.name:"none"),
+        createData('type', props.info.type?props.info.type:"none"),
+        createData('email',  props.info.email?props.info.email:"none" ),
+        createData('rate', props.info.rate?props.info.rate:"none"),
+        createData('birthDate', props.info.birthDate?props.info.birthDate:"none"),
+        createData('city', city),
+        createData('Area', area),
+        createData('street', street),
+        createData('contactstring', contactstring),
+        createData('phoneNumber', props.info.phoneNumber?props.info.phoneNumber:"none"),
+        createData('website',props.info.website?props.info.website:"none"),
+        createData('fax',props.info.fax?props.info.fax:"none"),
+        createData('address',props.info.address?props.info.address:"none"),
+        createData('fieldOfWork',props.info.fieldOfWork?props.info.fieldOfWork:"none"),
+        createData('description',props.info.description?props.info.description:"none")
+      ];
+    }
+
+    
   const { classes } = props;
 
   return (
@@ -59,7 +109,7 @@ function SimpleTable(props) {
                 {row.name}
               </TableCell>
               <TableCell align="auto">{row.calories}</TableCell>
-              <button>update</button>
+              
             </TableRow>
           ))}
         </TableBody>
