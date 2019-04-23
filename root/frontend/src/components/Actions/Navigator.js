@@ -33,7 +33,7 @@ const categories = [
       { id: 'Notifications', icon: <PublicIcon />, link: '/Main/Notifications' },
       { id: 'View Tasks', icon: <SettingsInputComponentIcon />, link: '/Main/Tasks'  },
       // { id: 'Submit final product', icon: <DnsRoundedIcon /> },
-      {id: 'View Events',icon: <PermMediaOutlinedIcon />,link: '/Eventlist'},
+      {id: 'View Events',icon: <PermMediaOutlinedIcon />,link: '/Main/MyEvents'},
       { id: 'My Profile', icon: <PeopleIcon />, link: '/profile' }
     ]
   },
@@ -42,11 +42,11 @@ const categories = [
     children: [
       { id: 'Notifications', icon: <PublicIcon />,link: '/Main/Notifications' },
       { id: 'My Tasks', icon: <SettingsInputComponentIcon /> , link: '/Main/Tasks' },
-      { id: 'Create New Task', icon: <PhonelinkSetupIcon /> },
-      { id: 'My Products', icon: <DnsRoundedIcon /> },
-      { id: 'Review Consultancy', icon: <PhonelinkSetupIcon /> },
-      { id: 'Create New Request', icon: <PhonelinkSetupIcon /> },
-      { id: 'Feedbacks', icon: <PublicIcon /> },
+      { id: 'Create New Task', icon: <PhonelinkSetupIcon /> ,link: '/Main/Tasks'},
+      // { id: 'My Products', icon: <DnsRoundedIcon /> },
+      // { id: 'Review Consultancy', icon: <PhonelinkSetupIcon /> },
+      // { id: 'Create New Request', icon: <PhonelinkSetupIcon /> },
+      // { id: 'Feedbacks', icon: <PublicIcon /> },
       { id: 'My Profile', icon: <PeopleIcon /> , link: '/profile'}
     ]
   },
@@ -56,7 +56,7 @@ const categories = [
     children: [
       { id: 'Notifications', icon: <PublicIcon />,link: '/Main/Notifications' },
       { id: 'My Created Tasks', icon: <PermMediaOutlinedIcon/> , link: '/Main/Tasks'},
-      { id: 'My Descriptions', icon: <PermMediaOutlinedIcon /> },
+      { id: 'My Descriptions', icon: <PermMediaOutlinedIcon /> , link: '/Main/Tasks'},
       { id: 'My Profile', icon: <PeopleIcon /> , link: '/profile'}
     ]
   }

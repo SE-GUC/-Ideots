@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter,Form, FormGroup, Label, Input, FormText } from "reactstrap";
 import axios from "axios" 
 import EventBookingButton from './EventBookingButton'
+
 export class Event extends Component {
   state = {
     modal: false,
@@ -13,12 +14,26 @@ export class Event extends Component {
     isFull:false ,
     isBooked:false 
   };
-  componentDidMount() {
+  async componentDidMount() {
+    console.log(this.props.event)
     this.setState({
       event : this.props.event ,
       isFull:this.props.event.numberOfSpaces ===this.props.event.numberOfRegisterations ? true :false , 
     })
     this.updateIsBooked()
+    const memID = await axios.get(`https://lirten-hub-guc.herokuapp.com/api/users/getTheID`,{
+      headers: { Authorization: `Bearer ` + this.props.token }
+    }) 
+       
+    const bookings = await  axios.get(`https://lirten-hub-guc.herokuapp.com/api/eventBookings/${this.props.event._id}/${memID.data.data}` ,{
+    headers: { Authorization: `Bearer ` + this.props.token }
+  } )
+  console.log(bookings.data)
+  if (bookings.data.data.length>0){
+    this.setState({
+      isBooked :true
+    })
+  }
   }
 
 
@@ -28,7 +43,7 @@ export class Event extends Component {
     /*must change the user ID when using authentication 
    */
   console.log(this.props.event._id)
-    axios.get(`http://localhost:3000/api/eventBookings/${this.props.event._id}` , {
+    axios.get(`https://lirten-hub-guc.herokuapp.com/api/eventBookings/${this.props.event._id}` , {
       headers: { Authorization: `Bearer ` + this.props.token }
     })
     .then(res =>{
@@ -114,13 +129,21 @@ export class Event extends Component {
         break;
 
       case "when":
+
         this.setState({
           title: "when",
           body: this.state.event.dateTime ? this.state.event.dateTime.toString() :"no available data "
         });
         break;
-      case "who_made_this_event?":
-      const bod = this.state.event.organizerId ?  await this.getTheNameOfOrganizer(this.state.event.organizerId) :"no available data"
+      case "who":
+      let bod = "no available data"
+      if ( this.state.event.organizerId ){
+        const user= await axios.get(`https://lirten-hub-guc.herokuapp.com/api/users/${this.state.event.organizerId}`, {
+          headers: { Authorization: `Bearer ` + this.props.token }
+        })
+        bod = user.data.name
+      }
+      console.log(bod)
       console.log(this.state.event.organizerId)
         this.setState({
           title: "who made this event ?",
@@ -128,10 +151,15 @@ export class Event extends Component {
         });
         break;
     case "BookedEvent" : 
-      /*
-    YOU SHOULD CHANGE THE ID OF THE USER 
-    */
-   const bookings = await  axios.get(`http://localhost:3000/api/eventBookings/${this.props.event._id}/5cb109419cf6047a9651c7ba`)
+
+    
+    const memID = await axios.get(`https://lirten-hub-guc.herokuapp.com/api/users/getTheID`,{
+      headers: { Authorization: `Bearer ` + this.props.token }
+    }) 
+       
+    const bookings = await  axios.get(`https://lirten-hub-guc.herokuapp.com/api/eventBookings/${this.props.event._id}/${memID.data.data}` ,{
+    headers: { Authorization: `Bearer ` + this.props.token }
+  } )
    const oneBooking = bookings.data.data[0]
    const bookingInfo = ()=>{
      return (
@@ -153,9 +181,33 @@ export class Event extends Component {
     })
    }
    else {
+     const bod = ()=>{
+       return (
+         <div>
+            <Form>
+        <FormGroup>
+          <Label >Card Number</Label>
+          <Input  placeholder="xxxx xxxx xxxx xxxx" />
+        </FormGroup>
+        <FormGroup>
+          <Label >Valid till ..</Label>
+          <Input  placeholder="mm/yy" />
+        </FormGroup>
+        <FormGroup>
+          <Label >cvv</Label>
+          <Input  placeholder="AAA"/>
+        </FormGroup>
+
+        <Button  onClick={this.reserveSeat.bind(this)}>Submit</Button>
+
+        </Form>
+        </div>
+
+       )
+     }
    this.setState({
      title : "Pay Online " , 
-     body : "API"
+     body : bod()
    })
   }
    break ; 
@@ -167,14 +219,41 @@ export class Event extends Component {
     }
   };
 
-  getTheNameOfOrganizer = async id =>{
-   const user= await axios.get(`http://localhost:3000/api/users/${id}`)
+  reserveSeat =async()=>{
+    const memID = await axios.get(`https://lirten-hub-guc.herokuapp.com/api/users/getTheID`,{
+      headers: { Authorization: `Bearer ` + this.props.token }
+    })
+    console.log(memID.data.data)
+    const haha =   await axios.post(`https://lirten-hub-guc.herokuapp.com/api/eventBookings`,{
+      eventId: this.state.event._id ,
+      registrationPrice: this.state.event.registrationPrice ,
+      memberId:memID.data.data ,
+      paymentMethod: "Credit Card "
+    } , {
+      headers: { Authorization: `Bearer ` + this.props.token }
+    }) ; 
+    console.log(haha)
+    console.log("LOGOGOOGOGOGOGOGOGOG")
+    const newReg = this.state.event.numberOfRegisterations +1
+    await axios.put(`https://lirten-hub-guc.herokuapp.com/api/events/${this.state.event._id}` , {
+      numberOfRegisterations : newReg
+    }, {
+      headers: { Authorization: `Bearer ` + this.props.token }
+    });
+    this.setState({
+      modal:!this.state.modal,
+      isBooked:true
+    }) ; 
+  }
+  getTheNameOfOrganizer = async() =>{
+   const user= await axios.get(`https://lirten-hub-guc.herokuapp.com/api/users/${this.props.event.organizerId}`, {
+    headers: { Authorization: `Bearer ` + this.props.token }
+  })
    const name = user.data.name 
+   console.log(user.data.name)
    return name  
   }
-
   render() {
-    console.log("haapppyy")
     const title = this.state.title;
     const body = this.state.body;
     return (
@@ -250,7 +329,7 @@ export class Event extends Component {
           outline
           style ={{position:'absolute' , left:'35%' , top :'60%' , width: 150, height: 60}}
           color="info"
-          onClick={this.modalToggle.bind(this, "who_made_this_event?")}
+          onClick={this.modalToggle.bind(this, "who")}
         >
           who made this event?{" "}
         </Button>{" "}

@@ -30,9 +30,12 @@ router.get("/:id", async (req, res) => {
 //-----------------------------------------------\\
 
 // search if user booked an event 
-router.get("/:Event" , async (req,res) =>{
+router.get("/:Event/:theUser" , async (req,res) =>{
   theEvent = req.params.Event 
-  theUser =  req.user._id;
+  theUser =  req.params.theUser;
+  console.log("HAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH")
+  console.log(theUser)
+  console.log(theEvent)
   const eventBooking = await EventBooking.find({'eventId' :theEvent , 'memberId' :theUser})
   return res.send({data:eventBooking})
 
@@ -40,7 +43,7 @@ router.get("/:Event" , async (req,res) =>{
 router.post("/", async (req, res) => {
   const schema = {
     eventId: Joi.objectId().required() ,
-    memberId: Joi.objectId().required(),
+    memberId: Joi.objectId().required() ,
     registrationPrice: Joi.number().required(),
     paymentMethod: Joi.string().required()
   };

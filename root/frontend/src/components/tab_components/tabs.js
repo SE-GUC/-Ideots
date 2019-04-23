@@ -10,7 +10,7 @@ import TaskList from "../task_components/TaskList";
 import NotificationList from "../notification_components/Notifications";
 // import {Link} from 'react-router-dom'
 import MyTask from "../task_components/MyTaskList";
-import MyEvent from "../event_components/MyEventList";
+import MyEventList from "../event_components/MyEventList";
 import Request from "../request_components/RequestList";
 import RequestAsUser from "../userRequest_components/RequestAsUser";
 import Request2 from "../userRequest_components/Request";
@@ -100,7 +100,7 @@ function SimpleTabs(props) {
           <Tab label="MyEvents" />
           <Tab label="Requests" />
           <Tab label="RequestAsUser" />
-          <Tab label="RequestsAsAdmin" />
+          {/* <Tab label="RequestsAsAdmin" /> */}
         </Tabs>
       </AppBar>
       {value === 0 && (
@@ -120,7 +120,7 @@ function SimpleTabs(props) {
       )}
       {value === 3 && (
         <TabContainer>
-          <MyEvent token={props.token} />
+          <MyEventList token={props.token} setTheEvent={props.setTheEvent} />
         </TabContainer>
       )}
       {value === 4 && (

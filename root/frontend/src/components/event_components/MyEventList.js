@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Event from "./EventCard";
+import EventCard from "./EventCard";
 import axios from "axios";
 
 export class MyEventList extends Component {
@@ -15,7 +15,7 @@ export class MyEventList extends Component {
     try {
       const { id } = this.state;
       axios
-        .get("http://localhost:3000/api/events/Organizer/organizer", {
+        .get("https://lirten-hub-guc.herokuapp.com/api/events/Organizer/organizer", {
           headers: { Authorization: `Bearer ` + this.props.token }
         })
         .then(res => {
@@ -30,7 +30,7 @@ export class MyEventList extends Component {
     return (
       <div>
         {this.state.events.map(event => (
-          <Event key={event._id} event={event} />
+           <EventCard key={event._id} event={event} setTheEvent={this.props.setTheEvent} />
         ))}
         <h3
           style={{

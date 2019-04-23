@@ -11,15 +11,18 @@ export class EventList extends Component {
     hasMore: true
   };
   componentDidMount() {
+    console.log(this.props.token)
     this.fetchEvents();
+    
   }
 
   fetchEvents = () => {
     const { count, offset } = this.state;
     this.setState({ offset: offset + count });
+
     axios
       .get(
-        "http://localhost:3000/api/events/withRange/" + count + "/" + offset,
+        "https://lirten-hub-guc.herokuapp.com/api/events/withRange/" + count + "/" + offset,
         {
           headers: { Authorization: `Bearer ` + this.props.token }
         }
@@ -27,6 +30,9 @@ export class EventList extends Component {
       .then(res => {
         if (res.data.data.length > 0) {
           this.setState({ events: this.state.events.concat(res.data.data) });
+          console.log(this.state.events.concat(res.data.data) )
+          console.log("hahahahhahahahahha")
+
         } else {
           this.setState({ hasMore: false });
         }
@@ -73,7 +79,7 @@ export class EventList extends Component {
           }
         >
           {this.state.events.map(event => (
-            <EventCard key={event._id} event={event} setTheEvent={this.props.setTheEvent} />
+            <EventCard key={event._id} event={event} setTheEvent={this.props.setTheEvent} token={this.props.token}/>
           ))}
         </InfiniteScroll>
       </div>
