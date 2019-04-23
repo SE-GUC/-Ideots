@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import {  Input, FormGroup, Label, Modal, ModalHeader, ModalBody, ModalFooter, Table, Button } from 'reactstrap';
+import {  Input, FormGroup, Label, Modal, ModalHeader, ModalBody, ModalFooter, Table, Button ,Alert} from 'reactstrap';
 class RequestAsUser extends Component {
     state = {
       requests: [],
@@ -59,7 +59,7 @@ class RequestAsUser extends Component {
     getRequests = async  ()=> {
         
       const res = await axios.get(
-        "http://localhost:3000/api/requests/" 
+        "http://localhost:3000/api/requests/", {headers: { Authorization: `Bearer ` + this.props.token }}
       );
       this.setState({ requests: res.data.data });
        
@@ -67,7 +67,8 @@ class RequestAsUser extends Component {
  
 
     addRequest = async() => {
-      await axios.post('http://localhost:3000/api/requests/', this.state.newRequestData).then((response) => {
+      try{
+      await axios.post('http://localhost:3000/api/requests/', this.state.newRequestData,{headers: { Authorization: `Bearer ` + this.props.token }}).then((response) => {
         let { requests } = this.state;
   
        // requests.push(response.data);
@@ -77,11 +78,15 @@ class RequestAsUser extends Component {
         
        
         }});
-      });
+      });}
+      catch(error){
+        alert(   error+"\n"+"Description is required")
+      }
     }
     
-    addTask = async() => {
-        await axios.post('http://localhost:3000/api/tasks/', this.state.newTaskData).then((response) => {
+    addTask = async(req,res) => {
+      try{
+        await axios.post('http://localhost:3000/api/tasks/', this.state.newTaskData,{headers: { Authorization: `Bearer ` + this.props.token }}).then((response) => {
           let { tasks } = this.state;
     
          // requests.push(response.data);
@@ -96,15 +101,29 @@ class RequestAsUser extends Component {
             yearsOfExperience : 0,
           }});
         });
+        }
+        catch(error)
+        {
+
+          alert(
+            error+"\n"+
+            "Check the following :-" +"\n"
+                +"- Description is required" +"\n"
+                +"- Required Skills is required" +"\n"
+                +"- Category is required" +"\n"
+                +'- Required Skills should be in the form of ["skill1","skill2"..]' +"\n")
+        } 
+      
+    
       }
     updateRequest = async()=>{
       let { 
        description  } = this.state.editRequestData;
-  
+  try{
       await axios.put('http://localhost:3000/api/requests/' + this.state.editRequestData.id, {
        
         description
-      }).then((response) => {
+      },{headers: { Authorization: `Bearer ` + this.props.token }}).then((response) => {
         
         this.getRequests()
         this.setState({
@@ -113,25 +132,31 @@ class RequestAsUser extends Component {
         })
       });
     }
-    editRequest( id,
-     description ) {
+    catch(error)
+    {
+      alert(   error+"\n"+"Description can't be empty")
+    }
+    }
+    editRequest( id,description ) {
       this.setState({
         editRequestData: { id, 
           description }, editRequestModal: ! this.state.editRequestModal
       });
     }
     deleteRequest(id) {
-      axios.delete('http://localhost:3000/api/requests/' + id).then((response) => {
+      axios.delete('http://localhost:3000/api/requests/' + id,{headers: { Authorization: `Bearer ` + this.props.token }}).then((response) => {
        this.getRequests()
       });
     }
-       
+      
     
       
 
     render() {
+
+     
       this.getRequests()
-      
+     
     
        let  requests = this.state.requests?this.state.requests.map((request) => {
        
@@ -140,12 +165,12 @@ class RequestAsUser extends Component {
               
               
               <tr key={request.id}>
-                <td>{request.description}</td>
+                <td style={{color:"#fff"}}>{request.description}</td>
                  
-                <td>{acceptance}</td>
-                <td>{request.feedback}</td>
-                <td>{request.date}</td>
-                <td>
+                <td style={{color:"#fff"}}>{acceptance}</td>
+                <td style={{color:"#fff"}}>{request.feedback}</td>
+                <td style={{color:"#fff"}}>{request.date}</td>
+                <td style={{color:"#fff"}}>
             <Button color="success" size="sm" className="mr-2" onClick={this.editRequest.bind(this, request['_id'],request.accepted,request.feedback)}>Edit</Button>
             <Button color="danger" size="sm" onClick={this.deleteRequest.bind(this, request['_id'])}>Delete</Button>
           </td>
@@ -156,9 +181,10 @@ class RequestAsUser extends Component {
             )
           }):""
           return (
+            
             <div className="App container">
       
-            <h1>Requests</h1>
+            <h1 style={{color:"#fff"}}>Requests</h1>
             <Button className="my-3" color="primary" onClick={this.toggleNeedConsultModal.bind(this)}>Add Request</Button>
 
             <Modal isOpen={this.state.needConsultModal} toggle={this.toggleNeedConsultModal.bind(this)}>
@@ -222,7 +248,10 @@ class RequestAsUser extends Component {
 
     <FormGroup>
       <Label for="requiredSkills">requiredSkills</Label>
-      <Input id="requiredSkills" value={this.state.newTaskData.requiredSkills} onChange={(e) => {
+      <Input id="requiredSkills" value={this.state.newTaskData.requiredSkills}
+      
+      onChange={(e) => {
+     
         let { newTaskData } = this.state;
 
         newTaskData.requiredSkills = e.target.value;
@@ -313,12 +342,12 @@ class RequestAsUser extends Component {
                 <thead>
                   <tr>
                     
-                    <th>Description</th>
+                    <th style={{color:"#fff"}}>Description</th>
                     
-                    <th>Accepted</th>
-                    <th>Feedback</th>
-                    <th>Date</th>
-                    <th>Actions</th>
+                    <th style={{color:"#fff"}}>Accepted</th>
+                    <th style={{color:"#fff"}}>Feedback</th>
+                    <th style={{color:"#fff"}}>Date</th>
+                    <th style={{color:"#fff"}}>Actions</th>
                     
                   
                   </tr>

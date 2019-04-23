@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import {  Input, FormGroup, Label, Modal, ModalHeader, ModalBody, ModalFooter, Table, Button } from 'reactstrap';
-class Request extends Component {
+class Request2 extends Component {
     state = {
       requests: [],
      
@@ -26,7 +26,7 @@ class Request extends Component {
     getRequests = async  ()=> {
         
       const res = await axios.get(
-        "http://localhost:3000/api/requests/" 
+        "http://localhost:3000/api/adminRequests/all" 
       );
       this.setState({ requests: res.data.data });
        
@@ -37,8 +37,8 @@ class Request extends Component {
       let { 
         accepted ,        
         feedback  } = this.state.editRequestData;
-  
-      await axios.put('http://localhost:3000/api/requests/' + this.state.editRequestData.id, {
+  try{
+      await axios.put('http://localhost:3000/api/adminRequests/' + this.state.editRequestData.id, {
        
         accepted ,        
         feedback 
@@ -47,10 +47,11 @@ class Request extends Component {
         this.getRequests()
         this.setState({
           editRequestModal: false, editRequestData: { id: '', 
-          accepted : 0,        
+          accepted : '',        
           feedback : '', }
         })
-      });
+      });}catch(error)
+      {alert("accepted should be true or false and please write a feedback")}
     }
     editRequest( id,
       accepted ,        
@@ -62,7 +63,7 @@ class Request extends Component {
       });
     }
     deleteRequest(id) {
-      axios.delete('http://localhost:3000/api/requests/' + id).then((response) => {
+      axios.delete('http://localhost:3000/api/adminRequests/' + id).then((response) => {
        this.getRequests()
       });
     }
@@ -81,12 +82,12 @@ class Request extends Component {
               
               
               <tr key={request.id}>
-                <td>{request.description}</td>
+                <td style={{color:"#fff"}}>{request.description}</td>
                 
-                <td>{acceptance}</td>
-                <td>{request.feedback}</td>
-                <td>{request.date}</td>
-                <td>
+                <td style={{color:"#fff"}}>{acceptance}</td>
+                <td style={{color:"#fff"}}>{request.feedback}</td>
+                <td style={{color:"#fff"}}>{request.date}</td>
+                <td > 
             <Button color="success" size="sm" className="mr-2" onClick={this.editRequest.bind(this, request['_id'],request.accepted,request.feedback)}>Edit</Button>
             <Button color="danger" size="sm" onClick={this.deleteRequest.bind(this, request['_id'])}>Delete</Button>
           </td>
@@ -99,7 +100,7 @@ class Request extends Component {
           return (
             <div className="App container">
       
-            <h1>Requests</h1>
+            <h1 style={{color:"#fff"}}>Requests</h1>
            
 
        
@@ -140,12 +141,12 @@ class Request extends Component {
                 <thead>
                   <tr>
                     
-                    <th>Description</th>
+                    <th style={{color:"#fff"}}>Description</th>
                 
-                    <th>Accepted</th>
-                    <th>Feedback</th>
-                    <th>Date</th>
-                    <th>Actions</th>
+                    <th style={{color:"#fff"}}>Accepted</th>
+                    <th style={{color:"#fff"}}>Feedback</th>
+                    <th style={{color:"#fff"}}>Date</th>
+                    <th style={{color:"#fff"}}>Actions</th>
                     
                   
                   </tr>
@@ -159,4 +160,4 @@ class Request extends Component {
           );
         }
 }
-export default Request;
+export default Request2;

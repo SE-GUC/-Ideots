@@ -12,6 +12,8 @@ import NotificationList from "../notification_components/Notifications";
 import MyTask from "../task_components/MyTaskList";
 import MyEvent from "../event_components/MyEventList";
 import Request from "../request_components/RequestList";
+import RequestAsUser from "../userRequest_components/RequestAsUser";
+import Request2 from "../userRequest_components/Request";
 
 import { withStyles } from '@material-ui/core/styles';
 
@@ -66,8 +68,8 @@ const useStyles = makeStyles(theme => ({
     boxShadow: '0 3px 5px 2px rgba(33, 203, 243, .3)',
   },
   indicator: {
-    // backgroundColor: "#FFFF00",
-    background: 'linear-gradient(45deg, #FF6F00 30%, #FFFF00 90%)',      //red
+    backgroundColor: "#1A237E",
+    // background: 'linear-gradient(45deg, #FF6F00 30%, #FFFF00 90%)',      //red
     height:"4px"
   },
   flexContainer:{
@@ -97,6 +99,8 @@ function SimpleTabs(props) {
           <Tab label="MyTasks" />
           <Tab label="MyEvents" />
           <Tab label="Requests" />
+          <Tab label="RequestAsUser" />
+          <Tab label="RequestsAsAdmin" />
         </Tabs>
       </AppBar>
       {value === 0 && (
@@ -122,6 +126,16 @@ function SimpleTabs(props) {
       {value === 4 && (
         <TabContainer>
           <Request token={props.token} />
+        </TabContainer>
+      )}
+       {value === 5 && (
+        <TabContainer>
+          <RequestAsUser token={props.token} />
+        </TabContainer>
+      )}
+       {value === 6 && (
+        <TabContainer>
+          <Request2 token={props.token} />
         </TabContainer>
       )}
     </div>

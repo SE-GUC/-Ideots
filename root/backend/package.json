@@ -21,14 +21,18 @@
     "bcryptjs": "*",
     "body-parser": "*",
     "cors": "^2.8.5",
+    "crypto": "^1.0.1",
     "express": "^4.16.4",
+    "firebase-functions": "^2.2.1",
     "joi": "^14.3.1",
+    "nodemailer": "^6.1.0",
+    "nodemailer-smtp-transport": "^2.7.4",
     "joi-objectid": "^2.0.0",
     "mongoose": "^5.5.1",
     "mongoose-type-url": "*",
+    "nodemon": "^1.18.11",
     "passport-jwt": "^4.0.0",
-    "uuid": "^3.3.2",
-    "web-push": "^3.3.3"
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "axios": "^0.18.0",
