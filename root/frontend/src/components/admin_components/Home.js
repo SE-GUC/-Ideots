@@ -17,7 +17,7 @@ componentDidMount() {
 
  fetchadmin=()=>{
     axios
-    .get("http://localhost:3000/api/admins/5ca7c905fab5b62ebca5565b")
+    .get("https://lirten-hub-guc.herokuapp.com/api/admins/5ca7c905fab5b62ebca5565b")
     .then(res => {
         console.log(res.data._id)
         this.setState({ admin : res.data });

@@ -20,7 +20,7 @@ export class TaskList extends Component {
     this.setState({ offset: offset + count });
     axios
       .get(
-        "http://localhost:3000/api/tasks/WithRange/" + count + "/" + offset,
+        "https://lirten-hub-guc.herokuapp.com/api/tasks/WithRange/" + count + "/" + offset,
         {
           headers: { Authorization: `Bearer ` + this.props.token }
         }

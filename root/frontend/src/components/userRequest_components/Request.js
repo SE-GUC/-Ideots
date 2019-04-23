@@ -26,7 +26,7 @@ class Request2 extends Component {
     getRequests = async  ()=> {
         
       const res = await axios.get(
-        "http://localhost:3000/api/adminRequests/all" 
+        "https://lirten-hub-guc.herokuapp.com/api/adminRequests/all" 
       );
       this.setState({ requests: res.data.data });
        
@@ -38,7 +38,7 @@ class Request2 extends Component {
         accepted ,        
         feedback  } = this.state.editRequestData;
   try{
-      await axios.put('http://localhost:3000/api/adminRequests/' + this.state.editRequestData.id, {
+      await axios.put('https://lirten-hub-guc.herokuapp.com/api/adminRequests/' + this.state.editRequestData.id, {
        
         accepted ,        
         feedback 
@@ -63,7 +63,7 @@ class Request2 extends Component {
       });
     }
     deleteRequest(id) {
-      axios.delete('http://localhost:3000/api/adminRequests/' + id).then((response) => {
+      axios.delete('https://lirten-hub-guc.herokuapp.com/api/adminRequests/' + id).then((response) => {
        this.getRequests()
       });
     }

@@ -19,7 +19,7 @@ class eventRequest extends Component {
 
   componentWillMount(){
 
-    axios.get('http://localhost:3000/api/eventRequests').then((response)=>{
+    axios.get('https://lirten-hub-guc.herokuapp.com/api/eventRequests').then((response)=>{
 
       this.setState({
         eventRequests:response.data.data
@@ -45,7 +45,7 @@ class eventRequest extends Component {
      organizerId:"987654321987654321987654"
     }
     console.log(this.state.newRequestData)
-    axios.post('http://localhost:3000/api/eventRequests',this.state.newRequestData).then((response)=>{
+    axios.post('https://lirten-hub-guc.herokuapp.com/api/eventRequests',this.state.newRequestData).then((response)=>{
 
     let {eventRequests}=this.state  ;
     eventRequests.push(response.data.data)

@@ -63,7 +63,7 @@ class App extends Component {
     console.log(body);
     let res;
     try {
-      res = await axios.post("http://localhost:3000/api/auth/login", body);
+      res = await axios.post("https://lirten-hub-guc.herokuapp.com/api/auth/login", body);
       if (res.status === 200) {
         localStorage.setItem("loggedIn", true);
         localStorage.setItem("token", res.data.token);
@@ -94,7 +94,7 @@ class App extends Component {
     console.log(body);
     let res;
     try {
-      res = await axios.post("http://localhost:3000/api/auth/register", body);
+      res = await axios.post("https://lirten-hub-guc.herokuapp.com/api/auth/register", body);
       if (res.status === 200) {
       }
     } catch {}
@@ -111,7 +111,7 @@ class App extends Component {
     console.log(
       localStorage.getItem("loggedIn") + "  " + localStorage.getItem("token")
     );
-    let res=await axios.get("http://localhost:3000/api/auth/logout",{headers: { Authorization: `Bearer ` + this.state.token }
+    let res=await axios.get("https://lirten-hub-guc.herokuapp.com/api/auth/logout",{headers: { Authorization: `Bearer ` + this.state.token }
   })
     
     localStorage.setItem("loggedIn", false);

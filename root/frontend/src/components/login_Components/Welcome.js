@@ -12,7 +12,7 @@ export default class Welcome extends Component {
  
     getThemAll = async()=>{
       console.log(this.props.token)
-      let res=await Axios.get('http://localhost:3000/api/events',
+      let res=await Axios.get('https://lirten-hub-guc.herokuapp.com/api/events',
       { headers: { 'Authorization': `Bearer `+this.props.token }})
       console.log(res)
   }
