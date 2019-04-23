@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Event from "./EventCard";
+import EventCard from "./EventCard";
 import axios from "axios";
 
 export class MyEventList extends Component {
@@ -30,7 +30,7 @@ export class MyEventList extends Component {
     return (
       <div>
         {this.state.events.map(event => (
-          <Event key={event._id} event={event} />
+           <EventCard key={event._id} event={event} setTheEvent={this.props.setTheEvent} />
         ))}
         <h3
           style={{

@@ -24,7 +24,11 @@ import EventList from "./components/event_components/EventList";
 import Event from "./components/event_components/Event";
 
 import PaperBase from "./components/Actions/Paperbase";
+
+import ShowMessage from "./components/login_Components/ShowMessage";
+
 import Profile from "./components/profile/profile";
+
 // import createMixins from "@material-ui/core/styles/createMixins";
 
 const axios = require("axios");
@@ -34,13 +38,12 @@ class App extends Component {
     clickedEvent: {},
     wantsToLogin: true
   };
+
+
   setTheEvent = eventProps => {
     this.setState({
-      clickedEvent: eventProps,
-      email: "",
-      password: "",
-      loggedIn: false,
-      token: ""
+      clickedEvent: eventProps
+
     });
   };
 
@@ -66,6 +69,7 @@ class App extends Component {
     try {
       res = await axios.post("https://lirten-hub-guc.herokuapp.com/api/auth/login", body);
       if (res.status === 200) {
+      
         localStorage.setItem("loggedIn", true);
         localStorage.setItem("token", res.data.token);
         this.setState({
@@ -73,8 +77,11 @@ class App extends Component {
           token: res.data.token
         });
       }
+      else{this.setState({wrongEmailOrPass:true})
+      console.log("mn gowa login")}
     } catch {
       console.log("wrong email or password");
+      this.setState({wrongEmailOrPass:true})
     }
   };
 
@@ -84,7 +91,7 @@ class App extends Component {
 
   signUp = async (pass1,pass2,type) => {
     if (pass1!==pass2){
-      console.log("not the same password")
+      this.setState({samePassFlag:true})
     }
     else {
     let body = {
@@ -97,6 +104,7 @@ class App extends Component {
     try {
       res = await axios.post("https://lirten-hub-guc.herokuapp.com/api/auth/register", body);
       if (res.status === 200) {
+        this.setState({isSuccessfulReg:true})
       }
     } catch {}
   }};
@@ -125,11 +133,15 @@ class App extends Component {
     let logged = localStorage.getItem("loggedIn") === "true";
 
     if (!logged) {
+      // return (
+      //   <div> <ShowMessage /> </div>
+      // );
       if (this.state.wantsToLogin)
         return (
           <div>
             {" "}
             <ButtonAppBar flag={this.loginORsignup} />
+            <ShowMessage flag1={this.state.isSuccessfulReg} flagPass={this.state.samePassFlag} wrongEmail={this.state.wrongEmailOrPass}/>
             <SignIn
               signInMethod={this.logIn}
               mail={this.emailHandler}
@@ -141,6 +153,7 @@ class App extends Component {
         return (
           <div>
             <ButtonAppBar flag={this.loginORsignup} />
+            <ShowMessage flag1={this.state.isSuccessfulReg} flagPass={this.state.samePassFlag}wrongEmail={this.state.wrongEmailOrPass}/>
             <SignUp
               signUpMethod={this.signUp}
               mail={this.emailHandler}
@@ -176,7 +189,7 @@ class App extends Component {
             <Route
               exact
               path="/EventList"
-              render={() => <EventList setTheEvent={this.setTheEvent} />}
+              render={() => <EventList setTheEvent={this.setTheEvent} token={this.state.token}  />}
             />
             <Route
               path="/eventRequests"
@@ -203,39 +216,39 @@ class App extends Component {
               exact
 
               path="/Main"
-              render={props => <Tabs token={this.state.token} value={0}/>}
+              render={props => <Tabs token={this.state.token} value={0} setTheEvent={this.setTheEvent} />}
             />
             <Route
               exact
               path="/Main/Notifications"
-              render={props => <Tabs token={this.state.token} value={0}/>}
+              render={props => <Tabs token={this.state.token} value={0} setTheEvent={this.setTheEvent} />}
             />
             <Route
               exact
               path="/Main/Tasks"
-              render={props => <Tabs token={this.state.token} value={1}/>}
+              render={props => <Tabs token={this.state.token} value={1} setTheEvent={this.setTheEvent} />}
             />  
              <Route
               exact
               path="/Main/MyTasks"
-              render={props => <Tabs token={this.state.token} value={2}/>}
+              render={props => <Tabs token={this.state.token} value={2} setTheEvent={this.setTheEvent} />}
             />  
             <Route
               exact
               path="/Main/MyEvents"
-              render={props => <Tabs token={this.state.token} value={3}/>}
+              render={props => <Tabs token={this.state.token} value={3} setTheEvent={this.setTheEvent} />}
             />  
             <Route
               exact
               path="/Main/Requests"
-              render={props => <Tabs token={this.state.token} value={4}/>}
+              render={props => <Tabs token={this.state.token} value={4} setTheEvent={this.setTheEvent} />}
             />  
                  
                   <Route
               exact
-              path="/profile"
-              render={props => <Profile token={this.state.token} />}
-            />       
+              path="/Notifications"
+              render={props => <NotificationList token={this.state.token} setTheEvent={this.setTheEvent} />}
+
 
               
           </div>
