@@ -20,6 +20,12 @@ router.get('/', async (req,res) => {
 
 })
 
+router.get('/getTheID', async (req,res) => {
+    const userID =  req.user._id;
+    res.json({data : userID});   
+
+
+})
 // Get all members 
 router.get('/members/', async (req,res) => {
 

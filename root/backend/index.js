@@ -66,8 +66,8 @@ app.use("/api/requests", passport.authenticate("jwt", { session: false }),reques
 app.use("/api/tasks", passport.authenticate("jwt", { session: false }), tasks);
 app.use("/api/events", passport.authenticate("jwt", { session: false }), event);
 app.use("/api/eventRequests", eventRequest);
-app.use("/api/eventBookings", eventBooking);
-app.use("/api/users", users);
+app.use("/api/eventBookings",  passport.authenticate("jwt", { session: false }),eventBooking);
+app.use("/api/users", passport.authenticate("jwt", { session: false }),users);
 app.use("/api/reviews", reviews);
 app.use("/api/login", login);
 app.use("/api/auth", auth);
