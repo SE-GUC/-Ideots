@@ -41,6 +41,29 @@ function PaperSheet(props) {
       </Paper>
     </div>
   );}
+  else if(type==="partner"){
+    var fieldOfWork=[];
+  if(props.info.fieldOfWork)
+  fieldOfWork=props.info.fieldOfWork
+  console.log("experienceiiiiiiii000000000000000000000000000000000000")  
+  console.log(fieldOfWork)
+  return (
+    <div>
+      <Paper className={classes.root} elevation={1}>
+        <Typography variant="h5" component="h2">
+            fields of work
+        </Typography>
+        <div>
+        {fieldOfWork.map(fieldOfWorkk=>(
+            <li>{fieldOfWorkk}</li>
+        )
+)}
+        </div>
+  
+      </Paper>
+    </div>
+  );
+  }
   else{
     return (
         <div>

@@ -80,11 +80,29 @@ function SimpleTable(props) {
       ];
     }
     else if(type==="partner"){
+      const basicBussinesInformation=props.info.basicBussinesInformation
+      var contactstring=""
+      if(basicBussinesInformation){
+        basicBussinesInformation.forEach(function(element, i) {
+          contactstring+=" "+element;
+        });
+        console.log(contactstring)
+      }
+      const otherContacts=props.info.otherContacts
+      var contactstringg=""
+      if(otherContacts){
+        otherContacts.forEach(function(element, i) {
+          contactstringg+=" "+element;
+        });
+        console.log(contactstring)
+      }
       rows = [
        createData('user name', props.info.name?props.info.name:"none"),
        createData('type', props.info.type?props.info.type:"none"),
        createData('email',  props.info.email?props.info.email:"none" ),
        createData('rate', props.info.rate?props.info.rate:"none"),
+       createData('basicBussinesInformation', contactstring==""?"none":contactstring),
+       createData('otherContacts', contactstringg==""?"none":contactstringg)
        
       //  createData('phoneNumber', props.info.phoneNumber?props.info.phoneNumber:"none"),
       //  createData('website',props.info.website?props.info.website:"none"),
@@ -102,7 +120,7 @@ function SimpleTable(props) {
      createData('rate', props.info.rate?props.info.rate:"none"),
      createData('description',props.info.description?props.info.description:"none"),
      createData('fax',props.info.fax?props.info.fax:"none"),
-     createData('website',props.info.website?props.info.website:"none"),
+     createData('website',props.info.website?props.info.website:"none")
      
     //  createData('phoneNumber', props.info.phoneNumber?props.info.phoneNumber:"none"),
     //  createData('address',props.info.address?props.info.address:"none"),
