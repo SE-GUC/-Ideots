@@ -24,7 +24,11 @@ import EventList from "./components/event_components/EventList";
 import Event from "./components/event_components/Event";
 
 import PaperBase from "./components/Actions/Paperbase";
+
 import ShowMessage from "./components/login_Components/ShowMessage";
+
+import Profile from "./components/profile/profile";
+
 // import createMixins from "@material-ui/core/styles/createMixins";
 
 const axios = require("axios");
@@ -214,9 +218,43 @@ class App extends Component {
             />
             <Route
               exact
-              path="/tabs"
-              render={props => <Tabs token={this.state.token} />}
+
+              path="/Main"
+              render={props => <Tabs token={this.state.token} value={0}/>}
             />
+            <Route
+              exact
+              path="/Main/Notifications"
+              render={props => <Tabs token={this.state.token} value={0}/>}
+            />
+            <Route
+              exact
+              path="/Main/Tasks"
+              render={props => <Tabs token={this.state.token} value={1}/>}
+            />  
+             <Route
+              exact
+              path="/Main/MyTasks"
+              render={props => <Tabs token={this.state.token} value={2}/>}
+            />  
+            <Route
+              exact
+              path="/Main/MyEvents"
+              render={props => <Tabs token={this.state.token} value={3}/>}
+            />  
+            <Route
+              exact
+              path="/Main/Requests"
+              render={props => <Tabs token={this.state.token} value={4}/>}
+            />  
+                 
+                  <Route
+              exact
+              path="/profile"
+              render={props => <Profile token={this.state.token} />}
+            />       
+
+              
           </div>
         </Router>
         <div>

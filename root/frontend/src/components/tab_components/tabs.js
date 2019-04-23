@@ -68,8 +68,8 @@ const useStyles = makeStyles(theme => ({
     boxShadow: '0 3px 5px 2px rgba(33, 203, 243, .3)',
   },
   indicator: {
-    // backgroundColor: "#FFFF00",
-    background: 'linear-gradient(45deg, #FF6F00 30%, #FFFF00 90%)',      //red
+    backgroundColor: "#1A237E",
+    // background: 'linear-gradient(45deg, #FF6F00 30%, #FFFF00 90%)',      //red
     height:"4px"
   },
   flexContainer:{
