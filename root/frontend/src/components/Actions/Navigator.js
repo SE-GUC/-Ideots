@@ -34,7 +34,7 @@ const categories = [
       { id: 'View Tasks', icon: <SettingsInputComponentIcon />, link: '/Main/Tasks'  },
       // { id: 'Submit final product', icon: <DnsRoundedIcon /> },
       {id: 'View Events',icon: <PermMediaOutlinedIcon />,link: '/Eventlist'},
-      { id: 'My Profile', icon: <PeopleIcon />, link: '/Eventlist' }
+      { id: 'My Profile', icon: <PeopleIcon />, link: '/profile' }
     ]
   },
   {
@@ -47,7 +47,7 @@ const categories = [
       { id: 'Review Consultancy', icon: <PhonelinkSetupIcon /> },
       { id: 'Create New Request', icon: <PhonelinkSetupIcon /> },
       { id: 'Feedbacks', icon: <PublicIcon /> },
-      { id: 'My Profile', icon: <PeopleIcon /> }
+      { id: 'My Profile', icon: <PeopleIcon /> , link: '/profile'}
     ]
   },
 
@@ -57,7 +57,7 @@ const categories = [
       { id: 'Notifications', icon: <PublicIcon />,link: '/Main/Notifications' },
       { id: 'My Created Tasks', icon: <PermMediaOutlinedIcon/> , link: '/Main/Tasks'},
       { id: 'My Descriptions', icon: <PermMediaOutlinedIcon /> },
-      { id: 'My Profile', icon: <PeopleIcon /> }
+      { id: 'My Profile', icon: <PeopleIcon /> , link: '/profile'}
     ]
   }
 ];

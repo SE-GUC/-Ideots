@@ -107,7 +107,8 @@ class PrimarySearchAppBar extends React.Component {
     category: [],
     assignedPerson: [],
     experience: [],
-    payment: []
+    payment: [],
+    event: []
   };
 
   toggleSearchModal() {
@@ -152,11 +153,18 @@ class PrimarySearchAppBar extends React.Component {
           headers: { Authorization: `Bearer ` + this.props.token }
         }
       );
+      const res4 = await axios.get(
+        "http://localhost:3000/api/events/search/" + this.state.searchText,
+        {
+          headers: { Authorization: `Bearer ` + this.props.token }
+        }
+      );
       this.setState({
         category: res.data.data,
         assignedPerson: res1.data.data,
         experience: res2.data.data,
-        payment: res3.data.data
+        payment: res3.data.data,
+        event: res4.data.data
       });
       console.log(res.data.data);
       {
@@ -328,6 +336,11 @@ class PrimarySearchAppBar extends React.Component {
             <FormGroup>
               <h6>Payment</h6>
               <Searchcontent tasks={this.state.payment} searchBy="payment" />
+            </FormGroup>
+            <Divider />
+            <FormGroup>
+              <h6>Events</h6>
+              <Searchcontent tasks={this.state.event} searchBy="eventType" />
             </FormGroup>
           </ModalBody>
         </Modal>
