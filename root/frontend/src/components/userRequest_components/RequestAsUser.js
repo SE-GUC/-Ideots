@@ -165,12 +165,12 @@ class RequestAsUser extends Component {
               
               
               <tr key={request.id}>
-                <td style={{color:"#fff"}}>{request.description}</td>
+                <td style={{color:"#000"}}>{request.description}</td>
                  
-                <td style={{color:"#fff"}}>{acceptance}</td>
-                <td style={{color:"#fff"}}>{request.feedback}</td>
-                <td style={{color:"#fff"}}>{request.date}</td>
-                <td style={{color:"#fff"}}>
+                <td style={{color:"#000"}}>{acceptance}</td>
+                <td style={{color:"#00"}}>{request.feedback}</td>
+                <td style={{color:"#000"}}>{request.date}</td>
+                <td style={{color:"#000"}}>
             <Button color="success" size="sm" className="mr-2" onClick={this.editRequest.bind(this, request['_id'],request.accepted,request.feedback)}>Edit</Button>
             <Button color="danger" size="sm" onClick={this.deleteRequest.bind(this, request['_id'])}>Delete</Button>
           </td>
@@ -184,7 +184,7 @@ class RequestAsUser extends Component {
             
             <div className="App container">
       
-            <h1 style={{color:"#fff"}}>Requests</h1>
+            <h1 style={{color:"#000"}}>Requests</h1>
             <Button className="my-3" color="primary" onClick={this.toggleNeedConsultModal.bind(this)}>Add Request</Button>
 
             <Modal isOpen={this.state.needConsultModal} toggle={this.toggleNeedConsultModal.bind(this)}>
@@ -342,12 +342,12 @@ class RequestAsUser extends Component {
                 <thead>
                   <tr>
                     
-                    <th style={{color:"#fff"}}>Description</th>
+                    <th style={{color:"#000"}}>Description</th>
                     
-                    <th style={{color:"#fff"}}>Accepted</th>
-                    <th style={{color:"#fff"}}>Feedback</th>
-                    <th style={{color:"#fff"}}>Date</th>
-                    <th style={{color:"#fff"}}>Actions</th>
+                    <th style={{color:"#000"}}>Accepted</th>
+                    <th style={{color:"#000"}}>Feedback</th>
+                    <th style={{color:"#000"}}>Date</th>
+                    <th style={{color:"#000"}}>Actions</th>
                     
                   
                   </tr>
