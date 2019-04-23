@@ -24,6 +24,7 @@ import EventList from "./components/event_components/EventList";
 import Event from "./components/event_components/Event";
 
 import PaperBase from "./components/Actions/Paperbase";
+import ShowMessage from "./components/login_Components/ShowMessage";
 // import createMixins from "@material-ui/core/styles/createMixins";
 
 const axios = require("axios");
@@ -39,7 +40,10 @@ class App extends Component {
       email: "",
       password: "",
       loggedIn: false,
-      token: ""
+      token: "",
+      isSuccessfulReg:false,
+      samePassFlag:false,
+      wrongEmailOrPass:false
     });
   };
 
@@ -65,6 +69,7 @@ class App extends Component {
     try {
       res = await axios.post("http://localhost:3000/api/auth/login", body);
       if (res.status === 200) {
+      
         localStorage.setItem("loggedIn", true);
         localStorage.setItem("token", res.data.token);
         this.setState({
@@ -72,8 +77,11 @@ class App extends Component {
           token: res.data.token
         });
       }
+      else{this.setState({wrongEmailOrPass:true})
+      console.log("mn gowa login")}
     } catch {
       console.log("wrong email or password");
+      this.setState({wrongEmailOrPass:true})
     }
   };
 
@@ -83,7 +91,7 @@ class App extends Component {
 
   signUp = async (pass1,pass2,type) => {
     if (pass1!==pass2){
-      console.log("not the same password")
+      this.setState({samePassFlag:true})
     }
     else {
     let body = {
@@ -96,6 +104,7 @@ class App extends Component {
     try {
       res = await axios.post("http://localhost:3000/api/auth/register", body);
       if (res.status === 200) {
+        this.setState({isSuccessfulReg:true})
       }
     } catch {}
   }};
@@ -124,11 +133,15 @@ class App extends Component {
     let logged = localStorage.getItem("loggedIn") === "true";
 
     if (!logged) {
+      // return (
+      //   <div> <ShowMessage /> </div>
+      // );
       if (this.state.wantsToLogin)
         return (
           <div>
             {" "}
             <ButtonAppBar flag={this.loginORsignup} />
+            <ShowMessage flag1={this.state.isSuccessfulReg} flagPass={this.state.samePassFlag} wrongEmail={this.state.wrongEmailOrPass}/>
             <SignIn
               signInMethod={this.logIn}
               mail={this.emailHandler}
@@ -140,6 +153,7 @@ class App extends Component {
         return (
           <div>
             <ButtonAppBar flag={this.loginORsignup} />
+            <ShowMessage flag1={this.state.isSuccessfulReg} flagPass={this.state.samePassFlag}wrongEmail={this.state.wrongEmailOrPass}/>
             <SignUp
               signUpMethod={this.signUp}
               mail={this.emailHandler}
