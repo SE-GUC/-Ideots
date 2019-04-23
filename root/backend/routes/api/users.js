@@ -9,16 +9,40 @@ const notificationController = require("../../controllers/sendNotificationContro
 
 // Get all users
 router.get('/', async (req,res) => {
-
-  
         const user = await User.find().populate('pastProjects').populate('events').populate('tasks').populate('attendedEvents')
         .populate('eventOrganized')
       
 
         res.json({data : user});   
-   
-
 })
+// router.get('/', async (req, res) => {
+//     try{
+//         const id= req.user._id;
+//         console.log(req.user)
+//         // const id = req.params.id;
+//         // console.log(id);
+//         const user =await User.findOne({_id:id}).populate('partners').populate('events').populate('tasks').populate('attendedEvents')
+//         .populate('eventOrganized');
+//         // console.log(user);
+//         if(!user) res.status(404).send({error:"there is no User with this Id"});
+//         res.json(user);
+//     }catch(error) {
+//         res.json({error: error.message});
+//    } 
+// });
+router.get("/User", async (req, res) => {
+    try{
+        const id = req.user._id;
+        // console.log(id);
+        const user =await User.findOne({_id:id}).populate('partners').populate('events').populate('tasks').populate('attendedEvents')
+        .populate('eventOrganized');
+        // console.log(user);
+        if(!user) res.status(404).send({error:"there is no User with this Id"});
+        res.json(user);
+    }catch(error) {
+        res.json({error: error.message});
+   } 
+  });
 
 router.get('/getTheID', async (req,res) => {
     const userID =  req.user._id;
@@ -81,7 +105,8 @@ router.post('/', async (req, res) => {
                 tasks:req.body.tasks,
                 attendedEvents:req.body.attendedEvents,
                 experience:req.body.experience,
-                certificates:req.body.certificates
+                certificates:req.body.certificates,
+                registrationPhase:req.body.registrationPhase
             });
             //-------------------------( Notify admin that a new user signed on the website )-----------------------------------------
             await notificationController.notifyAdmins(newUser._id,content);

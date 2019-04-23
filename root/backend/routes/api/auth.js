@@ -89,8 +89,8 @@ router.get("/resend?email", async (req, res) => {
       service: "gmail",
       host: "smtp.gmail.com",
       auth: {
-        user: "omarabousamaha99@gmail.com",
-        pass: "*******"
+        user: "lirtenhub19@gmail.com",
+        pass: "LirtenHub@ideots2019"
       }
     })
   );
@@ -157,8 +157,8 @@ router.post("/register", async (req, res) => {
         host: "smtp.gmail.com",
         // service: "Sendgrid",
         auth: {
-          user: "omarabousamaha99@gmail.com",
-          pass: "*********"
+          user: "lirtenhub19@gmail.com",
+          pass: "LirtenHub@ideots2019"
           // user: process.env.SENDGRID_USERNAME,
           // pass: process.env.SENDGRID_PASSWORD
         }
@@ -206,4 +206,10 @@ router.post("/register", async (req, res) => {
     //  res.json({ error: error.message });
   }
 });
+
+router.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('/');
+});
+
 module.exports = router;

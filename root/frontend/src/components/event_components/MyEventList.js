@@ -9,7 +9,7 @@ export class MyEventList extends Component {
   };
   componentDidMount() {
     this.fetchEvents();
-  }
+  } 
 
   fetchEvents = () => {
     try {

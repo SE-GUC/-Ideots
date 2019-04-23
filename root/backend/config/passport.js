@@ -25,12 +25,12 @@ passport.use(new LocalStrategy({
         passwordField: 'password'
     },
     async (email, password, cb) => {
-        const user = await User.findOne({email}).lean();
+      const user = await User.findOne({email}).lean();
     if(!user) return cb(null, false, {message: 'Incorrect email or password.'});
    await bcrypt.compare(password ,user.password, function(err, res) {
         if(res) {
         //passwords match
-          if (user.registrationPhase===3)
+          if (user.registrationPhase>=2)
           return   cb(null, user, {message: 'Logged In Successfully'});
           return   cb(null, false, {message: 'Email not verified yet'});
         } else {
