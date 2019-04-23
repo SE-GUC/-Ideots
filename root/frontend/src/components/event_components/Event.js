@@ -219,12 +219,7 @@ export class Event extends Component {
     }
   };
 
-  
-   getTheNameOfOrganizer = async() =>{
-    const user= await axios.get(`https://lirten-hub-guc.herokuapp.com/api/users/${this.props.event.organizerId}`, {
-     headers: { Authorization: `Bearer ` + this.props.token }
-   })
-   reserveSeat =async()=>{
+  reserveSeat =async()=>{
     const memID = await axios.get(`https://lirten-hub-guc.herokuapp.com/api/users/getTheID`,{
       headers: { Authorization: `Bearer ` + this.props.token }
     })
@@ -250,12 +245,14 @@ export class Event extends Component {
       isBooked:true
     }) ; 
   }
-  
+  getTheNameOfOrganizer = async() =>{
+   const user= await axios.get(`https://lirten-hub-guc.herokuapp.com/api/users/${this.props.event.organizerId}`, {
+    headers: { Authorization: `Bearer ` + this.props.token }
+  })
    const name = user.data.name 
    console.log(user.data.name)
    return name  
   }
-
   render() {
     const title = this.state.title;
     const body = this.state.body;

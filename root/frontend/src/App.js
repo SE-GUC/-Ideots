@@ -244,12 +244,7 @@ class App extends Component {
               render={props => <Tabs token={this.state.token} value={4} setTheEvent={this.setTheEvent} />}
             />  
                  
-                  <Route
-              exact
-              path="/Notifications"
-              render={props => <NotificationList token={this.state.token} setTheEvent={this.setTheEvent} />}
-
-
+         
               
           </div>
         </Router>
