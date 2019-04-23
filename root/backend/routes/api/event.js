@@ -91,7 +91,7 @@ router.get("/search/:city/:Area/:Street", async (req, res) => {
 //Get a certain event by type
 router.get("/search/:type", async (req, res) => {
   const type = req.params.type;
-  const event = await Event.find({ type: type })
+  const event = await Event.find({ type: { $regex: type, $options: "i" } })
     .populate("organizerId")
     .populate("eventRequestId");
   res.send({ data: event });

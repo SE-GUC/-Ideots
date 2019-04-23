@@ -27,8 +27,10 @@ function ListDividers(props) {
                   ? task.category
                   : searchBy == "payment"
                   ? task.payment
-                  : searchBy == "yearsOfExperience"
+                  : searchBy == "experience"
                   ? task.yearsOfExperience
+                  : searchBy == "eventType"
+                  ? task.type
                   : task.requiredSkills
               }
               secondary={task.description}
