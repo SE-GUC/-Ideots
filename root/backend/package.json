@@ -26,12 +26,14 @@
     "nodemailer": "^6.1.0",
     "nodemailer-smtp-transport": "^2.7.4",
     "passport-jwt": "^4.0.0",
+    "passport-local": "*",
+    "passport": "^0.4.0",
     "bcryptjs": "*",
     "joi-objectid": "^2.0.0",
     "mongoose": "^5.5.1",
     "mongoose-type-url": "*",
     "uuid": "^3.3.2",
-    "cors": "^2.8.5"
+    "cors": "*"
   },
   "devDependencies": {
     "axios": "^0.18.0",
@@ -42,6 +44,6 @@
     "mongoose": "^5.5.1",
     "mongoose-type-url": "^1.0.5",
     "passport": "^0.4.0",
-    "passport-local": "^1.0.0"
+    "passport-local": "*"
   }
 }
