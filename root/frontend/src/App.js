@@ -25,6 +25,7 @@ import Event from "./components/event_components/Event";
 
 import PaperBase from "./components/Actions/Paperbase";
 
+
 import ShowMessage from "./components/login_Components/ShowMessage";
 
 import Profile from "./components/profile/profile";
@@ -67,7 +68,7 @@ class App extends Component {
     console.log(body);
     let res;
     try {
-      res = await axios.post("http://localhost:3000/api/auth/login", body);
+      res = await axios.post("https://lirten-hub-guc.herokuapp.com/api/auth/login", body);
       if (res.status === 200) {
       
         localStorage.setItem("loggedIn", true);
@@ -102,7 +103,7 @@ class App extends Component {
     console.log(body);
     let res;
     try {
-      res = await axios.post("http://localhost:3000/api/auth/register", body);
+      res = await axios.post("https://lirten-hub-guc.herokuapp.com/api/auth/register", body);
       if (res.status === 200) {
         this.setState({isSuccessfulReg:true})
       }
@@ -120,7 +121,7 @@ class App extends Component {
     console.log(
       localStorage.getItem("loggedIn") + "  " + localStorage.getItem("token")
     );
-    let res=await axios.get("http://localhost:3000/api/auth/logout",{headers: { Authorization: `Bearer ` + this.state.token }
+    let res=await axios.get("https://lirten-hub-guc.herokuapp.com/api/auth/logout",{headers: { Authorization: `Bearer ` + this.state.token }
   })
     
     localStorage.setItem("loggedIn", false);
@@ -243,13 +244,9 @@ class App extends Component {
               path="/Main/Requests"
               render={props => <Tabs token={this.state.token} value={4} setTheEvent={this.setTheEvent} />}
             />  
-                 
-                  <Route
-              exact
-              path="/Notifications"
-              render={props => <NotificationList token={this.state.token} setTheEvent={this.setTheEvent} />}
-
-
+              
+                  
+         
               
           </div>
         </Router>

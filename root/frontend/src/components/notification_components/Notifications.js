@@ -21,7 +21,7 @@ class Notifications extends Component {
     this.setState({ offset: offset + count });
    // console.log(this.props.token)
     axios
-      .get(`http://localhost:3000/api/notifications/${count}/${offset}`, {headers: { Authorization: `Bearer ` + this.props.token }
+      .get(`https://lirten-hub-guc.herokuapp.com/api/notifications/${count}/${offset}`, {headers: { Authorization: `Bearer ` + this.props.token }
       })
       .then(res => {
         if (res.data.data.length > 0) {
@@ -46,7 +46,7 @@ class Notifications extends Component {
     const isRead = true;
     const params = { isRead: isRead };
     axios
-      .put(`http://localhost:3000/api/notifications/${id}`,params,  {headers: { Authorization: `Bearer ` + this.props.token }})
+      .put(`https://lirten-hub-guc.herokuapp.com/api/notifications/${id}`,params,  {headers: { Authorization: `Bearer ` + this.props.token }})
       .then(this.readNotification(id, isRead));
   };
 

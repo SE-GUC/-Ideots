@@ -21,11 +21,11 @@ export class Event extends Component {
       isFull:this.props.event.numberOfSpaces ===this.props.event.numberOfRegisterations ? true :false , 
     })
     this.updateIsBooked()
-    const memID = await axios.get(`http://localhost:3000/api/users/getTheID`,{
+    const memID = await axios.get(`https://lirten-hub-guc.herokuapp.com/api/users/getTheID`,{
       headers: { Authorization: `Bearer ` + this.props.token }
     }) 
        
-    const bookings = await  axios.get(`http://localhost:3000/api/eventBookings/${this.props.event._id}/${memID.data.data}` ,{
+    const bookings = await  axios.get(`https://lirten-hub-guc.herokuapp.com/api/eventBookings/${this.props.event._id}/${memID.data.data}` ,{
     headers: { Authorization: `Bearer ` + this.props.token }
   } )
   console.log(bookings.data)
@@ -43,7 +43,7 @@ export class Event extends Component {
     /*must change the user ID when using authentication 
    */
   console.log(this.props.event._id)
-    axios.get(`http://localhost:3000/api/eventBookings/${this.props.event._id}` , {
+    axios.get(`https://lirten-hub-guc.herokuapp.com/api/eventBookings/${this.props.event._id}` , {
       headers: { Authorization: `Bearer ` + this.props.token }
     })
     .then(res =>{
@@ -138,7 +138,7 @@ export class Event extends Component {
       case "who":
       let bod = "no available data"
       if ( this.state.event.organizerId ){
-        const user= await axios.get(`http://localhost:3000/api/users/${this.state.event.organizerId}`, {
+        const user= await axios.get(`https://lirten-hub-guc.herokuapp.com/api/users/${this.state.event.organizerId}`, {
           headers: { Authorization: `Bearer ` + this.props.token }
         })
         bod = user.data.name
@@ -151,12 +151,13 @@ export class Event extends Component {
         });
         break;
     case "BookedEvent" : 
+
     
-    const memID = await axios.get(`http://localhost:3000/api/users/getTheID`,{
+    const memID = await axios.get(`https://lirten-hub-guc.herokuapp.com/api/users/getTheID`,{
       headers: { Authorization: `Bearer ` + this.props.token }
     }) 
        
-    const bookings = await  axios.get(`http://localhost:3000/api/eventBookings/${this.props.event._id}/${memID.data.data}` ,{
+    const bookings = await  axios.get(`https://lirten-hub-guc.herokuapp.com/api/eventBookings/${this.props.event._id}/${memID.data.data}` ,{
     headers: { Authorization: `Bearer ` + this.props.token }
   } )
    const oneBooking = bookings.data.data[0]
@@ -217,12 +218,13 @@ export class Event extends Component {
     })
     }
   };
+
   reserveSeat =async()=>{
-    const memID = await axios.get(`http://localhost:3000/api/users/getTheID`,{
+    const memID = await axios.get(`https://lirten-hub-guc.herokuapp.com/api/users/getTheID`,{
       headers: { Authorization: `Bearer ` + this.props.token }
     })
     console.log(memID.data.data)
-    const haha =   await axios.post(`http://localhost:3000/api/eventBookings`,{
+    const haha =   await axios.post(`https://lirten-hub-guc.herokuapp.com/api/eventBookings`,{
       eventId: this.state.event._id ,
       registrationPrice: this.state.event.registrationPrice ,
       memberId:memID.data.data ,
@@ -233,7 +235,7 @@ export class Event extends Component {
     console.log(haha)
     console.log("LOGOGOOGOGOGOGOGOGOG")
     const newReg = this.state.event.numberOfRegisterations +1
-    await axios.put(`http://localhost:3000/api/events/${this.state.event._id}` , {
+    await axios.put(`https://lirten-hub-guc.herokuapp.com/api/events/${this.state.event._id}` , {
       numberOfRegisterations : newReg
     }, {
       headers: { Authorization: `Bearer ` + this.props.token }
@@ -244,14 +246,13 @@ export class Event extends Component {
     }) ; 
   }
   getTheNameOfOrganizer = async() =>{
-   const user= await axios.get(`http://localhost:3000/api/users/${this.props.event.organizerId}`, {
+   const user= await axios.get(`https://lirten-hub-guc.herokuapp.com/api/users/${this.props.event.organizerId}`, {
     headers: { Authorization: `Bearer ` + this.props.token }
   })
    const name = user.data.name 
    console.log(user.data.name)
    return name  
   }
-
   render() {
     const title = this.state.title;
     const body = this.state.body;

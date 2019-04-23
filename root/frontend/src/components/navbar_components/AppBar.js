@@ -123,7 +123,7 @@ class PrimarySearchAppBar extends React.Component {
       console.log(this.props.token);
       console.log(1);
       const res = await axios.get(
-        "http://localhost:3000/api/tasks/search/category=" +
+        "https://lirten-hub-guc.herokuapp.com/api/tasks/search/category=" +
           this.state.searchText,
         {
           headers: { Authorization: `Bearer ` + this.props.token }
@@ -131,7 +131,7 @@ class PrimarySearchAppBar extends React.Component {
       );
       console.log(1);
       const res1 = await axios.get(
-        "http://localhost:3000/api/tasks/search/assignedPerson=" +
+        "https://lirten-hub-guc.herokuapp.com/api/tasks/search/assignedPerson=" +
           this.state.searchText,
         {
           headers: { Authorization: `Bearer ` + this.props.token }
@@ -139,7 +139,7 @@ class PrimarySearchAppBar extends React.Component {
       );
       console.log(1);
       const res2 = await axios.get(
-        "http://localhost:3000/api/tasks/search/experience=" +
+        "https://lirten-hub-guc.herokuapp.com/api/tasks/search/experience=" +
           this.state.searchText,
         {
           headers: { Authorization: `Bearer ` + this.props.token }
@@ -147,14 +147,14 @@ class PrimarySearchAppBar extends React.Component {
       );
       console.log(1);
       const res3 = await axios.get(
-        "http://localhost:3000/api/tasks/search/payment=" +
+        "https://lirten-hub-guc.herokuapp.com/api/tasks/search/payment=" +
           this.state.searchText,
         {
           headers: { Authorization: `Bearer ` + this.props.token }
         }
       );
       const res4 = await axios.get(
-        "http://localhost:3000/api/events/search/" + this.state.searchText,
+        "https://lirten-hub-guc.herokuapp.com/api/events/search/" + this.state.searchText,
         {
           headers: { Authorization: `Bearer ` + this.props.token }
         }

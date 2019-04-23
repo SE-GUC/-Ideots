@@ -12,7 +12,7 @@ export class MyTaskList extends Component {
 
   fetchTasks = () => {
     axios
-      .get("http://localhost:3000/api/tasks/partner/partner", {
+      .get("https://lirten-hub-guc.herokuapp.com/api/tasks/partner/partner", {
         headers: { Authorization: `Bearer ` + this.props.token }
       })
       .then(res => {
