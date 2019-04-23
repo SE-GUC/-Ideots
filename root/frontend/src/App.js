@@ -236,6 +236,8 @@ class App extends Component {
               path="/profile"
               render={props => <Profile token={this.state.token} />}
             />       
+
+              
           </div>
         </Router>
         <div>
