@@ -206,4 +206,10 @@ router.post("/register", async (req, res) => {
     //  res.json({ error: error.message });
   }
 });
+
+router.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('/');
+});
+
 module.exports = router;
