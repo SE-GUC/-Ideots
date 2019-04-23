@@ -25,7 +25,8 @@ passport.use(new LocalStrategy({
         passwordField: 'password'
     },
     async (email, password, cb) => {
-        const user = await User.findOne({email}).lean();
+      const user = await User.findOne({email}).lean();
+      console.log(user.registrationPhase)
     if(!user) return cb(null, false, {message: 'Incorrect email or password.'});
    await bcrypt.compare(password ,user.password, function(err, res) {
         if(res) {
