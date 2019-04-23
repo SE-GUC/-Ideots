@@ -154,7 +154,7 @@ class PrimarySearchAppBar extends React.Component {
         }
       );
       const res4 = await axios.get(
-        "http://localhost:3000/api/events/search/" + this.state.searchText,
+        "https://lirten-hub-guc.herokuapp.com/api/events/search/" + this.state.searchText,
         {
           headers: { Authorization: `Bearer ` + this.props.token }
         }
