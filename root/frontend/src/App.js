@@ -178,9 +178,13 @@ class App extends Component {
             />  
             <Route
               exact
+              path="/Main/RequestAsUser"
+              render={props => <Tabs token={this.state.token} value={5}/>}
+            />  
+            <Route
+              exact
               path="/Notifications"
               render={props => <NotificationList token={this.state.token} />}
-
             />          
           </div>
         </Router>
