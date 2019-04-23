@@ -100,7 +100,7 @@ function SimpleTabs(props) {
           <Tab label="MyEvents" />
           <Tab label="Requests" />
           <Tab label="RequestAsUser" />
-          <Tab label="RequestsAsAdmin" />
+          {/* <Tab label="RequestsAsAdmin" /> */}
         </Tabs>
       </AppBar>
       {value === 0 && (
