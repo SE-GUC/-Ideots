@@ -33,7 +33,7 @@ const categories = [
       { id: 'Notifications', icon: <PublicIcon />, link: '/Main/Notifications' },
       { id: 'View Tasks', icon: <SettingsInputComponentIcon />, link: '/Main/Tasks'  },
       // { id: 'Submit final product', icon: <DnsRoundedIcon /> },
-      {id: 'View Events',icon: <PermMediaOutlinedIcon />,link: '/Eventlist'},
+      {id: 'View Events',icon: <PermMediaOutlinedIcon />,link: '/Main/MyEvents'},
       { id: 'My Profile', icon: <PeopleIcon />, link: '/profile' }
     ]
   },

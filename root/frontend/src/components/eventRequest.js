@@ -132,7 +132,7 @@ try{
   render() {
     let eventRequests=this.state.eventRequests.map((eventRequest)=>{
       return(
-        <div style={{color:"#fff"}}>
+        <div style={{color:"#000"}}>
 
         <tr key={eventRequest.id}>
        
@@ -150,7 +150,7 @@ try{
     })
 
     return (
-      <div className="App container" style={{color:"#fff"}}>
+      <div className="App container" style={{color:"#000"}}>
       <h3 >Create Your Event</h3>
       <Button className="my-3" color="primary" onClick={this.toggleNewRequestModal.bind(this)}>add Request</Button>
         <Modal isOpen={this.state.newRequestModal} toggle={this.toggleNewRequestModal.bind(this)}>
