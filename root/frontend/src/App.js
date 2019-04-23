@@ -107,12 +107,16 @@ class App extends Component {
     });
   }
 
-  logOut = () => {
+  logOut = async () => {
     console.log(
       localStorage.getItem("loggedIn") + "  " + localStorage.getItem("token")
     );
+    let res=await axios.get("http://localhost:3000/api/auth/logout",{headers: { Authorization: `Bearer ` + this.state.token }
+  })
+    
     localStorage.setItem("loggedIn", false);
     localStorage.setItem("token", null);
+    window.location.reload();
     this.render();
   };
 
